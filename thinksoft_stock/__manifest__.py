@@ -10,6 +10,6 @@
     "version": "0.1",
     "depends": ["base", "stock"],
     "data": [
-        # "stock_picking_views.xml",
+        # "views/stock_picking_views.xml",
     ],
 }
