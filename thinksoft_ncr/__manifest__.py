@@ -10,5 +10,8 @@
     "application": True,
     "version": "0.1",
     "depends": ["base"],
-    "data": [],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/ncr_claim_views.xml",
+    ],
 }
