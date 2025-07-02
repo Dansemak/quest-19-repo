@@ -1,4 +1,4 @@
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
 class NcrClaim(models.Model):
@@ -27,3 +27,9 @@ class NcrClaim(models.Model):
         string="Classification",
         required=True,
     )
+
+    @api.model
+    def create(self, vals):
+        if vals.get("name", _("New")) == _("New"):
+            vals["name"] = self.env["ir.sequence"].next_by_code("ncr.claim") or _("New")
+        return super(NcrClaim, self).create(vals)
