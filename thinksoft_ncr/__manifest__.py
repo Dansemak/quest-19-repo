@@ -9,7 +9,7 @@
     "category": "Addons Custom/Thinksoft NCR",
     "application": True,
     "version": "0.1",
-    "depends": ["base"],
+    "depends": ["base", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/ncr_claim_views.xml",

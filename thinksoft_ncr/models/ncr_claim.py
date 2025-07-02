@@ -3,6 +3,7 @@ from odoo import _, fields, models
 
 class NcrClaim(models.Model):
     _name = "ncr.claim"
+    _inherit = ["mail.thread"]
     _description = "Non-Conformance Report"
 
     state = fields.Selection(
