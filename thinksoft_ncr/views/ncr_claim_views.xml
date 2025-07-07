@@ -59,8 +59,4 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem name="NCR" id="ncr_menu_root">
-        <menuitem name="Overview" id="ncr_claim_action" action="ncr_claim_action_list"/>
-    </menuitem>
-
 </odoo>

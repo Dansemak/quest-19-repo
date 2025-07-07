@@ -15,6 +15,7 @@
         "security/ir.model.access.csv",
         "views/ncr_claim_views.xml",
         "views/ncr_category_views.xml",
+        "views/ncr_menu_views.xml",
         "data/ir_sequence_data.xml",
     ],
 }
