@@ -40,6 +40,7 @@
                         <group name="group_ncr_details" string="NCR Details">
                             <field name="date"/>
                             <field name="resolved_by"/>
+                            <field name="responsible_id" groups="thinksoft_ncr.ncr_group_manager"/>
                             <field name="severity"/>
                             <field name="cost_impact"/>
                             <field name="resolution_lead_time"/>

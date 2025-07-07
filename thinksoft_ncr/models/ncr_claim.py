@@ -52,6 +52,7 @@ class NcrClaim(models.Model):
     resolved_by = fields.Many2one(
         "res.users", string="Resolved By", help="User who resolved the NCR."
     )
+    responsible_id = fields.Many2one("hr.employee", string="Responsible For Error")
     severity = fields.Selection(
         [("minor", "Minor"), ("major", "Major"), ("critical", "Critical")],
         string="Severity",
