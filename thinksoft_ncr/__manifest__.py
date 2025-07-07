@@ -11,6 +11,7 @@
     "version": "0.1",
     "depends": ["base", "mail"],
     "data": [
+        "security/ncr_groups.xml",
         "security/ir.model.access.csv",
         "views/ncr_claim_views.xml",
         "data/ir_sequence_data.xml",
