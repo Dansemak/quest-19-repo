@@ -45,6 +45,12 @@
                             <field name="cost_impact"/>
                             <field name="resolution_lead_time"/>
                         </group>
+                        <group name="group_ncr_category" string="Category">
+                            <field name="category_source_id" domain="[('parent_category_id', '=', False)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open'"/>
+                            <field name="category_department_id" domain="[('parent_category_id','=', category_source_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_source_id"/>
+                            <field name="category_section_id" domain="[('parent_category_id','=', category_department_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_department_id"/>
+                            <field name="category_issue_id" domain="[('parent_category_id','=', category_section_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_section_id"/>
+                        </group>
                     </group>
                 </sheet>
                 <chatter/>

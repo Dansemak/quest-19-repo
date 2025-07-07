@@ -22,6 +22,8 @@ class NcrClaim(models.Model):
         index=True,
         default=lambda self: _("New"),
     )
+
+    # Order Details fields
     classification = fields.Selection(
         [("nc", "Non-Conformance"), ("find", "Finding")],
         string="Classification",
@@ -48,6 +50,8 @@ class NcrClaim(models.Model):
         string="Purchase Order",
         help="Purchase order related to this NCR, if applicable.",
     )
+
+    # NCR Details fields
     date = fields.Date(string="Date")
     resolved_by = fields.Many2one(
         "res.users", string="Resolved By", help="User who resolved the NCR."
@@ -69,6 +73,12 @@ class NcrClaim(models.Model):
         ],
         string="Resolution Lead Time",
     )
+
+    # Category fields
+    category_source_id = fields.Many2one("ncr.category", string="Source")
+    category_department_id = fields.Many2one("ncr.category", string="Department")
+    category_section_id = fields.Many2one("ncr.category", string="Section")
+    category_issue_id = fields.Many2one("ncr.category", string="Issue")
 
     @api.model
     def create(self, vals):
