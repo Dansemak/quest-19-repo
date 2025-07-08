@@ -86,6 +86,20 @@ class NcrClaim(models.Model):
             vals["name"] = self.env["ir.sequence"].next_by_code("ncr.claim") or _("New")
         return super(NcrClaim, self).create(vals)
 
+    @api.onchange("category_source_id", "category_department_id", "category_section_id")
+    def _onchange_category_fields(self):
+        if self.category_department_id.parent_category_id != self.category_source_id:
+            self.category_department_id = None
+            self.category_section_id = None
+            self.category_issue_id = None
+
+        elif self.category_section_id.parent_category_id != self.category_department_id:
+            self.category_section_id = None
+            self.category_issue_id = None
+
+        elif self.category_issue_id.parent_category_id != self.category_section_id:
+            self.category_issue_id = None
+
     def button_close(self):
         self.write({"state": "closed"})
 
