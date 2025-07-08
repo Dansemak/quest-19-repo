@@ -50,6 +50,12 @@ class NcrClaim(models.Model):
         string="Purchase Order",
         help="Purchase order related to this NCR, if applicable.",
     )
+    currency_id = fields.Many2one(
+        "res.currency",
+        string="Currency",
+        required=True,
+        default=lambda self: self.env.company.currency_id.id,
+    )
 
     # NCR Details fields
     date = fields.Date(string="Date")
@@ -80,6 +86,15 @@ class NcrClaim(models.Model):
     category_section_id = fields.Many2one("ncr.category", string="Section")
     category_issue_id = fields.Many2one("ncr.category", string="Issue")
 
+    # Products
+    is_pull_button_clicked = fields.Boolean(
+        string="Is Pull Button Clicked",
+        default=False,
+    )
+    product_line = fields.One2many(
+        comodel_name="ncr.product_line", inverse_name="ncr_claim_id", string="Products"
+    )
+
     @api.model
     def create(self, vals):
         if vals.get("name", _("New")) == _("New"):
@@ -99,6 +114,58 @@ class NcrClaim(models.Model):
 
         elif self.category_issue_id.parent_category_id != self.category_section_id:
             self.category_issue_id = None
+
+    def button_populate_product_line_sale(self):
+        if self.sale_order_id:
+            sale_order_line = self.sale_order_id.order_line
+            for line in sale_order_line:
+                self.product_line = [
+                    (
+                        0,
+                        0,
+                        {
+                            "ncr_claim_id": self.id,
+                            "sale_order_id": line.order_id.id,
+                            "sale_order_line_id": line.id,
+                            "product_id": line.product_id.id,
+                            "product_line_desc": line.name,
+                            "product_qty": line.product_qty,
+                            "product_cost": line.purchase_price,
+                            "currency_id": line.currency_id.id,
+                        },
+                    )
+                ]
+            self.is_pull_button_clicked = True
+        else:
+            return
+
+    def button_populate_product_line_purchase(self):
+        if self.purchase_order_id:
+            purchase_order_line = self.purchase_order_id.order_line
+            for line in purchase_order_line:
+                self.product_line = [
+                    (
+                        0,
+                        0,
+                        {
+                            "ncr_claim_id": self.id,
+                            "purchase_order_id": line.order_id.id,
+                            "purchase_order_line_id": line.id,
+                            "product_id": line.product_id.id,
+                            "product_line_desc": line.name,
+                            "product_qty": line.product_qty,
+                            "product_cost": line.price_unit,
+                            "currency_id": line.currency_id.id,
+                        },
+                    )
+                ]
+            self.is_pull_button_clicked = True
+        else:
+            return
+
+    def button_clear_product_line(self):
+        self.product_line.unlink()
+        self.is_pull_button_clicked = False
 
     def button_close(self):
         self.write({"state": "closed"})

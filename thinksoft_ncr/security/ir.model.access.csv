@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 thinksoft_ncr.access_ncr_claim,access_ncr_claim,thinksoft_ncr.model_ncr_claim,thinksoft_ncr.ncr_group_user,1,1,1,0
 thinksoft_ncr.access_ncr_category,access_ncr_category,thinksoft_ncr.model_ncr_category,thinksoft_ncr.ncr_group_manager,1,1,1,1
+thinksoft_ncr.access_ncr_product_line,access_ncr_product_line,thinksoft_ncr.model_ncr_product_line,thinksoft_ncr.ncr_group_user,1,1,1,1
