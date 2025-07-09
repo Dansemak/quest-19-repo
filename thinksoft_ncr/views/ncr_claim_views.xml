@@ -59,7 +59,7 @@
                                 <fields name="is_pull_button_clicked" invisible="1"/>
                                 <button name="button_populate_product_line_sale" string="Pull from Sale" type="object" class="oe_highlight" invisible="not sale_order_id or is_pull_button_clicked or state != 'open'"/>
                                 <button name="button_populate_product_line_purchase" string="Pull from PO" type="object" class="oe_highlight" invisible="not purchase_order_id or is_pull_button_clicked or state != 'open'"/>
-                                <button name="button_clear_product_line" string="Clear Product Lines" type="object" class="btn-secondary" invisible="not is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_clear_product_line" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
                             </group>
                             <field name="product_line" nolabel="1" readonly="state != 'open'">
                                 <list create="false" editable="bottom">
@@ -76,10 +76,10 @@
                                     <field name="product_subtotal"/>
                                 </list>
                             </field>
-                            <!-- <div class="oe_right">
+                            <div class="float-end">
                                 <label for="amount_total" string="Total" style="padding-right: 10px"/>
                                 <field name="amount_total" style="font-size: 16px; font-weight: bold;"/>
-                            </div> -->
+                            </div>
                         </page>
                     </notebook>
                 </sheet>

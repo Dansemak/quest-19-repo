@@ -87,12 +87,12 @@ class NcrClaim(models.Model):
     category_issue_id = fields.Many2one("ncr.category", string="Issue")
 
     # Products
-    is_pull_button_clicked = fields.Boolean(
-        string="Is Pull Button Clicked",
-        default=False,
-    )
+    is_pull_button_clicked = fields.Boolean(default=False)
     product_line = fields.One2many(
         comodel_name="ncr.product_line", inverse_name="ncr_claim_id", string="Products"
+    )
+    amount_total = fields.Monetary(
+        string="Total", store=True, readonly=True, compute="_compute_amount_all"
     )
 
     @api.model
@@ -162,6 +162,13 @@ class NcrClaim(models.Model):
             self.is_pull_button_clicked = True
         else:
             return
+
+    @api.depends("product_line.product_subtotal")
+    def _compute_amount_all(self):
+        for claim in self:
+            total = sum(line.product_subtotal for line in claim.product_line)
+            currency = claim.currency_id or self.env.company.currency_id
+            claim.amount_total = currency.round(total)
 
     def button_clear_product_line(self):
         self.product_line.unlink()

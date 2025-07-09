@@ -19,10 +19,6 @@ class NcrProductLine(models.Model):
     currency_id = fields.Many2one(
         related="ncr_claim_id.currency_id", store=True, string="Currency", readonly=True
     )
-    # currency_id = fields.Many2one(
-    #     related='order_id.currency_id',
-    #     depends=['order_id.currency_id'],
-    #     store=True, precompute=True)
     product_subtotal = fields.Monetary(
         compute="_compute_product_subtotal",
         currency_field="currency_id",
