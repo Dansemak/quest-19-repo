@@ -169,6 +169,12 @@ class NcrClaim(models.Model):
             total = sum(line.product_subtotal for line in claim.product_line)
             currency = claim.currency_id or self.env.company.currency_id
             claim.amount_total = currency.round(total)
+            if claim.amount_total > 1000.00:
+                claim.cost_impact = "high"
+            elif claim.amount_total > 500.00:
+                claim.cost_impact = "medium"
+            else:
+                claim.cost_impact = "low"
 
     def button_clear_product_line(self):
         self.product_line.unlink()

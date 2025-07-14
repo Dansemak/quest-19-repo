@@ -43,7 +43,7 @@
                             <field name="resolved_by"/>
                             <field name="responsible_id" groups="thinksoft_ncr.ncr_group_manager"/>
                             <field name="severity"/>
-                            <field name="cost_impact"/>
+                            <field name="cost_impact" readonly="1" force_save="1"/>
                             <field name="resolution_lead_time"/>
                         </group>
                         <group name="group_ncr_category" string="Category">
