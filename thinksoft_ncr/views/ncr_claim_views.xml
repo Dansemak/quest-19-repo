@@ -32,19 +32,19 @@
                     </div>
                     <group name="ncr_main">
                         <group name="order_details" string="Order Details">
-                            <field name="classification"/>
-                            <field name="issue_type"/>
-                            <field name="sale_order_id"/>
-                            <field name="purchase_order_id"/>
-                            <field name="currency_id"/>
+                            <field name="classification" readonly="state != 'open'"/>
+                            <field name="issue_type" readonly="state != 'open'"/>
+                            <field name="sale_order_id" readonly="state != 'open'"/>
+                            <field name="purchase_order_id" readonly="state != 'open'"/>
+                            <field name="currency_id" readonly="state != 'open'"/>
                         </group>
                         <group name="ncr_details" string="NCR Details">
-                            <field name="date"/>
-                            <field name="resolved_by"/>
-                            <field name="responsible_id" groups="thinksoft_ncr.ncr_group_manager"/>
-                            <field name="severity"/>
+                            <field name="date" readonly="state != 'open'"/>
+                            <field name="resolved_by" readonly="state != 'open'"/>
+                            <field name="responsible_id" readonly="state != 'open'" groups="thinksoft_ncr.ncr_group_manager"/>
+                            <field name="severity" readonly="state != 'open'"/>
                             <field name="cost_impact" readonly="1" force_save="1"/>
-                            <field name="resolution_lead_time"/>
+                            <field name="resolution_lead_time" readonly="state != 'open'"/>
                         </group>
                         <group name="ncr_category" string="Category">
                             <field name="category_source_id" domain="[('parent_category_id', '=', False)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open'"/>
@@ -53,7 +53,7 @@
                             <field name="category_issue_id" domain="[('parent_category_id','=', category_section_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_section_id"/>
                         </group>
                         <group name="customer_vendor_details" string="Customer/Vendor Details" invisible="not sale_order_id and not purchase_order_id">
-                            <field name="partner_source"/>
+                            <field name="partner_source" readonly="state != 'open'"/>
                             <div class="o_td_label" invisible="partner_source == False">
                                 <label for="partner_id" string="Customer" invisible="partner_source == 'vendor'"/>
                                 <label for="partner_id" string="Vendor" invisible="partner_source == 'customer'"/>
