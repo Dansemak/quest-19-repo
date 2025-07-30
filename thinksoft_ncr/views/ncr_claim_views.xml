@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="ncr_claim_view_list" model="ir.ui.view">
+        <field name="name">ncr.claim.view.list</field>
+        <field name="model">ncr.claim</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="ncr_claim_view_form" model="ir.ui.view">
+        <field name="name">ncr.claim.view.form</field>
+        <field name="model">ncr.claim</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <header>
+                    <button name="button_close" string="Close" type="object" class="oe_highlight" invisible="state in ('closed', 'cancelled')"/>
+                    <button name="button_cancel" string="Cancel" type="object" invisible="state in ('closed', 'cancelled')"/>
+                    <button name="button_reopen" string="Re-open" type="object" invisible="state == 'open'"/>
+                        
+                    <field name="state" widget="statusbar" statusbar_visible="open,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group name="ncr_main">
+                        <group name="order_details" string="Order Details">
+                            <field name="classification" readonly="state != 'open'"/>
+                            <field name="issue_type" readonly="state != 'open'"/>
+                            <field name="sale_order_id" readonly="state != 'open'"/>
+                            <field name="purchase_order_id" readonly="state != 'open'"/>
+                            <field name="currency_id" readonly="state != 'open'"/>
+                        </group>
+                        <group name="ncr_details" string="NCR Details">
+                            <field name="date" readonly="state != 'open'"/>
+                            <field name="resolved_by" readonly="state != 'open'"/>
+                            <field name="responsible_id" readonly="state != 'open'" groups="thinksoft_ncr.ncr_group_manager"/>
+                            <field name="severity" readonly="state != 'open'"/>
+                            <field name="cost_impact" readonly="1" force_save="1"/>
+                            <field name="resolution_lead_time" readonly="state != 'open'"/>
+                        </group>
+                        <group name="ncr_category" string="Category">
+                            <field name="category_source_id" domain="[('parent_category_id', '=', False)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open'"/>
+                            <field name="category_department_id" domain="[('parent_category_id','=', category_source_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_source_id"/>
+                            <field name="category_section_id" domain="[('parent_category_id','=', category_department_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_department_id"/>
+                            <field name="category_issue_id" domain="[('parent_category_id','=', category_section_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_section_id"/>
+                        </group>
+                        <group name="customer_vendor_details" string="Customer/Vendor Details" invisible="not sale_order_id and not purchase_order_id">
+                            <field name="partner_source" readonly="state != 'open'"/>
+                            <div class="o_td_label" invisible="partner_source == False">
+                                <label for="partner_id" string="Customer" invisible="partner_source == 'vendor'"/>
+                                <label for="partner_id" string="Vendor" invisible="partner_source == 'customer'"/>
+                            </div>
+                            <field name="partner_id" nolabel="1" readonly="1" force_save="1" invisible="partner_source == False"/>
+                            <field name="partner_shipping_id" readonly="1" force_save="1" invisible="partner_shipping_id == False" context="{'show_address': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products">
+                            <group>
+                                <fields name="is_pull_button_clicked" invisible="1"/>
+                                <button name="button_populate_product_line_sale" string="Pull from Sale" type="object" class="oe_highlight" invisible="not sale_order_id or is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_populate_product_line_purchase" string="Pull from PO" type="object" class="oe_highlight" invisible="not purchase_order_id or is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_clear_product_line" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
+                            </group>
+                            <field name="product_line" nolabel="1" readonly="state != 'open'">
+                                <list create="false" editable="bottom">
+                                    <field name="ncr_claim_id" column_invisible="1"/>
+                                    <field name="sale_order_id" column_invisible="1"/>
+                                    <field name="sale_order_line_id" column_invisible="1"/>
+                                    <field name="purchase_order_id" column_invisible="1"/>
+                                    <field name="purchase_order_line_id" column_invisible="1"/>
+                                    <field name="product_id" readonly="1" force_save="1"/>
+                                    <field name="product_line_desc" readonly="1" force_save="1"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_cost" readonly="1" force_save="1"/>
+                                    <field name="currency_id"/>
+                                    <field name="product_subtotal"/>
+                                </list>
+                            </field>
+                            <div class="float-end">
+                                <label for="amount_total" string="Total" style="padding-right: 10px"/>
+                                <field name="amount_total" style="font-size: 16px; font-weight: bold;"/>
+                            </div>
+                        </page>
+                        <page string="Non-Conformance">
+                            <field name="non_conformance_notes" readonly="state != 'open'"/>
+                        </page>
+                        <page string="Root Cause Analysis">
+                            <field name="root_cause_analysis_notes" readonly="state != 'open'"/>
+                        </page>
+                        <page string="Corrective Action">
+                            <field name="corrective_actions_notes" readonly="state != 'open'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    
+    <record id="ncr_claim_action_list" model="ir.actions.act_window">
+        <field name="name">NCR</field>
+        <field name="res_model">ncr.claim</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
