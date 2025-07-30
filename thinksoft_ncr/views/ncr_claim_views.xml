@@ -52,6 +52,15 @@
                             <field name="category_section_id" domain="[('parent_category_id','=', category_department_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_department_id"/>
                             <field name="category_issue_id" domain="[('parent_category_id','=', category_section_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_section_id"/>
                         </group>
+                        <group string="Customer/Vendor Details" invisible="not sale_order_id and not purchase_order_id">
+                            <field name="partner_source"/>
+                            <div class="o_td_label" invisible="partner_source == False">
+                                <label for="partner_id" string="Customer" invisible="partner_source == 'vendor'"/>
+                                <label for="partner_id" string="Vendor" invisible="partner_source == 'customer'"/>
+                            </div>
+                            <field name="partner_id" nolabel="1" readonly="1" force_save="1" invisible="partner_source == False"/>
+                            <field name="partner_shipping_id" readonly="1" force_save="1" invisible="partner_shipping_id == False" context="{'show_address': True}"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Products" name="products">

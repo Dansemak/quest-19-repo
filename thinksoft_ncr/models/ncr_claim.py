@@ -80,6 +80,13 @@ class NcrClaim(models.Model):
         string="Resolution Lead Time",
     )
 
+    # Customer/Vendor Details fields
+    partner_source = fields.Selection(
+        [("customer", "Customer"), ("vendor", "Vendor")], string="Source"
+    )
+    partner_id = fields.Many2one("res.partner", string="Customer/Vendor")
+    partner_shipping_id = fields.Many2one("res.partner", string="Delivery Address")
+
     # Category fields
     category_source_id = fields.Many2one("ncr.category", string="Source")
     category_department_id = fields.Many2one("ncr.category", string="Department")
@@ -101,6 +108,8 @@ class NcrClaim(models.Model):
             vals["name"] = self.env["ir.sequence"].next_by_code("ncr.claim") or _("New")
         return super(NcrClaim, self).create(vals)
 
+    # Onchange methods
+
     @api.onchange("category_source_id", "category_department_id", "category_section_id")
     def _onchange_category_fields(self):
         if self.category_department_id.parent_category_id != self.category_source_id:
@@ -114,6 +123,37 @@ class NcrClaim(models.Model):
 
         elif self.category_issue_id.parent_category_id != self.category_section_id:
             self.category_issue_id = None
+
+    @api.onchange("partner_source")
+    def _onchange_partner_source(self):
+        if self.partner_source == "customer" and self.sale_order_id:
+            self.partner_id = self.sale_order_id.partner_id
+            self.partner_shipping_id = self.sale_order_id.partner_shipping_id
+
+        elif self.partner_source == "vendor" and self.purchase_order_id:
+            self.partner_id = self.purchase_order_id.partner_id
+            self.partner_shipping_id = False
+
+        else:
+            self.partner_id = False
+            self.partner_shipping_id = False
+
+    # Compute methods
+
+    @api.depends("product_line.product_subtotal")
+    def _compute_amount_all(self):
+        for claim in self:
+            total = sum(line.product_subtotal for line in claim.product_line)
+            currency = claim.currency_id or self.env.company.currency_id
+            claim.amount_total = currency.round(total)
+            if claim.amount_total > 1000.00:
+                claim.cost_impact = "high"
+            elif claim.amount_total > 500.00:
+                claim.cost_impact = "medium"
+            else:
+                claim.cost_impact = "low"
+
+    # Buttons
 
     def button_populate_product_line_sale(self):
         if self.sale_order_id:
@@ -162,19 +202,6 @@ class NcrClaim(models.Model):
             self.is_pull_button_clicked = True
         else:
             return
-
-    @api.depends("product_line.product_subtotal")
-    def _compute_amount_all(self):
-        for claim in self:
-            total = sum(line.product_subtotal for line in claim.product_line)
-            currency = claim.currency_id or self.env.company.currency_id
-            claim.amount_total = currency.round(total)
-            if claim.amount_total > 1000.00:
-                claim.cost_impact = "high"
-            elif claim.amount_total > 500.00:
-                claim.cost_impact = "medium"
-            else:
-                claim.cost_impact = "low"
 
     def button_clear_product_line(self):
         self.product_line.unlink()
