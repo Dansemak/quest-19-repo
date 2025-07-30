@@ -107,6 +107,11 @@ class NcrClaim(models.Model):
         if vals.get("name", _("New")) == _("New"):
             vals["name"] = self.env["ir.sequence"].next_by_code("ncr.claim") or _("New")
         return super(NcrClaim, self).create(vals)
+    
+    # Note Fields
+    non_conformance_notes = fields.Text('Non-Conformance', required=True)
+    root_cause_analysis_notes = fields.Text('Root Cause Analysis', required=True)
+    corrective_actions_notes = fields.Text('Corrective Actions', required=True)
 
     # Onchange methods
 

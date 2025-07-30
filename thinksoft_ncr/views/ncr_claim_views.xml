@@ -90,6 +90,15 @@
                                 <field name="amount_total" style="font-size: 16px; font-weight: bold;"/>
                             </div>
                         </page>
+                        <page string="Non-Conformance">
+                            <field name="non_conformance_notes" readonly="state != 'open'"/>
+                        </page>
+                        <page string="Root Cause Analysis">
+                            <field name="root_cause_analysis_notes" readonly="state != 'open'"/>
+                        </page>
+                        <page string="Corrective Action">
+                            <field name="corrective_actions_notes" readonly="state != 'open'"/>
+                        </page>
                     </notebook>
                 </sheet>
                 <chatter/>
