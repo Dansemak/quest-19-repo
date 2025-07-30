@@ -30,15 +30,15 @@
                             <field name="name"/>
                         </h1>
                     </div>
-                    <group name="group_main">
-                        <group name="group_order_details" string="Order Details">
+                    <group name="ncr_main">
+                        <group name="order_details" string="Order Details">
                             <field name="classification"/>
                             <field name="issue_type"/>
                             <field name="sale_order_id"/>
                             <field name="purchase_order_id"/>
                             <field name="currency_id"/>
                         </group>
-                        <group name="group_ncr_details" string="NCR Details">
+                        <group name="ncr_details" string="NCR Details">
                             <field name="date"/>
                             <field name="resolved_by"/>
                             <field name="responsible_id" groups="thinksoft_ncr.ncr_group_manager"/>
@@ -46,13 +46,13 @@
                             <field name="cost_impact" readonly="1" force_save="1"/>
                             <field name="resolution_lead_time"/>
                         </group>
-                        <group name="group_ncr_category" string="Category">
+                        <group name="ncr_category" string="Category">
                             <field name="category_source_id" domain="[('parent_category_id', '=', False)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open'"/>
                             <field name="category_department_id" domain="[('parent_category_id','=', category_source_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_source_id"/>
                             <field name="category_section_id" domain="[('parent_category_id','=', category_department_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_department_id"/>
                             <field name="category_issue_id" domain="[('parent_category_id','=', category_section_id)]" options='{"no_create": True, "no_open": True}' readonly="state != 'open' or not category_section_id"/>
                         </group>
-                        <group string="Customer/Vendor Details" invisible="not sale_order_id and not purchase_order_id">
+                        <group name="customer_vendor_details" string="Customer/Vendor Details" invisible="not sale_order_id and not purchase_order_id">
                             <field name="partner_source"/>
                             <div class="o_td_label" invisible="partner_source == False">
                                 <label for="partner_id" string="Customer" invisible="partner_source == 'vendor'"/>
