@@ -9,6 +9,10 @@
     "category": "Addons Custom/Thinksoft MTR",
     "application": True,
     "version": "0.1",
-    "depends": ["base"],
-    "data": [],
+    "depends": ["base", "mail"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/mtr_views.xml",
+        "views/mtr_menu_views.xml",
+    ],
 }
