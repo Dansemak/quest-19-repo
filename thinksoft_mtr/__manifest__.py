@@ -9,7 +9,7 @@
     "category": "Addons Custom/Thinksoft MTR",
     "application": True,
     "version": "0.1",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "stock"],
     "data": [
         "security/mtr_groups.xml",
         "security/ir.model.access.csv",
