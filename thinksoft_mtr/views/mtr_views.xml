@@ -62,6 +62,36 @@
                         </group>
                     </group>
 
+                    <notebook>
+                        <!-- ================== BAR and STUD fields ================== -->
+                        <page string="BAR/STUD Physical Properties" name="bar_stud_physical_properties" invisible="category not in ('bar', 'stud')">
+                            <group name="bar_stud_physical_properties_group">
+                                <group name="physical_properties_requirements_group" string="BAR/STUD Physical Properties Requirement">
+                                    <field name="tensile_strength_requirement"/>
+                                    <field name="yield_strength_requirement"/>
+                                    <field name="elongation_requirement"/>
+                                    <field name="reduction_requirement"/>
+                                    <field name="tempering_requirement"/>
+                                    <field name="quenching_requirement"/>
+                                    <field name="charpy_requirement"/>
+                                    <field name="hardness_requirement"/>
+                                    <field name="heat_treatment_requirement"/>
+                                </group>
+                                <group name="bar_stud_physical_properties_values_group" string="BAR/STUD Physical Properties Values">
+                                    <field name="tensile_strength_value"/>
+                                    <field name="yield_strength_value"/>
+                                    <field name="elongation_value"/>
+                                    <field name="reduction_value"/>
+                                    <field name="tempering_value"/>
+                                    <field name="quenching_value"/>
+                                    <field name="charpy_value"/>
+                                    <field name="hardness_value"/>
+                                    <field name="heat_treatment_value"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
                 </sheet>
             </form>
         </field>
