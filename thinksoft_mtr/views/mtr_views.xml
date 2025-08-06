@@ -90,6 +90,34 @@
                                 </group>
                             </group>
                         </page>
+                        <page string="BAR/STUD Chemical Analysis" name="bar_stud_chemical_analysis" invisible="category not in ('bar', 'stud')">
+                            <group name="bar_stud_chemical_analysis_group">
+                                <group name="chemical_analysis_requirements_group" string="BAR/STUD Chemical Analysis Requirements">
+                                    <field name="carbon_requirement"/>
+                                    <field name="silicon_requirement"/>
+                                    <field name="manganese_requirement"/>
+                                    <field name="phosphorus_requirement"/>
+                                    <field name="sulfur_requirement"/>
+                                    <field name="cr_percent_requirement"/>
+                                    <field name="mo_percent_requirement"/>
+                                    <field name="nickel_requirement"/>
+                                    <field name="vanadium_requirement"/>
+                                    <field name="aluminium_requirement"/>
+                                </group>
+                                <group name="bar_stud_chemical_analysis_values_group" string="BAR/STUD Chemical Analysis Values">
+                                    <field name="carbon_value"/>
+                                    <field name="silicon_value"/>
+                                    <field name="manganese_value"/>
+                                    <field name="phosphorus_value"/>
+                                    <field name="sulfur_value"/>
+                                    <field name="cr_percent_value"/>
+                                    <field name="mo_percent_value"/>
+                                    <field name="nickel_value"/>
+                                    <field name="vanadium_value"/>
+                                    <field name="aluminium_value"/>
+                                </group>
+                            </group>
+                        </page>
                     </notebook>
 
                 </sheet>
