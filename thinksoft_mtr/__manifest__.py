@@ -11,6 +11,7 @@
     "version": "0.1",
     "depends": ["base", "mail"],
     "data": [
+        "security/mtr_groups.xml",
         "security/ir.model.access.csv",
         "views/mtr_views.xml",
         "views/mtr_menu_views.xml",
