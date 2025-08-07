@@ -16,6 +16,7 @@
         <field name="arch" type="xml">
             <form duplicate="0">
                 <sheet>
+
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active == True"/>
                     <div class="oe_title">
                         <h1>
@@ -24,133 +25,14 @@
                     </div>
                     <field name="active" invisible="1"/>
 
-                    <group>
+                    <group name="main_info_group">
                         <group>
                             <field name="category"/>
-                        </group>
-                    </group>
-
-                    <!-- ================== BAR and STUD fields ================== -->
-                    <group string="BAR/STUD Product Information" invisible="category not in ('bar', 'stud')">
-                        <group>
                             <field name="heat_number"/>
                             <field name="product_id"/>
-                            <field name="description"/>
-                            <field name="dimension"/>
-                            <field name="diameter"/>
-                            <field name="length"/>
-                            <field name="product_type"/>
-                            <field name="country_of_origin"/>
-                            <field name="manufacturer_id"/>
-                            <field name="standard"/>
-                            <field name="material"/>
-                            <field name="marking"/>
-                            <field name="lot_batch_number"/>
-                            <field name="reference"/>
-                        </group>
-                        <group>
-                            <field name="year"/>
-                            <field name="test_date"/>
-                            <field name="certificate_number"/>
-                            <field name="supplier_certificate"/>
-                            <field name="macroetch"/>
-                            <field name="dimensional_inspection"/>
-                            <field name="visual_inspection"/>
-                            <field name="nace_value"/>
-                            <field name="three_digit_traceability"/>
-                            <field name="po_number"/>
                         </group>
                     </group>
-
-                    <!-- ================== NUT fields ================== -->
-                    <group name="nut_product_info_group" string="NUT Product Information" invisible="category != 'nut'">
-                        <group>
-                            <field name="heat_number"/>
-                            <field name="product_id"/>
-                            <field name="product_type"/>
-                            <field name="dimension"/>
-                            <field name="diameter"/>
-                            <field name="description"/>
-                            <field name="manufacturer_id"/>
-                            <field name="country_of_origin"/>
-                            <field name="standard"/>
-                            <field name="material"/>
-                            <field name="marking"/>
-                            <field name="lot_batch_number"/>
-                            <field name="reference"/>
-                            <field name="year"/>
-                            <field name="test_date"/>
-                            <field name="macroetch"/>
-                        </group>
-                        <group>
-                            <field name="dimensional_inspection"/>
-                            <field name="visual_inspection"/>
-                            <field name="three_digit_traceability"/>
-                            <field name="certificate_number"/>
-                            <field name="supplier_certificate"/>
-                            <field name="nace_value"/>
-                            <field name="po_number"/>
-                        </group>
-                    </group>
-
-                    <notebook>
-                        <!-- ================== BAR and STUD fields ================== -->
-                        <page string="BAR/STUD Physical Properties" name="bar_stud_physical_properties" invisible="category not in ('bar', 'stud')">
-                            <group name="bar_stud_physical_properties_group">
-                                <group name="physical_properties_requirements_group" string="BAR/STUD Physical Properties Requirement">
-                                    <field name="tensile_strength_requirement"/>
-                                    <field name="yield_strength_requirement"/>
-                                    <field name="elongation_requirement"/>
-                                    <field name="reduction_requirement"/>
-                                    <field name="tempering_requirement"/>
-                                    <field name="quenching_requirement"/>
-                                    <field name="charpy_requirement"/>
-                                    <field name="hardness_requirement"/>
-                                    <field name="heat_treatment_requirement"/>
-                                </group>
-                                <group name="bar_stud_physical_properties_values_group" string="BAR/STUD Physical Properties Values">
-                                    <field name="tensile_strength_value"/>
-                                    <field name="yield_strength_value"/>
-                                    <field name="elongation_value"/>
-                                    <field name="reduction_value"/>
-                                    <field name="tempering_value"/>
-                                    <field name="quenching_value"/>
-                                    <field name="charpy_value"/>
-                                    <field name="hardness_value"/>
-                                    <field name="heat_treatment_value"/>
-                                </group>
-                            </group>
-                        </page>
-                        <page string="BAR/STUD Chemical Analysis" name="bar_stud_chemical_analysis" invisible="category not in ('bar', 'stud')">
-                            <group name="bar_stud_chemical_analysis_group">
-                                <group name="chemical_analysis_requirements_group" string="BAR/STUD Chemical Analysis Requirements">
-                                    <field name="carbon_requirement"/>
-                                    <field name="silicon_requirement"/>
-                                    <field name="manganese_requirement"/>
-                                    <field name="phosphorus_requirement"/>
-                                    <field name="sulfur_requirement"/>
-                                    <field name="cr_percent_requirement"/>
-                                    <field name="mo_percent_requirement"/>
-                                    <field name="nickel_requirement"/>
-                                    <field name="vanadium_requirement"/>
-                                    <field name="aluminium_requirement"/>
-                                </group>
-                                <group name="bar_stud_chemical_analysis_values_group" string="BAR/STUD Chemical Analysis Values">
-                                    <field name="carbon_value"/>
-                                    <field name="silicon_value"/>
-                                    <field name="manganese_value"/>
-                                    <field name="phosphorus_value"/>
-                                    <field name="sulfur_value"/>
-                                    <field name="cr_percent_value"/>
-                                    <field name="mo_percent_value"/>
-                                    <field name="nickel_value"/>
-                                    <field name="vanadium_value"/>
-                                    <field name="aluminium_value"/>
-                                </group>
-                            </group>
-                        </page>
-                    </notebook>
-
+                    
                 </sheet>
             </form>
         </field>
