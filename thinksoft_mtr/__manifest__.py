@@ -14,6 +14,7 @@
         "security/mtr_groups.xml",
         "security/ir.model.access.csv",
         "views/mtr_template_views.xml",
+        "views/mtr_bar_stud_views.xml",
         "views/mtr_menu_views.xml",
     ],
 }
