@@ -24,12 +24,13 @@
                         </h1>
                     </div>
                     <field name="active" invisible="1"/>
+                    <field name="create_date" invisible="1"/>
 
                     <group name="main_info_group">
                         <group>
-                            <field name="category"/>
-                            <field name="product_id"/>
-                            <field name="heat_number"/>
+                            <field name="category" readonly="create_date != False"/>
+                            <field name="product_id" readonly="create_date != False"/>
+                            <field name="heat_number" readonly="create_date != False"/>
                         </group>
                     </group>
                     
