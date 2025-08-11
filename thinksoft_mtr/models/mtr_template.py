@@ -67,6 +67,12 @@ class MtrTemplate(models.Model):
     hardness_value = fields.Char("Hardness Value")
     heat_treatment_requirement = fields.Char("Heat Treatment Requirement")
     heat_treatment_value = fields.Char("Heat Treatment Value")
+    sample_nut_hardness_requirement = fields.Char("Sample NUT Hardness Requirement")
+    sample_nut_hardness_value = fields.Char("Sample NUT Hardness Value")
+    completed_nut_hardness_requirement = fields.Char("Completed NUT Hardness Requirement")
+    completed_nut_hardness_value = fields.Char("Completed NUT Hardness Value")
+    proof_load_requirement = fields.Char("Proof Load Requirement")
+    proof_load_value = fields.Char("Proof Load Value")
 
     # Chemical Analysis
     carbon_requirement = fields.Char("Carbon (C) Requriement")

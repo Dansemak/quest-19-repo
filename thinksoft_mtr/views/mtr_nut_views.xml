@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
         <xpath expr="//group[@name='main_info_group']" position="after">
 
-            <group name="nut_product_info_group" string="NUT Product Information" invisible="category != 'nut'">
+            <group string="NUT Product Information" invisible="category != 'nut'">
                 <group>
                     <field name="product_type"/>
                     <field name="dimension"/>
@@ -34,6 +34,55 @@
                     <field name="po_number"/>
                 </group>
             </group>
+
+            <notebook invisible="category != 'nut'">
+                <page string="NUT Physical Properties">
+                    <group>
+                        <group string="NUT Physical Properties Requirement">
+                            <field name="hardness_requirement"/>
+                            <field name="sample_nut_hardness_requirement"/>
+                            <field name="completed_nut_hardness_requirement"/>
+                            <field name="tempering_requirement"/>
+                            <field name="proof_load_requirement"/>
+                            <field name="charpy_requirement"/>
+                            <field name="heat_treatment_requirement"/>
+                        </group>
+                        <group string="NUT Physical Properties Values">
+                            <field name="hardness_value"/>
+                            <field name="sample_nut_hardness_value"/>
+                            <field name="completed_nut_hardness_value"/>
+                            <field name="tempering_value"/>
+                            <field name="proof_load_value"/>
+                            <field name="charpy_value"/>
+                            <field name="heat_treatment_value"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="NUT Chemical Analysis">
+                    <group>
+                        <group string="NUT Chemical Analysis Requirements">
+                            <field name="carbon_requirement"/>
+                            <field name="silicon_requirement"/>
+                            <field name="manganese_requirement"/>
+                            <field name="phosphorus_requirement"/>
+                            <field name="sulfur_requirement"/>
+                            <field name="cr_percent_requirement"/>
+                            <field name="mo_percent_requirement"/>
+                            <field name="nickel_requirement"/>
+                        </group>
+                        <group string="NUT Chemical Analysis Values">
+                            <field name="carbon_value"/>
+                            <field name="silicon_value"/>
+                            <field name="manganese_value"/>
+                            <field name="phosphorus_value"/>
+                            <field name="sulfur_value"/>
+                            <field name="cr_percent_value"/>
+                            <field name="mo_percent_value"/>
+                            <field name="nickel_value"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
 
         </xpath>
         </field>
