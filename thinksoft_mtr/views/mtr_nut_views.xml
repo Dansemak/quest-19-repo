@@ -20,11 +20,11 @@
                     <field name="marking"/>
                     <field name="lot_batch_number"/>
                     <field name="reference"/>
+                </group>
+                <group>
                     <field name="year"/>
                     <field name="test_date"/>
                     <field name="macroetch"/>
-                </group>
-                <group>
                     <field name="dimensional_inspection"/>
                     <field name="visual_inspection"/>
                     <field name="three_digit_traceability"/>
@@ -38,48 +38,102 @@
             <notebook invisible="category != 'nut'">
                 <page string="NUT Physical Properties">
                     <group>
-                        <group string="NUT Physical Properties Requirement">
-                            <field name="hardness_requirement"/>
-                            <field name="sample_nut_hardness_requirement"/>
-                            <field name="completed_nut_hardness_requirement"/>
-                            <field name="tempering_requirement"/>
-                            <field name="proof_load_requirement"/>
-                            <field name="charpy_requirement"/>
-                            <field name="heat_treatment_requirement"/>
-                        </group>
-                        <group string="NUT Physical Properties Values">
-                            <field name="hardness_value"/>
-                            <field name="sample_nut_hardness_value"/>
-                            <field name="completed_nut_hardness_value"/>
-                            <field name="tempering_value"/>
-                            <field name="proof_load_value"/>
-                            <field name="charpy_value"/>
-                            <field name="heat_treatment_value"/>
-                        </group>
+                        <table class="table table-sm o_form_table">
+                            <thead>
+                                <tr>
+                                    <th/>
+                                    <th>Requirement</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Hardness</th>
+                                    <td><field name="hardness_requirement"/></td>
+                                    <td><field name="hardness_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Sample Nut Hardness</th>
+                                    <td><field name="sample_nut_hardness_requirement"/></td>
+                                    <td><field name="sample_nut_hardness_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Completed Nut Hardness</th>
+                                    <td><field name="completed_nut_hardness_requirement"/></td>
+                                    <td><field name="completed_nut_hardness_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Tempering</th>
+                                    <td><field name="tempering_requirement"/></td>
+                                    <td><field name="tempering_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Proof Load</th>
+                                    <td><field name="proof_load_requirement"/></td>
+                                    <td><field name="proof_load_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Heat Treatment</th>
+                                    <td><field name="heat_treatment_requirement"/></td>
+                                    <td><field name="heat_treatment_value"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </group>
                 </page>
                 <page string="NUT Chemical Analysis">
                     <group>
-                        <group string="NUT Chemical Analysis Requirements">
-                            <field name="carbon_requirement"/>
-                            <field name="silicon_requirement"/>
-                            <field name="manganese_requirement"/>
-                            <field name="phosphorus_requirement"/>
-                            <field name="sulfur_requirement"/>
-                            <field name="cr_percent_requirement"/>
-                            <field name="mo_percent_requirement"/>
-                            <field name="nickel_requirement"/>
-                        </group>
-                        <group string="NUT Chemical Analysis Values">
-                            <field name="carbon_value"/>
-                            <field name="silicon_value"/>
-                            <field name="manganese_value"/>
-                            <field name="phosphorus_value"/>
-                            <field name="sulfur_value"/>
-                            <field name="cr_percent_value"/>
-                            <field name="mo_percent_value"/>
-                            <field name="nickel_value"/>
-                        </group>
+                        <table class="table table-sm o_form_table">
+                            <thead>
+                                <tr>
+                                    <th/>
+                                    <th>Requirement</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Carbon (C)</th>
+                                    <td><field name="carbon_requirement"/></td>
+                                    <td><field name="carbon_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Silicon (Si)</th>
+                                    <td><field name="silicon_requirement"/></td>
+                                    <td><field name="silicon_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Manganese (Mn)</th>
+                                    <td><field name="manganese_requirement"/></td>
+                                    <td><field name="manganese_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Phosphorus (P)</th>
+                                    <td><field name="phosphorus_requirement"/></td>
+                                    <td><field name="phosphorus_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Sulfur (S)</th>
+                                    <td><field name="sulfur_requirement"/></td>
+                                    <td><field name="sulfur_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Cr %</th>
+                                    <td><field name="cr_percent_requirement"/></td>
+                                    <td><field name="cr_percent_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Mo %</th>
+                                    <td><field name="mo_percent_requirement"/></td>
+                                    <td><field name="mo_percent_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Nickel (Ni)%</th>
+                                    <td><field name="nickel_requirement"/></td>
+                                    <td><field name="nickel_value"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </group>
                 </page>
             </notebook>
