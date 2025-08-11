@@ -6,6 +6,9 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
+                <field name="category"/>
+                <field name="heat_number"/>
+                <field name="product_id"/>
             </list>
         </field>
     </record>
