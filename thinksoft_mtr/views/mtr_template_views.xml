@@ -28,8 +28,8 @@
                     <group name="main_info_group">
                         <group>
                             <field name="category"/>
-                            <field name="heat_number"/>
                             <field name="product_id"/>
+                            <field name="heat_number"/>
                         </group>
                     </group>
                     

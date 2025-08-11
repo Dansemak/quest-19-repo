@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class MtrTemplate(models.Model):
@@ -89,3 +89,10 @@ class MtrTemplate(models.Model):
     vanadium_value = fields.Char("Vanadium (V) Value")
     aluminium_requirement = fields.Char("Aluminium (Al) Requirement")
     aluminium_value = fields.Char("Aluminium (Al) Value")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        mtrs = super().create(vals_list)
+        for mtr in mtrs:
+            mtr.name = f"{mtr.product_id.name}-{mtr.heat_number}-{self.env['ir.sequence'].next_by_code('mtr.template')}"
+        return mtrs
