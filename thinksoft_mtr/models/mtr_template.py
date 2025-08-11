@@ -95,6 +95,8 @@ class MtrTemplate(models.Model):
     vanadium_value = fields.Char("Vanadium (V) Value")
     aluminium_requirement = fields.Char("Aluminium (Al) Requirement")
     aluminium_value = fields.Char("Aluminium (Al) Value")
+    nitrogen_requirement = fields.Char("Nitrogen (N)% Requirement")
+    nitrogen_value = fields.Char("Nitrogen (N)% Value")
 
     @api.model_create_multi
     def create(self, vals_list):
