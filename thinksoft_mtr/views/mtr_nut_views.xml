@@ -37,104 +37,100 @@
 
             <notebook invisible="category != 'nut'">
                 <page string="NUT Physical Properties">
-                    <group>
-                        <table class="table table-sm o_form_table">
-                            <thead>
-                                <tr>
-                                    <th/>
-                                    <th>Requirement</th>
-                                    <th>Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>Hardness</th>
-                                    <td><field name="hardness_requirement"/></td>
-                                    <td><field name="hardness_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Sample Nut Hardness</th>
-                                    <td><field name="sample_nut_hardness_requirement"/></td>
-                                    <td><field name="sample_nut_hardness_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Completed Nut Hardness</th>
-                                    <td><field name="completed_nut_hardness_requirement"/></td>
-                                    <td><field name="completed_nut_hardness_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Tempering</th>
-                                    <td><field name="tempering_requirement"/></td>
-                                    <td><field name="tempering_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Proof Load</th>
-                                    <td><field name="proof_load_requirement"/></td>
-                                    <td><field name="proof_load_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Heat Treatment</th>
-                                    <td><field name="heat_treatment_requirement"/></td>
-                                    <td><field name="heat_treatment_value"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </group>
+                    <table class="table table-sm o_form_table">
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th>Requirement</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Hardness</th>
+                                <td><field name="hardness_requirement"/></td>
+                                <td><field name="hardness_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Sample Nut Hardness</th>
+                                <td><field name="sample_nut_hardness_requirement"/></td>
+                                <td><field name="sample_nut_hardness_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Completed Nut Hardness</th>
+                                <td><field name="completed_nut_hardness_requirement"/></td>
+                                <td><field name="completed_nut_hardness_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Tempering</th>
+                                <td><field name="tempering_requirement"/></td>
+                                <td><field name="tempering_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Proof Load</th>
+                                <td><field name="proof_load_requirement"/></td>
+                                <td><field name="proof_load_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Heat Treatment</th>
+                                <td><field name="heat_treatment_requirement"/></td>
+                                <td><field name="heat_treatment_value"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </page>
                 <page string="NUT Chemical Analysis">
-                    <group>
-                        <table class="table table-sm o_form_table">
-                            <thead>
-                                <tr>
-                                    <th/>
-                                    <th>Requirement</th>
-                                    <th>Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>Carbon (C)</th>
-                                    <td><field name="carbon_requirement"/></td>
-                                    <td><field name="carbon_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Silicon (Si)</th>
-                                    <td><field name="silicon_requirement"/></td>
-                                    <td><field name="silicon_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Manganese (Mn)</th>
-                                    <td><field name="manganese_requirement"/></td>
-                                    <td><field name="manganese_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Phosphorus (P)</th>
-                                    <td><field name="phosphorus_requirement"/></td>
-                                    <td><field name="phosphorus_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Sulfur (S)</th>
-                                    <td><field name="sulfur_requirement"/></td>
-                                    <td><field name="sulfur_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Cr %</th>
-                                    <td><field name="cr_percent_requirement"/></td>
-                                    <td><field name="cr_percent_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Mo %</th>
-                                    <td><field name="mo_percent_requirement"/></td>
-                                    <td><field name="mo_percent_value"/></td>
-                                </tr>
-                                <tr>
-                                    <th>Nickel (Ni)%</th>
-                                    <td><field name="nickel_requirement"/></td>
-                                    <td><field name="nickel_value"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </group>
+                    <table class="table table-sm o_form_table">
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th>Requirement</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Carbon (C)</th>
+                                <td><field name="carbon_requirement"/></td>
+                                <td><field name="carbon_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Silicon (Si)</th>
+                                <td><field name="silicon_requirement"/></td>
+                                <td><field name="silicon_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Manganese (Mn)</th>
+                                <td><field name="manganese_requirement"/></td>
+                                <td><field name="manganese_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Phosphorus (P)</th>
+                                <td><field name="phosphorus_requirement"/></td>
+                                <td><field name="phosphorus_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Sulfur (S)</th>
+                                <td><field name="sulfur_requirement"/></td>
+                                <td><field name="sulfur_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Cr %</th>
+                                <td><field name="cr_percent_requirement"/></td>
+                                <td><field name="cr_percent_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Mo %</th>
+                                <td><field name="mo_percent_requirement"/></td>
+                                <td><field name="mo_percent_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Nickel (Ni)%</th>
+                                <td><field name="nickel_requirement"/></td>
+                                <td><field name="nickel_value"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </page>
             </notebook>
 
