@@ -36,10 +36,10 @@
                 </group>
             </group>
 
-            <notebook>
-                <page string="BAR/STUD Physical Properties" name="bar_stud_physical_properties" invisible="category not in ('bar', 'stud')">
-                    <group name="bar_stud_physical_properties_group">
-                        <group name="physical_properties_requirements_group" string="BAR/STUD Physical Properties Requirement">
+            <notebook invisible="category not in ('bar', 'stud')">
+                <page string="BAR/STUD Physical Properties">
+                    <group>
+                        <group string="BAR/STUD Physical Properties Requirement">
                             <field name="tensile_strength_requirement"/>
                             <field name="yield_strength_requirement"/>
                             <field name="elongation_requirement"/>
@@ -50,7 +50,7 @@
                             <field name="hardness_requirement"/>
                             <field name="heat_treatment_requirement"/>
                         </group>
-                        <group name="bar_stud_physical_properties_values_group" string="BAR/STUD Physical Properties Values">
+                        <group string="BAR/STUD Physical Properties Values">
                             <field name="tensile_strength_value"/>
                             <field name="yield_strength_value"/>
                             <field name="elongation_value"/>
@@ -63,9 +63,9 @@
                         </group>
                     </group>
                 </page>
-                <page string="BAR/STUD Chemical Analysis" name="bar_stud_chemical_analysis" invisible="category not in ('bar', 'stud')">
-                    <group name="bar_stud_chemical_analysis_group">
-                        <group name="chemical_analysis_requirements_group" string="BAR/STUD Chemical Analysis Requirements">
+                <page string="BAR/STUD Chemical Analysis">
+                    <group>
+                        <group string="BAR/STUD Chemical Analysis Requirements">
                             <field name="carbon_requirement"/>
                             <field name="silicon_requirement"/>
                             <field name="manganese_requirement"/>
@@ -77,7 +77,7 @@
                             <field name="vanadium_requirement"/>
                             <field name="aluminium_requirement"/>
                         </group>
-                        <group name="bar_stud_chemical_analysis_values_group" string="BAR/STUD Chemical Analysis Values">
+                        <group string="BAR/STUD Chemical Analysis Values">
                             <field name="carbon_value"/>
                             <field name="silicon_value"/>
                             <field name="manganese_value"/>
