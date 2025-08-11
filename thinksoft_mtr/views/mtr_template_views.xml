@@ -13,6 +13,24 @@
         </field>
     </record>
 
+    <record id="mtr_template_tree_view_search" model="ir.ui.view">
+        <field name="name">mtr.template.tree.view.search</field>
+        <field name="model">mtr.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Name"/>
+                <field name="heat_number" string="Heat Number"/>
+                <field name="product_id" string="Product"/>
+
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+
+                <searchpanel>
+                    <field name="category" icon="fa-th-list" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
     <record id="mtr_template_view_form" model="ir.ui.view">
         <field name="name">mtr.template.view.form</field>
         <field name="model">mtr.template</field>
