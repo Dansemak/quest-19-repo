@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <menuitem name="MTR" id="mtr_menu_root">
+    <menuitem name="MTR" id="mtr_menu_root" web_icon="thinksoft_mtr,static/description/icon.png">
         <menuitem name="Overview" id="mtr_template_action" action="mtr_template_action_list"/>
     </menuitem>
 
