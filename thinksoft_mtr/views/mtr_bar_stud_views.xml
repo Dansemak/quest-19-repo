@@ -1,0 +1,167 @@
+<odoo>
+
+    <record id="mtr_bar_stud_view_form" model="ir.ui.view">
+        <field name="name">mtr.bar.stud.view.form</field>
+        <field name="model">mtr.template</field>
+        <field name="inherit_id" ref="mtr_template_view_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//group[@name='main_info_group']" position="after">
+
+            <group string="BAR/STUD Product Information" invisible="category not in ('bar', 'stud')">
+                <group>
+                    <field name="description"/>
+                    <field name="dimension"/>
+                    <field name="diameter"/>
+                    <field name="length"/>
+                    <field name="product_type"/>
+                    <field name="country_of_origin"/>
+                    <field name="manufacturer_id"/>
+                    <field name="standard"/>
+                    <field name="material"/>
+                    <field name="marking"/>
+                    <field name="lot_batch_number"/>
+                    <field name="reference"/>
+                </group>
+                <group>
+                    <field name="year"/>
+                    <field name="test_date"/>
+                    <field name="certificate_number"/>
+                    <field name="supplier_certificate"/>
+                    <field name="macroetch"/>
+                    <field name="dimensional_inspection"/>
+                    <field name="visual_inspection"/>
+                    <field name="nace_value"/>
+                    <field name="three_digit_traceability"/>
+                    <field name="po_number"/>
+                </group>
+            </group>
+
+            <notebook invisible="category not in ('bar', 'stud')">
+                <page string="BAR/STUD Physical Properties">
+                    <table class="table table-sm o_form_table">
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th>Requirement</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Tensile Strength</th>
+                                <td><field name="tensile_strength_requirement"/></td>
+                                <td><field name="tensile_strength_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Yield Strength</th>
+                                <td><field name="yield_strength_requirement"/></td>
+                                <td><field name="yield_strength_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Elongation</th>
+                                <td><field name="elongation_requirement"/></td>
+                                <td><field name="elongation_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Reduction</th>
+                                <td><field name="reduction_requirement"/></td>
+                                <td><field name="reduction_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Tempering</th>
+                                <td><field name="tempering_requirement"/></td>
+                                <td><field name="tempering_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Quenching</th>
+                                <td><field name="quenching_requirement"/></td>
+                                <td><field name="quenching_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Charpy</th>
+                                <td><field name="charpy_requirement"/></td>
+                                <td><field name="charpy_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Hardness</th>
+                                <td><field name="hardness_requirement"/></td>
+                                <td><field name="hardness_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Heat Treatment</th>
+                                <td><field name="heat_treatment_requirement"/></td>
+                                <td><field name="heat_treatment_value"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </page>
+                <page string="BAR/STUD Chemical Analysis">
+                    <table class="table table-sm o_form_table">
+                        <thead>
+                            <tr>
+                                <th/>
+                                <th>Requirement</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Carbon (C)</th>
+                                <td><field name="carbon_requirement"/></td>
+                                <td><field name="carbon_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Silicon (Si)</th>
+                                <td><field name="silicon_requirement"/></td>
+                                <td><field name="silicon_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Manganese (Mn)</th>
+                                <td><field name="manganese_requirement"/></td>
+                                <td><field name="manganese_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Phosphorus (P)</th>
+                                <td><field name="phosphorus_requirement"/></td>
+                                <td><field name="phosphorus_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Sulfur (S)</th>
+                                <td><field name="sulfur_requirement"/></td>
+                                <td><field name="sulfur_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Cr %</th>
+                                <td><field name="cr_percent_requirement"/></td>
+                                <td><field name="cr_percent_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Mo %</th>
+                                <td><field name="mo_percent_requirement"/></td>
+                                <td><field name="mo_percent_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Nickel (Ni)%</th>
+                                <td><field name="nickel_requirement"/></td>
+                                <td><field name="nickel_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Vanadium (V)</th>
+                                <td><field name="vanadium_requirement"/></td>
+                                <td><field name="vanadium_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Aluminium (Al)</th>
+                                <td><field name="aluminium_requirement"/></td>
+                                <td><field name="aluminium_value"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </page>
+            </notebook>
+
+        </xpath>
+        </field>
+    </record>
+
+</odoo>
