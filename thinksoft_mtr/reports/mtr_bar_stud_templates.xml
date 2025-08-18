@@ -177,39 +177,39 @@
                     <th>Actual</th>
                   </tr>
                   <tr>
-                    <th>Carbon (C) %</th>
+                    <th>Carbon (C)%</th>
                     <td><span t-field="o.carbon_requirement"/></td>
                     <td><span t-field="o.carbon_value"/></td>
                   </tr>
                   <tr>
-                    <th>Silicon (Si) %</th>
+                    <th>Silicon (Si)%</th>
                     <td><span t-field="o.silicon_requirement"/></td>
                     <td><span t-field="o.silicon_value"/></td>
                   </tr>
                   <tr>
-                    <th>Manganses (Mn) %</th>
+                    <th>Manganses (Mn)%</th>
                     <td><span t-field="o.manganese_requirement"/></td>
                     <td><span t-field="o.manganese_value"/></td>
                   </tr>
                   <tr>
-                    <th>Phosphorus (P) %</th>
+                    <th>Phosphorus (P)%</th>
                     <td><span t-field="o.phosphorus_requirement"/></td>
                     <td><span t-field="o.phosphorus_value"/></td>
                   </tr>
                   <tr>
-                    <th>Sulfur (S) %</th>
+                    <th>Sulfur (S)%</th>
                     <td><span t-field="o.sulfur_requirement"/></td>
                     <td><span t-field="o.sulfur_value"/></td>
                   </tr>
                   <tr>
-                    <th>Chromium (Cr) %</th>
-                    <td><span t-field="o.cr_percent_requirement"/></td>
-                    <td><span t-field="o.cr_percent_value"/></td>
+                    <th>Chromium (Cr)%</th>
+                    <td><span t-field="o.chromium_requirement"/></td>
+                    <td><span t-field="o.chromium_value"/></td>
                   </tr>
                   <tr>
                     <th>Molybdenum (Mo)%</th>
-                    <td><span t-field="o.mo_percent_requirement"/></td>
-                    <td><span t-field="o.mo_percent_value"/></td>
+                    <td><span t-field="o.molybdenum_requirement"/></td>
+                    <td><span t-field="o.molybdenum_value"/></td>
                   </tr>
                   <tr>
                     <th>Nickel (Ni)%</th>
@@ -217,12 +217,12 @@
                     <td><span t-field="o.nickel_value"/></td>
                   </tr>
                   <tr>
-                    <th>Vanadium</th>
+                    <th>Vanadium (V)</th>
                     <td><span t-field="o.vanadium_requirement"/></td>
                     <td><span t-field="o.vanadium_value"/></td>
                   </tr>
                   <tr>
-                    <th>Aluminium</th>
+                    <th>Aluminium (Al)</th>
                     <td><span t-field="o.aluminium_requirement"/></td>
                     <td><span t-field="o.aluminium_value"/></td>
                   </tr>
