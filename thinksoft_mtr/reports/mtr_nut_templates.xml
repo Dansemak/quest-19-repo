@@ -49,7 +49,6 @@
                             </tr>
                         </table>
                     </div>
-
                     <!-- ********** PRODUCT INFORMATION ********** -->
                     <div class="info" style="margin-bottom:25px;">
                         <table width="100%">
@@ -106,7 +105,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <!-- ********** PHYSICAL PROPERTIES ********** -->
                     <div class="info" style="margin-bottom:25px;">
                         <table width="100%">
@@ -159,7 +157,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <!-- ********** CHEMICAL ANALYSIS ********** -->
                     <div class="info" style="margin-bottom:25px;">
                         <table width="100%">
@@ -217,7 +214,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <div class="row" style="page-break-inside:avoid; margin-bottom:25px;">
                         <!-- ********** PRODUCT MARKING ********** -->
                         <div class="col-6 info">
@@ -268,16 +264,18 @@
                             </table>
                         </div>
                     </div>
-                    <P>Chemical Analysis, Mechanical Properties &amp; Macroetch testing methods are in accordance with ASTM A370 &amp; ASTM E381.
-                    This certificate is for the exclusive use of the client to whom it is addressed and Quest Gasket &amp; Supply Inc, neither makes nor assumes responsibility for
-                    and representation or certification to any other party. This report applies only to the actual samples tested and the heat or lot they represent. We hereby
-                    verify that the outcomes of test, conducted in accordance with the applicable ASTM specifications conform to the requirements. This report may not be
-                    reproduced except in full, without the written approval of Quest Gasket &amp; Supply Inc.
-                    </P>
-                    <P>The results reported on this Certificate of Test represent the actual attributes of the material furnished and indicate full compliance with all applicable
-                    specification and contract requirements. Original MTRs are available upon request.
-                        <i>This is a computer generated document, no signature is required.</i>
-                    </P>
+                    <div style="page-break-inside:avoid;">
+                        <P>Chemical Analysis, Mechanical Properties &amp; Macroetch testing methods are in accordance with ASTM A370 &amp; ASTM E381.
+                        This certificate is for the exclusive use of the client to whom it is addressed and Quest Gasket &amp; Supply Inc, neither makes nor assumes responsibility for
+                        and representation or certification to any other party. This report applies only to the actual samples tested and the heat or lot they represent. We hereby
+                        verify that the outcomes of test, conducted in accordance with the applicable ASTM specifications conform to the requirements. This report may not be
+                        reproduced except in full, without the written approval of Quest Gasket &amp; Supply Inc.
+                        </P>
+                        <P>The results reported on this Certificate of Test represent the actual attributes of the material furnished and indicate full compliance with all applicable
+                        specification and contract requirements. Original MTRs are available upon request.
+                            <i>This is a computer generated document, no signature is required.</i>
+                        </P>
+                    </div>
                 </div>
             </main>
         </t>
