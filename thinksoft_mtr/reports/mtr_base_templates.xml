@@ -27,6 +27,9 @@
             <t t-if="o.category in ('bar', 'stud')">
                 <t t-call="thinksoft_mtr.bar_stud_mtr_document"/>
             </t>
+            <t t-if="o.category == 'nut'">
+                <t t-call="thinksoft_mtr.nut_mtr_document"/>
+            </t>
         </t>
     </template>
 
