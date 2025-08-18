@@ -18,6 +18,11 @@
         "views/mtr_nut_views.xml",
         "views/mtr_rtj_views.xml",
         "views/mtr_menu_views.xml",
+        "reports/mtr_bar_stud_templates.xml",
+        "reports/mtr_nut_templates.xml",
+        "reports/mtr_rtj_templates.xml",
+        "reports/mtr_base_templates.xml",
+        "reports/ir_actions_report.xml",
         "data/ir_sequence_data.xml",
     ],
 }
