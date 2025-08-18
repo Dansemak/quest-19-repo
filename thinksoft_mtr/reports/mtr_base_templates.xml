@@ -30,6 +30,9 @@
             <t t-if="o.category == 'nut'">
                 <t t-call="thinksoft_mtr.nut_mtr_document"/>
             </t>
+            <t t-if="o.category == 'rtj'">
+                <t t-call="thinksoft_mtr.rtj_mtr_document"/>
+            </t>
         </t>
     </template>
 
