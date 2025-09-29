@@ -1,1 +1,3 @@
-# This is the initial quest 18 repo.
+# Quest Gaskets repo
+
+Current Version: 19.0
