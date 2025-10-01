@@ -124,6 +124,26 @@
                                 <td><field name="nitrogen_requirement"/></td>
                                 <td><field name="nitrogen_value"/></td>
                             </tr>
+                            <tr>
+                                <th>Titanium (Ti)%</th>
+                                <td><field name="titanium_requirement"/></td>
+                                <td><field name="titanium_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Iron (Fe)%</th>
+                                <td><field name="iron_requirement"/></td>
+                                <td><field name="iron_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Aluminium (Al)%</th>
+                                <td><field name="aluminium_requirement"/></td>
+                                <td><field name="aluminium_value"/></td>
+                            </tr>
+                            <tr>
+                                <th>Copper (Cu)%</th>
+                                <td><field name="copper_requirement"/></td>
+                                <td><field name="copper_value"/></td>
+                            </tr>
                         </tbody>
                     </table>
                 </page>

@@ -197,6 +197,26 @@
                                     <td><span t-field="o.nitrogen_requirement"/></td>
                                     <td><span t-field="o.nitrogen_value"/></td>
                                 </tr>
+                                <tr>
+                                    <th>Titanium (Ti)%</th>
+                                    <td><span t-field="o.titanium_requirement"/></td>
+                                    <td><span t-field="o.titanium_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Iron (Fe)%</th>
+                                    <td><span t-field="o.iron_requirement"/></td>
+                                    <td><span t-field="o.iron_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Aluminium (Al)%</th>
+                                    <td><span t-field="o.aluminium_requirement"/></td>
+                                    <td><span t-field="o.aluminium_value"/></td>
+                                </tr>
+                                <tr>
+                                    <th>Copper (Cu)%</th>
+                                    <td><span t-field="o.copper_requirement"/></td>
+                                    <td><span t-field="o.copper_value"/></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
