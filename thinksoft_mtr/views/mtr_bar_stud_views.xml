@@ -33,6 +33,7 @@
                     <field name="nace_value"/>
                     <field name="three_digit_traceability"/>
                     <field name="po_number"/>
+                    <field name="original_mtr" filename="original_mtr_filename"/>
                 </group>
             </group>
 

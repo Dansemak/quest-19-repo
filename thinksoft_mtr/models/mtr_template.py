@@ -47,6 +47,8 @@ class MtrTemplate(models.Model):
     nace_value = fields.Char("Nace")
     three_digit_traceability = fields.Char("3 Digit Traceability")
     po_number = fields.Char("PO Number")
+    original_mtr = fields.Binary("Original MTR")
+    original_mtr_filename = fields.Char("Original MTR Filename")
 
     # Physical Properties
     tensile_strength_requirement = fields.Char("Tensile Strength Requirement")
