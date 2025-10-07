@@ -11,7 +11,8 @@
     "version": "19.0.0.0.1",
     "depends": ["base", "sale"],
     "data": [
-        # "views/sale_order_views.xml",
+        "views/res_partner_views.xml",
+        "views/sale_order_views.xml",
     ],
     "installable": True,
     "application": False,
