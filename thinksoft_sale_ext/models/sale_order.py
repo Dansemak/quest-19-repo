@@ -36,14 +36,10 @@ class SaleOrder(models.Model):
     )
 
     # outside salesperson assigned from the customer's outside_salesperson_id field
-    @api.onchange("partner_id")
-    def _onchange_outside_salesperson_id(self):
-        for order in self:
-            order.outside_salesperson_id = order.partner_id.outside_salesperson_id
-
+    # customer account information assigned from the customer's customer_account_info field
     # partner_contacts are any contacts from the customer specifically
     @api.onchange("partner_id")
-    def _onchange_partner_contact_id(self):
+    def _onchange_partner_id(self):
         contacts = self.env["res.partner"].search(
             [
                 ("parent_id", "=", self.partner_id.id),
@@ -52,6 +48,8 @@ class SaleOrder(models.Model):
         )
         for order in self:
             order.partner_contact_id = contacts.ids
+            order.customer_account_info = order.partner_id.customer_account_info
+            order.outside_salesperson_id = order.partner_id.outside_salesperson_id
 
     # opens the delivery wizard; replacing the name field
     def action_open_delivery_wizard(self):

@@ -11,6 +11,11 @@
                 <field name="outside_salesperson_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
             </xpath>
 
+            <!-- the customer account inforamtion inserted in the "Sales & Purchase" tab-->
+            <xpath expr="//page[@name='sales_purchases']//field[@name='property_delivery_carrier_id']" position="after">
+                <field name="customer_account_info" string="Shipping Account Inforamtion"/>
+            </xpath>
+
         </field>
     </record>
 </odoo>
