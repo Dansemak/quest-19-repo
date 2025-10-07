@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="choose_delivery_carrier_view_form_inherit_choose_delivery_carrier" model="ir.ui.view">
+        <field name="name">choose.delivery.carrier.view.form.inherit</field>
+        <field name="model">choose.delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.choose_delivery_carrier_view_form"/>
+        <field name="arch" type="xml">
+
+            <!--
+                Adding the new fields to the wizard
+                - customer_account_info
+                - freight_charge
+                - cut_off
+
+                hiding the Cost and Get Cost fields/buttons from the wizard
+            -->
+            <xpath expr="//form//group" position="replace">
+                <group>
+                    <group>
+                        <field name="carrier_id" options="{'no_create': True}"/>
+                        <label name="carried_weight_label" for="total_weight" groups="uom.group_uom"/>
+                        <div name="carried_weight" class="o_row" groups="uom.group_uom">
+                            <field name="total_weight"/>
+                            <field name="weight_uom_name"/>
+                        </div>
+                        <field name="delivery_type" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="order_id" invisible="1"/>
+                        <field name='delivery_price' invisible="1"/>
+                        <!-- originally = 0 -->
+                        <label for="display_price" invisible="1"/>
+                        <div class="o_row">
+                            <!-- originally =  not carrier_id -->
+                            <field name='display_price' widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                            <!-- originally = delivery_type in ('fixed', 'base_on_rule') -->
+                            <button name="update_price" type="object" invisible="1">
+                                <i class="oi oi-arrow-right me-1"/>Get rate
+                            </button>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="customer_account_info" />
+                        <field name="freight_charge" options="{'no_create': True}" />
+                        <field name="cut_off" widget="float_time"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- replacing the footer of the shipping wizard -->
+
+            <xpath expr="//footer" position="replace">
+                <footer>
+                    <button name="button_confirm"
+                            type="object"
+                            string="Apply Shipping Info"
+                            class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"
+                            data-hotkey="x"/>
+                </footer>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
