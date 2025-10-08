@@ -2,3 +2,7 @@ from . import res_partner
 from . import sale_order
 from . import sale_order_line
 from . import sale_freight
+from . import sale_note
+from . import job_project
+from . import end_user
+from . import delivery_carrier

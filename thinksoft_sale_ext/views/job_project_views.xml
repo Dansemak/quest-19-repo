@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="sale_freight_action_list" model="ir.actions.act_window">
-        <field name="name">Freight Charges</field>
-        <field name="res_model">sale.freight</field>
+    <record id="job_project_action_list" model="ir.actions.act_window">
+        <field name="name">Job Projects</field>
+        <field name="res_model">job.project</field>
         <field name="view_mode">list,form,search</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new Freight Charge
+                Create a new Job Project
             </p><p>
-                Create a new Freight Charge
+                Create a new Job Project
             </p>
         </field>
     </record>
 
-    <record id="sale_freight_view_tree" model="ir.ui.view">
-        <field name="name">sale.freight.view.tree</field>
-        <field name="model">sale.freight</field>
+    <record id="job_project_view_tree" model="ir.ui.view">
+        <field name="name">job.project.view.tree</field>
+        <field name="model">job.project</field>
         <field name="arch" type="xml">
             <list>
                 <field name="name" />
@@ -24,9 +24,9 @@
         </field>
     </record>
 
-    <record id="sale_freight_view_form" model="ir.ui.view">
-        <field name="name">sale.freight.view.form</field>
-        <field name="model">sale.freight</field>
+    <record id="job_project_view_form" model="ir.ui.view">
+        <field name="name">job.project.view.form</field>
+        <field name="model">job.project</field>
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
@@ -35,7 +35,7 @@
                             <label for="name" />
                         </div>
                         <h1 class="mb-0">
-                            <field name="name" class="mb-0" placeholder="e.g. COLLECT, PREPAID, PICKUP, etc." />
+                            <field name="name" class="mb-0" />
                         </h1>
                     </div>
                     <field name="active" invisible="1" />
@@ -44,9 +44,9 @@
         </field>
     </record>
 
-    <record id="sale_freight_view_search" model="ir.ui.view">
-        <field name="name">sale.freight.view.search</field>
-        <field name="model">sale.freight</field>
+    <record id="job_project_view_search" model="ir.ui.view">
+        <field name="name">job.project.view.search</field>
+        <field name="model">job.project</field>
         <field name="arch" type="xml">
             <search>
                 <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
@@ -55,9 +55,9 @@
     </record>
 
     <menuitem
-        id="sale_menu_sale_freight_action_list"
-        action="sale_freight_action_list"
+        id="sale_menu_job_project_action_list"
+        action="job_project_action_list"
         parent="sale.menu_sales_config"
-        sequence="5"/>
+        sequence="7"/>
 
 </odoo>

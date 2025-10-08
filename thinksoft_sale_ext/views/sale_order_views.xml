@@ -47,43 +47,26 @@
                 <field name="outside_salesperson_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
             </xpath>
 
-            <!-- COO Required in header -->
+            <!-- COO Required, Notes, Comment,Shipping Method, Freight Charge, Job Project, and End User in header -->
 
-            <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="is_coo_required" />
-            </xpath>
-
-            <!-- page dedicated to notes -->
-
-            <xpath expr="//notebook" position="inside">
-                <page name="comment_note" string="Notes">
-                    <field name="comment_text" placeholder="Order Comment and Notes"/>
-                </page>
+            <xpath expr="//group[@name='order_details']" position="after">
+                <group name="stock_move_details">
+                    <field name="is_coo_required"/>
+                    <field name="sale_note_id" options="{'no_create': True}"/>
+                    <field name="comment_text" placeholder="Order comments and detailed notes"/>
+                </group>
+                <group name="additional_details">
+                    <field name="end_user_id" options="{'no_create': True}"/>
+                    <field name="job_project_id" options="{'no_create': True}"/>
+                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
+                    <field name="freight_charge" options="{'no_create': True}"/>
+                </group>
             </xpath>
 
             <!-- Sale Order Line Items: Tagging-->
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>
-            </xpath>
-
-            <!-- adding all of the related shipping data to the 'Other Info' tab -->
-            <xpath expr="//group[@name='sale_shipping']" position="before">
-                <group name="sale_carrier_instructions" string="Carrier Instructions">
-                    <field name="carrier_id" readonly="1"/>
-                    <field name="customer_account_info"/>
-                    <field name="freight_charge" options="{'no_open': True}"/>
-                    <field name="cut_off" widget="float_time"/>
-                </group>
-            </xpath>
-
-            <!-- replacing the existing 'Add shipping' buttons -->
-            <xpath expr="//button[@name='action_open_delivery_wizard']" position="replace">
-                <button
-                    name="action_open_delivery_wizard"
-                    type="object"
-                    string="Set Shipping Info"
-                    context="{'carrier_recompute': False}"/>
             </xpath>
 
         </field>

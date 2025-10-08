@@ -9,10 +9,7 @@ class ResPartner(models.Model):
         string="Outside Salesperson",
         help="The outside salesperson in charge of sales for this contact",
     )
-    customer_account_info = fields.Char(
-        string="Shipping Account Information",
-        help="Any related customer account info regarding shipping (e.g. account number)",
-    )
+
     display_name = fields.Char(compute='_compute_display_name', store=True)
 
     # formatting the partner_id fields (partner_invoice_id, partner_shipping_id)
