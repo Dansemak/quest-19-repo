@@ -18,6 +18,7 @@
         "views/mtr_nut_views.xml",
         "views/mtr_rtj_views.xml",
         "views/mtr_menu_views.xml",
+        "views/stock_picking_views.xml",
         "reports/mtr_bar_stud_templates.xml",
         "reports/mtr_nut_templates.xml",
         "reports/mtr_rtj_templates.xml",
