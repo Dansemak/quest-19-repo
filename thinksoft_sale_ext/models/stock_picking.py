@@ -1,9 +1,5 @@
-import logging
-
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-
-_logger = logging.getLogger(__name__)
 
 
 class StockPicking(models.Model):
@@ -42,6 +38,7 @@ class StockPicking(models.Model):
     # if the sale note changed on the sales order after confirmation,
     # change sale_note_id on the stock picking record
     api.depends("sale_id.sale_note_id")
+
     def _compute_sale_note_id(self):
         for picking in self:
             if picking.sale_id:
@@ -50,6 +47,7 @@ class StockPicking(models.Model):
     # if the comment text changed on the sales order after confirmation,
     # change comment_text on the stock picking record
     api.depends("sale_id.comment_text")
+
     def _compute_comment_text(self):
         for picking in self:
             if picking.sale_id:
@@ -58,6 +56,7 @@ class StockPicking(models.Model):
     # if the freight charge changed on the sales order after confirmation,
     # change charge_type_id on the stock picking record
     api.depends("sale_id.charge_type_id")
+
     def _compute_charge_type_id(self):
         for picking in self:
             if picking.sale_id and picking.picking_type_id.code == "outgoing":
