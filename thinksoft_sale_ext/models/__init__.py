@@ -6,3 +6,5 @@ from . import sale_note
 from . import job_project
 from . import end_user
 from . import delivery_carrier
+from . import stock_picking
+from . import crm_lead

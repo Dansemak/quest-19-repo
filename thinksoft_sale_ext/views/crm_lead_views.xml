@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- adding relational fields to crm.lead views in the thinksoft_sale_ext module
+    to avoid hard dependancies between extension modules -->
+
+    <record id="crm_lead_view_form_inherit_crm" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="company_end_user_id" options="{'no_create': True}"/>
+                <field name="job_project_id" options="{'no_create': True}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <menuitem
+        id="crm_menu_end_user_action_list"
+        action="end_user_action_list"
+        parent="crm.crm_menu_config"
+        sequence="7"/>
+        
+    <menuitem
+        id="crm_menu_job_project_action_list"
+        action="job_project_action_list"
+        parent="crm.crm_menu_config"
+        sequence="7"/>
+
+</odoo>

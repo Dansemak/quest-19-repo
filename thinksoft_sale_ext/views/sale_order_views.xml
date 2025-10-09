@@ -49,21 +49,20 @@
 
             <!-- COO Required, Notes, Comment,Shipping Method, Freight Charge, Job Project, and End User in header -->
 
-            <xpath expr="//group[@name='order_details']" position="after">
-                <group name="stock_move_details">
-                    <field name="is_coo_required"/>
-                    <field name="sale_note_id" options="{'no_create': True}"/>
-                    <field name="comment_text" placeholder="Order comments and detailed notes"/>
-                </group>
-                <group name="additional_details">
-                    <field name="end_user_id" options="{'no_create': True}"/>
-                    <field name="job_project_id" options="{'no_create': True}"/>
-                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
-                    <field name="freight_charge" options="{'no_create': True}"/>
-                </group>
+            <xpath expr="//group[@name='partner_details']" position="inside">
+                <field name="is_coo_required"/>
+                <field name="sale_note_id" options="{'no_create': True}"/>
+                <field name="comment_text" placeholder="Order comments and detailed notes"/>
             </xpath>
 
-            <!-- Sale Order Line Items: Tagging-->
+            <xpath expr="//group[@name='order_details']" position="inside">
+                <field name="company_end_user_id" options="{'no_create': True}"/>
+                <field name="job_project_id" options="{'no_create': True}"/>
+                <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
+                <field name="charge_type_id" options="{'no_create': True}"/>
+            </xpath>
+
+            <!-- Sale Order Line Items: Tagging -->
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>

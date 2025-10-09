@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
         string="Outside Salesperson",
         help="The outside salesperson in charge of sales for this contact",
     )
-    freight_charge = fields.Many2one(
+    charge_type_id = fields.Many2one(
         "sale.freight",
         string="Freight Charge",
         help="Where and how the freight is being charged",
@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
     )
-    end_user_id = fields.Many2one(
+    company_end_user_id = fields.Many2one(
         "end.user",
         string="End User",
         help="The user/company/project at the end of the sales flow that will inevitably receive these products",
@@ -39,8 +39,8 @@ class SaleOrder(models.Model):
         help="The name of the partner's project",
     )
 
-    # outside salesperson assigned from the customer's outside_salesperson_id field
-    # customer account information assigned from the customer's customer_account_info field
+    # outside salesperson assigned from the customer"s outside_salesperson_id field
+    # customer account information assigned from the customer"s customer_account_info field
     # partner_contacts are any contacts from the customer specifically
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -53,3 +53,18 @@ class SaleOrder(models.Model):
         for order in self:
             order.partner_contact_id = contacts.ids
             order.outside_salesperson_id = order.partner_id.outside_salesperson_id
+
+
+    # when the sales order is confirmed, write the new fields into the corresponding stock.picking record
+    def action_confirm(self):
+        res = super().action_confirm()
+
+        for order in self:
+            for picking in order.picking_ids:
+                picking.write({
+                    "comment_text": order.comment_text if order.comment_text else "",
+                    "sale_note_id": order.sale_note_id.id if order.sale_note_id else False,
+                    "charge_type_id": order.charge_type_id.id if order.charge_type_id else False,
+                })
+
+        return res
