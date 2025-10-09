@@ -12,6 +12,7 @@
 
             <xpath expr="//field[@name='backorder_id']" position="after">
                 <field name="charge_type_id" options="{'no_create': True, 'no_open': True}" />
+                <field name="cut_off" />
                 <field name="sale_note_id" options="{'no_create': True, 'no_open': True}" />
                 <field name="comment_text" />
             </xpath>

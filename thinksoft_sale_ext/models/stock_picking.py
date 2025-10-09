@@ -33,6 +33,11 @@ class StockPicking(models.Model):
         readonly=True,
         compute="_compute_charge_type_id",
     )
+    cut_off = fields.Float(
+        related="carrier_id.cut_off",
+        string="Cut Off",
+        help="The time of day when the shipping cutoff occurs, in hours (0-24).",
+    )
 
     # if the sale note changed on the sales order after confirmation,
     # change sale_note_id on the stock picking record
