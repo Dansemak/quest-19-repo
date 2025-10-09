@@ -11,13 +11,10 @@ class SaleFreight(models.Model):
     name = fields.Char()
     active = fields.Boolean(default=True)
 
-    _sql_constraints = [
-        (
-            "unique_sale_freight_name",
-            "UNIQUE(name)",
-            "The frieght charge name must be unique.",
-        ),
-    ]
+    _unique_sale_freight_name = models.Constraint(
+        "UNIQUE(name)",
+        "The frieght charge name must be unique.",
+    )
 
     # setting the record name in ALL CAPS
     @api.model
@@ -74,11 +71,15 @@ class SaleFreight(models.Model):
     def _check_unique_active_name(self):
         for record in self:
             if record.active:
-                existing = self.search_count([
-                    ("name", "=", record.name),
-                    ("active", "=", True),
-                    ("id", "!=", record.id),
-                ])
+                existing = self.search_count(
+                    [
+                        ("name", "=", record.name),
+                        ("active", "=", True),
+                        ("id", "!=", record.id),
+                    ]
+                )
 
                 if existing:
-                    raise ValidationError("The freight charge name must be unique among active records.")
+                    raise ValidationError(
+                        "The freight charge name must be unique among active records."
+                    )

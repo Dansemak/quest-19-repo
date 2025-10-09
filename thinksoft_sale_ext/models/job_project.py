@@ -11,13 +11,10 @@ class JobProject(models.Model):
     name = fields.Char(string="Job Project")
     active = fields.Boolean(default=True)
 
-    _sql_constraints = [
-        (
-            "unique_job_project_name",
-            "UNIQUE(name)",
-            "The Job Project name should be unique!",
-        )
-    ]
+    _unique_job_project_name = models.Constraint(
+        "UNIQUE(name)",
+        "The Job Project name should be unique!",
+    )
 
     # adding "(COPY)" or "(COPY)(n)" to duplicates of a sale.ship record
     def _get_unique_name_copy(self, original_name):

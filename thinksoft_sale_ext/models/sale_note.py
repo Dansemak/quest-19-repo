@@ -11,13 +11,10 @@ class SaleNote(models.Model):
     name = fields.Char("Note")
     active = fields.Boolean(default=True)
 
-    _sql_constraints = [
-        (
-            "unique_sale_note_name",
-            "UNIQUE(name)",
-            "The sale note name must be unique.",
-        ),
-    ]
+    _unique_sale_note_name = models.Constraint(
+        "UNIQUE(name)",
+        "The sale note name must be unique.",
+    )
 
     # setting the record name in ALL CAPS
     @api.model
