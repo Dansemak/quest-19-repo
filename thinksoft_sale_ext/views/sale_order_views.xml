@@ -62,7 +62,11 @@
                 <field name="charge_type_id" options="{'no_create': True}"/>
             </xpath>
 
-            <!-- Sale Order Line Items: Tagging -->
+            <!-- Sale Order Line Items: Tagging, Line Number -->
+
+            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='sequence']" position="after">
+                <field name="seq_no" optional="show"/>
+            </xpath>
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>
