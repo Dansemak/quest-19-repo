@@ -14,53 +14,26 @@ class StockPicking(models.Model):
         string="Note",
         help="Important notes relating to the PICK, PACK, and OUT",
         readonly=True,
-        compute="_compute_sale_note_id",
+        related='sale_id.sale_note_id'
     )
     comment_text = fields.Text(
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
         readonly=True,
-        compute="_compute_comment_text",
+        related="sale_id.comment_text"
     )
-    charge_type_id = fields.Many2one(
+    sale_freight_id = fields.Many2one(
         "sale.freight",
         string="Freight Charge",
         help="Where and how the freight is being charged",
         readonly=True,
-        compute="_compute_charge_type_id",
+        related="sale_id.sale_freight_id"
     )
     cut_off = fields.Float(
         related="carrier_id.cut_off",
         string="Cut Off",
         help="The time of day when the shipping cutoff occurs, in hours (0-24).",
     )
-
-    # if the sale note changed on the sales order after confirmation,
-    # change sale_note_id on the stock picking record
-    api.depends("sale_id.sale_note_id")
-
-    def _compute_sale_note_id(self):
-        for picking in self:
-            if picking.sale_id:
-                picking.sale_note_id = picking.sale_id.sale_note_id
-
-    # if the comment text changed on the sales order after confirmation,
-    # change comment_text on the stock picking record
-    api.depends("sale_id.comment_text")
-
-    def _compute_comment_text(self):
-        for picking in self:
-            if picking.sale_id:
-                picking.comment_text = picking.sale_id.comment_text
-
-    # if the freight charge changed on the sales order after confirmation,
-    # change charge_type_id on the stock picking record
-    api.depends("sale_id.charge_type_id")
-
-    def _compute_charge_type_id(self):
-        for picking in self:
-            if picking.sale_id and picking.picking_type_id.code == "outgoing":
-                picking.charge_type_id = picking.sale_id.charge_type_id
 
     # check that the country of origin is on the product if COO is required
     def button_validate(self):

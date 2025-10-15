@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
         string="Outside Salesperson",
         help="The outside salesperson in charge of sales for this contact",
     )
-    charge_type_id = fields.Many2one(
+    sale_freight_id = fields.Many2one(
         "sale.freight",
         string="Freight Charge",
         help="Where and how the freight is being charged",
@@ -28,13 +28,13 @@ class SaleOrder(models.Model):
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
     )
-    company_end_user_id = fields.Many2one(
-        "end.user",
+    sale_end_user_id = fields.Many2one(
+        "sale.end.user",
         string="End User",
         help="The user/company/project at the end of the sales flow that will inevitably receive these products",
     )
-    job_project_id = fields.Many2one(
-        "job.project",
+    sale_project_id = fields.Many2one(
+        "sale.project",
         string="Job Project",
         help="The name of the partner's project",
     )
@@ -64,7 +64,7 @@ class SaleOrder(models.Model):
                 picking.write({
                     "comment_text": order.comment_text if order.comment_text else "",
                     "sale_note_id": order.sale_note_id.id if order.sale_note_id else False,
-                    "charge_type_id": order.charge_type_id.id if order.charge_type_id else False,
+                    "sale_freight_id": order.sale_freight_id.id if order.sale_freight_id else False,
                 })
 
         return res

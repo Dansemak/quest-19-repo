@@ -11,8 +11,5 @@ class StockMove(models.Model):
         compute="_get_tagging",
         help="Customer Line Item Reference for custom identification",
         readonly=True,
+        related="sale_line_id.tagging"
     )
-
-    def _get_tagging(self):
-        for move in self:
-            move.tagging = move.sale_line_id.tagging        

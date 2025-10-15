@@ -18,7 +18,7 @@
         <field name="name">sale.freight.view.tree</field>
         <field name="model">sale.freight</field>
         <field name="arch" type="xml">
-            <list>
+            <list duplicate="0">
                 <field name="name" />
             </list>
         </field>
@@ -28,7 +28,7 @@
         <field name="name">sale.freight.view.form</field>
         <field name="model">sale.freight</field>
         <field name="arch" type="xml">
-            <form string="">
+            <form duplicate="0">
                 <sheet>
                     <div class="oe_title">
                         <div class="oe_edit_only">
@@ -58,6 +58,7 @@
         id="sale_menu_sale_freight_action_list"
         action="sale_freight_action_list"
         parent="sale.menu_sales_config"
+        groups="group_sale_extended_manager"
         sequence="5"/>
 
 </odoo>

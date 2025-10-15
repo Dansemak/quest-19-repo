@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="end_user_action_list" model="ir.actions.act_window">
-        <field name="name">End Users</field>
-        <field name="res_model">end.user</field>
+    <record id="sale_project_action_list" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">sale.project</field>
         <field name="view_mode">list,form,search</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new End User
+                Create a new Sale Project
             </p><p>
-                Create a new End User
+                Create a new Sale Project
             </p>
         </field>
     </record>
 
-    <record id="end_user_view_tree" model="ir.ui.view">
-        <field name="name">end.user.view.tree</field>
-        <field name="model">end.user</field>
+    <record id="sale_project_view_tree" model="ir.ui.view">
+        <field name="name">sale.project.view.tree</field>
+        <field name="model">sale.project</field>
         <field name="arch" type="xml">
-            <list>
+            <list duplicate="0">
                 <field name="name" />
             </list>
         </field>
     </record>
 
-    <record id="end_user_view_form" model="ir.ui.view">
-        <field name="name">end.user.view.form</field>
-        <field name="model">end.user</field>
+    <record id="sale_project_view_form" model="ir.ui.view">
+        <field name="name">sale.project.view.form</field>
+        <field name="model">sale.project</field>
         <field name="arch" type="xml">
-            <form string="">
+            <form duplicate="0">
                 <sheet>
                     <div class="oe_title">
                         <div class="oe_edit_only">
@@ -44,9 +44,9 @@
         </field>
     </record>
 
-    <record id="end_user_view_search" model="ir.ui.view">
-        <field name="name">end.user.view.search</field>
-        <field name="model">end.user</field>
+    <record id="sale_project_view_search" model="ir.ui.view">
+        <field name="name">sale.project.view.search</field>
+        <field name="model">sale.project</field>
         <field name="arch" type="xml">
             <search>
                 <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
@@ -55,9 +55,10 @@
     </record>
 
     <menuitem
-        id="sale_menu_end_user_action_list"
-        action="end_user_action_list"
+        id="sale_menu_sale_project_action_list"
+        action="sale_project_action_list"
         parent="sale.menu_sales_config"
-        sequence="8"/>
+        groups="group_sale_extended_manager"
+        sequence="7"/>
 
 </odoo>
