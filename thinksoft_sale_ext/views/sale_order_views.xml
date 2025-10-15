@@ -56,8 +56,8 @@
             </xpath>
 
             <xpath expr="//group[@name='order_details']" position="inside">
-                <field name="sale_end_user_id" options="{'no_create': True}"/>
-                <field name="sale_project_id" options="{'no_create': True}"/>
+                <field name="company_user_id" options="{'no_create': True}"/>
+                <field name="job_project_id" options="{'no_create': True}"/>
                 <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
                 <field name="sale_freight_id" options="{'no_create': True}"/>
             </xpath>

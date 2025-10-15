@@ -4,16 +4,16 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class SaleEndUser(models.Model):
-    _name = "sale.end.user"
-    _description = "End User"
+class CompanyUser(models.Model):
+    _name = "company.user"
+    _description = "Company User"
 
-    name = fields.Char(string="End User")
+    name = fields.Char(string="Company User")
     active = fields.Boolean(default=True)
 
-    _unique_sale_end_user_name = models.Constraint(
+    _unique_company_user_name = models.Constraint(
         "UNIQUE(name)",
-        "The End User should be unique!",
+        "The Company User should be unique!",
     )
 
     # adding python level constraint
@@ -31,5 +31,5 @@ class SaleEndUser(models.Model):
 
                 if existing:
                     raise ValidationError(
-                        "The end user must be unique among active records."
+                        "The company user must be unique among active records."
                     )

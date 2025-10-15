@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="sale_project_action_list" model="ir.actions.act_window">
-        <field name="name">Projects</field>
-        <field name="res_model">sale.project</field>
+    <record id="job_project_action_list" model="ir.actions.act_window">
+        <field name="name">Job Projects</field>
+        <field name="res_model">job.project</field>
         <field name="view_mode">list,form,search</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -14,9 +14,9 @@
         </field>
     </record>
 
-    <record id="sale_project_view_tree" model="ir.ui.view">
-        <field name="name">sale.project.view.tree</field>
-        <field name="model">sale.project</field>
+    <record id="job_project_view_tree" model="ir.ui.view">
+        <field name="name">job.project.view.tree</field>
+        <field name="model">job.project</field>
         <field name="arch" type="xml">
             <list duplicate="0">
                 <field name="name" />
@@ -24,9 +24,9 @@
         </field>
     </record>
 
-    <record id="sale_project_view_form" model="ir.ui.view">
-        <field name="name">sale.project.view.form</field>
-        <field name="model">sale.project</field>
+    <record id="job_project_view_form" model="ir.ui.view">
+        <field name="name">job.project.view.form</field>
+        <field name="model">job.project</field>
         <field name="arch" type="xml">
             <form duplicate="0">
                 <sheet>
@@ -44,9 +44,9 @@
         </field>
     </record>
 
-    <record id="sale_project_view_search" model="ir.ui.view">
-        <field name="name">sale.project.view.search</field>
-        <field name="model">sale.project</field>
+    <record id="job_project_view_search" model="ir.ui.view">
+        <field name="name">job.project.view.search</field>
+        <field name="model">job.project</field>
         <field name="arch" type="xml">
             <search>
                 <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
@@ -55,8 +55,8 @@
     </record>
 
     <menuitem
-        id="sale_menu_sale_project_action_list"
-        action="sale_project_action_list"
+        id="sale_menu_job_project_action_list"
+        action="job_project_action_list"
         parent="sale.menu_sales_config"
         groups="group_sale_extended_manager"
         sequence="7"/>

@@ -11,23 +11,23 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='tag_ids']" position="after">
-                <field name="sale_end_user_id" options="{'no_create': True}"/>
-                <field name="sale_project_id" options="{'no_create': True}"/>
+                <field name="company_end_user_id" options="{'no_create': True}"/>
+                <field name="job_project_id" options="{'no_create': True}"/>
             </xpath>
 
         </field>
     </record>
 
     <menuitem
-        id="crm_menu_sale_end_user_action_list"
-        action="sale_end_user_action_list"
+        id="crm_menu_company_user_action_list"
+        action="company_user_action_list"
         parent="crm.crm_menu_config"
         groups="group_sale_extended_manager"
         sequence="7"/>
 
     <menuitem
-        id="crm_menu_sale_project_action_list"
-        action="sale_project_action_list"
+        id="crm_menu_job_project_action_list"
+        action="job_project_action_list"
         parent="crm.crm_menu_config"
         groups="group_sale_extended_manager"
         sequence="7"/>
