@@ -54,17 +54,3 @@ class SaleOrder(models.Model):
             order.partner_contact_id = contacts.ids
             order.outside_salesperson_id = order.partner_id.outside_salesperson_id
 
-
-    # when the sales order is confirmed, write the new fields into the corresponding stock.picking record
-    def action_confirm(self):
-        res = super().action_confirm()
-
-        for order in self:
-            for picking in order.picking_ids:
-                picking.write({
-                    "comment_text": order.comment_text if order.comment_text else "",
-                    "sale_note_id": order.sale_note_id.id if order.sale_note_id else False,
-                    "sale_freight_id": order.sale_freight_id.id if order.sale_freight_id else False,
-                })
-
-        return res

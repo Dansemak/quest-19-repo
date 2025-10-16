@@ -8,7 +8,6 @@ class StockMove(models.Model):
     # to avoid hard dependancies between extension modules
 
     tagging = fields.Char(
-        compute="_get_tagging",
         help="Customer Line Item Reference for custom identification",
         readonly=True,
         related="sale_line_id.tagging"
