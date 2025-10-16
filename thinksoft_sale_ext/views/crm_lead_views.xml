@@ -11,8 +11,8 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='tag_ids']" position="after">
-                <field name="company_user_id" options="{'no_create': True}"/>
-                <field name="job_project_id" options="{'no_create': True}"/>
+                <field name="customer_end_user_id" options="{'no_create': True}"/>
+                <field name="customer_job_project_id" options="{'no_create': True}"/>
             </xpath>
 
         </field>

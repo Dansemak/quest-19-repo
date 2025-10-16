@@ -28,12 +28,12 @@ class SaleOrder(models.Model):
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
     )
-    company_user_id = fields.Many2one(
+    customer_end_user_id = fields.Many2one(
         "company.user",
         string="End User",
         help="The user/company/project at the end of the sales flow that will inevitably receive these products",
     )
-    job_project_id = fields.Many2one(
+    customer_job_project_id = fields.Many2one(
         "job.project",
         string="Job Project",
         help="The name of the partner's project",

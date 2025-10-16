@@ -14,7 +14,7 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.order_id:
                 # getting all of the lines in the order
-                lines = line.order_id.order_line.sorted(key=lambda l: (l.sequence, l.id))
+                lines = line.order_id.order_line.filtered(lambda i: not i.display_type).sorted(key=lambda l: (l.sequence, l.id))
 
                 # finding the position of this line and assigning its line number
                 for i, o_l, in enumerate(lines, start=1):
