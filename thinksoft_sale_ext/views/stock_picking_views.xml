@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- adding relational fields to stock.picking views in the thinksoft_sale_ext module
+    to avoid hard dependancies between extension modules -->
+
+    <record id="view_picking_form_inherit_stock" model="ir.ui.view">
+        <field name="name">stock.picking.view.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" />
+                <field name="cut_off" />
+                <field name="sale_note_id" options="{'no_create': True, 'no_open': True}" />
+                <field name="comment_text" />
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="is_coo_required" />
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids']//list//field[@name='product_id']" position="after">
+                <field name="tagging" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
