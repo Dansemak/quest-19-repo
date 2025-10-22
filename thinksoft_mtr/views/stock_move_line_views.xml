@@ -1,0 +1,60 @@
+<odoo>
+        
+        <record id="view_mtr_template_barcode_list" model="ir.ui.view">
+            <field name="name">mtr.template.barcode.list</field>
+            <field name="model">mtr.template</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="heat_number"/>
+                    <field name="product_id"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_mtr_template_barcode_kanban" model="ir.ui.view">
+            <field name="name">mtr.template.barcode.kanban</field>
+            <field name="model">mtr.template</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="mb4">
+                                    <strong><field name="heat_number"/></strong>
+                                </div>
+                                <div class="mb4">
+                                    <field name="product_id"/>
+                                </div>
+                                <div class="mb4">
+                                    <field name="name"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+    <record id="stock_move_line_product_selector_thinksoft_mtr" model="ir.ui.view">
+        <field name="name">stock.product.selector.thinksoft.mtr</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock_barcode.stock_move_line_product_selector"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//div[@name='location_dest']" position="after">
+                <div class="row">
+                    <div class="col-12 col-md-6 my-2 d-flex align-items-baseline">
+                        <i class="fa fa-fw fa-lg fa-fire text-center mr-3" title="MTR"/>
+                        <field name="mtr_template_ids" context="{'kanban_view_ref': 'thinksoft_mtr.view_mtr_template_barcode_kanban', 'list_view_ref': 'thinksoft_mtr.view_mtr_template_barcode_tree'}"/>
+                    </div>
+                </div>
+                
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
