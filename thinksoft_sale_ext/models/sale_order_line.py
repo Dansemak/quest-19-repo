@@ -9,7 +9,7 @@ class SaleOrderLine(models.Model):
     tagging = fields.Char(help="Customer Line Item Reference for custom identification or referencing of product in accordance to the customer")
 
     # determining the line number of the sale.order.line record
-    @api.depends('order_id', "order_id.order_line", "sequence")
+    @api.depends("order_id", "order_id.order_line", "sequence")
     def _compute_line_number(self):
         for line in self:
             if line.order_id:
