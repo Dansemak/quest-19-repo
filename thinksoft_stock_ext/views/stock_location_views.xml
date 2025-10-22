@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_location_form_inherit_stock" model="ir.ui.view">
+        <field name="name">stock.location.view.form.inherit</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+
+            <!-- making the name and location_id fields readonly for users outside of the inventory extended admin group -->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">not is_inventory_admin</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="readonly">not is_inventory_admin</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
