@@ -96,7 +96,7 @@ class NcrClaim(models.Model):
     # Products
     is_pull_button_clicked = fields.Boolean(default=False)
     product_line_ids = fields.One2many(
-        comodel_name="ncr.product_line", inverse_name="ncr_claim_id", string="Products"
+        comodel_name="ncr.product.line", inverse_name="ncr_claim_id", string="Products"
     )
     amount_total = fields.Monetary(
         string="Total", store=True, readonly=True, compute="_compute_amount_all"

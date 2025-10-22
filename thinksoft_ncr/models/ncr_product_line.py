@@ -2,7 +2,7 @@ from odoo import api, fields, models
 
 
 class NcrProductLine(models.Model):
-    _name = "ncr.product_line"
+    _name = "ncr.product.line"
     _description = "NCR Product Line"
 
     ncr_claim_id = fields.Many2one("ncr.claim", string="NCR")
