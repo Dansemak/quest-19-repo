@@ -95,7 +95,7 @@ class NcrClaim(models.Model):
 
     # Products
     is_pull_button_clicked = fields.Boolean(default=False)
-    product_line = fields.One2many(
+    product_line_ids = fields.One2many(
         comodel_name="ncr.product_line", inverse_name="ncr_claim_id", string="Products"
     )
     amount_total = fields.Monetary(
@@ -146,10 +146,10 @@ class NcrClaim(models.Model):
 
     # Compute methods
 
-    @api.depends("product_line.product_subtotal")
+    @api.depends("product_line_ids.product_subtotal")
     def _compute_amount_all(self):
         for claim in self:
-            total = sum(line.product_subtotal for line in claim.product_line)
+            total = sum(line.product_subtotal for line in claim.product_line_ids)
             currency = claim.currency_id or self.env.company.currency_id
             claim.amount_total = currency.round(total)
             if claim.amount_total > 1000.00:
@@ -161,11 +161,11 @@ class NcrClaim(models.Model):
 
     # Buttons
 
-    def button_populate_product_line_sale(self):
+    def button_populate_product_line_ids_sale(self):
         if self.sale_order_id:
             sale_order_line = self.sale_order_id.order_line
             for line in sale_order_line:
-                self.product_line = [
+                self.product_line_ids = [
                     (
                         0,
                         0,
@@ -185,11 +185,11 @@ class NcrClaim(models.Model):
         else:
             return
 
-    def button_populate_product_line_purchase(self):
+    def button_populate_product_line_ids_purchase(self):
         if self.purchase_order_id:
             purchase_order_line = self.purchase_order_id.order_line
             for line in purchase_order_line:
-                self.product_line = [
+                self.product_line_ids = [
                     (
                         0,
                         0,
@@ -209,8 +209,8 @@ class NcrClaim(models.Model):
         else:
             return
 
-    def button_clear_product_line(self):
-        self.product_line.unlink()
+    def button_clear_product_line_ids(self):
+        self.product_line_ids.unlink()
         self.is_pull_button_clicked = False
 
     def button_close(self):

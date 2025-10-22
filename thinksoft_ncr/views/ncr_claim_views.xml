@@ -66,11 +66,11 @@
                         <page string="Products" name="products">
                             <group>
                                 <fields name="is_pull_button_clicked" invisible="1"/>
-                                <button name="button_populate_product_line_sale" string="Pull from Sale" type="object" class="oe_highlight" invisible="not sale_order_id or is_pull_button_clicked or state != 'open'"/>
-                                <button name="button_populate_product_line_purchase" string="Pull from PO" type="object" class="oe_highlight" invisible="not purchase_order_id or is_pull_button_clicked or state != 'open'"/>
-                                <button name="button_clear_product_line" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_populate_product_line_ids_sale" string="Pull from Sale" type="object" class="oe_highlight" invisible="not sale_order_id or is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_populate_product_line_ids_purchase" string="Pull from PO" type="object" class="oe_highlight" invisible="not purchase_order_id or is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_clear_product_line_ids" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
                             </group>
-                            <field name="product_line" nolabel="1" readonly="state != 'open'">
+                            <field name="product_line_ids" nolabel="1" readonly="state != 'open'">
                                 <list create="false" editable="bottom">
                                     <field name="ncr_claim_id" column_invisible="1"/>
                                     <field name="sale_order_id" column_invisible="1"/>
