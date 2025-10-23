@@ -5,7 +5,6 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     seq_no = fields.Integer(string="#", compute="_compute_line_number", readonly=True, store=True)
-    product_price = fields.Float(compute="_compute_product_price", string="Price")
     unit_weight = fields.Float(related="product_id.weight", help="The weight of each product", string="Weight")
     weight_uom = fields.Char(related="product_id.weight_uom_name", help="the weight unit of measure", string="Unit")
     subtotal_weight = fields.Float(compute="_compute_subtotal_weight", help="The weight of the all the products by quanity", string="Total Weight")
@@ -27,13 +26,6 @@ class StockMove(models.Model):
                         break
             else:
                 move.seq_no = 0
-
-    def _compute_product_price(self):
-        for move in self:
-            if move.sale_line_id:
-                move.product_price = move.sale_line_id.price_unit
-            else:
-                move.product_price = move.product_id.lst_price
 
     def _compute_subtotal_weight(self):
         for move in self:

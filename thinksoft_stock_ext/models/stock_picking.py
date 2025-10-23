@@ -21,7 +21,6 @@ class StockPicking(models.Model):
         copy=False,
     )
 
-    # these fields should only be visible on pickings with existing sales orders
     client_order_ref = fields.Char(related="sale_id.client_order_ref")
     salesperson_id = fields.Many2one("res.users", related="sale_id.user_id", string="Salesperson")
     partner_customer_id = fields.Many2one("res.partner", related="sale_id.partner_id", string="Customer")
