@@ -14,10 +14,15 @@ class StockMoveLine(models.Model):
     @api.depends('product_id')
     def _compute_available_locations_ids(self):
         for line in self:
-            locations = {}
+            if not line.product_id:
+                line.available_locations_ids = [(5, 0, 0)]
+                continue
 
-            for record in line.product_stock_quant_ids:
-                if record.location_id:
-                    locations.append(record.location_id.id)
+            stock_quants = self.env["stock.quant"].search([
+                ("product_id", "=", line.product_id.id),
+                ("quantity", ">", "0"),
+            ])
 
-            line.available_location_ids = [(6, 0, locations)] if locations else False
+            locations = stock_quants.mapped("location_id")
+
+            line.available_locations_ids = [(6, 0, locations.ids)]

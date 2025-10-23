@@ -15,4 +15,22 @@
         </field>
     </record>
 
+    <!-- adding the available_locations_ids to the location_id domain in the stock_barcode stock.move.line product select view -->
+    <record id="stock_move_line_product_selector_inherit_stock_barcode" model="ir.ui.view">
+        <field name="name">stock.move.line.view.form.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock_barcode.stock_move_line_product_selector"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='location_src']//field[@name='location_id']" position="before">
+                <field name="available_locations_ids" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//div[@name='location_src']//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('id', 'child_of', parent_location_id), ('id', 'in', available_locations_ids)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
