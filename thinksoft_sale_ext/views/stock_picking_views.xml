@@ -25,10 +25,6 @@
                 <field name="tagging" optional="show"/>
             </xpath>
 
-            <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="partner_contact_id" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
-            </xpath>
-
         </field>
     </record>
 
