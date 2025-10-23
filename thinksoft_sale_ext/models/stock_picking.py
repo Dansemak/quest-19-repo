@@ -35,6 +35,7 @@ class StockPicking(models.Model):
         help="The time of day when the shipping cutoff occurs, in hours (0-24).",
     )
     picking_type_sequence_code = fields.Char(related='picking_type_id.sequence_code')
+    partner_contact_id = fields.Many2one("res.partner", related="sale_id.partner_contact_id", string="Buyer")
 
     # check that the country of origin is on the product if COO is required
     def button_validate(self):
