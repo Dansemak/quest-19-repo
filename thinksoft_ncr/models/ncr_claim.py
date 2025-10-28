@@ -106,13 +106,15 @@ class NcrClaim(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get("name", _("New")) == _("New"):
-                vals["name"] = self.env["ir.sequence"].next_by_code("ncr.claim") or _("New")
-        return super(NcrClaim, self).create(vals_list)
-    
+                vals["name"] = self.env["ir.sequence"].next_by_code("ncr.claim") or _(
+                    "New"
+                )
+        return super().create(vals_list)
+
     # Note Fields
-    non_conformance_notes = fields.Text('Non-Conformance', required=True)
-    root_cause_analysis_notes = fields.Text('Root Cause Analysis', required=True)
-    corrective_actions_notes = fields.Text('Corrective Actions', required=True)
+    non_conformance_notes = fields.Text("Non-Conformance", required=True)
+    root_cause_analysis_notes = fields.Text("Root Cause Analysis", required=True)
+    corrective_actions_notes = fields.Text("Corrective Actions", required=True)
 
     # Onchange methods
 
@@ -162,34 +164,36 @@ class NcrClaim(models.Model):
     # Buttons
 
     def button_populate_product_line_ids_sale(self):
-        if self.sale_order_id:
-            sale_order_line = self.sale_order_id.order_line
-            for line in sale_order_line:
-                self.product_line_ids = [
-                    (
-                        0,
-                        0,
-                        {
-                            "ncr_claim_id": self.id,
-                            "sale_order_id": line.order_id.id,
-                            "sale_order_line_id": line.id,
-                            "product_id": line.product_id.id,
-                            "product_line_desc": line.name,
-                            "product_qty": line.product_qty,
-                            "product_cost": line.purchase_price,
-                            "currency_id": line.currency_id.id,
-                        },
-                    )
-                ]
-            self.is_pull_button_clicked = True
-        else:
+        if not self.sale_order_id:
             return
+        sale_order_line = self.sale_order_id.order_line
+        for line in sale_order_line:
+            self.product_line_ids = [
+                (
+                    0,
+                    0,
+                    {
+                        "ncr_claim_id": self.id,
+                        "sale_order_id": line.order_id.id,
+                        "sale_order_line_id": line.id,
+                        "product_id": line.product_id.id,
+                        "product_line_desc": line.name,
+                        "product_qty": line.product_qty,
+                        "product_uom_id": line.product_uom_id.id,
+                        "product_cost": line.price_unit,
+                        "currency_id": line.currency_id.id,
+                    },
+                )
+            ]
+        self.is_pull_button_clicked = True
 
     def button_populate_product_line_ids_purchase(self):
-        if self.purchase_order_id:
-            purchase_order_line = self.purchase_order_id.order_line
-            for line in purchase_order_line:
-                self.product_line_ids = [
+        if not self.purchase_order_id:
+            return
+        purchase_order_line = self.purchase_order_id.order_line
+        for line in purchase_order_line:
+            self.product_line_ids = [
+                (
                     (
                         0,
                         0,
@@ -200,14 +204,14 @@ class NcrClaim(models.Model):
                             "product_id": line.product_id.id,
                             "product_line_desc": line.name,
                             "product_qty": line.product_qty,
+                            "product_uom_id": line.product_uom_id.id,
                             "product_cost": line.price_unit,
                             "currency_id": line.currency_id.id,
                         },
                     )
-                ]
-            self.is_pull_button_clicked = True
-        else:
-            return
+                )
+            ]
+        self.is_pull_button_clicked = True
 
     def button_clear_product_line_ids(self):
         self.product_line_ids.unlink()

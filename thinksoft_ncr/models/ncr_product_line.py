@@ -15,6 +15,7 @@ class NcrProductLine(models.Model):
     product_id = fields.Many2one("product.product", string="Product")
     product_line_desc = fields.Text(string="Description")
     product_qty = fields.Float(string="Quantity")
+    product_uom_id = fields.Many2one("uom.uom", string="Unit")
     product_cost = fields.Float(string="Cost")
     currency_id = fields.Many2one(
         related="ncr_claim_id.currency_id", store=True, string="Currency", readonly=True
@@ -26,7 +27,15 @@ class NcrProductLine(models.Model):
         store=True,
     )
 
-    @api.depends("product_qty")
+    @api.depends("product_qty", "product_cost")
     def _compute_product_subtotal(self):
         for line in self:
             line.product_subtotal = line.product_cost * line.product_qty
+
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        for line in self:
+            if line.product_id:
+                line.product_line_desc = None
+                line.product_uom_id = line.product_id.uom_id
+                line.product_cost = line.product_id.standard_price
