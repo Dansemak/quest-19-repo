@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- All of the ir.actions.reports live here -->
+    <!--********************************* COO *********************************-->
+  
+  <template id="coo_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <h1>CERTIFICATION OF ORIGIN</h1>
+        <!--
+              As language is not required for all objects.
+              So for now, If partner is available in object then pass
+              that partner's language.
+          -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-call="thinksoft_reports.coo_template_document" t-lang="doc.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in doc.fields_get()">
+          <t t-call="thinksoft_reports.coo_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+  <template name="Report header and footer standard" id="report_external_layout_coo"> 
+      <div class="header pe-5" style=""> 
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+           .header,.footer { 
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+              }
+            .top-address{
+                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+              }
+            .title{
+                font-family:'Oswald', 
+                sans-serif !important;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                text-align: left !important;
+                line-height: 1.2 !important;
+              }
+            .barcode{
+                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+              }
+        </style>    
+        <div class="container">
+          <div class="row mb-2">
+            <!-- ********************************* LOGO
+            ********************************************* -->
+            <div class="col-4">
+              <div class="">
+                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
+                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
+                  title="" aria-describedby="tooltip269202" />
+              </div>
+            </div>
+            <!-- ************************************** ADDRESS *************************** -->
+            <div class="col-3 top-address">
+              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                780.461.7009</p>
+            </div>
+            <!-- ************************************** TITLE
+            ******************************************** -->
+            <div class="col-5 d-flex justify-content-end top-address" style=" ">
+              <div style="padding:0!important; text-align:center; ">
+                <!--**********************
+                BARCODE *********************-->
+                <span t-field="doc.name"
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                  style="" />
+                <br />
+                <div class="barcode" t-field="doc.name" />
+              </div>
+              <!--**********************
+              TITLE *********************-->
+              <div class="title text-uppercase">
+                CERTIFICATION <br/> OF ORIGIN 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <t t-raw="0" />
+      </div>
+      <div class="footer "
+        style="font-size:11px; width:100%; padding-top:8px;">
+        <div class="container ">
+          <div class="row">
+            <div class="col-12">
+              <span class="text-left" style="">Print Date:</span>
+              <span class="ms-2"
+                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                style="margin-right: 250px; text-align: right;" />
+              <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+              <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                  style="text-align: right;" class="topage" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+  <template id="coo_template_document">
+    <div class="main_page">
+      <t t-call="thinksoft_reports.report_external_layout_coo">
+        <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+        <!--
+          As language is not required for all objects.
+          So for now, If partner is available in object then pass
+          that partner's language.
+        -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+        </t>
+        <div class="oe_structure" style="">
+          <div class="container">
+            <div class="row">
+             <!-- ************************************** VENDOR ************************* -->
+              <div class="info1 col-6" >
+                  <table class="" style="border-collapse: collapse; ">
+                      <tbody>
+                        <tr>
+                          <th style="border: 1px solid #525659; border-top-color: #525659; text-align:left; ">Vendor:
+                          </th>
+                        </tr>
+                        <tr>
+                          <td class="address" style="">
+                            <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                <!-- <table class="" style="border-collapse: collapse;">
+                    <tbody>
+                      <tr>
+                        <th style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;">Vendor:</th>
+                      </tr>
+                      <tr>
+                        <td style="border-bottom-color: 1px solid #fff;">
+                          <address t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+              </div>
+           
+              <div class="info col-6">
+                <table class="text-uppercase" style="border-collapse: collapse;">
+                  <tbody style="">
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">ORDER DATE</span>
+                      </th>
+                      <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
+                        <span class="" t-field="doc.sale_id.date_order" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                        <span class="">SALES ORDER</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
+                        <span class="" t-field="doc.sale_id" />
+                      </td>
+                    </tr>
+                    
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">CUSTOMER REF(PO)</span>
+                      </th>
+                      <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
+                        <span class="" t-field="doc.origin" />
+                      </td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="items col-md-12" style="margin-top:10px;">
+                <table class="" style="width:100%;">
+                  <!-- <caption>List of users</caption> -->
+                  <thead>
+                    <tr>
+                      <th scope="col">DESCRIPTION OF GOOD(S)</th>
+                      <th scope="col">COUNTRY OF ORIGIN</th>
+                    </tr>
+                  </thead>
+                  <!-- <tbody t-foreach="doc.move_lines" t-as="line"> -->
+                   <tbody t-foreach="doc.move_line_ids" t-as="line">
+                    <tr>
+                      <td style="border-botttom-color: #525659 !important;">
+                        <!-- <span t-field="line.product_desc" /> -->
+                         <span t-field="line.product_id.description_sale" />
+                      </td>
+                      <td style="border-botttom-color: #525659 !important;">
+                          <span t-field="line.product_id.country_of_origin" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table" style="margin-top:10px;">
+                  <tbody>
+                    <tr>
+                      <td class="declaration" style="font-style:italic !important;font-family: 'Sansation',sans-serif; ">
+                        <span  style="font-weight:bold;">I CERTIFY THAT:</span><br/>
+                            THE GOODS DESCRIBED IN THIS DOCUMENT QUALIFY AS ORIGINATING AND THE INFORMATION CONTAINED IN THIS DOCUMENT IS TRUE AND ACCURATE. I ASSUME RESPONSIBILITY FOR PROVING SUCH REPRESENTATIONS AND AGREE TO MAINTAIN AND PRESENT UPON REQUEST OR TO MAKE AVAILABLE DURING A VERIFICATION VISIT, DOCUMENTATION NECESSARY TO SUPPORT THIS CERTIFICATION.
+                      </td>
+                    </tr>
+                    <tr>
+                       <td colspan="" style="font-weight:bold;text-transform: none; font-size:13px !important;">
+                          <span style="">Authorized by</span><br/>
+                          Jenna Peevey<br/>
+                          QHSE Manager<br/>
+                          Quest Sealing Solutions
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>      
+        </div>
+      </t>
+    </div>
+  </template>
+  </data>
+</odoo>
