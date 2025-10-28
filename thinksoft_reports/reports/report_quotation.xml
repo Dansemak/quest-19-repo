@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
- 
+
   <template id="report_thinksoft_quotation_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
@@ -23,14 +23,14 @@
      <div class="header pe-5">
       <style>
           @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+           .header,.footer {
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
                 line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -99,7 +99,7 @@
       <t t-call="thinksoft_reports.report_external_layout_quotation">
         <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
         <div class="oe_structure" style="">
-         
+
           <div class="container">
             <!-- ############################  BODY  ######################### -->
             <div class="row">
@@ -204,7 +204,7 @@
                         <span class="">Contact</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <span class="" t-field="o.partner_contact_id.name"/>
+                        <!-- <span class="" t-field="o.partner_contact_id.name"/> -->
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
@@ -212,7 +212,7 @@
                         <span class="">Phone</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <span class="" t-field="o.partner_contact_id.phone"/>
+                        <!-- <span class="" t-field="o.partner_contact_id.phone"/> -->
                       </td>
                     </tr>
                   </tbody>
@@ -262,7 +262,7 @@
                       </tr>
                     </thead>
                     <!-- ######################################################################### -->
-                    <tbody t-foreach="o.order_line" t-as="line" >                        
+                    <tbody t-foreach="o.order_line" t-as="line" >
                       <tr style="height:20pt; page-break-inside: avoid !important;">
                         <!--********* line # *****************-->
                          <td style=" text-align: center;" rowspan="2">
@@ -270,41 +270,41 @@
                         </td>
                         <!--********* Part # *****************-->
                         <td style=" border-bottom-style:hidden; padding-bottom: 0;">
-                          <span t-field="line.product_id"/>                          
+                          <span t-field="line.product_id"/>
                         </td>
                         <!--********** QUANTITY **********-->
                         <td style=" border-right-style:hidden; text-align: center;" rowspan="2">
-                          <span t-esc="round(line.product_uom_qty,2)"/>                          
+                          <span t-esc="round(line.product_uom_qty,2)"/>
                         </td>
                         <!--******************* (UOM) *******************-->
                         <td style=" text-align: center;" rowspan="2">
-                          <span t-field="line.product_uom_id"/>                         
+                          <span t-field="line.product_uom_id"/>
                         </td>
-                        
+
                         <!--********** AVAILABILITY **********-->
                         <!-- <td style=" text-align: center;" rowspan="2"><span t-field="line.state"/> -->
                         <td style=" text-align: center;" rowspan="2">
                         <span t-field="line.state"/>
-                          <!-- <span t-field="line.string_availability_info"/> -->                         
+                          <!-- <span t-field="line.string_availability_info"/> -->
                         </td>
                         <!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
                         <!-- UNIT PRICE -->
                         <td style=" text-align: center;" rowspan="2">
                           <span style="margin-right:2px;">$</span>
                           <!-- <span t-esc="'{:.3f}'.format(line.dis_price_unit)"/>  -->
-                          <span t-esc="'{:.3f}'.format(line.price_unit)"/> 
+                          <span t-esc="'{:.3f}'.format(line.price_unit)"/>
                           <!-- <span t-esc="round(line.dis_price_unit,2)"/> -->
                         </td>
                         <!--*************** EXTENDED PRICE ******************-->
                         <td style=" text-align: center;" rowspan="2">
-                          <span t-field="line.price_subtotal"/>                         
+                          <span t-field="line.price_subtotal"/>
                         </td>
                       </tr>
                       <!-- ############################### DESCRIPTION ROW ############################################## -->
                       <tr style="">
                       <!--***************  Description **********************-->
                         <td style=" vertical-align:super; padding-top:0!important;">
-                          <span t-field="line.name"/>                         
+                          <span t-field="line.name"/>
                         </td>
                       </tr>
                     </tbody>
@@ -348,7 +348,7 @@
                       </td>
                       <td style="font-weight: bold; width:115px; white-space: nowrap; text-align: right; background-color: #f1f1f1!important;">
                         <span t-field="o.amount_untaxed"/>
-                        
+
                       </td>
                     </tr>
                     <!-- ################################################################################### -->
@@ -376,7 +376,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
           <!-- <div class=""> -->
           <!-- <t t-call="thinksoft_so_ext.report_external_layout_without_header_footer"> -->
