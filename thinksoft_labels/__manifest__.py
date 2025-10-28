@@ -11,6 +11,7 @@
     "version": "19.0.0.0.1",
     "depends": ["base"],
     "data": [
+        "reports/reports_paperformats.xml",
         # "reports/ir_actions_report.xml",
     ],
     "installable": True,
