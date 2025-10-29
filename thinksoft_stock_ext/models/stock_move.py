@@ -5,9 +5,6 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     seq_no = fields.Integer(string="#", compute="_compute_line_number", readonly=True, store=True)
-    unit_weight = fields.Float(related="product_id.weight", help="The weight of each product", string="Weight")
-    weight_uom = fields.Char(related="product_id.weight_uom_name", help="the weight unit of measure", string="Unit")
-    subtotal_weight = fields.Float(compute="_compute_subtotal_weight", help="The weight of the all the products by quanity", string="Total Weight")
     country_of_origin = fields.Many2one('res.country', related='product_id.country_of_origin', readonly=True)
     hs_code = fields.Char(related="product_id.hs_code")
 
@@ -26,7 +23,3 @@ class StockMove(models.Model):
                         break
             else:
                 move.seq_no = 0
-
-    def _compute_subtotal_weight(self):
-        for move in self:
-            move.subtotal_weight = move.unit_weight * move.product_qty

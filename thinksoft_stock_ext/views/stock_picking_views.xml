@@ -14,9 +14,9 @@
 
             <!-- adding the Picker, Packer, Shipper, and Team to Header -->
             <xpath expr="//field[@name='origin']" position="after">
-                <field name="picker_id" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
-                <field name="packer_id" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
-                <field name="shipper_id" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
+                <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" />
+                <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" />
+                <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" />
                 <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
             </xpath>
 
