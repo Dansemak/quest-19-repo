@@ -50,7 +50,7 @@
                     <group name="main_info_group">
                         <group>
                             <field name="category" readonly="create_date != False"/>
-                            <field name="product_id" readonly="create_date != False"/>
+                            <field name="product_id" readonly="create_date != False" options='{"no_create": True}'/>
                             <field name="heat_number" readonly="create_date != False"/>
                         </group>
                     </group>
