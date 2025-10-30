@@ -1,0 +1,30 @@
+{
+    "name": "MTR",
+    "description": """
+        Metal Treatment Report (MTR) module for Odoo.
+    """,
+    "author": "Thinksoft Inc.",
+    "website": "http://www.thinksoft.ca",
+    "license": "LGPL-3",
+    "category": "Addons Custom/Thinksoft MTR",
+    "application": True,
+    "version": "0.1",
+    "depends": ["base", "mail", "stock"],
+    "data": [
+        "security/mtr_groups.xml",
+        "security/ir.model.access.csv",
+        "views/mtr_template_views.xml",
+        "views/mtr_bar_stud_views.xml",
+        "views/mtr_nut_views.xml",
+        "views/mtr_rtj_views.xml",
+        "views/mtr_menu_views.xml",
+        "views/stock_picking_views.xml",
+        "views/stock_move_line_views.xml",
+        "reports/mtr_bar_stud_templates.xml",
+        "reports/mtr_nut_templates.xml",
+        "reports/mtr_rtj_templates.xml",
+        "reports/mtr_base_templates.xml",
+        "reports/ir_actions_report.xml",
+        "data/ir_sequence_data.xml",
+    ],
+}
