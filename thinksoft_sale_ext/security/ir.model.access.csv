@@ -1,9 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sale_freight_manager,sale.freight.manager,model_sale_freight,thinksoft_sale_ext.group_sale_extended_manager,1,1,1,1
-access_sale_freight_user,sale.freight.user,model_sale_freight,thinksoft_sale_ext.group_sale_extended_user,1,0,0,0
+access_sale_freight_user,sale.freight.user,model_sale_freight,base.group_user,1,0,0,0
 access_sale_note_manager,sale.note.manager,model_sale_note,thinksoft_sale_ext.group_sale_extended_manager,1,1,1,1
-access_sale_note_user,sale.note.user,model_sale_note,thinksoft_sale_ext.group_sale_extended_user,1,0,0,0
+access_sale_note_user,sale.note.user,model_sale_note,base.group_user,1,0,0,0
 access_job_project_manager,job.project.manager,model_job_project,thinksoft_sale_ext.group_sale_extended_manager,1,1,1,1
-access_job_project_user,job.project.user,model_job_project,thinksoft_sale_ext.group_sale_extended_user,1,0,0,0
+access_job_project_user,job.project.user,model_job_project,base.group_user,1,0,0,0
 access_company_user_manager,company.user.manager,model_company_user,thinksoft_sale_ext.group_sale_extended_manager,1,1,1,1
-access_company_user_user,company.user.user,model_company_user,thinksoft_sale_ext.group_sale_extended_user,1,0,0,0
+access_company_user_user,company.user.user,model_company_user,base.group_user,1,0,0,0

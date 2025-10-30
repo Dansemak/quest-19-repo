@@ -1,0 +1,113 @@
+ /* <style> */
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+        
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+        
+        
+        td:empty::after,td:empty::before{ content: "\00a0"; line-height: 0.9; } 
+    
+
+        /* <!-- .title table td {
+        line-height:normal;
+            border-color:#fff;
+            padding: 0!important;
+        } --> */
+        .main_page,.header,.footer { 
+            font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+            /* font-size: 12px;   */
+        
+        }
+        table tr th, table tr td {
+            font-weight: normal;             
+            line-height: 1.2; 
+            text-transform: uppercase; 
+            padding: 8px !important; 
+            vertical-align: middle;
+        }        
+        .info1 { 
+            padding-right:20px !important; 
+        }
+        .info1 table tr th { 
+            text-align: left !important; 
+        } 
+        .info table, .info1 table { 
+            font-size: 12px !important;
+            width:100%; 
+            text-transform: uppercase; 
+            border: 1px solid #525659; 
+        }
+         
+        .info table tr th, .info1 table tr th {
+            font-size: 12px !important; 
+            line-height: 0.5; 
+            overflow: hidden; 
+            white-space: nowrap; 
+            height:5px; 
+            background-color: #F2F2F2;
+            vertical-align:middle; 
+        } 
+        .info table tr td, .info1 table tr td { 
+            line-height: 0.5; 
+            overflow: hidden;
+            white-space: nowrap; 
+            vertical-align:middle; 
+        } 
+        .note table tr th { 
+            line-height: 0.5; 
+            background-color: #DEEAF6; 
+            vertical-align:middle; 
+            border:1px solid #525659; 
+            font-size:13px !important; 
+        } 
+        .note table tr td { 
+            border: 1px solid #525659;
+            font-size:13px !important; 
+        }         
+        .items table tr{ 
+            page-break-inside: avoid !important; 
+            width: 100% !important;          
+        }      
+        .items table thead tr th {
+            font-size: 12px; 
+            background-color:#F2F2F2; 
+            white-space: nowrap; 
+            text-align: center; 
+            border: 1px solid #525659; 
+        } 
+        .items table tr td {
+            font-size: 12px;  
+            border: 1px solid #525659; 
+            line-height:normal; 
+        } 
+        .items table thead { 
+            display: table-header-group !important; 
+            page-break-inside: avoid;
+            display: block;
+        }
+        .items table tfoot { 
+            display: table-row-group !important;
+        }
+        .items table tbody:before  {
+            content: "-" !important;
+            display: block !important;
+            line-height: 1em !important;
+            color:white; 
+        }
+        .conditions h1,.conditions h2 {  
+            font-size: 13px !important;
+            font-weight: 900 !important;
+        }
+        .conditions {
+            font-size: 12px !important;     
+        }
+        td.address,td.declaration {
+            line-height: 1.5 !important;
+            padding: 8px !important;
+        }
+        table.line-items { 
+            font-size: 8px !important; 
+        }
+        .page_break { 
+            page-break-before: always; 
+        }
