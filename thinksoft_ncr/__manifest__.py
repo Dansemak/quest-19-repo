@@ -8,7 +8,7 @@
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft NCR",
     "application": True,
-    "version": "0.1",
+    "version": "19.0.1.0",
     "depends": ["base", "mail", "sale", "purchase", "hr"],
     "data": [
         "security/ncr_groups.xml",
