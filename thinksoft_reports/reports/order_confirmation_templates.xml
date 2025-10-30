@@ -233,7 +233,7 @@
             <div class="row items">
               <div class="col-md-12 col-xs-12">
                 <div class="">
-                  <table style="width:100%; ">
+                  <table class="line-items" style="width:100%; ">
                     <thead style="">
                       <div style="clear:both;">
                         <tr>

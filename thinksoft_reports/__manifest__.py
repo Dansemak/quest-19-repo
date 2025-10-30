@@ -20,6 +20,8 @@
         "reports/order_confirmation_templates.xml",
         "reports/oxygen_clean_certificate_templates.xml",
         "reports/ir_actions_report.xml",
+        "reports/receiving_list_templates.xml",
+        "reports/quality_control_trailer_templates.xml",
     ],
     "installable": True,
     "application": False,

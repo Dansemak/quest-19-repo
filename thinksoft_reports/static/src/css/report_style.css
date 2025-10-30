@@ -105,8 +105,8 @@
             line-height: 1.5 !important;
             padding: 8px !important;
         }
-        table.line-items { 
-            font-size: 8px !important; 
+        .line-items tr th, .line-items tr td {
+            font-size: 10px !important; 
         }
         .page_break { 
             page-break-before: always; 

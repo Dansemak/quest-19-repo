@@ -32,7 +32,7 @@
             .title{
                 font-family:'Oswald',
                 sans-serif !important;
-                font-size: 24px !important;
+                font-size: 23px !important;
                 font-weight: bold !important;
                 text-align: left !important;
                 line-height: 1.2 !important;
@@ -68,7 +68,7 @@
                         <font style=" font-weight:bolder; ">Sales Order</font>
                       </t>
                       <t t-else="">
-                        <font style=" font-weight:bolder; ">Quotation</font>
+                        <font style=" font-weight:bolder;" >Quotation</font>
                       </t>
                     </div>
           </div>
@@ -229,7 +229,7 @@
             <div class="row items ">
               <div class="col-lg-12 " style="width:100%; ">
                 <div class="">
-                  <table style="vertical-align:middle; width:100%; font-size:8px !important;" cellspacing="0" class="line-items">
+                  <table class="line-items" style="vertical-align:middle; width:100%; font-size:8px !important;" cellspacing="0" >
                     <thead style="" class="">
                       <tr style="height:23pt; ">
                         <th style="width:33pt;" rowspan="2" bgcolor="">
