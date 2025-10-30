@@ -7,6 +7,11 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
+                <field name="category_department_id"/>
+                <field name="resolved_by"/>
+                <field name="create_date"/>
+                <field name="amount_total"/>
+                <field name="state"/>
             </list>
         </field>
     </record>
