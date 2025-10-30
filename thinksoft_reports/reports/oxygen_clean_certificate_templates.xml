@@ -301,7 +301,7 @@
             <div class="row items">
               <div class="col-md-12 col-xs-12">
                 <div class="">
-                  <table style="width:100%; ">
+                  <table class="line-items" style="width:100%; ">
                     <thead>
                       <tr>
                         <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color:#525659; width: 40px;">Line</th>
