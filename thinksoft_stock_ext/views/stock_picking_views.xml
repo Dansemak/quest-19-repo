@@ -31,9 +31,6 @@
                 <field name="seq_no" />
             </xpath>
             <xpath expr="//field[@name='move_ids']//field[@name='product_uom']" position="after">
-                <field name="unit_weight" optional="show"/>
-                <field name="weight_uom" optional="show" />
-                <field name="subtotal_weight" optional="show" />
                 <field name="country_of_origin" optional="show" />
                 <field name="hs_code" optional="show" />
             </xpath>
