@@ -11,7 +11,11 @@
     "version": "19.0.0.0.1",
     "depends": ["base"],
     "data": [
-        # "reports/ir_actions_report.xml",
+        "reports/reports_paperformats.xml",
+        "reports/ir_actions_report.xml",
+        "reports/print_label_1_25x4_templates.xml",
+        "reports/shipping_label_3x4_templates.xml",
+        "reports/shipping_label_4x4_templates.xml",
     ],
     "installable": True,
     "application": False,

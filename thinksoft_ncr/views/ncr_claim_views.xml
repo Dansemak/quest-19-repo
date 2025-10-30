@@ -7,6 +7,11 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
+                <field name="category_department_id"/>
+                <field name="resolved_by"/>
+                <field name="create_date"/>
+                <field name="amount_total"/>
+                <field name="state"/>
             </list>
         </field>
     </record>
@@ -66,11 +71,11 @@
                         <page string="Products" name="products">
                             <group>
                                 <fields name="is_pull_button_clicked" invisible="1"/>
-                                <button name="button_populate_product_line_sale" string="Pull from Sale" type="object" class="oe_highlight" invisible="not sale_order_id or is_pull_button_clicked or state != 'open'"/>
-                                <button name="button_populate_product_line_purchase" string="Pull from PO" type="object" class="oe_highlight" invisible="not purchase_order_id or is_pull_button_clicked or state != 'open'"/>
-                                <button name="button_clear_product_line" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_populate_product_line_ids_sale" string="Pull from Sale" type="object" class="oe_highlight" invisible="not sale_order_id or is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_populate_product_line_ids_purchase" string="Pull from PO" type="object" class="oe_highlight" invisible="not purchase_order_id or is_pull_button_clicked or state != 'open'"/>
+                                <button name="button_clear_product_line_ids" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
                             </group>
-                            <field name="product_line" nolabel="1" readonly="state != 'open'">
+                            <field name="product_line_ids" nolabel="1" readonly="state != 'open'">
                                 <list create="false" editable="bottom">
                                     <field name="ncr_claim_id" column_invisible="1"/>
                                     <field name="sale_order_id" column_invisible="1"/>
@@ -80,7 +85,8 @@
                                     <field name="product_id" readonly="1" force_save="1"/>
                                     <field name="product_line_desc" readonly="1" force_save="1"/>
                                     <field name="product_qty"/>
-                                    <field name="product_cost" readonly="1" force_save="1"/>
+                                    <field name="product_uom_id" readonly="1" force_save="1"/>
+                                    <field name="product_cost"/>
                                     <field name="currency_id"/>
                                     <field name="product_subtotal"/>
                                 </list>

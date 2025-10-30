@@ -1,6 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
 
-    <!-- All of the ir.actions.reports live here -->
+        <!-- ******************************** Sale Order/Quote **************************************** -->
+        <record id="action_report_quotation" model="ir.actions.report">
+            <field name="name">Sale Order/Quote</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.report_thinksoft_quotation_template</field>
+            <field name="report_file">thinksoft_reports.report_thinksoft_quotation_template</field>
+            <field name="print_report_name">(object.name)</field>
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Certificate Of Compliance ********************************* -->
+        <record id="action_report_certificate_of_compliance" model="ir.actions.report">
+            <field name="name">Certificate Of Compliance</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.certificate_of_compliance_template</field>
+            <field name="report_file">thinksoft_reports.certificate_of_compliance_template</field>
+            <field name="print_report_name">'Certificate Of Compliance'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+         <!-- ********************************* Commercial Invoice ********************************* -->
+        <record id="action_report_commercial_invoice" model="ir.actions.report">
+            <field name="name">Commercial Invoice</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.commercial_invoice_template</field>
+            <field name="report_file">thinksoft_reports.commercial_invoice_template</field>
+            <field name="print_report_name">'Commercial Invoice'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* COO ********************************* -->
+        <record id="action_report_coo" model="ir.actions.report">
+            <field name="name">COO</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.coo_template</field>
+            <field name="report_file">thinksoft_reports.coo_template</field>
+            <field name="print_report_name">'COO'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Manufacture Copy *********************************-->
+        <record id="action_report_manufacture_copy" model="ir.actions.report">
+            <field name="name">Manufacture Copy</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.manufacture_copy_template</field>
+            <field name="report_file">thinksoft_reports.manufacture_copy_template</field>
+            <field name="print_report_name">'Manufacture Copy'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+         <!-- ********************************* Order Confirmation *********************************-->
+        <record id="action_report_order_confirmation" model="ir.actions.report">
+            <field name="name">Order Confirmation</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.order_confirmation_template</field>
+            <field name="report_file">thinksoft_reports.order_confirmation_template</field>
+            <field name="print_report_name">'Order Confirmation'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Oxygen Clean Certificate *********************************-->
+        <record id="action_report_oxygen_clean_certificate" model="ir.actions.report">
+            <field name="name">Oxygen Clean Certificate</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.oxygen_clean_certificate_template</field>
+            <field name="report_file">thinksoft_reports.oxygen_clean_certificate_template</field>
+            <field name="print_report_name">'Oxygen Clean Certificate'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Receiving List *********************************-->
+        <record id="action_report_receiving_list" model="ir.actions.report">
+            <field name="name">Receiving List</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.receiving_list_template</field>
+            <field name="report_file">thinksoft_reports.receiving_list_template</field>
+            <field name="print_report_name">'Receiving List'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Quality Control Trailer *********************************-->
+        <record id="action_report_quality_control_trailer" model="ir.actions.report">
+            <field name="name">Quality Control Trailer</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.quality_control_trailer_template</field>
+            <field name="report_file">thinksoft_reports.quality_control_trailer_template</field>
+            <field name="print_report_name">'Quality Control Trailer'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
 
+    </data>
 </odoo>
