@@ -182,7 +182,7 @@
             </div>
             <div class="row">
               <div class="items col-md-12" style="margin-top:10px;">
-                <table class="" style="width:100%;">
+                <table class="line-items" style="width:100%;">
                   <!-- <caption>List of users</caption> -->
                   <thead>
                     <tr>

@@ -86,6 +86,30 @@
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
         </record>
+        <!-- ********************************* Receiving List *********************************-->
+        <record id="action_report_receiving_list" model="ir.actions.report">
+            <field name="name">Receiving List</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.receiving_list_template</field>
+            <field name="report_file">thinksoft_reports.receiving_list_template</field>
+            <field name="print_report_name">'Receiving List'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Quality Control Trailer *********************************-->
+        <record id="action_report_quality_control_trailer" model="ir.actions.report">
+            <field name="name">Quality Control Trailer</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.quality_control_trailer_template</field>
+            <field name="report_file">thinksoft_reports.quality_control_trailer_template</field>
+            <field name="print_report_name">'Quality Control Trailer'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
 
     </data>
 </odoo>

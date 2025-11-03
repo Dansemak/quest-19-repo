@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <template id="shipping_label_3x4_template">
+        <t t-call="web.html_container">
+            <h1>Shipping Label 3x4</h1>
+            <t t-foreach="docs" t-as="doc">
+                <!--
+                    As language is not required for all objects.
+                    So for now, If partner is available in object then pass
+                    that partner's language.
+                -->
+                <t t-if="'partner_id' in doc.fields_get()">
+                    <t t-call="thinksoft_labels.shipping_label_3x4_template_document" t-lang="doc.partner_id.lang"/>
+                </t>
+                <t t-if="'partner_id' not in doc.fields_get()">
+                    <t t-call="thinksoft_labels.shipping_label_3x4_template_document"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template name="Report without header and footer standard" id="report_external_layout_shipping_label_3x4">
+        <div class="header">
+        </div>
+        <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <!-- <t t-call="quest_DO_reports.address_layout"/> -->
+            <t t-raw="0"/>
+        </div>
+        <div class="footer">
+        </div>
+    </template>
+
+    <!-- <template name="Report without header and footer" id="report_external_layout_without_header_footer">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-call="thinksoft_labels.report_external_layout_without_header_footer_standard">
+            <t t-raw="0"/>
+        </t>
+
+    </template> -->
+
+
+    <template id="shipping_label_3x4_template_document">
+        <t t-call="thinksoft_labels.report_external_layout_shipping_label_3x4">
+            <!--
+                        As language is not required for all objects.
+                        So for now, If partner is available in object then pass
+                        that partner's language.
+                    -->
+            <t t-if="'partner_id' in doc.fields_get()">
+                <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
+            </t>
+            <div class="oe_structure" style="font-size:12px;">
+                <!-- <div class="container-fluid triple_block mt16 mb16 report-container" data-name="Triple"> -->
+                <!-- <div class="row"> -->
+                <!-- <div class="col-4"> -->
+                <!-- <div class="t_block mt8 mb8">
+                  <img class="img img-responsive report-well" style="width: 300px; background: #dddddd;" data-name="&lt; img / &gt;" src="/quest_DO_reports/static/img/questlogo.png" data-original-title="" title="" aria-describedby="tooltip269202"/>
+                </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="" style="white-space: nowrap;">
+                                <div class="text-uppercase" data-name="Address Format" style="font-size:12px;">
+                                    <span class="text-capitalize" style="">
+                                        <font style="font-weight:bold;">ship to :</font>
+                                    </span>
+                                    <div class="address" style="line-height: 1.5; font-weight:normal!important;">
+                                        <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-3" style="white-space: normal;">
+                    <div class="row">
+                        <!-- <div class="col-5" style="white-space: nowrap;"> -->
+                            <div class="d-flex justify-content-between">
+                                <div class="col-6" data-name="label: field">
+                                    <span class="text-bold">PO #:</span>
+                                    <b>
+                                        <!-- <span class=" text-uppercase text-bolder ml-2" t-field="doc.client_order_ref"/> -->
+                                         <span class=" text-uppercase  ms-2" t-field="doc.origin"/>
+                                    </b>
+                                </div>
+                                <div class="col-6" data-name="label: field">
+                                    <span class="text-bold">S.O.No.:</span>
+                                    <b>
+                                        <span class="text-uppercase ms-2" t-field="doc.sale_id"/>
+                                    </b>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-6"> -->
+                            <div class="d-flex justify-content-between">
+                                <div class="col-4 text-uppercase">
+                                    <span class="text-bold">
+                                        PIECES:
+                                    </span>
+                                        <!-- <span class="ml-2" t-field="doc.no_pieces"/> -->
+                                </div>
+                                <div class="col-8 text-uppercase ">
+                                    <span class="text-bold">
+                                        SHIP VIA:
+                                    </span>
+                                    <b>
+                                        <!-- <span class="text-uppercase ml-2" t-field="doc.sale_id.sale_ship_via"/> -->
+                                         <span class="text-uppercase ms-2" t-field="doc.carrier_id.name"/>
+                                    </b>
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    </data>
+</odoo>
