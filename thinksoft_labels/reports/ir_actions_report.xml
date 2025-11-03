@@ -36,5 +36,6 @@
             <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat"/>
             <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
         </record>
+        
     </data>
 </odoo>

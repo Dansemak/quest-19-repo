@@ -103,9 +103,10 @@
     </template>
 
     <template  id="manufacture_copy_template_document">
-      <div class="main_page" >
+      
         <t t-call="thinksoft_reports.report_external_layout_manufacture_copy">
           <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+        <div class="main_page" >
           <!--
                       As language is not required for all objects.
                       So for now, If partner is available in object then pass
@@ -352,9 +353,9 @@
               </div>
             </div>
 
-          </div>
-        </t>
+          </div>      
       </div>
+       </t>
     </template>
     </data>
 </odoo>

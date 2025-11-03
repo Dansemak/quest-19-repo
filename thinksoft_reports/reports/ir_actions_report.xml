@@ -110,6 +110,54 @@
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
         </record>
+        <!-- ********************************* Invoice Template Edit *********************************-->
+        <record id="action_report_invoice_thinksoft" model="ir.actions.report">
+            <field name="name">Customer Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.invoice_template</field>
+            <field name="report_file">thinksoft_reports.invoice_template</field>
+            <field name="print_report_name">(object.name)</field>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!--^********************************* Packing Slip *********************************-->
+         <record id="action_report_packing_slip" model="ir.actions.report">
+            <field name="name">Packing Slip</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.packing_slip_template</field>
+            <field name="report_file">thinksoft_reports.packing_slip_template</field>
+            <field name="print_report_name">'Packing Slip'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!--^********************************* Packing Slip With Price *********************************-->
+        <record id="action_report_packing_slip_with_price" model="ir.actions.report">
+            <field name="name">Packing Slip With Price</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.packing_slip_with_price_template</field>
+            <field name="report_file">thinksoft_reports.packing_slip_with_price_template</field>
+            <field name="print_report_name">'Packing Slip With Price'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!--^********************************* Pick List *********************************-->
+        <record id="action_report_pick_list" model="ir.actions.report">
+            <field name="name">Pick List</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.pick_list_template</field>
+            <field name="report_file">thinksoft_reports.pick_list_template</field>
+            <field name="print_report_name">'Pick List'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>      
+        </record>                   
 
     </data>
 </odoo>

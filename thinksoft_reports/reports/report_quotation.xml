@@ -22,10 +22,6 @@
   <template name="Report with header and footer standard" id="report_external_layout_quotation">
      <div class="header pe-5">
       <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer {
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
-              }
             .top-address{
                 line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
@@ -94,10 +90,15 @@
     </div>
   </template>
   <template id="report_thinksoft_quotation_document">
+  <t t-call="thinksoft_reports.report_external_layout_quotation">
+    <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+      <t t-if="'partner_id' in o.fields_get()">
+      <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+      </t>
+      <!-- //////////////////////////////////////// MAIN PAGE /////////////////////////////////// -->
     <div class="main_page" style="">
     <!-- <div class="page"> -->
-      <t t-call="thinksoft_reports.report_external_layout_quotation">
-        <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+      
         <div class="oe_structure" style="">
 
           <div class="container">
@@ -346,7 +347,7 @@
                       <td style="width:110px; white-space: nowrap;text-align: right; background-color: #f1f1f1!important; ">
                         <span >SUBTOTAL</span>
                       </td>
-                      <td style="font-weight: bold; width:115px; white-space: nowrap; text-align: right; background-color: #f1f1f1!important;">
+                      <td style="font-weight: bold; width:101px; white-space: nowrap; text-align: right;">
                         <span t-field="o.amount_untaxed"/>
 
                       </td>
@@ -357,7 +358,7 @@
                       <td style="text-align: right; background-color: #f1f1f1!important; ">
                         <span style="" >GST (5%)</span>
                       </td>
-                      <td style=" white-space: nowrap; text-align: right; background-color: #f1f1f1!important; ">
+                      <td style=" white-space: nowrap; text-align: right;  ">
                         <span t-field="o.amount_tax"/>
                       </td>
                     </tr>
@@ -368,8 +369,10 @@
                         <span style="">TOTAL </span>
                       </td>
                       <!-- <td style="white-space: nowrap; text-align: center; background-color: #f1f1f1!important; "><span t-esc="o.amount_total + o.amount_tax"/> -->
-                      <td style="font-weight: bold; white-space: nowrap; text-align: right; background-color: #f1f1f1!important;">
-                        <span t-field="o.amount_total"/>
+                      <td style="font-weight: bold; white-space: nowrap; text-align: right; ">
+                        <strong>
+                          <span t-field="o.amount_total"/>
+                        </strong>
                       </td>
                     </tr>
                   </table>
@@ -465,10 +468,11 @@
               </div>
             </div>
           </div>
-        </div>
-      </t>
+        </div>   
     </div>
-    <!-- ENE OF MAIN PAGE -->
+     <!-- END OF MAIN PAGE -->
+    </t>
+   
   </template>
    </data>
 </odoo>
