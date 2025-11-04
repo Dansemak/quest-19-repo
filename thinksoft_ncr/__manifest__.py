@@ -17,6 +17,8 @@
         "views/ncr_product_line_views.xml",
         "views/ncr_category_views.xml",
         "views/ncr_menu_views.xml",
+        "reports/ncr_templates.xml",
+        "reports/ir_actions_report.xml",
         "data/ir_sequence_data.xml",
     ],
 }

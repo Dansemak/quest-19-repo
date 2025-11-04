@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ncr_template">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="thinksoft_ncr.ncr_template_document"/>
+        </t>
+      </t>
+    </template>
+
+    <template id="report_external_layout_ncr">
+      <div class="header row">
+        <div class="col-4"> 
+          <img src="/thinksoft_mtr/static/img/quest-logo.jpg" style="width:250px;"/>
+        </div>
+        <div class="col-4">
+          <p style="line-height:1; font-size:14px;">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
+        </div>
+        <div class="title col-4">
+          <table style="width:100%;">
+            <tbody style="border:0;">
+              <tr style="border:0;">
+                <td style="border:0;">
+                  <img t-att-src="'/report/barcode/Code128/%s' % o.name" style="width:200px; height:30px; margin-left:-100px;"/>
+                  <br/>
+                  <div t-field="o.name" style="font-size:18px; margin-top:4px; font-weight:bold; margin-left:-65px;"/>
+                </td>
+                <td style="border:0;">
+                  <font style="font-size:18px; font-weight:bold;">NON-CONFORMANCE REPORT</font>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="article">
+        <t t-raw="0"/>
+      </div>
+      <div class="footer container" style="font-size:11px;">
+        <span>Print Date:</span>
+        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"/>
+        <span style="margin-left:225px;">www.questgasket.com</span>
+        <div style="float:right;">Page: <span class="page"/> of <span class="topage"/></div>
+      </div>
+    </template>
+
+    <template id="ncr_template_document">
+      <t t-call="thinksoft_ncr.report_external_layout_ncr">
+        <main>
+          <style>
+            table,
+            tr,
+            td,
+            th {
+                font-size: 10px;
+                font-weight: normal;
+                font-family: Arial, Helvetica, sans-serif;
+                padding: 8px !important;
+                vertical-align: middle;
+            }
+
+            .items table thead tr th {
+                background-color: #f1f1f1 !important;
+                white-space: nowrap;
+                text-align: center;
+            }
+            .items table tr td {
+                line-height: normal;
+                padding: 10px;
+                page-break-inside: avoid !important;
+                page-break-after: auto !important;
+            }
+
+            .info table tr th {
+                font-size: 11px;
+                line-height: 1;
+                text-align: right;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 5px;
+                background-color: #F2F2F2;
+                vertical-align: middle;
+            }
+            .info table tr td {
+                line-height: 1;
+                overflow: hidden;
+                white-space: normal;
+                height: 5px;
+                font-size: 11px;
+                vertical-align: middle;
+            }
+          </style>
+
+          <div class="container">
+            <div class="row">
+              <!-- ******************** ORDER DETAILS *************************-->
+              <div class="info col-6">
+                <table class="text-uppercase" style="width:100%;">
+                  <thead>
+                    <th colspan="2" style="text-align:center; background-color:#a5d7eb">ORDER DETAILS</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Issue Type</th>
+                      <td><span t-field="o.issue_type"/></td>
+                    </tr>
+                    <tr>
+                      <t t-if="o.issue_type == 'vendor'">
+                        <th>Purchase Order</th>
+                        <td><span t-field="o.purchase_order_id"/></td>
+                      </t>
+                      <t t-if="o.issue_type == 'customer'">
+                        <th>Sales Order</th>
+                        <td><span t-field="o.sale_order_id"/></td>
+                      </t>
+                    </tr>
+                    <tr>
+                      <th>
+                        <t t-if="o.issue_type == 'vendor'">
+                          <span>Receipt</span>
+                        </t>
+                        <t t-if="o.issue_type == 'customer'">
+                          <span>Delivery Order</span>
+                        </t>
+                      </th>
+                      <td>
+                        <span t-field="o.picking_id"/>
+                      </td>
+                    </tr>
+                    <t t-if="o.issue_type == 'customer'">
+                      <tr>
+                        <th>
+                          <span>Invoice</span>
+                        </th>
+                        <td>
+                          <!-- <span t-field="o.invoice_id"/> -->
+                        </td> 
+                      </tr>
+                    </t>
+                    <th>
+                      <t t-if="o.partner_source == 'customer'">
+                        <span>Customer</span>
+                      </t>
+                      <t t-if="o.partner_source == 'vendor'">
+                        <span>Vendor</span>
+                      </t>
+                    </th>
+                    <td>
+                      <span t-field="o.partner_id"/>
+                    </td>
+                    <t t-if="o.partner_source == 'customer'">
+                      <tr>
+                        <th colspan="2" style="text-align:center;">
+                          <span>Address</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                        </td>
+                      </tr>
+                    </t>
+                  </tbody>
+                </table>
+              </div>
+              <!-- ********************* CLAIM DETAILS ******************** -->
+              <div class="info col-6">
+                <table class="text-uppercase" style="width:100%;">
+                  <thead>
+                    <th colspan="2" style="text-align:center; background-color:#a5d7eb;">CLAIM DETAILS</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><span>Created on</span></th>
+                      <td><span t-field="o.create_date"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Resolved By</span></th>
+                      <td><span t-field="o.resolved_by"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Source</span></th>
+                      <td><span t-field="o.category_source_id"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Department</span></th>
+                      <td><span t-field="o.category_department_id"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Section</span></th>
+                      <td><span t-field="o.category_section_id"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Issue</span></th>
+                      <td><span t-field="o.category_issue_id"/></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="container items" style="margin:20px 0 20px;">
+            <table style="width:100%;">
+              <thead>
+                <tr style="height:23pt;">
+                  <th style="width:33pt;">
+                    <span>LINE</span>
+                  </th>
+                  <th style="width:300px;">
+                    <span>PRODUCT</span>
+                  </th>
+                  <th>
+                    <span>DESCRIPTION</span>
+                  </th>
+                  <th>
+                    <span>QUANTITY</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody t-foreach="o.product_line_ids" t-as="line">
+                <tr style="height:20pt; page-break-inside:avoid !important;">
+                  <!--********** line ***************** -->
+                  <td style="text-align:center;">
+                    <span t-esc="line_index + 1"/>
+                  </td>
+                  <!--************* PRODUCT *************-->
+                  <td>
+                    <span t-field="line.product_id"/>
+                  </td>
+                  <!--************* DESCRIPTION *************-->
+                  <td>
+                    <span t-field="line.product_line_desc"/>  
+                  </td>
+                  <!--************* QUANTITY *************-->
+                  <td style="text-align: center;">
+                    <span t-field="line.product_qty"/>  
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="container info">
+            <table style="width:100%;">
+              <thead>
+                <th style="text-align:center;">NON-CONFORMACE NOTES</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span t-field="o.non_conformance_notes"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="container info" style="margin:20px 0 20px;">
+            <table style="width:100%;">
+              <thead>
+                <th style="text-align:center;">ROOT CAUSE ANALYSIS NOTES</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span t-field="o.root_cause_analysis_notes"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="container info">
+            <table style="width:100%;">
+              <thead>
+                <th style="text-align:center;">CORRECTIVE ACTION NOTES</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span t-field="o.corrective_actions_notes"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </main>
+      </t>
+    </template>
+
+</odoo>
