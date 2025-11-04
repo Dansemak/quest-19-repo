@@ -86,6 +86,8 @@ class NcrClaim(models.Model):
     )
     partner_id = fields.Many2one("res.partner", string="Customer/Vendor")
     partner_shipping_id = fields.Many2one("res.partner", string="Delivery Address")
+    picking_id = fields.Many2one("stock.picking", string="Transfer")
+    invoice_id = fields.Many2one('account.move', string="Invoice")
 
     # Category fields
     category_source_id = fields.Many2one("ncr.category", string="Source")
