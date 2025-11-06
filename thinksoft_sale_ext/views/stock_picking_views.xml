@@ -11,7 +11,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='backorder_id']" position="after">
-                <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']"/>
                 <field name="cut_off" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
                 <field name="sale_note_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
                 <field name="comment_text" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
@@ -26,7 +26,12 @@
             </xpath>
 
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="partner_contact_id" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                <field name="partner_contact_id"
+                    string="Buyer"
+                    invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN'] or not sale_id"/>
+                <field name="partner_contact_id"
+                    string="Seller"
+                    invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN'] or not purchase_id"/>
             </xpath>
 
         </field>
