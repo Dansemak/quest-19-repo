@@ -22,6 +22,7 @@
         "views/delivery_carrier_views.xml",
         "views/stock_picking_views.xml",
         "views/crm_lead_views.xml",
+        "views/account_move_views.xml",
     ],
     "installable": True,
     "application": False,
