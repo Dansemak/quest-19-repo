@@ -12,6 +12,7 @@
     "depends": ["base", "account"],
     "data": [
         "views/account_batch_payment_views.xml",
+        "views/account_move_views.xml",
     ],
     "installable": True,
     "application": False,
