@@ -18,11 +18,16 @@
 
 
         <template id="print_label_1_25x4_template_document">
-        <div class="page" style="">
+        <div class="main-page" style="">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                .container {
+                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                }
+            </style>
             <t t-if="'partner_id' in doc.fields_get()">
             <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
             </t>
-            <link rel="stylesheet" t-att-href="'/thinksoft_labels/static/src/css/report_style.css'"/>
             <div class="oe_structure" style="white-space: nowrap; font-family: 'Roboto Condensed','Sansation',  sans-serif ;">        
                 <div class="container" style="" >
                     <div class="col-6" style="float: left; font-family:sans-serif;font-size: 12px; margin-bottom: 10px; font-weight: bold;">Item Code:</div>

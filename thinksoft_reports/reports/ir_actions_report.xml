@@ -157,6 +157,18 @@
             <field name="binding_model_id" ref="stock.model_stock_picking"/>
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>      
+        </record>
+        <!--^********************************* Payment Remittance *********************************-->
+        <record id="action_report_payment_remittance" model="ir.actions.report">
+            <field name="name">Payment Remittance</field>
+            <field name="model">account.payment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.report_thinksoft_payment_remittance</field>
+            <field name="report_file">thinksoft_reports.report_thinksoft_payment_remittance</field>
+            <field name="print_report_name">'Payment Remittance'</field>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
         </record>                   
 
     </data>

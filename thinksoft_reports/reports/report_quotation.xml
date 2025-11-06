@@ -22,12 +22,15 @@
   <template name="Report with header and footer standard" id="report_external_layout_quotation">
      <div class="header pe-5">
       <style>
+              @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+            .header,.footer { 
+                  font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+                }
             .top-address{
                 line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald',
-                sans-serif !important;
+                font-family:'Oswald',sans-serif !important;              
                 font-size: 23px !important;
                 font-weight: bold !important;
                 text-align: left !important;

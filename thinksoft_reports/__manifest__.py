@@ -26,6 +26,7 @@
         "reports/packing_slip_templates.xml",
         "reports/packing_slip_with_price_templates.xml",
         "reports/pick_list_templates.xml",
+        "reports/payment_remittance_templates.xml",
     ],
     "installable": True,
     "application": False,
