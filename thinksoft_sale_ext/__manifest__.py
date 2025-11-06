@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
     "version": "19.0.0.0.1",
-    "depends": ["base", "sale", "delivery", "stock", 'sale_stock', 'crm',],
+    "depends": ["base", "sale", "delivery", "stock", "sale_stock", "crm", "purchase"],
     "data": [
         'security/sale_security_groups.xml',
         'security/ir.model.access.csv',
@@ -22,7 +22,7 @@
         "views/delivery_carrier_views.xml",
         "views/stock_picking_views.xml",
         "views/crm_lead_views.xml",
-        "views/account_move_views.xml",
+        "views/purchase_order_views.xml",
     ],
     "installable": True,
     "application": False,
