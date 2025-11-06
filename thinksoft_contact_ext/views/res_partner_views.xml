@@ -5,6 +5,11 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+            <!-- add mobile and fax fields after the PST field in the "Contact" tab-->
+            <xpath expr="//field[@name='website']" position="before">
+                <field name="mobile"/>
+                <field name="fax"/>
+            </xpath>
             <!-- change the label of the internal user field to "Customer Service Rep" -->
             <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="attributes">
                 <attribute name="string">Customer Service Rep</attribute>
