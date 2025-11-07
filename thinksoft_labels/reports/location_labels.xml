@@ -88,7 +88,7 @@
               .location {
                 display:block;
                 margin:0 auto;
-                                                                                                                                                                                                                    <!-- max-width: 480px; -->
+                                                                                                                                                                                                                                                <!-- max-width: 480px; -->
                 max-width: 87%;
                 direction: rtl;
                 overflow: hidden;
