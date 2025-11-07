@@ -1,3 +1,5 @@
+import re
+
 from odoo import api, fields, models
 
 
@@ -21,14 +23,26 @@ class ResPartner(models.Model):
         help="The sales team responsible for this contact",
     )
 
-    display_name = fields.Char(compute="_compute_display_name", store=True)
+    # display_name = fields.Char(compute="_compute_display_name", store=True)
 
     # formatting the partner_id fields (partner_invoice_id, partner_shipping_id)
     # without the parent_id in the string
 
-    @api.depends("name", "type", "company_name", "parent_id", "email")
+    @api.depends(
+        "complete_name",
+        "email",
+        "vat",
+        "state_id",
+        "country_id",
+        "commercial_company_name",
+    )
     @api.depends_context(
-        "show_address_only", "show_address", "show_email", "html_format"
+        "show_address",
+        "partner_show_db_id",
+        "show_email",
+        "show_vat",
+        "lang",
+        "formatted_display_name",
     )
     def _compute_display_name(self):
         for partner in self:
@@ -61,4 +75,6 @@ class ResPartner(models.Model):
             if self._context.get("html_format"):
                 name = name.replace("\n", "<br/>")
 
-            partner.display_name = name
+            # Remove extra empty lines
+            name = re.sub(r"\s+\n", "\n", name)
+            partner.display_name = name.strip()
