@@ -15,11 +15,12 @@
         } --> */
         .main_page,.header,.footer { 
             font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+            font-weight: 250 !important;  
             /* font-size: 12px;   */
-        
         }
+      
         table tr th, table tr td {
-            font-weight: normal;             
+            /* font-weight: normal;              */
             line-height: 1.2; 
             text-transform: uppercase; 
             padding: 8px !important; 
@@ -111,3 +112,13 @@
         .page_break { 
             page-break-before: always; 
         }
+        .total table {
+            width: 100%; 
+            padding: 0; 
+            margin: 0; 
+            font-size: 13px; 
+            /* background-color: #f1f1f1 !important;  */
+            border: 1px solid #525659;
+        }
+        .total table th{ text-align: right !important; background-color: #f1f1f1 !important;  }
+        .total table td{ text-align: right !important; }

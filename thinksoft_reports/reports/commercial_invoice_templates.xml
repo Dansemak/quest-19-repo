@@ -25,10 +25,6 @@
     <template name="Report header and footer standard" id="report_external_layout_commercial_invoice"> 
       <div class="header pe-5" style=""> 
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
-              }
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
@@ -106,9 +102,9 @@
     </template>
 
   <template  id="commercial_invoice_template_document">
-    <div class="main_page" >
-      <t t-call="thinksoft_reports.report_external_layout_commercial_invoice">
+  <t t-call="thinksoft_reports.report_external_layout_commercial_invoice">
         <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+    <div class="main_page" >
       <!--
                   As language is not required for all objects.
                   So for now, If partner is available in object then pass
@@ -351,13 +347,13 @@
                   </td>
                   <td style="width:115px; white-space: nowrap;text-align: right; background-color: #f1f1f1!important; "><span>SUBTOTAL </span>
                 </td>
-                <td style="width:105px; white-space: nowrap; text-align: center; background-color: #f1f1f1!important;"><span t-field="doc.sale_id.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- SUBTOTAL (CAD) -->
+                <td style="width:105px; white-space: nowrap; text-align: center;"><span t-field="doc.sale_id.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- SUBTOTAL (CAD) -->
                 </td>
                 </tr>
                 <!-- ###################################################################################################################################################################################### -->
                 <tr style="white-space: nowrap; height:29pt"><td style="text-align: right; background-color: #f1f1f1!important; "><span style="">GST (5%)</span>
                 </td>
-                <td style="white-space: nowrap; text-align: center; background-color: #f1f1f1!important; "><span t-field="doc.sale_id.amount_tax" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- GST (5%) -->
+                <td style="white-space: nowrap; text-align: center; "><span t-field="doc.sale_id.amount_tax" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- GST (5%) -->
                 </td>
                 </tr>
                 <!-- ###################################################################################################################################################################################### -->
@@ -365,8 +361,8 @@
                   <td style="white-space: nowrap; text-align: right; background-color: #f1f1f1!important;"><span style="">TOTAL (<span t-field="doc.sale_id.currency_id"/>) </span>
                 </td>
                 <!-- <td style="white-space: nowrap; text-align: center; background-color: #f1f1f1!important; "><span t-esc="o.amount_total + o.amount_tax"/> -->
-                <td style=" white-space: nowrap; text-align: center; background-color: #f1f1f1!important;"><span t-field="doc.sale_id.amount_total" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- TOTAL (CAD) -->
-                </td>
+                <td style=" white-space: nowrap; text-align: center; "><strong><span t-field="doc.sale_id.amount_total" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- TOTAL (CAD) -->
+                </strong></td>
                 </tr>
                 </table>
               </div>
@@ -375,8 +371,9 @@
         </div>
 
         </div>
-      </t>
+
     </div>
+    </t>
   </template>
     </data>
 </odoo>
