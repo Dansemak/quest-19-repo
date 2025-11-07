@@ -11,8 +11,7 @@
                     that partner's language.
                 -->
                 <t t-if="'partner_id' in doc.fields_get()">
-                    <t t-call="thinksoft_labels.shipping_label_4x4_template_document"
-                        t-lang="doc.partner_id.lang" />
+                    <t t-call="thinksoft_labels.shipping_label_4x4_template_document" t-lang="doc.partner_id.lang" />
                 </t>
                 <t t-if="'partner_id' not in doc.fields_get()">
                     <t t-call="thinksoft_labels.shipping_label_4x4_template_document" />
@@ -39,17 +38,12 @@
             <div class="container" style="font-size:12px; margin:0 !important; ">
                 <div class="row" style="">
                     <div class="col-6">
-                        <span class="text-uppercase"
-                            style="font-size:12px; font-weight:bold;">
+                        <span class="text-uppercase" style="font-size:12px; font-weight:bold;">
                             Cust:</span>
-                        <span class="code"
-                            style="margin-left:2px;color:#43464f;font-size:10px;"
-                            t-field="doc.sale_id.partner_id.name" />
+                        <span class="code" style="margin-left:2px;color:#43464f;font-size:10px;" t-field="doc.sale_id.partner_id.name" />
                     </div>
                     <div class="col-6">
-                        <img class="img float-end" style="width:150px; display:block; "
-                            data-name="&lt; img / &gt;"
-                            src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />                           
+                        <img class="img float-end" style="width:150px; display:block; " data-name="&lt; img / &gt;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
                     </div>
                 </div>
             </div>
@@ -61,26 +55,26 @@
 
     <template id="shipping_label_4x4_template_document">
         <t t-call="thinksoft_labels.report_external_layout_shipping_label_4x4">
-        <link rel="stylesheet" t-att-href="'/thinksoft_labels/static/src/css/report_style.css'"/>
+            <link rel="stylesheet" t-att-href="'/thinksoft_labels/static/src/css/report_style.css'" />
             <t t-if="'partner_id' in doc.fields_get()">
                 <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
             </t>
             <div class="main-page">
                 <div class="oe_structure" style="font-size:13px;">
-                    <div class="container" >
-                       <div class="row">
-                        <div class="col-12" style="margin-top:30px;">
-                            <div class="" style="white-space: nowrap;">
-                                <div class="text-uppercase" data-name="Address Format" style="">
-                                    <span class="text-capitalize" style="">
-                                        <font style="font-weight:bold; font-size:12px;">ship to :</font>
-                                    </span>
-                                    <div class="" style="line-height: 1.5; font-weight:normal!important;">
-                                        <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12" style="margin-top:30px;">
+                                <div class="" style="white-space: nowrap;">
+                                    <div class="text-uppercase" data-name="Address Format" style="">
+                                        <span class="text-capitalize" style="">
+                                            <font style="font-weight:bold; font-size:12px;">ship to :</font>
+                                        </span>
+                                        <div class="" style="line-height: 1.5; font-weight:normal!important;">
+                                            <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                         <!-- </div>
                         <div class="container mt-3" style=""> -->
@@ -93,9 +87,7 @@
                                 <span style="font-weight:bold;">
                                     SHIP VIA:
                                 </span>
-                                <span class="text-uppercase ms-2"
-                                    style="color:#43464f; font-weight:normal;"
-                                    t-field="doc.sale_id.carrier_id.name" />
+                                <span class="text-uppercase ms-2" style="color:#43464f; font-weight:normal;" t-field="doc.sale_id.carrier_id.name" />
                             </div>
                         </div>
                         <!--#######################
@@ -104,23 +96,17 @@
                             <!--**********
                             PO#  ********-->
                             <div class="info col-6">
-                                <span class="text-uppercase"
-                                    style="font-weight:bold;">
+                                <span class="text-uppercase" style="font-weight:bold;">
                                     C-PO#:</span>
-                                <!-- <span class="item"
-                                    style="margin-left:2px;color:#43464f; font-weight:normal;"
-                                    t-field="doc.client_order_ref" /> -->
-                                    <span class=" text-uppercase  ms-2" t-field="doc.origin"/>
+                                <!-- <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;" t-field="doc.client_order_ref" /> -->
+                                <span class=" text-uppercase  ms-2" t-field="doc.origin" />
                             </div>
                             <!--************
                             PO#  **********-->
                             <div class="info col-6">
-                                <span class="text-uppercase"
-                                    style="font-weight:bold;">
+                                <span class="text-uppercase" style="font-weight:bold;">
                                     SO#:</span>
-                                <span class="item"
-                                    style="margin-left:2px; color:#43464f; font-weight:normal;"
-                                    t-field="doc.origin" />
+                                <span class="item" style="margin-left:2px; color:#43464f; font-weight:normal;" t-field="doc.origin" />
                             </div>
                         </div>
                         <!--#######################
@@ -128,11 +114,10 @@
                         <div class="row mt-3">
                             <div class="info col-12" style="white-space: nowrap;">
                                 <span style="font-weight:bold;">No. Pieces:_______</span>
-                                <!-- <span class="text-uppercase ml-2"
-                                    t-field="doc.no_piecess" /> -->
+                                <!-- <span class="text-uppercase ml-2" t-field="doc.no_piecess" /> -->
                             </div>
                         </div>
-                </div>
+                    </div>
                 </div>
             </div>
         </t>

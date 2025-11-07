@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_thinksoft_contact_ext" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- add mobile and fax fields after the PST field in the "Contact" tab-->
+            <xpath expr="//field[@name='website']" position="before">
+                <field name="mobile"/>
+                <field name="fax"/>
+            </xpath>
+            <!-- change the label of the internal user field to "Customer Service Rep" -->
+            <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="attributes">
+                <attribute name="string">Customer Service Rep</attribute>
+            </xpath>
+            <!-- the outside salesperson inserted in the "Sales & Purchase" tab-->
+            <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="after">
+                <field name="outside_salesperson_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
+            </xpath>
+
+            <!-- add sales team -->
+            <xpath expr="/form//field[@name='outside_salesperson_id']" position="after">
+                <field name="team_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
