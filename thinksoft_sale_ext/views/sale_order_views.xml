@@ -81,10 +81,14 @@
         <field name="inherit_id" ref="sale.sale_order_tree"/>
         <field name="arch" type="xml">
 
+            <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
+
             <xpath expr="//field[@name='date_order']" position="attributes">
                 <attribute name="options">{"numeric":true,"show_time":false}</attribute>
                 <attribute name="widget">datetime</attribute>
             </xpath>
+
+            <!-- adding delivery method to list view -->
 
             <xpath expr="//field[@name='invoice_status']" position="after">
                 <field name="carrier_id" optional="show"/>
@@ -99,6 +103,8 @@
         <field name="inherit_id" ref="sale.view_quotation_tree"/>
         <field name="arch" type="xml">
 
+            <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
+            
             <xpath expr="//field[@name='create_date']" position="attributes">
                 <attribute name="options">{"numeric":true,"show_time":false}</attribute>
                 <attribute name="widget">datetime</attribute>
