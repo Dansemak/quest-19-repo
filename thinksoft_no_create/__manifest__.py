@@ -6,9 +6,10 @@
     "author": "Thinksoft Inc.",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "depends": ["sale"],
+    "depends": ["sale", "account"],
     "data": [
         "views/sale_order_views.xml",
+        "views/account_move_views.xml",
     ],
     "auto_install": False,
     "application": False,
