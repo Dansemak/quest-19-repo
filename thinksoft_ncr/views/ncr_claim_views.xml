@@ -39,9 +39,11 @@
                         <group name="order_details" string="Order Details">
                             <field name="classification" readonly="state != 'open'"/>
                             <field name="issue_type" readonly="state != 'open'"/>
-                            <field name="sale_order_id" readonly="state != 'open'"/>
-                            <field name="purchase_order_id" readonly="state != 'open'"/>
-                            <field name="currency_id" readonly="state != 'open'"/>
+                            <field name="sale_order_id" readonly="state != 'open'" options="{'no_create': True}"/>
+                            <field name="purchase_order_id" readonly="state != 'open'" options="{'no_create': True}"/>
+                            <field name="available_picking_ids" invisible="True"/>
+                            <field name="picking_id" domain="[('id','in', available_picking_ids)]" readonly="state != 'open'" options="{'no_create': True}"/>
+                            <field name="currency_id" readonly="state != 'open'" options="{'no_create': True}"/>
                         </group>
                         <group name="ncr_details" string="NCR Details">
                             <field name="date" readonly="state != 'open'"/>

@@ -87,6 +87,11 @@ class NcrClaim(models.Model):
     partner_id = fields.Many2one("res.partner", string="Customer/Vendor")
     partner_shipping_id = fields.Many2one("res.partner", string="Delivery Address")
     picking_id = fields.Many2one("stock.picking", string="Transfer")
+    available_picking_ids = fields.One2many(
+        "stock.picking",
+        string="Available Pickings",
+        compute="_compute_available_picking_ids"
+    )
     invoice_id = fields.Many2one('account.move', string="Invoice")
 
     # Category fields
@@ -104,6 +109,11 @@ class NcrClaim(models.Model):
         string="Total", store=True, readonly=True, compute="_compute_amount_all"
     )
 
+    # Note Fields
+    non_conformance_notes = fields.Text("Non-Conformance", required=True)
+    root_cause_analysis_notes = fields.Text("Root Cause Analysis", required=True)
+    corrective_actions_notes = fields.Text("Corrective Actions", required=True)
+
     @api.model
     def create(self, vals_list):
         for vals in vals_list:
@@ -113,13 +123,7 @@ class NcrClaim(models.Model):
                 )
         return super().create(vals_list)
 
-    # Note Fields
-    non_conformance_notes = fields.Text("Non-Conformance", required=True)
-    root_cause_analysis_notes = fields.Text("Root Cause Analysis", required=True)
-    corrective_actions_notes = fields.Text("Corrective Actions", required=True)
-
     # Onchange methods
-
     @api.onchange("category_source_id", "category_department_id", "category_section_id")
     def _onchange_category_fields(self):
         if self.category_department_id.parent_category_id != self.category_source_id:
@@ -149,7 +153,6 @@ class NcrClaim(models.Model):
             self.partner_shipping_id = False
 
     # Compute methods
-
     @api.depends("product_line_ids.product_subtotal")
     def _compute_amount_all(self):
         for claim in self:
@@ -163,8 +166,17 @@ class NcrClaim(models.Model):
             else:
                 claim.cost_impact = "low"
 
-    # Buttons
+    @api.depends('sale_order_id', 'purchase_order_id')
+    def _compute_available_picking_ids(self):
+        for claim in self:
+            pickings = self.env['stock.picking']
+            if claim.sale_order_id:
+                pickings |= claim.sale_order_id.picking_ids
+            if claim.purchase_order_id:
+                pickings |= claim.purchase_order_id.picking_ids
+            claim.available_picking_ids = pickings
 
+    # Buttons
     def button_populate_product_line_ids_sale(self):
         if not self.sale_order_id:
             return
