@@ -9,7 +9,7 @@
     "category": "Addons Custom/Thinksoft NCR",
     "application": True,
     "version": "0.1",
-    "depends": ["base", "mail", "sale", "purchase", "hr"],
+    "depends": ["base", "mail", "sale", "purchase", "hr", "account"],
     "data": [
         "security/ncr_groups.xml",
         "security/ir.model.access.csv",

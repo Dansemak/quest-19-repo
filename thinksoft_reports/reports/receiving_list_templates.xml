@@ -17,11 +17,6 @@
   <template name="Report with header and footer standard" id="report_external_layout_receiving_list">
       <div class="header pe-5" style=""> 
         <style>
-          
-          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Hubot+Sans:ital,wght@0,200..900;1,200..900&amp;family=Oswald:wght@200..700&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;family=Tangerine:wght@400;700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
-              }
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
@@ -99,9 +94,9 @@
       </div>
   </template>
   <template id="receiving_list_template_document">
-    <div class="main_page">
-      <t t-call="thinksoft_reports.report_external_layout_receiving_list">
+  <t t-call="thinksoft_reports.report_external_layout_receiving_list">
         <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+    <div class="main_page">
         <div class="oe_structure" style="font-size: 11px;">
           <div class="container">
             <div class="row">
@@ -318,9 +313,9 @@
               </div>
             </div>
           </div>
-        </div>
-      </t>
+        </div>      
     </div>
+    </t>
   </template>
   </data>
 </odoo>
