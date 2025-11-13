@@ -43,6 +43,8 @@
                             <field name="purchase_order_id" readonly="state != 'open'" options="{'no_create': True}"/>
                             <field name="available_picking_ids" invisible="True"/>
                             <field name="picking_id" domain="[('id','in', available_picking_ids)]" readonly="state != 'open'" options="{'no_create': True}"/>
+                            <field name="available_invoice_ids" invisible="True"/>
+                            <field name="invoice_id" domain="[('id','in', available_invoice_ids)]" readonly="state != 'open'" options="{'no_create': True}"/>
                             <field name="currency_id" readonly="state != 'open'" options="{'no_create': True}"/>
                         </group>
                         <group name="ncr_details" string="NCR Details">

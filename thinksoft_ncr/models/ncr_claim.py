@@ -93,6 +93,11 @@ class NcrClaim(models.Model):
         compute="_compute_available_picking_ids"
     )
     invoice_id = fields.Many2one('account.move', string="Invoice")
+    available_invoice_ids = fields.One2many(
+        'account.move',
+        string="Available Invoices",
+        compute="_compute_available_invoice_ids"
+    )
 
     # Category fields
     category_source_id = fields.Many2one("ncr.category", string="Source")
@@ -175,6 +180,16 @@ class NcrClaim(models.Model):
             if claim.purchase_order_id:
                 pickings |= claim.purchase_order_id.picking_ids
             claim.available_picking_ids = pickings
+
+    @api.depends('sale_order_id', 'purchase_order_id')
+    def _compute_available_invoice_ids(self):
+        for claim in self:
+            invoices = self.env['account.move']
+            if claim.sale_order_id:
+                invoices |= claim.sale_order_id.invoice_ids
+            if claim.purchase_order_id:
+                invoices |= claim.purchase_order_id.invoice_ids
+            claim.available_invoice_ids = invoices
 
     # Buttons
     def button_populate_product_line_ids_sale(self):
