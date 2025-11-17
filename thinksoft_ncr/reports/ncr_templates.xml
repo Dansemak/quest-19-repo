@@ -115,40 +115,44 @@
                         <td><span t-field="o.sale_order_id"/></td>
                       </t>
                     </tr>
-                    <tr>
-                      <th>
-                        <t t-if="o.issue_type == 'vendor'">
-                          <span>Receipt</span>
-                        </t>
-                        <t t-if="o.issue_type == 'customer'">
-                          <span>Delivery Order</span>
-                        </t>
-                      </th>
-                      <td>
-                        <span t-field="o.picking_id"/>
-                      </td>
-                    </tr>
+                    <t t-if="o.picking_id">
+                      <tr>
+                        <th>
+                          <t t-if="o.issue_type == 'vendor'">
+                            <span>Receipt</span>
+                          </t>
+                          <t t-if="o.issue_type == 'customer'">
+                            <span>Delivery Order</span>
+                          </t>
+                        </th>
+                        <td>
+                          <span t-field="o.picking_id"/>
+                        </td>
+                      </tr>
+                    </t>
                     <t t-if="o.issue_type == 'customer'">
                       <tr>
                         <th>
                           <span>Invoice</span>
                         </th>
                         <td>
-                          <!-- <span t-field="o.invoice_id"/> -->
+                          <span t-field="o.invoice_id"/>
                         </td> 
                       </tr>
                     </t>
-                    <th>
-                      <t t-if="o.partner_source == 'customer'">
-                        <span>Customer</span>
-                      </t>
-                      <t t-if="o.partner_source == 'vendor'">
-                        <span>Vendor</span>
-                      </t>
-                    </th>
-                    <td>
-                      <span t-field="o.partner_id"/>
-                    </td>
+                    <t t-if="o.partner_source">
+                      <tr>
+                        <th>
+                          <t t-if="o.partner_source == 'customer'">
+                            <span>Customer</span>
+                          </t>
+                          <t t-if="o.partner_source == 'vendor'">
+                            <span>Vendor</span>
+                          </t>
+                        </th>
+                        <td><span t-field="o.partner_id"/></td>
+                      </tr>
+                    </t>
                     <t t-if="o.partner_source == 'customer'">
                       <tr>
                         <th colspan="2" style="text-align:center;">
