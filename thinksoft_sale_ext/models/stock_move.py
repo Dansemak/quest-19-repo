@@ -12,3 +12,4 @@ class StockMove(models.Model):
         readonly=True,
         related="sale_line_id.tagging"
     )
+    purchase_order_id = fields.Many2one(related="sale_line_id.purchase_order_id", string="PO Number")

@@ -86,8 +86,6 @@
             </xpath>
 
             <xpath expr="//group[@name='order_details']" position="inside">
-                <field name="customer_end_user_id" options="{'no_create': True}"/>
-                <field name="customer_job_project_id" options="{'no_create': True}"/>
                 <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
                 <field name="sale_freight_id" options="{'no_create': True}"/>
             </xpath>
@@ -101,6 +99,7 @@
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>
+                <field name="purchase_order_id" optional="show" options="{'no_create': True}"/>
             </xpath>
 
         </field>
