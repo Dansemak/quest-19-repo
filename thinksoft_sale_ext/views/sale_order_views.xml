@@ -77,7 +77,7 @@
                 <field name="commitment_date" />
             </xpath>
 
-            <!-- COO Required, Notes, Comment,Shipping Method, Freight Charge, Job Project, and End User in header -->
+            <!-- COO Required, Notes, Comment, Shipping Method + Cut Off, Freight Charge, Job Project, and End User in header -->
 
             <xpath expr="//group[@name='partner_details']" position="inside">
                 <field name="is_coo_required"/>
@@ -86,10 +86,14 @@
             </xpath>
 
             <xpath expr="//group[@name='order_details']" position="inside">
-                <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
+                <label for="carrier_id"/>
+                <div name="carrier_fields" class="o_row">
+                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
+                    <label for="carrier_cut_off"/>
+                    <field name="carrier_cut_off" widget="float_time" readonly="True"/>
+                </div>
                 <field name="sale_freight_id" options="{'no_create': True}"/>
             </xpath>
-
 
             <!-- Sale Order Line Items: Tagging, Line Number -->
 
