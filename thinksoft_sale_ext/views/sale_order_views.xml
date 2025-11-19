@@ -47,6 +47,36 @@
                 <field name="outside_salesperson_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
             </xpath>
 
+
+            <!-- Rearranging Fields -->
+
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='commitment_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='commitment_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='order_details']" position="inside">
+                <field name="user_id"/>
+                <field name="client_order_ref" placeholder="Customer Purchase Order Number" />
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="validity_date" />
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="commitment_date" />
+            </xpath>
+
             <!-- COO Required, Notes, Comment,Shipping Method, Freight Charge, Job Project, and End User in header -->
 
             <xpath expr="//group[@name='partner_details']" position="inside">
@@ -56,11 +86,10 @@
             </xpath>
 
             <xpath expr="//group[@name='order_details']" position="inside">
-                <field name="customer_end_user_id" options="{'no_create': True}"/>
-                <field name="customer_job_project_id" options="{'no_create': True}"/>
                 <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
                 <field name="sale_freight_id" options="{'no_create': True}"/>
             </xpath>
+
 
             <!-- Sale Order Line Items: Tagging, Line Number -->
 
@@ -70,6 +99,45 @@
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>
+                <field name="purchase_order_id" optional="show" options="{'no_create': True}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="sale_order_tree_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">sale.order.view.list.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
+
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="options">{"numeric":true,"show_time":false}</attribute>
+                <attribute name="widget">datetime</attribute>
+            </xpath>
+
+            <!-- adding delivery method to list view -->
+
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="carrier_id" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">sale.order.view.list.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
+
+            <xpath expr="//field[@name='create_date']" position="attributes">
+                <attribute name="options">{"numeric":true,"show_time":false}</attribute>
+                <attribute name="widget">datetime</attribute>
             </xpath>
 
         </field>
