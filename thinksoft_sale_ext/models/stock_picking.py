@@ -34,20 +34,25 @@ class StockPicking(models.Model):
         string="Cut Off",
         help="The time of day when the shipping cutoff occurs, in hours (0-24).",
     )
+    carrier_id = fields.Many2one(
+        "delivery.carrier",
+        string="Carrier",
+        domain="[('id', 'in', allowed_carrier_ids)]",
+        check_company=True,
+        related="sale_id.carrier_id",
+    )
     picking_type_sequence_code = fields.Char(related="picking_type_id.sequence_code")
-    partner_contact_id = fields.Many2one("res.partner", compute="_compute_order_fields", string="Contact")
 
     # sets fields to related fields from sale.order or purchase.order
     @api.depends(
-        "sale_id.partner_contact_id",
-        "purchase_id.partner_contact_id",
         "sale_id.sale_freight_id",
         "purchase_id.sale_freight_id",
     )
     def _compute_order_fields(self):
         for picking in self:
-            picking.partner_contact_id = picking.sale_id.partner_contact_id or picking.purchase_id.partner_contact_id
-            picking.sale_freight_id = picking.sale_id.sale_freight_id or picking.purchase_id.sale_freight_id
+            picking.sale_freight_id = (
+                picking.sale_id.sale_freight_id or picking.purchase_id.sale_freight_id
+            )
 
     # check that the country of origin is on the product if COO is required
     def button_validate(self):

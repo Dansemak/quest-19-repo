@@ -28,6 +28,7 @@ class SaleOrder(models.Model):
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
     )
+    carrier_cut_off = fields.Float(related="carrier_id.cut_off")
 
     # outside salesperson assigned from the customer"s outside_salesperson_id field
     # customer account information assigned from the customer"s customer_account_info field

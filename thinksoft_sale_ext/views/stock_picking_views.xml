@@ -10,30 +10,30 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='backorder_id']" position="after">
-                <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']"/>
-                <field name="cut_off" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+            <xpath expr="//field[@name='picking_type_id']" position="before">
+                <field name="is_coo_required" />
                 <field name="sale_note_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
                 <field name="comment_text" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
             </xpath>
 
-            <xpath expr="//field[@name='origin']" position="after">
-                <field name="is_coo_required" />
+            <xpath expr="//field[@name='carrier_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="before">
+                <label for="carrier_id"/>
+                <div name="carrier_fields" class="o_row">
+                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True, 'no_open': True}"/>
+                    <label for="cut_off" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                    <field name="cut_off" widget="float_time" readonly="True" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                </div>
+                <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']"/>
             </xpath>
 
             <xpath expr="//field[@name='move_ids']//list//field[@name='product_id']" position="after">
                 <field name="tagging" optional="show"/>
                 <field name="created_production_id" optional="show" readonly="True" string="MO Number"/>
                 <field name="purchase_order_id" optional="show" readonly="True"/>
-            </xpath>
-
-            <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="partner_contact_id"
-                    string="Buyer"
-                    invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN'] or not sale_id"/>
-                <field name="partner_contact_id"
-                    string="Seller"
-                    invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN'] or not purchase_id"/>
             </xpath>
 
         </field>
