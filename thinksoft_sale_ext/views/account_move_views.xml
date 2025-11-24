@@ -11,6 +11,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='delivery_date']" position="after">
+                <field name="carrier_id" invisible="move_type not in ['out_invoice', 'out_refund', 'out_receipt']"/>
                 <field name="sale_freight_id" invisible="move_type not in ['out_invoice', 'out_refund', 'out_receipt']"/>
             </xpath>
 

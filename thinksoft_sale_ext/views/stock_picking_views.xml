@@ -29,6 +29,15 @@
                 </div>
                 <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']"/>
             </xpath>
+            
+             <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="partner_contact_id"
+                    string="Buyer"
+                    invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN'] or not sale_id"/>
+                <field name="partner_contact_id"
+                    string="Seller"
+                    invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN'] or not purchase_id"/>
+            </xpath>
 
             <xpath expr="//field[@name='move_ids']//list//field[@name='product_id']" position="after">
                 <field name="tagging" optional="show"/>
