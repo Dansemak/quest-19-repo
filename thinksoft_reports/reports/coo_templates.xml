@@ -3,7 +3,7 @@
   <data>
     <!-- All of the ir.actions.reports live here -->
     <!--********************************* COO *********************************-->
-  
+
   <template id="coo_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="doc">
@@ -22,14 +22,14 @@
       </t>
     </t>
   </template>
-  <template name="Report header and footer standard" id="report_external_layout_coo"> 
-      <div class="header pe-5" style=""> 
+  <template name="Report header and footer standard" id="report_external_layout_coo">
+      <div class="header pe-5" style="">
         <style>
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -39,7 +39,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -72,7 +72,7 @@
               <!--**********************
               TITLE *********************-->
               <div class="title text-uppercase">
-                CERTIFICATION <br/> OF ORIGIN 
+                CERTIFICATION <br/> OF ORIGIN
               </div>
             </div>
           </div>
@@ -133,7 +133,7 @@
                       </tbody>
                     </table>
               </div>
-           
+
               <div class="info col-6">
                 <table class="text-uppercase" style="border-collapse: collapse;">
                   <tbody style="">
@@ -153,17 +153,17 @@
                         <span class="" t-field="doc.sale_id" />
                       </td>
                     </tr>
-                    
+
                     <tr style="border: 1px solid #525659;">
                       <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
+                        <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
                         <!-- <span class="" t-field="doc.origin" /> -->
                         <span class="" t-field="doc.client_order_ref"/>
                       </td>
                     </tr>
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -182,11 +182,11 @@
                    <tbody t-foreach="doc.move_line_ids" t-as="line">
                     <tr>
                       <td rowspan="" style=" ">
-                          <!--************************* Part # **************--> 
+                          <!--************************* Part # **************-->
                             <div style="text-align: left; margin-bottom:3px;" class="">
                               <span class="" t-field="line.product_id" />
                             </div>
-                            <!--***************** Description **************--> 
+                            <!--***************** Description **************-->
                             <div style="line-height:1.3 !important; color:#5b5b5b; !important; text-align: left;" >
                               <span t-field="line.product_id.description" />
                             </div>
@@ -221,8 +221,8 @@
 
               </div>
             </div>
-          </div>      
-        </div>    
+          </div>
+        </div>
     </div>
      </t>
   </template>

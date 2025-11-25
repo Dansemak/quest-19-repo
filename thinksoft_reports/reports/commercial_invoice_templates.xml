@@ -285,7 +285,7 @@
                                             <span t-field="line.product_id.country_of_origin" />
                                         </td>
                                         <!--******************* QTY shipped *****************-->
-                                        <td colspan="" class="text-end">
+                                        <td colspan="" class="text-center">
                                             <!-- <span class="" t-field="line.packaging_uom_qty" /> -->
                                             <span t-field="line.quantity" />
                                         </td>

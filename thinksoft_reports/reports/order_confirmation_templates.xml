@@ -20,13 +20,13 @@
     </t>
   </template>
   <template name="Report with header and footer standard" id="report_external_layout_order_confirmation">
-      <div class="header pe-5" style=""> 
+      <div class="header pe-5" style="">
         <style>
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -36,7 +36,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -81,7 +81,7 @@
       </div>
       <!-- <div class="footer "
         style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -129,7 +129,7 @@
                         </tr>
                         <tr>
                           <td class="address" style="">
-                            <span class="" t-field="doc.partner_id.name"/>
+                            <span class="" t-field="doc.partner_contact_id.name"/>
                           </td>
                         </tr>
                         <tr>
@@ -137,9 +137,9 @@
                         </tr>
                         <tr>
                           <td class="address" style="">
-                            <span class="" t-field="doc.partner_id.phone" />
+                            <span class="" t-field="doc.partner_contact_id.phone" />
                           </td>
-                        </tr> 
+                        </tr>
                   </tbody>
                 </table>
               </div>
@@ -166,15 +166,15 @@
                     </tr>
                     <tr>
                       <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
-                        <span> BUYER</span>
+                        <span>CUSTOMER</span>
                       </th>
                       <td style="border-top-color: #525659; border: 1px solid #525659;">
-                        <span class="" t-field="doc.partner_contact_id.name" />
+                        <span class="" t-field="doc.partner_id.name" />
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
                       <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
+                        <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659;">
                         <span class="" t-field="doc.client_order_ref" />
@@ -183,7 +183,7 @@
                     </tr>
                     <tr>
                       <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
-                        <span> TERMS</span>
+                        <span>TERMS</span>
                       </th>
                       <td style="border-top-color: #525659; border: 1px solid #525659;">
                         <span class="" t-field="doc.sale_id.payment_term_id" />
@@ -276,9 +276,9 @@
                           <!-- <span t-esc=" (line.product_uom_qty - line.quantity_done)"></span> -->
                            <span t-esc=" (line.product_uom_qty - line.quantity)"></span>
                         </td>
-                        
+
                         <!--***************** UNIT PRICE ****************-->
-                        <td class="text-center">
+                        <td class="text-end">
                           <span style="margin-right:2px;">$</span>
                           <span t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))" />
                         </td>
@@ -287,10 +287,10 @@
                           <span t-field="line.product_uom" style="" />
                         </td>
                         <!--***************** ext. Price ****************-->
-                        <td colspan="" class="text-center">
+                        <td colspan="" class="text-end">
                           <span style="margin-right:2px;">$</span>
-                          <span class="" t-esc="'{:.2f}'.format(round(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)),2) * line.quantity)" />
-                        </td>              
+                          <span class="" t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity)" />
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -299,7 +299,7 @@
             </div>
           </div>
         </div>
-      
+
     </div>
     </t>
   </template>
