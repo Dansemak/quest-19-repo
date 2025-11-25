@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_thinksoft_package_planner" model="ir.ui.view">
+        <field name="name">stock.picking.form.thinksoft.package.planner</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='origin']" position="after">
+                <button name="test_button_skid_label" string="TEST Skid" type="object"/>
+                <button name="test_button_box_label" string="TEST Box" type="object"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
