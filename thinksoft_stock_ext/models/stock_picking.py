@@ -24,4 +24,5 @@ class StockPicking(models.Model):
     client_order_ref = fields.Char(related="sale_id.client_order_ref")
     salesperson_id = fields.Many2one("res.users", related="sale_id.user_id", string="Salesperson")
     partner_customer_id = fields.Many2one("res.partner", related="sale_id.partner_id", string="Customer")
-    no_pieces = fields.Char(string="No. Pieces", help="Number of boxes and skids (do not include the weight; that is for the Shipping Weight field)")
+    box_qty = fields.Integer(string="Number of boxes", help="Number of boxes and skids")
+    skid_qty = fields.Integer(string="Number of skids")
