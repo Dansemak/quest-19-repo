@@ -22,14 +22,14 @@
         </t>
     </template>
 
-    <template name="Report header and footer standard" id="report_external_layout_commercial_invoice"> 
-      <div class="header pe-5" style=""> 
+    <template name="Report header and footer standard" id="report_external_layout_commercial_invoice">
+      <div class="header pe-5" style="">
         <style>
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -39,7 +39,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -84,7 +84,7 @@
       </div>
       <!-- <div class="footer "
         style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -103,7 +103,9 @@
 
   <template  id="commercial_invoice_template_document">
   <t t-call="thinksoft_reports.report_external_layout_commercial_invoice">
+  <t t-call="thinksoft_reports.report_external_layout_commercial_invoice">
         <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+    <div class="main_page" >
     <div class="main_page" >
       <!--
                   As language is not required for all objects.
@@ -216,7 +218,7 @@
                       <td style="border: 1px solid #525659;">
                       <span class="" t-field="doc.sale_id.warehouse_id.name"/>
                         <!-- <span class="" t-field="doc.sale_freight_id"/> -->
-    
+
                       </td>
                     </tr>
                     <!-- <tr >
@@ -263,7 +265,7 @@
                       <!--********************* line # ********************-->
                       <td rowspan="2" class="text-center" style="">
                         <span t-field="line.seq_no" style=""/>
-                      </td> 
+                      </td>
                       <td colspan="" style="padding: 0 !important;" >
                         <!--**************** Part # ***********************-->
                         <div style="text-align: left;  padding: 0 !important;" >
@@ -287,7 +289,7 @@
                       <td colspan="" class="text-center">
                         <!-- <span class="" t-field="line.packaging_uom_qty" /> -->
                         <span t-field="line.quantity" />
-                      </td> 
+                      </td>
                       <!--****************** UNIT PRICE *******************-->
                       <td class="text-end">
                         <span style="margin-right:2px;">$</span>
@@ -296,13 +298,13 @@
                       <!-- *********************** UOM *******************-->
                       <td class="text-center">
                         <span  t-field="line.product_uom" style=""/>
-                      </td> 
+                      </td>
                       <!--*********************** ext. Price *************-->
                       <td colspan="" class="text-end">
                         <span style="margin-right:2px;">$</span>
                         <span class="" t-esc="'{:.2f}'.format(round(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)),2) * line.quantity)" />
                         <!-- <span t-esc="round(((line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100))) * line.quantity),2)"/> -->
-                      </td> 
+                      </td>
 
                     </tr>
                   </tbody>
@@ -366,7 +368,7 @@
                 <tr style="height:29pt">
                   <td style="white-space: nowrap; text-align: right; background-color: #f1f1f1!important;"><span style="">TOTAL (<span t-field="doc.sale_id.currency_id"/>) </span>
                   </td>
-                 
+
                   <td style=" white-space: nowrap; text-align:right; ">
                       <t t-set="total" t-value="0"/>
                       <t t-foreach="doc.move_ids" t-as="line">
@@ -385,7 +387,9 @@
 
         </div>
 
+
     </div>
+    </t>
     </t>
   </template>
     </data>

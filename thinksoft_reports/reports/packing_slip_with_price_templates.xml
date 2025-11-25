@@ -21,17 +21,17 @@
           </t>
       </template>
     <template name="Report with header and footer standard" id="report_external_layout_packing_slip_with_price">
-      <div class="header pe-5" style=""> 
+      <div class="header pe-5" style="">
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+           .header,.footer {
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -41,7 +41,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -84,7 +84,7 @@
         t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
         <t t-raw="0" />
       </div>
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -100,7 +100,7 @@
         </div>
       </div>
     </template>
-    <template id="packing_slip_with_price_template_document">     
+    <template id="packing_slip_with_price_template_document">
       <t t-call="thinksoft_reports.report_external_layout_packing_slip_with_price">
         <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
           <!--
@@ -186,7 +186,7 @@
                             <span class="">SALESPERSON</span>
                           </th>
                           <td style="border: 1px solid #525659;">
-                            <span class="" t-field="doc.salesperson_id" /> 
+                            <span class="" t-field="doc.salesperson_id" />
                           </td>
                         </tr>
                         <tr style="border: 1px solid #525659;">
@@ -354,9 +354,9 @@
                                     <!--*************************** SUBTOTAL *************************** -->
                                     <td colspan="" class="text-center">
                                       <span style="margin-right: 1px;">$</span>
-                                        <span class="" t-esc="'{:.2f}'.format(line.sale_line_id.price_subtotal)" />         
+                                        <span class="" t-esc="'{:.2f}'.format(line.sale_line_id.price_subtotal)" />
                                     </td>
-                                
+
                               </tr>
                             </tbody>
                           </table>
@@ -391,11 +391,11 @@
                                 <!-- <span t-field="line.move_id.product_id" /> -->
                               </td>
                               <!--************** MTR ***************-->
-                              <td class=""> 
+                              <td class="">
                                 <!-- <t t-foreach="line.mtr_tag_ids" t-as="mtr"> -->
                                   <span class="me-2">
                                   <!-- <span t-field="mtr.name"/>-->
-                                  </span> 
+                                  </span>
                                 <!-- </t> -->
                               </td>
                             </tr>
@@ -422,5 +422,5 @@
           </div>
       </t>
     </template>
-    </data> 
+    </data>
 </odoo>

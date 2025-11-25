@@ -27,6 +27,7 @@
             <field name="binding_type">report</field>
         </record>
         <!-- ********************************* Commercial Invoice ********************************* -->
+        <!-- ********************************* Commercial Invoice ********************************* -->
         <record id="action_report_commercial_invoice" model="ir.actions.report">
             <field name="name">Commercial Invoice</field>
             <field name="model">stock.picking</field>
@@ -47,6 +48,7 @@
             <field name="report_file">thinksoft_reports.coo_template</field>
             <field name="print_report_name">'COO'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
         </record>
@@ -59,9 +61,11 @@
             <field name="report_file">thinksoft_reports.manufacture_copy_template</field>
             <field name="print_report_name">'Manufacture Copy'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
         </record>
+        <!-- ********************************* Order Confirmation *********************************-->
         <!-- ********************************* Order Confirmation *********************************-->
         <record id="action_report_order_confirmation" model="ir.actions.report">
             <field name="name">Order Confirmation</field>
@@ -70,6 +74,7 @@
             <field name="report_name">thinksoft_reports.order_confirmation_template</field>
             <field name="report_file">thinksoft_reports.order_confirmation_template</field>
             <field name="print_report_name">'Order Confirmation'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
@@ -83,6 +88,7 @@
             <field name="report_file">thinksoft_reports.oxygen_clean_certificate_template</field>
             <field name="print_report_name">'Oxygen Clean Certificate'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
         </record>
@@ -94,6 +100,7 @@
             <field name="report_name">thinksoft_reports.receiving_list_template</field>
             <field name="report_file">thinksoft_reports.receiving_list_template</field>
             <field name="print_report_name">'Receiving List'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>

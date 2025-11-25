@@ -21,17 +21,17 @@
         </t>
       </template>
       <template name="Report with header and footer standard" id="report_external_layout_packing_slip">
-        <div class="header pe-5" style=""> 
+        <div class="header pe-5" style="">
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+           .header,.footer {
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -41,7 +41,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -84,7 +84,7 @@
         t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
         <t t-raw="0" />
       </div>
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -188,7 +188,7 @@
                           <td style="border: 1px solid #525659;">
                             <!-- <span class="" t-field="doc.sales_rep_id" /> -->
                             <!-- <span class="" t-field="doc.sale_id.user_id" /> -->
-                            <span class="" t-field="doc.salesperson_id" /> 
+                            <span class="" t-field="doc.salesperson_id" />
                           </td>
                         </tr>
                         <tr style="border: 1px solid #525659;">
@@ -307,13 +307,13 @@
                                 <span style="" t-field="line.product_id.description" />
                               </div>
                             </td>
-                            <!--*************************** UOM ***************************--> 
+                            <!--*************************** UOM ***************************-->
                             <td class="text-center">
                               <span t-field="line.product_uom" style="" />
                             </td>
                             <!-- <td class="text-center"><span t-field="line.product_uom_qty" /></td> -->
-                           
-                            <!--************************* Shipped ***************************--> 
+
+                            <!--************************* Shipped ***************************-->
                             <td class="text-center">
                               <span t-field="line.quantity" />
                             </td>
@@ -378,7 +378,7 @@
                                 <!-- <span t-field="line.move_id.product_id" /> -->
                               </td>
                               <!--************** MTR ***************-->
-                              <td class=""> 
+                              <td class="">
                                 <!-- <t t-foreach="line.mtr_tag_ids" t-as="mtr"> -->
                                   <span class="me-2">
                                   <!-- <span t-field="mtr.name"/> -->
@@ -405,7 +405,7 @@
                   </div>
                 </div>
               </div>
-            </div>         
+            </div>
         </div>
         </t>
       </template>

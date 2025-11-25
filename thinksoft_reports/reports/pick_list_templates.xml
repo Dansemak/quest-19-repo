@@ -20,12 +20,12 @@
   </template>
 
   <template name="Report with header and footer standard" id="report_external_layout_pick_list">
-    <div class="header pe-5" style=""> 
+    <div class="header pe-5" style="">
         <style>
-          
+
           @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Hubot+Sans:ital,wght@0,200..900;1,200..900&amp;family=Oswald:wght@200..700&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;family=Tangerine:wght@400;700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+           .header,.footer {
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
@@ -42,7 +42,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -87,7 +87,7 @@
       </div>
       <!-- <div class="footer "
         style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -105,7 +105,7 @@
   </template>
 
   <template id="pick_list_template_document">
-    
+
       <t t-call="thinksoft_reports.report_external_layout_pick_list">
       <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
         <!--
@@ -192,7 +192,7 @@
                       </th>
                       <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
                         <!-- <span class="" t-field="doc.sale_id.user_id" /> -->
-                        <span class="" t-field="doc.salesperson_id" /> 
+                        <span class="" t-field="doc.salesperson_id" />
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
@@ -449,17 +449,17 @@
                       </tr>
                       <tr class="" style="">
                       <!--************* Heat # ********************-->
-                        <td colspan="2"></td> 
-                        <!--************ QTY PICKED ***************-->                       
+                        <td colspan="2"></td>
+                        <!--************ QTY PICKED ***************-->
                         <td colspan="3" class="text-center">
                           <span  t-field="line.quantity"/>
                         </td>
-                        <!--****************** BO ********************-->                       
+                        <!--****************** BO ********************-->
                         <td colspan="" class="text-center">
                         <!-- <span class="" style=" white-space: nowrap;" t-field="line.probo_qty"/> -->
                         </td>
-                        <!--************ QC INITIALS ****************-->                       
-                        <td colspan="" class="text-center" />                       
+                        <!--************ QC INITIALS ****************-->
+                        <td colspan="" class="text-center" />
                       </tr>
                     </tbody>
                   </table>

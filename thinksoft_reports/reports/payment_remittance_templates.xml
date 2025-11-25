@@ -23,14 +23,14 @@
       <!-- <div class="header pe-5" style="width:100%;"> -->
       <style>
               @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-            .header,.footer { 
-                  font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+            .header,.footer {
+                  font-family: 'Roboto Condensed','Sansation',  sans-serif ;
                 }
             .top-address{
                 line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald',sans-serif !important;              
+                font-family:'Oswald',sans-serif !important;
                 font-size: 23px !important;
                 font-weight: bold !important;
                 text-align: right !important;
@@ -54,7 +54,7 @@
             <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
           </div>
           <!--********************** TITLE *********************-->
-          <div class="col-3 title" style="position: relative; text-align:right;">                
+          <div class="col-3 title" style="position: relative; text-align:right;">
             <span class="text-uppercase" style="margin-right:-40px;">
               Payment Remittance
             </span>
@@ -85,7 +85,7 @@
         <t t-foreach="docs" t-as="o">
             <t t-set="o" t-value="o.with_context(lang=lang)" />
             <t t-call="thinksoft_reports.check_layout1">
-            <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/remmittance_report.css'"/>              
+            <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/remmittance_report.css'"/>
                 <!-- format_date MUST be set AFTER t-call -->
                 <t t-set="format_date" t-value="format_date"/>
 
@@ -100,7 +100,7 @@
                   <!--**************** DATE ******************-->
                   <div class=" container " style="">
                     <div class="row  " style="width:100%;">
-                      <div class="col-12  date-amount d-flex justify-content-between" style="width:100%;">     
+                      <div class="col-12  date-amount d-flex justify-content-between" style="width:100%;">
                         <table class="table" width="100%">
                         <!--**************** DATE ******************-->
                         <tr>
@@ -114,11 +114,11 @@
                               <span t-esc="p_date[5]" />
                               <span t-esc="p_date[6]" />
                               <span t-esc="p_date[7]" />
-                            </td>       
+                            </td>
                           </tr>
                           <tr>
                             <td width="86%"/>
-                            <td style="font-size:18px; text-align:left;">M M D D Y Y Y Y</td>       
+                            <td style="font-size:18px; text-align:left;">M M D D Y Y Y Y</td>
                           </tr>
                           <!--**************** AMOUNT IN WORDS & AMOUNT ******************-->
                           <tr>
@@ -127,7 +127,7 @@
                             </td>
                             <td class="text-right" style="" width="">
                             <span t-field="o.amount" />
-                            </td>       
+                            </td>
                           </tr>
                         </table>
                       </div>
@@ -149,7 +149,7 @@
                           <td></td>
                         </tr>
                         <tr></tr> -->
-                        <tr t-if="o.memo"> 
+                        <tr t-if="o.memo">
                         <td><b>Memo:</b> <span t-field="o.memo"/>
                         </td>
                         </tr>
@@ -162,10 +162,10 @@
                     <t t-foreach="invoices" t-as="inv">
                       <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials())" t-set="otherCurrency" t-value="True" />
                     </t>
-                  
+
                       <!-- <t t-set="partials" t-value="[]"/>
                       <t t-set="invoices" t-value="[]"/> -->
-                      
+
                       <!-- <t t-if="o.move_id and len(o.move_id) > 1">
                           <t t-set="invoices_list" t-value="set()"/>
                           <t t-foreach="o.move_id" t-as="move">
@@ -174,7 +174,7 @@
                           </t>
                           <t t-set="invoices" t-value="invoices_list"/>
                        </t> -->
-                  
+
                   <!--**************** PAYEE ADDRESS & MEMO ******************-->
                     <!-- <div class="container " style="margin:20px 0 20px;"> -->
                       <div class="row ">
@@ -196,8 +196,8 @@
                                     <!--************** DATE **************-->
                                     <td class="text-center">
                                     <span t-field="inv.invoice_date"/>
-                                    </td > 
-                                    <!--************* SUPPLIER INVOICE *******--> 
+                                    </td >
+                                    <!--************* SUPPLIER INVOICE *******-->
                                     <td class="text-center">
                                     <span t-field="inv.supplier_invoice_number" />
                                     </td>
@@ -247,7 +247,7 @@
                                   <td class="text-right">
                                     <span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}" />
                                   </td>
-                                
+
                                 </tr>
                                 <tr class="border border-2"/>
                               </t>
