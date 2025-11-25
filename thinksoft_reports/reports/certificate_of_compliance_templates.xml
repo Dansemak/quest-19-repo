@@ -116,11 +116,9 @@
           <div class="oe_structure" style="">
             <div class="container">
               <div class="row">
-                <!-- ************************************** SHIP TO
-                ******************************************** -->
+                <!-- ****************** SHIP TO ********************-->                
                 <div class="info1 col-6" >
                   <table class="text-uppercase" style=" border-collapse:collapse; width:100%;">
-                    <!-- height:234px; -->
                     <tbody>
                       <tr>
                         <th
@@ -129,7 +127,7 @@
                       </tr>
                       <tr>
                       <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
                         </td>
                       </tr>
 
@@ -138,7 +136,7 @@
                       </tr>
                       <tr>
                         <td style="">
-                          <span t-field="doc.sale_id.partner_shipping_id.name" />
+                          <span class="" t-field="doc.partner_id.name"/>
                         </td>
                       </tr>
                       <tr>
@@ -146,7 +144,7 @@
                       </tr>
                       <tr>
                         <td style="">
-                          <span class="" t-field="doc.sale_id.partner_shipping_id.phone" />
+                          <span class="" t-field="doc.partner_id.phone" />
                         </td>
                       </tr>
                     </tbody>
@@ -174,7 +172,8 @@
                           <span class="">purchase order</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <span class="" t-field="doc.sale_id.client_order_ref" />
+                          <span class="" t-field="doc.client_order_ref" />
+                          <!-- <span class="" t-field="doc.origin" /> -->
                         </td>
                       </tr>
                       <tr style="border: 1px solid #525659;">
@@ -183,9 +182,7 @@
                           <span class="">Salesperson</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <span class="" t-field="doc.sale_id.user_id" />
-                          <!-- <span class="" t-field="doc.sales_rep_id" /> -->
-                          <!-- <span class="" t-field="doc.sale_id.partner_contact_id"/> -->
+                          <span class="" t-field="doc.salesperson_id" /> 
                         </td>
                       </tr>
                       <tr>
@@ -194,7 +191,7 @@
                           <span class="text-capitalize"> BUYER</span>
                         </th>
                         <td style="border-top-color: #525659; border: 1px solid #525659;">
-                          <!-- <span class="" t-field="doc.sale_id.partner_contact_id.name" /> -->
+                          <span class="" t-field="doc.partner_contact_id.name" />
                         </td>
                       </tr>
                     </tbody>
@@ -262,36 +259,34 @@
                         </div>
                       </thead>
                       <!-- <tbody t-foreach="doc.move_lines" t-as="line"> -->
-                      <tbody t-foreach="doc.move_line_ids" t-as="line" style="">
+                      <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
+                      <tbody t-foreach="doc.move_ids" t-as="line">
+                      <!-- <tbody t-foreach="doc.move_ids" t-as="line"> -->
                         <tr style="">
                           <!--***************************
                           line # ************************** -->
                           <td rowspan="2" class="text-center" style="">
-                            <!-- <span t-field="line.seq_no" style=""/> -->
-                            <t t-esc="line_index + 1" />
+                            <span t-field="line.seq_no" style=""/>
                           </td>
-                           <!--*****************************Part # ****************************-->                          
+                           <!--************** Part # ********************-->                          
                           <td rowspan="" style=" ">
                             <div style="text-align: left; margin-bottom:3px;" class="">
-                              <span class="float:right; text-uppercase " t-field="line.product_id" />
+                              <span class="" t-field="line.product_id" />
                             </div>
-                            <div>
-                              <!--*****************
-                              Description ***********************************-->
-                              <!-- <span t-field="line.sale_line_id.name" /> -->
-                              <span t-field="line.product_id.description_sale" />
+                            <!--***************** Description **************--> 
+                            <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
+                              <span t-field="line.product_id.description" />
                             </div>
                           </td>
                           <!--************** PICK QTY ******************** -->                      
-                          <!-- <td class="text-center"><span  t-field="line.product_uom_qty"/></td> -->
-                          <!--***************************order QTY **********************-->                        
+                          <!-- <td class="text-center"><span  t-field="line.product_uom_qty"/></td> -->                
                           <td colspan="" class="text-center">
-                            <span class="" t-field="line.packaging_uom_qty" />
-                            <!-- <span class=" report-well" t-field="line.quantity_done" /> -->
+                            <!-- <span class="" t-field="line.packaging_uom_qty" /> -->
+                            <span class="" t-field="line.quantity" />
                           </td>
                           <!--************************** UOM ***************************-->                         
                           <td class="text-center">
-                            <span t-field="line.product_uom_id" style="" />
+                            <span t-field="line.product_uom" style="" />
                           </td> 
                         </tr>
                       </tbody>

@@ -122,29 +122,29 @@
                       <tbody>
                         <tr>
                           <th
-                            style="border: 1px solid #525659; border-top-color: #525659;">Ship
+                            style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;">Ship
                             to</th>
                         </tr>
                         <tr>
                         <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                            <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                            <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
                           </td>
                         </tr>
 
                         <tr>
-                          <th style="border: 1px solid #525659; ">Contact</th>
+                          <th style="border: 1px solid #525659;font-size: 11px; ">Contact</th>
                         </tr>
                         <tr>
                           <td style="">
-                            <span t-field="doc.sale_id.partner_shipping_id.name" />
+                            <span class="" t-field="doc.sale_id.partner_contact_id.name"/>
                           </td>
                         </tr>
                         <tr>
-                          <th style="border: 1px solid #525659; ">phone</th>
+                          <th style="border: 1px solid #525659;font-size: 11px; ">phone</th>
                         </tr>
                         <tr>
                           <td style="">
-                            <span class="" t-field="doc.sale_id.partner_shipping_id.phone" />
+                            <span class="" t-field="doc.sale_id.partner_contact_id.phone" />
                           </td>
                         </tr>
                       </tbody>
@@ -187,7 +187,8 @@
                           </th>
                           <td style="border: 1px solid #525659;">
                             <!-- <span class="" t-field="doc.sales_rep_id" /> -->
-                            <span class="" t-field="doc.sale_id.user_id" />
+                            <!-- <span class="" t-field="doc.sale_id.user_id" /> -->
+                            <span class="" t-field="doc.salesperson_id" /> 
                           </td>
                         </tr>
                         <tr style="border: 1px solid #525659;">
@@ -195,8 +196,8 @@
                             <span class="">CUSTOMER REF(PO)</span>
                           </th>
                           <td style="border: 1px solid #525659;">
-                          <span class="" t-field="doc.origin" />
-                            <!-- <span class="" t-field="doc.client_order_ref" /> -->
+                          <!-- <span class="" t-field="doc.origin" /> -->
+                            <span class="" t-field="doc.client_order_ref" />
                           </td>
                         </tr>
                         <tr>
@@ -205,6 +206,7 @@
                           </th>
                           <td style="border: 1px solid #525659;">
                             <!-- <span class="" t-field="doc.charge_type_id" /> -->
+                            <span class="" t-field="doc.sale_id.sale_freight_id" />
                           </td>
                         </tr>
 
@@ -242,7 +244,7 @@
                             <div style="">Sold To:</div>
                             <!-- <div t-field="doc.sale_partner_id.name" class="font-weight-bold"/> -->
                             <!-- <div t-field="doc.sale_id.partner_contact_id.name" class="font-weight-bold" /> -->
-                            <span t-field="doc.sale_id.user_id.name"/>
+                            <!-- <span t-field="doc.sale_id.user_id.name"/> -->
                           </td>
                           <td>
                             <div style="">Courier Used:</div>
@@ -288,13 +290,12 @@
                             </tr>
                           </div>
                         </thead>
-                        <!-- <tbody t-foreach="doc.move_lines" t-as="line" style=""> -->
-                        <tbody t-foreach="doc.move_line_ids" t-as="line" style="">
+                        <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
+                        <tbody t-foreach="doc.move_ids" t-as="line">
                           <tr style="">
                             <!--************** line **************** -->
                             <td rowspan="2" class="text-center" style="">
-                              <!-- <span t-field="line.seq_no" style="" /> -->
-                              <t t-esc="line_index + 1" />
+                              <span t-field="line.seq_no" style="" />
                             </td>
                             <!--************************* Part *****************************-->
                             <td rowspan="" style="">
@@ -302,44 +303,45 @@
                                 <span class="float:right; text-uppercase" t-field="line.product_id" />
                               </div>
                                <!--******************** Description *********************-->
-                              <span t-field="line.product_id.description_sale" />
-                              <!-- <span t-field="line.sale_line_id.name" /> -->
-                              <!-- <span t-field="line.description_picking" style="" /> -->
-                              <!-- <div><span t-field="line.name" /></div> -->
+                              <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
+                                <span style="" t-field="line.product_id.description" />
+                              </div>
                             </td>
                             <!--*************************** UOM ***************************--> 
                             <td class="text-center">
-                              <!-- <span t-field="line.product_uom" style="" /> -->
+                              <span t-field="line.product_uom" style="" />
                             </td>
                             <!-- <td class="text-center"><span t-field="line.product_uom_qty" /></td> -->
-                            <!--************************** order QTY **********************--> 
+                           
+                            <!--************************* Shipped ***************************--> 
                             <td class="text-center">
-                              <!-- <span t-field="line.quantity_done" /> -->
+                              <span t-field="line.quantity" />
                             </td>
-                            <!--************************* Shipped ***************************-->
+                             <!--************************** PICK QTY **********************-->
                             <td colspan="" class="text-center">
-                              <!-- PICK QTY -->
                               <!-- <span class=" report-well" t-field="line.pick_qty" /> -->
-                              <!-- <span class="" t-field="line.quantity_done" />
+                              <span class="" t-field="line.quantity" />
                               <div class="" data-name="label: field">
                                 <span class="" t-field="line.product_id.weight" style="color: rgb(0, 123, 255); white-space: nowrap;" />
                                 <span class="text-lowercase" style="color: rgb(0, 123, 255); white-space: nowrap;">lbs</span>
-                              </div> -->
+                              </div>
                             </td>
                             <td colspan="" class="text-center">
-                              <!-- BO -->
+                              <!--****************** BO ************************************-->
     <!--                          <span class="" style="white-space: nowrap;" t-field="line.probo_qty" />-->
-                              <!-- <span t-esc=" (line.product_uom_qty - line.quantity_done)"></span> -->
+                              <span t-esc=" (line.product_uom_qty - line.quantity)"></span>
 
                             </td>
+                            <!--************** TOTAL WEIGHT **************-->
                             <td colspan="" class="text-center">
-                              <!-- <span class="report-well" t-esc="'{:.2f}'.format(line.product_id.weight * line.quantity_done)" /> -->
+                              <span class="report-well" t-esc="'{:.2f}'.format(line.product_id.weight * line.quantity)" />
                               <span class="text-lowercase" style="margin-left: 3px; color: rgb(0, 123, 255); white-space: nowrap;">lbs</span>
                             </td>
-                            <!-- TOTAL WEIGHT -->
+                            <!--************** BOX **************-->
                             <td class="text-center">
                               <!-- <span t-field="line.package_line_id.inbox_qty"/> -->
                             </td>
+                            <!--************** SKID **************-->
                             <td class="text-center">
                               <!-- <span t-field="line.package_line_id.skids"/> -->
                             </td>

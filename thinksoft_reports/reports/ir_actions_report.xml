@@ -167,7 +167,31 @@
             <field name="report_file">thinksoft_reports.report_thinksoft_payment_remittance</field>
             <field name="print_report_name">'Payment Remittance'</field>
             <field name="binding_model_id" ref="account.model_account_payment" />
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_payment_remittance_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!--^********************************* Purchase Order/ReqFQ *********************************-->
+        <record id="action_report_purchase_order" model="ir.actions.report">
+            <field name="name">ReqFQ/PO</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.purchase_order_template</field>
+            <field name="report_file">thinksoft_reports.purchase_order_template</field>
+            <field name="print_report_name">'ReqFQ/PO'</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>
+        </record>
+        <!--^********************************* Way Bill *********************************-->
+        <record id="action_report_way_bill" model="ir.actions.report">
+            <field name="name">Way Bill</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.waybill_template</field>
+            <field name="report_file">thinksoft_reports.waybill_template</field>
+            <field name="print_report_name">'Way Bill'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="paperformat_id" ref="thinksoft_reports.paperformat_report_waybill" />
             <field name="binding_type">report</field>
         </record>
 
