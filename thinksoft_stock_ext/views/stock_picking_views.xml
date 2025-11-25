@@ -12,13 +12,27 @@
                 <field name="partner_customer_id" invisible="not sale_id and picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
             </xpath>
 
+            <!-- hidding the shipping_weight field from the tab so it can be added to the header -->
+            <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//group[@name='carrier_data']//div[3]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
             <!-- adding the Picker, Packer, Shipper, and Team to Header -->
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="waybill" invisible="picking_type_sequence_code != 'OUT'" />
+                <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
                 <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" />
                 <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" />
                 <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" />
-                <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
+                <label for="shipping_weight" string="Shipping Weight"/>
+                <div>
+                    <field name="shipping_weight" class="oe_inline"/>
+                    <field name="weight_uom_name" nolabel="1" class="oe_inline" style="margin-left:5px"/>
+                </div>
+                <field name="no_pieces" invisible="picking_type_sequence_code not in ['PACK', 'OUT']" placeholder="Number of boxes and skids (do not include weight)" />
             </xpath>
 
             <!-- adding the CUstomer Reference and the Salesperson to the "Additional Info" tab-->
