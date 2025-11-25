@@ -7,6 +7,7 @@ class SaleOrderLine(models.Model):
 
     seq_no = fields.Integer(string="#", compute="_compute_line_number", readonly=True, store=True)
     tagging = fields.Char(help="Customer Line Item Reference for custom identification or referencing of product in accordance to the customer")
+    purchase_order_id = fields.Many2one("purchase.order", string="PO Number")
 
     # determining the line number of the sale.order.line record
     @api.depends("order_id", "order_id.order_line", "sequence")

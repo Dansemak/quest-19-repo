@@ -28,16 +28,7 @@ class SaleOrder(models.Model):
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
     )
-    customer_end_user_id = fields.Many2one(
-        "company.user",
-        string="End User",
-        help="The user/company/project at the end of the sales flow that will inevitably receive these products",
-    )
-    customer_job_project_id = fields.Many2one(
-        "job.project",
-        string="Job Project",
-        help="The name of the partner's project",
-    )
+    carrier_cut_off = fields.Float(related="carrier_id.cut_off")
 
     # outside salesperson assigned from the customer"s outside_salesperson_id field
     # customer account information assigned from the customer"s customer_account_info field
