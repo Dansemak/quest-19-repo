@@ -4,7 +4,7 @@
         <field name="name">ncr.category.view.list</field>
         <field name="model">ncr.category</field>
         <field name="arch" type="xml">
-            <list>
+            <list duplicate="0">
                 <field name="name"/>
                 <field name="parent_category_id"/>
             </list>
@@ -15,7 +15,7 @@
         <field name="name">ncr.category.view.form</field>
         <field name="model">ncr.category</field>
         <field name="arch" type="xml">
-            <form>
+            <form duplicate="0">
                 <sheet>
                     <group>
                         <group>
