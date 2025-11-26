@@ -263,7 +263,7 @@
                         <!--******************* QTY ORD **************-->
                         <td class="text-center">
                           <!-- <span t-field="line.product_uom_qty" /> -->
-                           <span class="" t-field="line.product_uom_qty" />
+                           <span class="" t-field="line.sale_line_id.product_uom_qty" />
                         </td>
                         <!--******************* QTY SHP **************-->
                         <td colspan="" class="text-center">
@@ -274,7 +274,7 @@
                         <!-- <td colspan="" class="text-center"><span t-field=" line.probo_qty"></span></td> -->
                         <td colspan="" class="text-center">
                           <!-- <span t-esc=" (line.product_uom_qty - line.quantity_done)"></span> -->
-                           <span t-esc=" (line.product_uom_qty - line.quantity)"></span>
+                           <span t-esc=" (line.sale_line_id.product_uom_qty - line.quantity)"></span>
                         </td>
 
                         <!--***************** UNIT PRICE ****************-->
