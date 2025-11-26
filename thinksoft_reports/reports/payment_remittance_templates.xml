@@ -154,7 +154,6 @@
                                             <th class="text-left"><strong>Date</strong></th>
                                             <th class="text-left"><strong>Supplier Invoice</strong></th>
                                             <th class="text-left"><strong>Bill/Payment No.</strong></th>
-                                            <th class="text-left"><strong>Reference</strong></th>
                                             <th class="text-left"><strong>Billed Amount</strong></th>
                                             <th class="text-left"><strong>Amount Paid</strong></th>
                                         </thead>
@@ -162,7 +161,7 @@
                                             <t t-foreach="invoices" t-as="inv">
                                                 <!-- MOVE -->
                                                 <t t-if="inv.move_type != 'entry'">
-                                                    <!-- INVOICE ROW -->
+                                                    <!-- BILL ROW -->
                                                     <tr>
                                                         <!--************** DATE **************-->
                                                         <td class="text-center">
@@ -175,10 +174,6 @@
                                                         <!--*********** BILLED No *****************-->
                                                         <td class="text-center">
                                                             <span t-field="inv.name"/>
-                                                        </td>
-                                                        <!--*********** REFERENCE *****************-->
-                                                        <td class="text-center">
-                                                            <span t-field="inv.payment_reference"/>
                                                         </td>
                                                         <!-- <td t-if="otherCurrency"/> -->
                                                         <!--*********** BILLED AMT *****************-->
@@ -198,9 +193,8 @@
                                                             <span t-field="o.name"/>
                                                         </td>
                                                         <td></td>
-                                                        <td></td>
                                                         <td class="text-end">
-                                                            <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                                            <span t-esc="-(o.amount)" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                                         </td>
                                                     </tr>
                                                     <tr class="border border-2"/>
