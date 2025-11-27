@@ -20,7 +20,7 @@
   </template>
 
   <template name="Report with header and footer standard" id="report_layout_waybill">
-    <div class="header pe-5" style=""> 
+    <div class="header pe-5" style="">
         <style>
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
@@ -37,7 +37,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -151,7 +151,7 @@
   <t t-call="thinksoft_reports.report_layout_waybill">
     <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
       <div class="main_page">
-        
+
           <!--
             As language is not required for all objects.
             So for now, If partner is available in object then pass
@@ -212,20 +212,20 @@
                         </td>
                       </tr>
                       <tr>
-                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span class="">SO</span> <span class="text-capitalize"> No</span></th>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span class="">SALES ORDER</span></th>
                         <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
                           <span class="" t-field="doc.sale_id" />
                         </td>
                       </tr>
                       <tr>
-                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span class="">PO </span> <span class="text-capitalize"> No</span></th>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span class="">CUSTOMER REFERENCE</span></th>
                         <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
                           <span class="" t-field="doc.client_order_ref" />
                         </td>
                       </tr>
                       <tr>
                         <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">COURIER</span>
+                          <span class="">SHIPPING INFORMATION</span>
                         </th>
                         <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
                           <span t-field="doc.carrier_id.name"/>
@@ -280,25 +280,25 @@
                           <!--********************** Number of pieces *************************-->
                           <td rowspan="2" class="text-center" style="">
                             <span t-field="doc.sale_id.purchase_order_count" style="" />
-                          </td> 
-                          <!--********************** Package Description *************************-->                        
+                          </td>
+                          <!--********************** Package Description *************************-->
                           <td class="">
                             <span  t-field="doc.product_id.description" style=""/>
-                          </td>                         
+                          </td>
                           <!-- <td class="text-center"><span  t-field="doc.way_bill"/> </td>--><!-- Waybill -->
                           <!--********************** WEIGHT *************************-->
                           <td class="text-center">
                             <span t-field="doc.product_id.weight" />
                           </td>
-                          
+
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-            </div>   
-          </div>      
+            </div>
+          </div>
       </div>
     </t>
   </template>

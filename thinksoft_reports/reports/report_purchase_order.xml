@@ -21,17 +21,17 @@
     </t>
   </template>
   <template name="Report with header and footer standard" id="report_external_layout_purchase_order">
-    <div class="header pe-5" style=""> 
+    <div class="header pe-5" style="">
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+           .header,.footer {
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -41,7 +41,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -88,7 +88,7 @@
         t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
         <t t-raw="0" />
       </div>
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -107,7 +107,7 @@
   <template id="purchase_order_template_document">
   <t t-call="thinksoft_reports.report_external_layout_purchase_order">
       <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
-      <div class="main_page">       
+      <div class="main_page">
         <div class="oe_structure" style="">
           <div class="container">
             <div class="row">
@@ -232,9 +232,9 @@
                       <tr style="height:23pt;">
                         <th style="border: 1px solid black; width:33pt;" rowspan="2" align="center"> LINE </th>
                         <th align="" style="text-align:left;">PART #</th>
-                        <t t-if="o.state != 'draft'">
+                        <!-- <t t-if="o.state != 'draft'">
                           <th style="white-space: nowrap;" rowspan="2" align=""> BOX QTY </th>
-                        </t>
+                        </t> -->
                         <th style="white-space: nowrap;" rowspan="2" align=""> QUANTITY </th>
                         <th style="white-space: nowrap;" rowspan="2" align=""> UOM </th>
                         <!--  <th style="white-space: nowrap;" rowspan="2" align="center">
@@ -266,16 +266,16 @@
                           </div>
                         </td>
                         <!--***************** BOX QTY *******************-->
-                        <t t-if="o.state != 'draft'">
+                        <!-- <t t-if="o.state != 'draft'">
                           <td style="" />
-                        </t>
+                        </t> -->
                         <!--***************** QUANTITY *************-->
                         <td style="">
-                          <span t-field="line.product_uom_qty" />                         
+                          <span t-field="line.product_uom_qty" />
                         </td>
                         <!--*************** UOM ********************-->
                         <td style="">
-                          <span t-field="line.product_uom_id.name" />                         
+                          <span t-field="line.product_uom_id.name" />
                         </td>
                         <!-- <td style=""><span t-field="line.string_availability_info"/></td> -->
                         <t t-if="o.state != 'draft'">
@@ -332,7 +332,7 @@
               <!-- <div id="total" class="col-3"></div> -->
             </div>
           </div>
-        </div>       
+        </div>
       </div>
     </t>
   </template>
