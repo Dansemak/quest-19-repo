@@ -36,7 +36,7 @@ class StockPicking(models.Model):
     )
     carrier_id = fields.Many2one(
         "delivery.carrier",
-        string="Carrier",
+        string="Shipping Method",
         domain="[('id', 'in', allowed_carrier_ids)]",
         check_company=True,
         related="sale_id.carrier_id",

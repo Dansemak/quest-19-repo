@@ -12,12 +12,9 @@
                 <field name="partner_customer_id" invisible="not sale_id and picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
             </xpath>
 
-            <!-- hidding the shipping_weight field from the tab so it can be added to the header -->
+            <!-- renaming shipping label-->
             <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </xpath>
-            <xpath expr="//group[@name='carrier_data']//div[3]" position="attributes">
-                <attribute name="invisible">True</attribute>
+                <attribute name="string">Shipping Weight</attribute>
             </xpath>
 
             <!-- adding the Picker, Packer, Shipper, and Team to Header -->
@@ -27,11 +24,12 @@
                 <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" />
                 <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" />
                 <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" />
-                <label for="shipping_weight" string="Shipping Weight"/>
-                <div>
-                    <field name="shipping_weight" class="oe_inline"/>
-                    <field name="weight_uom_name" nolabel="1" class="oe_inline" style="margin-left:5px"/>
-                </div>
+
+                <!-- moving the shipping_weight and label to the header -->
+                <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="move">
+                <xpath expr="//group[@name='carrier_data']//div[3]" position="move"/>
+
+                <!-- adding the box_qty and skid_qty to serve as the No Pieces -->
                 <label for="box_qty" string="Number of Pieces" invisible="picking_type_sequence_code not in ['PACK', 'OUT']"/>
                 <div invisible="picking_type_sequence_code not in ['PACK', 'OUT']">
                     <field name="box_qty" nolabel="1" class="oe_inline"/>
