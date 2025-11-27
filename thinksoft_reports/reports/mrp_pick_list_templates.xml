@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mrp_pick_list_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <h1>MO Pick List</h1>
+        <!--
+          As language is not required for all objects.
+          So for now, If partner is available in object then pass
+          that partner's language.
+                -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-call="thinksoft_reports.mrp_pick_list_template_document" t-lang="doc.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in doc.fields_get()">
+          <t t-call="thinksoft_reports.mrp_pick_list_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+
+  <template name="Report with header and footer standard" id="report_external_layout_mrp_pick_list">
+    <div class="header pe-5" style=""> 
+        <style>
+          
+          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Hubot+Sans:ital,wght@0,200..900;1,200..900&amp;family=Oswald:wght@200..700&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;family=Tangerine:wght@400;700&amp;display=swap');
+           .header,.footer { 
+                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+              }
+            .top-address{
+                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+              }
+            .title{
+                font-family:'Oswald', sans-serif;
+                <!-- font-optical-sizing: auto; -->
+                font-style: normal;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                text-align: left !important;
+                line-height: 1.2 !important;
+              }
+            .barcode{
+                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+              }
+        </style>    
+        <div class="container">
+          <div class="row mb-2">
+            <!-- ********************************* LOGO
+            ********************************************* -->
+            <div class="col-4">
+              <div class="">
+                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
+                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
+                  title="" aria-describedby="tooltip269202" />
+              </div>
+            </div>
+            <!-- ************************************** ADDRESS *************************** -->
+            <div class="col-3 top-address">
+              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                780.461.7009</p>
+            </div>
+            <!-- ************************************** TITLE
+            ******************************************** -->
+            <div class="col-5 d-flex justify-content-end top-address" style=" ">
+              <div style="padding:0!important; text-align:center; ">
+                <!--**********************
+                BARCODE *********************-->
+                <span t-field="doc.name"
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                  style="" />
+                <br />
+                <div class="barcode" t-field="doc.name" />
+              </div>
+              <!--**********************
+              TITLE *********************-->
+              <div class="title text-uppercase" style="">
+                MO Pick list
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <!--            <t t-call="quest_DO_reports.address_layout"/>-->
+      <t t-raw="0" />
+    </div>
+    <div class="footer" style="font-size:11px; width:100%;">
+            <div class="container">
+                <div class="row">
+                <div class="col-12">
+                  <span class="text-left" style="">Print Date:</span>
+                  <span class="ml-2" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;" />
+                  <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+                  <div style="display: inline-block; float: right;">Page: <span class="page ml-2" /> of <span style="text-align: right;" class="topage" /></div>
+                </div>
+              </div>
+              </div>
+        </div>
+  </template>
+
+  <template id="mrp_pick_list_template_document">
+    <div class="main_page">
+      <t t-call="thinksoft_reports.report_external_layout_mrp_pick_list">
+      <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+        <!--
+              As language is not required for all objects.
+              So for now, If partner is available in object then pass
+              that partner's language.
+                        -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+        </t>
+        <div class="oe_structure" style="font-size: 11px;">
+
+          <div class="container">
+            <div class="row ">
+            <!-- ************************************** REPORT INFO ******************************************** -->
+              <div class="top-info col-12">
+                <table  class="text-uppercase" style="width:100%;">
+                  <thead style="    background-color: #deeaf6;">
+                    <th>MANUFACTURE ORDER</th>
+                    <th>SALES ORDER</th>
+                    <th>ORDER DATE</th>
+                  </thead>
+                  <tbody style="">
+                    <tr>
+                      <td class="text-center" style=""><span class="" t-field="doc.product_id" /></td>
+                      <td class="text-center" style=""><span class="" t-field="doc.sale_id" /></td>
+                      <td class="text-center" style=""><span class="" t-field="doc.sale_id.date_order" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+          <div class="container" style="margin:20px 0 20px;">
+            <div class="row items">
+              <div class="col-md-12 col-xs-12">
+              <h2 style="font-size:12px; font-weight:bold;" class="text-uppercase">Items</h2>
+                <div class="top-info">
+                  <table style="width: 100%;">
+                    <thead style="">
+                      <div style="clear: both;">
+                        <tr>
+                          <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color: #525659; width: 40px;">
+                            Line
+                          </th>
+                          <th style="text-align: left; border-top-color: solid #525659; border-bottom-color: #525659;">
+                            Part #
+                          </th>
+                          <th rowspan="2" colspan="" style="width: 150px; border-bottom-color: #525659; border-right-color: #525659;">
+                            STATUS
+                          </th>
+                           <th rowspan="2" colspan="" style="border-top-color: #525659;">QTY PICKED</th>
+                          <th rowspan="2" style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
+                            RESERVED
+                          </th>
+                          <th rowspan="2" style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
+                            UOM
+                          </th>
+                          <th rowspan="2" style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
+                            REQUIRED
+                          </th>
+                        </tr>
+
+                        <tr>
+                          <th style="text-align: left; border-bottom-color: #525659; width: 380px;">
+                            Description
+                          </th>
+                         
+                        </tr>
+                        
+                      </div>
+                    </thead>
+                    <!-- <tbody t-foreach="doc.move_lines" t-as="line" style=""> -->
+                    <tbody t-foreach="doc.move_ids" t-as="line">
+                      <tr style="">
+                      <!--########## line ########### -->
+                        <td rowspan="" class="text-center" style="">
+                          <span t-field="line.seq_no" style="" />
+                        </td> 
+                        <!--######### Part ######## -->
+                        <td rowspan="" style="">
+                          <div style="text-align: left; margin-bottom: 3px;" class="">
+                            <span class="float:right; text-uppercase" t-field="line.product_id" />
+                            <!--  <span>
+                                   <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp; width=%s; height=%s' % ('Code128', line.product_id.default_code, 200, 20)" style="padding:0; background:none!important; width:150px;height:20px" data-original-title="" title="" aria-describedby="tooltip576547"/>
+                                 </span> -->
+                          </div>
+                           <!-- ######### Description ##########-->
+                          <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
+                              <span t-field="line.product_id.description" />
+                            </div> 
+                        </td>
+                        <!--######### MO ###########-->
+                        <!-- <td class="text-center">
+                          <span t-field="line.created_production_id" style="" />
+                        </td> -->
+                        <!-- <td class="text-center"></td> --><!-- PO -->
+                        <!--############ STATUS ############-->
+                        <td style="text-align: center;" class="">
+                          <span t-field="line.state" class="text-center" />
+                        </td>
+                        <!--############ QTY PICKED ############-->
+                        <td style="text-align: center;" class=""/>
+                        <!--############## QTY RESERVED #############-->
+                        <td style="text-align: center;" class="">
+                          <span t-field="line.reserved_availability" class="text-center" />
+                        </td>
+                        <!--################# UOM #####################-->
+                        <td style="text-align: center;" class="">
+                          <span t-esc="line.product_uom.name" class="text-center" />
+                        </td>
+                        <!--################ QTY REQUIRED ##################-->
+                        <td style="text-align: center;" class="">
+                          <span t-field="line.product_uom_qty" class="text-center" />
+                        </td>
+                        <!--################## RSRV WGHT #########################-->
+                        <!-- <td style="text-align: center; vertical-align: middle;" class="text-center"> -->
+                          <!-- <span class="" style="color: rgb(0, 123, 255); white-space: nowrap;" t-esc=" round(line.product_id.weight * (line.reserved_availability),2)" /> -->
+                          <!-- <span class="" style="color: rgb(0, 123, 255); white-space: nowrap;" t-esc=" round(line.product_id.weight * (line.product_uom_qty),2)" />
+                          <span class="text-lowercase" style="color: rgb(0, 123, 255); white-space: nowrap;">lbs </span>
+                        </td> -->
+                        <!-- <td class="" style="vertical-align: middle; text-align: center;"> -->
+                        <!-- </td> -->
+                      </tr>
+                      <!-- <tr class="" style=""> -->
+                        <!-- <td colspan="2"></td> -->
+                        <!-- Heat # -->
+                        <!-- <td colspan="3" class="text-center"><span  t-field="line.quantity_done"/></td> -->
+                        <!-- QTY PICKED -->
+                        <!-- <td colspan="" class="text-center"> -->
+                        <!-- <span class="" style=" white-space: nowrap;" t-field="line.probo_qty"/> </td>-->
+                        <!-- BO -->
+                        <!-- <td colspan="" class="text-center" /> -->
+                        <!-- QC INITIALS -->
+                      <!-- </tr> -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </t>
+    </div>
+  </template>
+</odoo>

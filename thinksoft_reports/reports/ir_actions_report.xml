@@ -201,6 +201,18 @@
             <field name="paperformat_id" ref="thinksoft_reports.paperformat_report_waybill" />
             <field name="binding_type">report</field>
         </record>
+        <!--^********************************* MO Pick List *********************************-->
+        <record id="action_report_mrp_pick_list" model="ir.actions.report">
+            <field name="name">MO Pick List</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_reports.mrp_pick_list_template</field>
+            <field name="report_file">thinksoft_reports.mrp_pick_list_template</field>
+            <field name="print_report_name">'MO Pick List'</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="binding_type">report</field>            
+        </record>
 
     </data>
 </odoo>

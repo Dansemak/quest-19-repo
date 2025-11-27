@@ -29,6 +29,7 @@
         "reports/ir_actions_report.xml",
         "reports/report_purchase_order.xml",
         "reports/waybill_templates.xml",
+        "reports/mrp_pick_list_templates.xml",
     ],
     "installable": True,
     "application": False,

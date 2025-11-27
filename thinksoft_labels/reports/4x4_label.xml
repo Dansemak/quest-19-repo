@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="label_4x4_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="thinksoft_labels.4x4_label_document" />
+            </t>
+        </t>
+    </template>
+
+    <template id="internal_layout_4x4_label">
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id" />
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company" />
+        </t>
+        <div class="header">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                .header {
+                        font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                        
+                    }
+            </style>
+                <div class="row " style="">
+                    <div class="col-6" style="font-size:12px; padding-right:20px !important;">
+                        <span class="text-uppercase" style="font-weight:bold;">Cust:</span>                           
+                        <span class="code" style="margin-left:2px; font-weight:normal;line-height:1 !important;" t-field="doc.picking_id.partner_id.name" />
+                    </div>
+                    <div class="col-6">
+                        <img class="img float-end" style="width:150px; display:block; horizontal-align:right;" data-name="&lt; img / &gt;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
+                    </div>
+                </div>
+        </div>
+        <div class="article">
+            <t t-raw="0" />
+        </div>
+
+    </template>
+
+    <template id="4x4_label_document">
+        <t t-call="thinksoft_labels.internal_layout_4x4_label">
+            <!-- <link rel="stylesheet" t-att-href="'/thinksoft_labels/static/src/css/report_style.css'" /> -->
+                <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                .main-page {
+                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+
+                }
+                </style>
+                <div class="main-page">
+                    <div class="oe_structure" style="font-size:14px!important;">
+                        <div class="row " >
+                            <div class="col-12" style="margin-top:30px !important; ">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                P/N:</span>
+                                <span class="code" style="margin-left:2px;  font-weight:normal;" t-field="doc.product_id" />
+                            </div>
+                        </div>
+                            <!--####################### DESCRIPTION  ##############-->
+
+                        <div class="row mt-2">
+                            <div class="col-12" style="">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                Description:</span>
+                                <span class="" style="margin-left:2px; font-weight:normal; line-height:1.2; font-size:11px!important;" t-field="doc.product_id.description" />
+                            </div>
+                        </div>
+                        <!--#############
+                DETAILS  ##############-->
+
+                        <div class="row  mt-3">
+                            <!--*****************
+                    QTY  ********-->
+
+                            <div class="col-4">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                Qty:________</span>
+                            </div>
+                            <!--************
+                    BOX#  ************-->
+
+                            <div class="col-4 text-center">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                BOX#:________</span>
+                            </div>
+                            <!--*************
+                    SKID#  ************-->
+                            <div class="col-4 text-end">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                SKID#:________</span>
+                            </div>
+                        </div>
+
+                        <div class="row  mt-2" style="">
+                            <!--**********
+                    PO#  ********-->
+                            <div class="col-6" style="">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                C-PO#:</span>
+                                <span class="" style="margin-left:2px; font-weight:normal;" t-field="doc.picking_id.client_order_ref" />
+                                <!-- <span class="" style="margin-left:2px; font-weight:normal;" t-field="doc.origin" /> -->
+                            </div>
+                            <!--************
+                    PO#  **********-->
+                            <div class="col-6 text-end" style="">
+                                <span class="text-uppercase" style="font-weight:bold; margin-right:2px;">
+                                SO#:</span>
+                                <span class="" style="font-weight:normal;" t-field="doc.origin" />
+                            </div>
+                        </div>
+                        <div class="row mt-2" style="">
+                            <!--***************************
+                        HT#  ********************************-->
+
+                            <div class="col-12">
+                                <span class="text-uppercase" style="font-weight:bold; ">
+                                HEAT#:</span>
+                                <!-- <span class="" style="margin-left:2px;
+                            font-weight:normal;" t-field="line.heat"/> -->
+                            </div>
+                        </div>
+                        <div class="row  mt-2" style="">
+                            <!--**********
+                    TAGGING  ********-->
+                            <div class="col-12 " style="">
+                                <div>
+                                    <span class="text-uppercase" style="font-weight:bold; ">
+                                    TAGGING:</span>
+                                </div>
+                                <div>
+                                    <!-- <span class="" style="margin-left:2px; font-weight:normal;" t-field="line.tagging" /> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

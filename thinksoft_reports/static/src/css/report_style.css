@@ -27,14 +27,11 @@
             padding: 8px !important;
             vertical-align: middle;
         }
-        .info1 {
-            padding-right:20px !important;
-        }
-        /* .info1 table tr th {
-            text-align: left !important;
-            background-color: #DEEAF6;
-        }  */
-        .info table, .info1 table {
+        .info1 table tr th { 
+            /* text-align: left !important; */
+            background-color: #DEEAF6;  
+        } 
+        .info table, .info1 table { 
             font-size: 12px !important;
             width:100%;
             text-transform: uppercase;

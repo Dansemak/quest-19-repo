@@ -14,17 +14,7 @@
             <field name="paperformat_id" ref="thinksoft_labels.paperformat_print_label_1_25x4" />
             <field name="print_report_name">'Label - %s' % (object.name)</field>
         </record>
-        <!--^********************************* Shipping Label 3x4 *********************************-->
-        <record id="action_report_shipping_label_3x4" model="ir.actions.report">
-            <field name="name">Shipping Label 3x4</field>
-            <field name="model">stock.picking</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">thinksoft_labels.shipping_label_3x4_template</field>
-            <field name="report_file">thinksoft_labels.shipping_label_3x4_template</field>
-            <field name="binding_model_id" ref="stock.model_stock_picking" />
-            <field name="paperformat_id" ref="thinksoft_labels.shipping_label_3x4_paperformat" />
-            <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
-        </record>
+        
         <!--^********************************* Shipping Label 4x4 *********************************-->
         <record id="action_report_shipping_label_4x4" model="ir.actions.report">
             <field name="name">Shipping Label 4x4</field>
@@ -47,6 +37,16 @@
             <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat" />
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
+        </record>
+        <!--^********************************* 4x4 Label *********************************-->
+        <record id="4x4_label" model="ir.actions.report">
+            <field name="name">4x4 Label</field>
+            <field name="model">stock.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.label_4x4_template</field>
+            <field name="report_file">thinksoft_labels.label_4x4_template</field>
+            <field name="print_report_name">'4x4LBL - %s' % (object.product_id.name)</field>
+            <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat"/>
         </record>
     </data>
 </odoo>

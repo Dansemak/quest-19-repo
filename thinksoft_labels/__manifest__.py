@@ -13,11 +13,12 @@
     "data": [
         "reports/reports_paperformats.xml",
         "reports/print_label_1_25x4_templates.xml",
-        "reports/shipping_label_3x4_templates.xml",
+        # "reports/shipping_label_3x4_templates.xml",
         "reports/shipping_label_4x4_templates.xml",
         "reports/location_labels.xml",
         "reports/4x4_label_for_all_templates.xml",
         "reports/ir_actions_report.xml",
+        "reports/4x4_label.xml",
     ],
     "installable": True,
     "application": False,
