@@ -2,11 +2,8 @@ from . import sale_order
 from . import sale_order_line
 from . import sale_freight
 from . import sale_note
-from . import job_project
-from . import company_user
 from . import delivery_carrier
 from . import stock_picking
 from . import stock_move
-from . import crm_lead
 from . import purchase_order
 from . import account_move

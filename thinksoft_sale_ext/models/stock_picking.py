@@ -34,6 +34,13 @@ class StockPicking(models.Model):
         string="Cut Off",
         help="The time of day when the shipping cutoff occurs, in hours (0-24).",
     )
+    carrier_id = fields.Many2one(
+        "delivery.carrier",
+        string="Carrier",
+        domain="[('id', 'in', allowed_carrier_ids)]",
+        check_company=True,
+        related="sale_id.carrier_id",
+    )
     picking_type_sequence_code = fields.Char(related="picking_type_id.sequence_code")
     partner_contact_id = fields.Many2one("res.partner", compute="_compute_order_fields", string="Contact")
 
