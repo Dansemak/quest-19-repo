@@ -21,11 +21,11 @@
             </xpath>
 
             <xpath expr="//field[@name='origin']" position="before">
-                <label for="carrier_id"/>
-                <div name="carrier_fields" class="o_row">
+                <label for="carrier_id"  invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                <div name="carrier_fields" class="o_row" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']">
                     <field name="carrier_id" string="Shipping Method" options="{'no_create': True, 'no_open': True}"/>
-                    <label for="cut_off" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
-                    <field name="cut_off" widget="float_time" readonly="True" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                    <label for="cut_off"/>
+                    <field name="cut_off" widget="float_time" readonly="True"/>
                 </div>
                 <field name="sale_freight_id" options="{'no_create': True, 'no_open': True}" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']"/>
             </xpath>
