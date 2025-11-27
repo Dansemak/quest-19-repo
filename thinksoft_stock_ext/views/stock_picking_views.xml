@@ -12,13 +12,32 @@
                 <field name="partner_customer_id" invisible="not sale_id and picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
             </xpath>
 
+            <!-- renaming shipping label-->
+            <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="attributes">
+                <attribute name="string">Shipping Weight</attribute>
+            </xpath>
+
             <!-- adding the Picker, Packer, Shipper, and Team to Header -->
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="waybill" invisible="picking_type_sequence_code != 'OUT'" />
+                <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
                 <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" />
                 <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" />
                 <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" />
-                <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
+
+                <!-- moving the shipping_weight and label to the header -->
+                <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="move">
+                <xpath expr="//group[@name='carrier_data']//div[3]" position="move"/>
+
+                <!-- adding the box_qty and skid_qty to serve as the No Pieces -->
+                <label for="box_qty" string="Number of Pieces" invisible="picking_type_sequence_code not in ['PACK', 'OUT']"/>
+                <div invisible="picking_type_sequence_code not in ['PACK', 'OUT']">
+                    <field name="box_qty" nolabel="1" class="oe_inline"/>
+                    <span>boxes</span>
+                    <br/>
+                    <field name="skid_qty" nolabel="1" class="oe_inline"/>
+                    <span>skids</span>
+                </div>
             </xpath>
 
             <!-- adding the CUstomer Reference and the Salesperson to the "Additional Info" tab-->
