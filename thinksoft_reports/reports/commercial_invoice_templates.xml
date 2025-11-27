@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!--********************************* Commercial Invoice *********************************-->
+        <!-- ******************** Commercial Invoice ******************** -->
 
         <template id="commercial_invoice_template">
             <t t-call="web.html_container">
@@ -42,8 +42,7 @@
                 </style>
                 <div class="container">
                 <div class="row mb-2">
-                    <!-- ********************************* LOGO
-                    ********************************************* -->
+                    <!-- ******************** LOGO ******************** -->
                     <div class="col-4">
                     <div class="">
                         <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
@@ -51,26 +50,23 @@
                         title="" aria-describedby="tooltip269202" />
                     </div>
                     </div>
-                    <!-- ************************************** ADDRESS *************************** -->
+                    <!-- ******************** ADDRESS ******************** -->
                     <div class="col-3 top-address">
                     <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
                         500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
                         780.461.7009</p>
                     </div>
-                    <!-- ************************************** TITLE
-                    ******************************************** -->
+                    <!-- ******************** TITLE ******************** -->
                     <div class="col-5 d-flex justify-content-end top-address" style=" ">
                     <div style="padding:0!important; text-align:center; ">
-                        <!--**********************
-                        BARCODE *********************-->
+                        <!-- ******************** BARCODE ******************** -->
                         <span t-field="doc.name"
                         t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
                         style="" />
                         <br />
                         <div class="barcode" t-field="doc.name" />
                     </div>
-                    <!--**********************
-                    TITLE *********************-->
+                    <!-- ******************** TITLE ******************** -->
                     <div class="title text-uppercase">
                         Commercial<br/>Invoice
                     </div>
@@ -117,7 +113,7 @@
                     <div class="oe_structure" style="font-size: 11px; ">
                         <div class="container" >
                             <div class="row">
-                            <!-- ************************************** SHIP TO ******************************************** -->
+                            <!-- ******************** SHIP TO ******************** -->
                                 <div class="info1 col-6" >
                                     <table class="text-uppercase table table-borderless" style=" border-collapse:collapse;">
                                     <tbody style="">
@@ -138,7 +134,7 @@
                                     </table>
                                 </div>
 
-                                <!-- ************************************** REPORT INFO ******************************************** -->
+                                <!-- ******************** REPORT INFO ******************** -->
                                 <div class="info col-6">
                                     <table class="table text-uppercase"  style="border-collapse:collapse;" >
                                         <tbody style="">
@@ -261,44 +257,44 @@
                                     <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
                                     <tbody t-foreach="doc.move_ids" t-as="line">
                                         <tr style="">
-                                        <!--********************* line # ********************-->
+                                        <!-- ******************** line # ******************** -->
                                         <td rowspan="2" class="text-center" style="">
                                             <span t-field="line.seq_no" style=""/>
                                         </td>
                                         <td colspan="" style="padding: 0 !important;" >
-                                            <!--**************** Part # ***********************-->
+                                            <!-- ******************** Part # ******************** -->
                                             <div style="text-align: left;  padding: 0 !important;" >
                                             <div class="float:left; text-uppercase " style=" display:inline; line-height:25px !important; margin: 3px 10px 0px 10px !important;" t-field="line.product_id" />
 
                                             <!-- <div class="float:left; " style="line-height:25px !important; border-left:2px solid #ccc !important; display:inline; padding:3px 5px 0px 20px !important;" t-field="line.hs_code" />  -->
                                             <!-- <div class="float:left; " style="line-height:25px !important; border-left:2px solid #cccccc5a !important; display:inline; padding:3px 5px 0px 20px !important;" t-field="line.country_of_origin" />  -->
                                             </div>
-                                            <!--****************  Description *****************-->
+                                            <!-- ******************** Description ******************** -->
                                             <div style="margin:0px 10px !important; line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
                                             <span style="" t-field="line.product_id.description" />
                                             </div>
                                         </td>
-                                        <!--******************* Hs Code *****************-->
+                                        <!-- ******************** Hs Code ******************** -->
                                         <td colspan="" class="text-center"><span t-field="line.product_id.hs_code" /></td>
-                                        <!--******************* Country Of Origin *****************-->
+                                        <!-- ******************** Country Of Origin ******************** -->
                                         <td colspan="" class="text-center">
                                             <span t-field="line.product_id.country_of_origin" />
                                         </td>
-                                        <!--******************* QTY shipped *****************-->
+                                        <!-- ******************** QTY shipped ******************** -->
                                         <td colspan="" class="text-center">
                                             <!-- <span class="" t-field="line.packaging_uom_qty" /> -->
                                             <span t-field="line.quantity" />
                                         </td>
-                                        <!--****************** UNIT PRICE *******************-->
+                                        <!-- ******************** UNIT PRICE ******************** -->
                                         <td class="text-end">
                                             <span style="margin-right:2px;">$</span>
                                             <span t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))" />
                                         </td>
-                                        <!-- *********************** UOM *******************-->
+                                        <!-- ******************** UOM ******************** -->
                                         <td class="text-center">
                                             <span  t-field="line.product_uom" style=""/>
                                         </td>
-                                        <!--*********************** ext. Price *************-->
+                                        <!-- ******************** ext. Price ******************** -->
                                         <td colspan="" class="text-end">
                                             <span style="margin-right:2px;">$</span>
                                             <span class="" t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity)" />
@@ -336,7 +332,7 @@
                                         </ul>
                                         </span>
                                     </td>
-                                    <!-- #####################  SUBTOTAL ############################## -->
+                                    <!-- ******************** SUBTOTAL ******************** -->
                                     <td style="width:115px; white-space: nowrap;text-align: right; background-color: #f1f1f1!important; ">
                                     <span>SUBTOTAL </span>
                                     </td>
@@ -348,7 +344,7 @@
                                         <span t-out="untaxed_amount" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- SUBTOTAL (CAD) -->
                                     </td>
                                     </tr>
-                                    <!-- #####################     GST (5%)  ############################## -->
+                                    <!-- ******************** GST (5%) ******************** -->
                                     <tr style="white-space: nowrap; height:29pt">
                                     <td style="text-align: right; background-color: #f1f1f1!important; ">
                                     <span style="">GST (5%)</span>
@@ -363,7 +359,7 @@
                                         <span t-out="tax_amount" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/>
                                     </td>
                                     </tr>
-                                        <!-- ############################## TOTAL ############################# -->
+                                        <!-- ******************** TOTAL ******************** -->
                                         <tr style="height:29pt">
                                         <td style="white-space: nowrap; text-align: right; background-color: #f1f1f1!important;"><span style="">TOTAL (<span t-field="doc.sale_id.currency_id"/>) </span>
                                         </td>

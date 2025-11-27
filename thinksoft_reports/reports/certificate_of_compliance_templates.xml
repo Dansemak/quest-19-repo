@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
+
     <template id="certificate_of_compliance_template">
       <t t-call="web.html_container">
         <t t-foreach="docs" t-as="doc">
@@ -20,8 +21,8 @@
         </t>
       </t>
     </template>
-    <template name="Report header and footer standard" id="report_external_layout_certificate_of_compliance"> 
-      <div class="header pe-5" style=""> 
+    <template name="Report header and footer standard" id="report_external_layout_certificate_of_compliance">
+      <div class="header pe-5" style="">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
            .header,.footer {
@@ -31,7 +32,7 @@
                 line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -41,11 +42,10 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
-            <!-- ********************************* LOGO
-            ********************************************* -->
+            <!-- ******************** LOGO ******************** -->
             <div class="col-4">
               <div class="">
                 <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
@@ -53,28 +53,25 @@
                   title="" aria-describedby="tooltip269202" />
               </div>
             </div>
-            <!-- ************************************** ADDRESS *************************** -->
+            <!-- ******************** ADDRESS ******************** -->
             <div class="col-3 top-address">
               <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
                 500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
                 780.461.7009</p>
             </div>
-            <!-- ************************************** TITLE
-            ******************************************** -->
+            <!-- ******************** TITLE ******************** -->
             <div class="col-5 d-flex justify-content-end top-address" style=" ">
               <div style="padding:0!important; text-align:center; ">
-                <!--**********************
-                BARCODE *********************-->
+                <!-- ******************** BARCODE ******************** -->
                 <span t-field="doc.name"
                   t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
                   style="" />
                 <br />
                 <div class="barcode" t-field="doc.name" />
               </div>
-              <!--**********************
-              TITLE *********************-->
+              <!-- ******************** TITLE ******************** -->
               <div class="title text-uppercase">
-                Certificate of <br />Compliance 
+                Certificate of <br />Compliance
               </div>
             </div>
           </div>
@@ -85,7 +82,7 @@
         <t t-raw="0" />
       </div>
 
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -104,7 +101,7 @@
     <template id="certificate_of_compliance_document">
       <t t-call="thinksoft_reports.report_external_layout_certificate_of_compliance">
           <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
-      <div class="main_page" style="">       
+      <div class="main_page" style="">
           <!--
                       As language is not required for all objects.
                       So for now, If partner is available in object then pass
@@ -116,7 +113,7 @@
           <div class="oe_structure" style="">
             <div class="container">
               <div class="row">
-                <!-- ****************** SHIP TO ********************-->                
+                <!-- ******************** SHIP TO ******************** -->
                 <div class="info1 col-6" >
                   <table class="text-uppercase" style=" border-collapse:collapse; width:100%;">
                     <tbody>
@@ -151,8 +148,7 @@
                   </table>
                 </div>
 
-                <!-- ************************************** REPORT INFO
-                ******************************************** -->
+                <!-- ******************** REPORT INFO ******************** -->
                 <div class="info col-6" style="">
                   <table class="text-uppercase" style="border-collapse:collapse;">
                     <tbody style="">
@@ -173,7 +169,6 @@
                         </th>
                         <td style="border: 1px solid #525659;">
                           <span class="" t-field="doc.client_order_ref" />
-                          <!-- <span class="" t-field="doc.origin" /> -->
                         </td>
                       </tr>
                       <tr style="border: 1px solid #525659;">
@@ -182,7 +177,7 @@
                           <span class="">Salesperson</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <span class="" t-field="doc.salesperson_id" /> 
+                          <span class="" t-field="doc.salesperson_id" />
                         </td>
                       </tr>
                       <tr>
@@ -248,14 +243,9 @@
                               style="width:100px; border-top-color: #525659; border-botttom-color: #525659; ">
                               UoM</th>
                           </tr>
-
-                          <!--
-                          ############################################################################################################ -->
                           <tr>
                             <th style="text-align:left;  border-bottom-color: #525659; ">Description</th>
                           </tr>
-                          <!-- ########################################### ROW ONE
-                          ###################################################### -->
                         </div>
                       </thead>
                       <!-- <tbody t-foreach="doc.move_lines" t-as="line"> -->
@@ -263,31 +253,28 @@
                       <tbody t-foreach="doc.move_ids" t-as="line">
                       <!-- <tbody t-foreach="doc.move_ids" t-as="line"> -->
                         <tr style="">
-                          <!--***************************
-                          line # ************************** -->
+                          <!-- ******************** line # ******************** -->
                           <td rowspan="2" class="text-center" style="">
                             <span t-field="line.seq_no" style=""/>
                           </td>
-                           <!--************** Part # ********************-->                          
+                           <!-- ******************** Part # ******************** -->
                           <td rowspan="" style=" ">
                             <div style="text-align: left; margin-bottom:3px;" class="">
                               <span class="" t-field="line.product_id" />
                             </div>
-                            <!--***************** Description **************--> 
+                            <!-- ******************** Description ******************** -->
                             <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
                               <span t-field="line.product_id.description" />
                             </div>
                           </td>
-                          <!--************** PICK QTY ******************** -->                      
-                          <!-- <td class="text-center"><span  t-field="line.product_uom_qty"/></td> -->                
+                          <!-- ******************** PICK QTY ******************** -->
                           <td colspan="" class="text-center">
-                            <!-- <span class="" t-field="line.packaging_uom_qty" /> -->
                             <span class="" t-field="line.quantity" />
                           </td>
-                          <!--************************** UOM ***************************-->                         
+                          <!-- ******************** UOM ******************** -->
                           <td class="text-center">
                             <span t-field="line.product_uom" style="" />
-                          </td> 
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -295,11 +282,10 @@
                 </div>
               </div>
             </div>
-
           </div>
-        
       </div>
       </t>
     </template>
+
   </data>
 </odoo>
