@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- All of the ir.actions.reports live here -->
 
-        <!--^********************************* Print Label 1.25x4 *********************************-->
+        <!-- ********************************* Location Label 4x1 ********************************* -->
+        <record id="report_location_qrlabel_4x1" model="ir.actions.report">
+            <field name="name">Location QR 4x1</field>
+            <field name="model">stock.location</field>
+            <field name="binding_model_id" ref="stock.model_stock_location" />
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.location_qrlabel_4x1</field>
+            <field name="report_file">thinksoft_labels.location_qrlabel_4x1</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x1" />
+        </record>
+        <!-- ********************************* Location Label 4x4 ********************************* -->
+        <record id="report_location_qrlabel_4x4" model="ir.actions.report">
+            <field name="name">Location QR 4x4</field>
+            <field name="model">stock.location</field>
+            <field name="binding_model_id" ref="stock.model_stock_location" />
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.location_qrlabel_4x4</field>
+            <field name="report_file">thinksoft_labels.location_qrlabel_4x4</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x4" />
+        </record>
+        <!-- ********************************* Location Label 4x6 ********************************* -->
+        <record id="report_location_qrlabel_4x6" model="ir.actions.report">
+            <field name="name">Location QR 4x6</field>
+            <field name="model">stock.location</field>
+            <field name="binding_model_id" ref="stock.model_stock_location" />
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.location_qrlabel_4x6</field>
+            <field name="report_file">thinksoft_labels.location_qrlabel_4x6</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x6" />
+        </record>
+        <!-- ********************************* Print Label 1.25x4 ********************************* -->
         <record id="action_report_print_label_1_25x4" model="ir.actions.report">
             <field name="name">Print Label 1.25x4</field>
             <field name="model">stock.picking</field>            <!-- Replace with actual model -->
@@ -14,7 +43,7 @@
             <field name="paperformat_id" ref="thinksoft_labels.paperformat_print_label_1_25x4" />
             <field name="print_report_name">'Label - %s' % (object.name)</field>
         </record>
-        <!--^********************************* Shipping Label 3x4 *********************************-->
+        <!-- ********************************* Shipping Label 3x4 ********************************* -->
         <record id="action_report_shipping_label_3x4" model="ir.actions.report">
             <field name="name">Shipping Label 3x4</field>
             <field name="model">stock.picking</field>
@@ -25,7 +54,7 @@
             <field name="paperformat_id" ref="thinksoft_labels.shipping_label_3x4_paperformat" />
             <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
         </record>
-        <!--^********************************* Shipping Label 4x4 *********************************-->
+        <!-- ********************************* Shipping Label 4x4 ********************************* -->
         <record id="action_report_shipping_label_4x4" model="ir.actions.report">
             <field name="name">Shipping Label 4x4</field>
             <field name="model">stock.picking</field>
@@ -36,7 +65,7 @@
             <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat" />
             <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
         </record>
-        <!--^********************************* 4x4 Labels For All *********************************-->
+        <!-- ********************************* 4x4 Labels For All ********************************* -->
         <record id="4x4_label_all" model="ir.actions.report">
             <field name="name">4x4 Labels For All</field>
             <field name="model">stock.picking</field>
@@ -48,5 +77,6 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
         </record>
+
     </data>
 </odoo>
