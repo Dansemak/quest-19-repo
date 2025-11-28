@@ -51,5 +51,5 @@ class thinksoft_package(models.Model):
 
     def button_box_label(self):
         return self.env.ref(
-            "thinksoft_package_planner.box_labels_qweb_report"
+            "thinksoft_package_planner.box_label_report"
         ).report_action(self)

@@ -17,7 +17,7 @@
 		</div>
 	</template>
 
-	<template id="box_labels_qweb_template">
+	<template id="box_label_template">
 		<t t-call="web.html_container">
 			<t t-foreach="docs" t-as="doc">
 				<t t-call="thinksoft_package_planner.box_label_internal_layout">

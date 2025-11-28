@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record id="paperformat_box_labels" model="report.paperformat">
-            <field name="name">Box Labels Paper Format</field>
+        <record id="paperformat_package_label" model="report.paperformat">
+            <field name="name">Package Label Paper Format</field>
             <field name="default" eval="True"/>
             <field name="format">custom</field>
             <field name="page_height">203</field>
@@ -17,13 +17,13 @@
         </record>
 
 
-        <record id="box_labels_qweb_report" model="ir.actions.report">
-            <field name="name">Box Labels</field>
+        <record id="box_label_report" model="ir.actions.report">
+            <field name="name">Box Label</field>
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">thinksoft_package_planner.box_labels_qweb_template</field>
-            <field name="report_file">thinksoft_package_planner.box_labels_qweb_template</field>
-            <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_box_labels"/>
+            <field name="report_name">thinksoft_package_planner.box_label_template</field>
+            <field name="report_file">thinksoft_package_planner.box_label_template</field>
+            <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_package_label"/>
             <field name="binding_model_id" ref="model_stock_picking"/>
             <field name="binding_type">report</field>
         </record>
@@ -34,7 +34,7 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">thinksoft_package_planner.box_skid_qweb_template</field>
             <field name="report_file">thinksoft_package_planner.box_skid_qweb_template</field>
-            <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_box_labels"/>
+            <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_package_label"/>
             <field name="binding_model_id" ref="model_stock_picking"/>
             <field name="binding_type">report</field>
         </record>

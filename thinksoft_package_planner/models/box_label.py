@@ -3,8 +3,8 @@ import time
 from odoo import api, models
 
 
-class Box_label(models.AbstractModel):
-    _name = "report.thinksoft_package_planner.box_labels_qweb_template"
+class BoxLabel(models.AbstractModel):
+    _name = "report.thinksoft_package_planner.box_label_template"
     _description = "Box Label"
 
     def _get_boxes(self, package_line):
