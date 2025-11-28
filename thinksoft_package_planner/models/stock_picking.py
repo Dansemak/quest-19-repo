@@ -24,7 +24,7 @@ class thinksoft_package(models.Model):
             for move_line in self.move_line_ids:
                 if move_line.id == res["move_id"]:
                     res["pick_qty"] = move_line.qty_done
-                    res["mtr_tag_ids"] = move_line.mtr_template_ids
+                    res["mtr_template_ids"] = move_line.mtr_template_ids
                     continue
 
             package_line_ids = package_line_obj.search([("move_id", "=", move.id)])
@@ -46,10 +46,10 @@ class thinksoft_package(models.Model):
 
     def button_skid_label(self):
         return self.env.ref(
-            "thinksoft_package_planner.box_skid_qweb_report"
+            "thinksoft_package_planner.skid_label_report"
         ).report_action(self)
 
     def button_box_label(self):
         return self.env.ref(
-            "thinksoft_package_planner.box_labels_qweb_report"
+            "thinksoft_package_planner.box_label_report"
         ).report_action(self)
