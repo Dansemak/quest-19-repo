@@ -11,7 +11,7 @@ class thinksoft_package(models.Model):
     def create_product(self):
         package_line_obj = self.env['package.line']
         create, update = False, False
-        for move in self.move_line_ids:
+        for move in self.move_ids:
             res = {
                 'product_id': move.product_id.id,
                 # 'pick_qty': val.pick_qty, # Get it from stock.move.line
@@ -20,10 +20,10 @@ class thinksoft_package(models.Model):
                 # 'name': move.name,
                 'picking_id': self.id,
                 'move_id': move.id,
-                'tagging': move.move_id.tagging,
+                'tagging': move.tagging,
             }
             for move_line in self.move_line_ids:
-                if move_line.move_id.id == res['move_id']:
+                if move_line.id == res['move_id']:
                     res['pick_qty'] = move_line.qty_done
                     res['mtr_tag_ids'] = move_line.mtr_template_ids
                     continue
@@ -31,11 +31,11 @@ class thinksoft_package(models.Model):
             package_line_ids = package_line_obj.search([('move_id', '=', move.id)])
             if not package_line_ids:
                 new_package_line = package_line_obj.create(res)
-                move.move_id.package_line_id = new_package_line
+                move.package_line_id = new_package_line
                 create = True
             else:
                 package_line_ids.write(res)
-                move.move_id.package_line_id = package_line_ids[0].id
+                move.package_line_id = package_line_ids[0].id
                 update = True
         if create:
             body = _("Package has been created")
@@ -135,7 +135,7 @@ class package_line(models.Model):
             pack.inbox_qty = ', '.join(map(str, inbox_qty_lst))
             pack.boxs = len(set(inbox_qty_lst))
 
-            pack.desc = pack.move_id.product_desc
+            pack.desc = pack.move_id.product_id.description
 
     def button_package_label_3x4(self):
         return self.env.ref('thinksoft_package_planner.3x4_qweb_report').report_action(self)
@@ -186,12 +186,12 @@ class package_line(models.Model):
                                 package_id.pick_qty, package_id.qty_packed))
         return True
 
-    @api.model
-    def create(self, vals):
-        for val in vals:
-            seq = 10
-            if val.get('package_planner_line'):
-                for value in val['package_planner_line']:
-                    if len(value) > 2 and isinstance(value[2], dict):
-                        value[2].setdefault('seq', seq)
-                    seq += 10
+    # @api.model
+    # def create(self, vals):
+    #     for val in vals:
+    #         seq = 10
+    #         if val.get('package_planner_line'):
+    #             for value in val['package_planner_line']:
+    #                 if len(value) > 2 and isinstance(value[2], dict):
+    #                     value[2].setdefault('seq', seq)
+    #                 seq += 10
