@@ -2,9 +2,9 @@
 <odoo>
     <data>
 
-        <!-- ////////////////////////////////  PAPERFORMATS ////////////////////////////////////////////// -->
+        <!-- //////////////////// PAPERFORMATS //////////////////// -->
 
-        <!-- ***************************** PRINT LABEL 1.25x4 PAPERFORMAT ************************************* -->
+        <!-- ******************** PRINT LABEL 1.25x4 PAPERFORMAT ******************** -->
         <record id="paperformat_print_label_1_25x4" model="report.paperformat">
             <field name="name">1.25x4 Paper Format</field>
             <field name="default" eval="True" />
@@ -12,15 +12,15 @@
             <field name="page_height">31</field>
             <field name="page_width">101</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">3</field>
-            <field name="margin_bottom">3</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">1</field>
             <field name="margin_left">3</field>
             <field name="margin_right">3</field>
             <field name="header_line" eval="False" />
             <field name="header_spacing">37</field>
             <field name="dpi">80</field>
         </record>
-        <!-- *************************************** SHIPPING LABEL 3x4 PAPERFORMAT  ************************************ -->
+        <!-- ******************** SHIPPING LABEL 3x4 PAPERFORMAT ******************** -->
         <record id="shipping_label_3x4_paperformat" model="report.paperformat">
             <field name="name">Shipping Label 3x4 Paper Format</field>
             <field name="default" eval="True" />
@@ -36,7 +36,7 @@
             <field name="header_spacing">0</field>
             <field name="dpi">80</field>
         </record>
-        <!-- *************************************** SHIPPING LABEL 4x4 PAPERFORMAT  ************************************ -->
+        <!-- ******************** SHIPPING LABEL 4x4 PAPERFORMAT ******************** -->
         <record id="label_4x4_paperformat" model="report.paperformat">
             <field name="name">4x4 Paper Format</field>
             <field name="default" eval="True" />
@@ -52,7 +52,7 @@
             <field name="header_spacing">10</field>
             <field name="dpi">80</field>
         </record>
-
+        <!-- ******************** SHIPPING LABEL 4x1 PAPERFORMAT ******************** -->
         <record id="paperformat_4x1" model="report.paperformat">
             <field name="name">4x1 Paper Format</field>
             <field name="default" eval="True" />
@@ -68,6 +68,7 @@
             <field name="header_spacing">0</field>
             <field name="dpi">80</field>
         </record>
+        <!-- ******************** SHIPPING LABEL 4x1.5 PAPERFORMAT ******************** -->
         <record id="paperformat_4x1_5" model="report.paperformat">
             <field name="name">4x1.5 Paper Format</field>
             <field name="default" eval="True" />
@@ -83,6 +84,7 @@
             <field name="header_spacing">0</field>
             <field name="dpi">80</field>
         </record>
+        <!-- ******************** SHIPPING LABEL 4x4 PAPERFORMAT ******************** -->
         <record id="paperformat_4x4" model="report.paperformat">
             <field name="name">4x4 Paper Format</field>
             <field name="default" eval="True" />
@@ -98,6 +100,7 @@
             <field name="header_spacing">30</field>
             <field name="dpi">80</field>
         </record>
+        <!-- ******************** SHIPPING LABEL 4x6 PAPERFORMAT ******************** -->
         <record id="paperformat_4x6" model="report.paperformat">
             <field name="name">4x6 Paper Format</field>
             <field name="default" eval="True" />
@@ -113,6 +116,7 @@
             <field name="header_spacing">0</field>
             <field name="dpi">80</field>
         </record>
+        <!-- ******************** SHIPPING LABEL 4x8 PAPERFORMAT ******************** -->
         <record id="paperformat_4x8" model="report.paperformat">
             <field name="name">4x8 Paper Format</field>
             <field name="default" eval="True" />

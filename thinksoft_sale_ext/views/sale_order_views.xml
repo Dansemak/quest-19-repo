@@ -48,33 +48,21 @@
             </xpath>
 
 
-            <!-- Rearranging Fields -->
-
-            <xpath expr="//field[@name='user_id']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
+            <!-- placeholder adjustments -->
             <xpath expr="//field[@name='client_order_ref']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='validity_date']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='commitment_date']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//label[@for='commitment_date']" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="placeholder">Customer Purchase Order Number</attribute>
             </xpath>
 
+            <!-- Rearranging fields -->
             <xpath expr="//group[@name='order_details']" position="inside">
-                <field name="user_id"/>
-                <field name="client_order_ref" placeholder="Customer Purchase Order Number" />
+                <xpath expr="//field[@name='user_id']" position="move"/>
+                <xpath expr="//field[@name='client_order_ref']" position="move"/>
             </xpath>
             <xpath expr="//field[@name='tag_ids']" position="after">
-                <field name="validity_date" />
+                <xpath expr="//field[@name='validity_date']" position="move"/>
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
-                <field name="commitment_date" />
+                <xpath expr="//field[@name='commitment_date']" position="move"/>
             </xpath>
 
             <!-- COO Required, Notes, Comment, Shipping Method + Cut Off, Freight Charge, Job Project, and End User in header -->
