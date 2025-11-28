@@ -1,4 +1,4 @@
-from . import package_planner
+from . import package_planner_line
 from . import package_line
 from . import stock_picking
 from . import box_label
