@@ -38,7 +38,7 @@ class BoxLabel(models.AbstractModel):
                                         "pack_in_no": p.pack_in_no,
                                         "heat": ", ".join(
                                             mtr.heat_number or ""
-                                            for mtr in line.mtr_tag_ids
+                                            for mtr in line.mtr_template_ids
                                         ),
                                         "desc": line.desc,
                                         "tagging": line.tagging,

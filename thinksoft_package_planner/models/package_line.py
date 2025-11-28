@@ -12,9 +12,9 @@ class package_line(models.Model):
     product_id = fields.Many2one("product.product", "Product")
     tagging = fields.Char("Tagging")
     max_qty_pack = fields.Integer("Max Qty/Package")
-    # Heat field will need to be removed, since mtr_tag_ids will be used instead.
+    # Heat field will need to be removed, since mtr_template_ids will be used instead.
     heat = fields.Char("Archived Heat #", readonly=True)
-    mtr_tag_ids = fields.Many2many(
+    mtr_template_ids = fields.Many2many(
         comodel_name="mtr.template",
         relation="mtr_template_package_line_rel",
         column1="id",

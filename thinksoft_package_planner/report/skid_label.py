@@ -76,7 +76,7 @@ class SkidLabel(models.AbstractModel):
                                     "qty": qnty,
                                     "heat": ", ".join(
                                         mtr.heat_number or ""
-                                        for mtr in line.mtr_tag_ids
+                                        for mtr in line.mtr_template_ids
                                     ),
                                     "tagging": line.tagging,
                                     "box": line.boxs,
