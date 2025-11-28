@@ -46,7 +46,7 @@ class thinksoft_package(models.Model):
 
     def button_skid_label(self):
         return self.env.ref(
-            "thinksoft_package_planner.box_skid_qweb_report"
+            "thinksoft_package_planner.skid_label_report"
         ).report_action(self)
 
     def button_box_label(self):

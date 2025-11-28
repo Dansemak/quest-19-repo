@@ -28,12 +28,12 @@
             <field name="binding_type">report</field>
         </record>
 
-        <record id="box_skid_qweb_report" model="ir.actions.report">
-            <field name="name">Skid Labels</field>
+        <record id="skid_label_report" model="ir.actions.report">
+            <field name="name">Skid Label</field>
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">thinksoft_package_planner.box_skid_qweb_template</field>
-            <field name="report_file">thinksoft_package_planner.box_skid_qweb_template</field>
+            <field name="report_name">thinksoft_package_planner.skid_label_template</field>
+            <field name="report_file">thinksoft_package_planner.skid_label_template</field>
             <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_package_label"/>
             <field name="binding_model_id" ref="model_stock_picking"/>
             <field name="binding_type">report</field>

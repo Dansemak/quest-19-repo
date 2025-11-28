@@ -3,9 +3,9 @@ import time
 from odoo import api, models
 
 
-class Box_label_skid(models.AbstractModel):
-    _name = "report.thinksoft_package_planner.box_skid_qweb_template"
-    _description = "Box Label Skid"
+class SkidLabel(models.AbstractModel):
+    _name = "report.thinksoft_package_planner.skid_label_template"
+    _description = "Skid Label"
 
     def _get_max_count(self, package_line, count_type):
         if count_type == "skid":
