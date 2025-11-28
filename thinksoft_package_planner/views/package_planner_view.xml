@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_package" model="ir.ui.view">
+        <field name="name">product.package</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//page[@name='extra']" position="after">
+            <!--<page string="Package" attrs="{'invisible': [('picking_type', '!=','Delivery Orders')]}">-->
+            <page string="Package" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}">
+                <button name="create_product" type="object" string="Create/Update Package" class="oe_highlight"/>
+                <button name="button_skid_label" type="object" string="Print Skid Labels" class="oe_right"/>
+                <button name="button_box_label" type="object" string="Print Box Labels" class="oe_right"/>
+                <field name="package_line">
+                    <tree>
+                        <field name="seq"/>
+                        <field name="product_id"/>
+                        <field name="desc"/>
+                        <field name="tagging"/>
+                        <field name="max_qty_pack"/>
+                        <field name="mtr_tag_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                        <field name="pick_qty"/>
+                        <field name="inbox_qty"/>
+                        <field name="boxs"/>
+                        <field name="crates"/>
+                        <field name="skids"/>
+                        <field name="qty_packed"/>
+                        <field name="name" invisible="1"/>
+                        <button name="button_package_label_3x4" string="3x4" type="object" invisible="1"/>
+                        <button name="button_package_label_1_25x4" string="1.25x4" type="object"/>
+                        <field name="ordered" invisible="1"/>
+                    </tree>
+                     <form string="Package Plan">   
+                           <group>
+                               <group>
+                                   <field name="product_id"/>
+                                   <field name="pick_qty" readonly="True"/>
+                                   <field name="inbox_qty" invisible="1"/>
+                                   <field name="qty_packed" invisible="1"/>
+                                   <field name="ordered" readonly="True"/>
+                                   <field name="last_box_no" invisible="1"/>
+                               </group>
+                               <group>
+                                <field name="seq" invisible="1"/>
+                                   <field name="name" invisible="1"/>
+                                   <field name="boxs" invisible="1"/>
+                                   <field name="crates" invisible="1"/>
+                                   <field name="skids" invisible="1"/>
+                                   <field name="last_box_no"/>
+                                   <field name="pack_type"/>
+                                   <field name="max_qty_pack"/>
+                                   <field name="crate_skid"/>
+                                   <field name="cs_no"/>
+                                   <field name="heat"/>
+                                   <field name="mtr_tag_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                                   <button name="load_lines" type="object" string="Calculate" class="oe_highlight" />
+                               </group>
+                           </group>
+                            <field name="package_planner_line" nolabel="1">
+                               <tree string="Package Planning Details" editable="bottom">
+                                   <field name="seq_no"/>
+                                   <field name="pack_in"/>
+                                   <field name="pack_in_no"/>
+                                   <field name="qty_packed" sum="Total Quantity Packed"/>
+                                   <field name="crate_skid"/>
+                                   <field name="no"/>
+                                   <field name="available_mtr_tag_ids" widget="many2many_tags" invisible="1"/>
+                                   <field name="mtr_tag_ids" widget="many2many_tags" domain="[('id', 'in', available_mtr_tag_ids)]" options="{'no_create': True}"/>
+                               </tree>
+                           </field>
+                           <button name="save_load" string="Update Package" type="object" class="oe_highlight"/>
+                       </form>
+                  </field>
+            </page>
+        </xpath>
+        </field>
+    </record>
+</odoo>

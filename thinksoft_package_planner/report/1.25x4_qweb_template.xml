@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="1_25x4_report">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="thinksoft_package_planner.1_25x4_report_doc" />
+			</t>
+		</t>
+	</template>
+
+	<template id="internal_layout">
+		<!-- Multicompany -->
+		<t t-if="o and 'company_id' in o">
+			<t t-set="company" t-value="o.company_id" />
+		</t>
+		<t t-if="not o or not 'company_id' in o">
+			<t t-set="company" t-value="res_company" />
+		</t>
+		<div class="header">
+			<div class="row">
+			</div>
+		</div>
+		<div class="article">
+			<t t-raw="0" />
+		</div>
+		<div class="footer">
+            <div class="container ">
+                <div class="row">
+                <div class="col-12" style=" text-align: center; font-family:sans-serif;font-size: 9px;">www.questgasket.com</div> 
+                </div>
+            </div>
+        </div>
+	</template>
+
+	<template id="1_25x4_report_doc">
+		<t t-call="thinksoft_package_planner.internal_layout">
+			<div class="page">
+				<div class="oe_structure">
+					<div class="container" style="margin:0 !important;">
+						<div class="row">
+							<div class="col-9" style="font-size:10px;">
+								<span style="font-weight:bold;">Item Code:</span>
+								<span class="ml-2" style="font-weight:normal;" t-field="doc.product_id.name" />
+								<br />
+								<span style="font-weight:bold;">Item Description:</span>
+								<span style="font-weight:normal; " t-field="doc.desc" />
+							</div>
+							<div class="col-3" style="">
+								<img
+									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', doc.product_id.name, 100, 100)"
+									style="width:50px;height:50px" />
+							</div>
+						</div>
+						<div class="row" style="margin-top:13px;">
+							<div class="col-9" style="font-size:9px;">
+								<span style="font-weight:bold;">S.O:</span><span class="ml-2" t-field="doc.picking_id.origin" />		
+							</div>
+							 <div class="col-3" style="font-size:9px;"><span style="font-weight:bold;">Qty: </span><span
+                                    class="ml-2" style="font-weight:normal;"
+                                    t-field="doc.max_qty_pack" />
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</t>
+	</template>
+
+</odoo>

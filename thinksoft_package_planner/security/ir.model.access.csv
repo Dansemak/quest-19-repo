@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_package_line,package.line,model_package_line,,1,1,1,1
+access_package_planner_line,package_planner_line,model_package_planner_line,,1,1,1,1
