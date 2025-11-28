@@ -1,0 +1,105 @@
+import time
+
+from odoo import api, models
+
+
+class Box_label_skid(models.AbstractModel):
+    _name = "report.thinksoft_package_planner.box_skid_qweb_template"
+    _description = "Box Label Skid"
+
+    def _get_max_count(self, package_line, count_type):
+        if count_type == "skid":
+            skids = []
+            sk_list = set(line.skids for line in package_line)
+            s_list = []
+            for skd in sk_list:
+                if "," in skd:
+                    s_list += [x for x in skd.split(",")]
+                else:
+                    s_list.append(skd)
+            sk_n_list = set(int(x) for x in s_list)
+            if sk_n_list:
+                max_skid = max(sk_n_list)
+            else:
+                max_skid = 0
+            return max_skid
+        # elif count_type == "crate":
+        #     return int(self.max_crate)
+        else:
+            return 0
+
+    def _get_skids(self, package_line):
+        # skids_no = []
+        skids = []
+        sk_list = set(line.skids for line in package_line)
+        s_list = []
+        for skd in sk_list:
+            if "," in skd:
+                s_list += [x for x in skd.split(",")]
+            else:
+                s_list.append(skd)
+        sk_n_list = set(int(x) for x in s_list)
+        max_skid = 0
+        if sk_n_list:
+            max_skid = max(sk_n_list)
+
+        for i in range(1, int(max_skid) + 1):
+            skids.append({"skid": i})
+        return skids
+
+    def _get_box_skids(self, b, package_line):
+        packs = []
+        product = []
+        for box in b:
+            for line in package_line:
+                qnty = 0
+                show = False
+                for p in line.package_planner_line:
+                    if p.crate_skid == "skid" and p.no == box["skid"]:
+                        show = True
+                        if line.product_id.id in product:
+                            qnty += p.qty_packed
+                        else:
+                            qnty = p.qty_packed
+                            product.append(line.product_id.id)
+                if show:
+                    packs.append(
+                        {
+                            str(box["skid"]): [
+                                {
+                                    "seq_no": line.seq,
+                                    "product_id": line.product_id.id,
+                                    "name": line.product_id.name,
+                                    "desc": line.desc,
+                                    "pick_qty": int(line.pick_qty),
+                                    "inbox_qty": line.inbox_qty,
+                                    "qty": qnty,
+                                    "heat": ", ".join(
+                                        mtr.heat_number or ""
+                                        for mtr in line.mtr_tag_ids
+                                    ),
+                                    "tagging": line.tagging,
+                                    "box": line.boxs,
+                                }
+                            ]
+                        }
+                    )
+        return packs
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        picking = self.env["stock.picking"].search([("id", "=", docids[0])])
+        get_boxes = self._get_skids(picking.package_line)
+        docs = picking
+        movelines = self._get_box_skids(get_boxes, picking.package_line)
+        get_max_count = self._get_max_count(picking.package_line, "skid")
+        return {
+            "doc_ids": docids,
+            "data": {},
+            "doc_model": "stock.picking",
+            "docs": docs,
+            "time": time,
+            "get_box_label": movelines,
+            "get_boxes": get_boxes,
+            "total_boxes": get_max_count,
+        }

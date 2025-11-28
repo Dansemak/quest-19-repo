@@ -1,100 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
 
-    <!-- ##### 4x1 ##### -->
-    <record id="report_location_qrlabel_4x1" model="ir.actions.report">
-        <field name="name">Location QR 4x1</field>
-        <field name="model">stock.location</field>
-        <field name="binding_model_id" ref="stock.model_stock_location" />
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">thinksoft_labels.location_qrlabel_4x1</field>
-        <field name="report_file">thinksoft_labels.location_qrlabel_4x1</field>
-        <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x1" />
-    </record>
-
-    <template id="location_qrlabel_4x1">
-        <t t-call="web.basic_layout">
-            <t t-foreach="docs" t-as="doc">
-                <div class="container m-0 p-0">
-                    <div class="page p-0" style="margin:0 0 0.15rem 0">
-                        <div class="row p-0 m-0">
-                            <div class="col-8 p-0 m-0 pr-2" style="">
-                                <div class="p-0 m-0 text-center">
-                                    <span t-field="doc.name" class="text-center" style="padding:0;margin:0;font-size: 2.45rem" />
-                                    <span t-field="doc.barcode" class="text-center p-0 m-0" style="" />
+        <!-- ##### 4x1 ##### -->
+        <template id="location_qrlabel_4x1">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="container m-0 p-0">
+                        <div class="page p-0" style="margin:0 0 0.15rem 0">
+                            <div class="row p-0 m-0">
+                                <div class="col-8 p-0 m-0 pr-2" style="">
+                                    <div class="p-0 m-0 text-center">
+                                        <span t-field="doc.name" class="text-center" style="padding:0;margin:0;font-size: 2.45rem" />
+                                        <span t-field="doc.barcode" class="text-center p-0 m-0" style="" />
+                                    </div>
+                                </div>
+                                <div class="col-4 p-0 m-0" style="">
+                                    <div class="p-0 m-0">
+                                        <img t-att-src="'/report/barcode/QR/%s'%doc.barcode" style="width:5rem;height:5rem;" alt="barcode" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-4 p-0 m-0" style="">
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <!-- ##### 4x4 ##### -->
+        <template id="location_qrlabel_4x4">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="container m-0 p-0">
+                        <div class="page m-0 p-0" style="margin-bottom:0.2rem;">
+                            <div class="m-0 p-0 text-center" style="display: grid; justify-content: center;">
                                 <div class="p-0 m-0">
-                                    <img t-att-src="'/report/barcode/QR/%s'%doc.barcode" style="width:5rem;height:5rem;" alt="barcode" />
+                                    <span t-field="doc.name" class="p-0 m-0" style="font-size: 3.8rem" />
+                                </div>
+                                <div class="p-0 m-0" style="">
+                                    <img t-att-src="'/report/barcode/QR/%s'%doc.barcode" style="width:15rem;height:15rem;" alt="barcode" />
+                                </div>
+                                <div class="p-0 m-0 mt-1">
+                                    <span t-field="doc.barcode" class="p-0 m-0" style="font-size: 1.5rem" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </t>
             </t>
-        </t>
-    </template>
-    <!-- ##### 4x4 ##### -->
-    <record id="report_location_qrlabel_4x4" model="ir.actions.report">
-        <field name="name">Location QR 4x4</field>
-        <field name="model">stock.location</field>
-        <field name="binding_model_id" ref="stock.model_stock_location" />
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">thinksoft_labels.location_qrlabel_4x4</field>
-        <field name="report_file">thinksoft_labels.location_qrlabel_4x4</field>
-        <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x4" />
-    </record>
+        </template>
 
-    <template id="location_qrlabel_4x4">
-        <t t-call="web.basic_layout">
-            <t t-foreach="docs" t-as="doc">
-                <div class="container m-0 p-0">
-                    <div class="page m-0 p-0" style="margin-bottom:0.2rem;">
-                        <div class="m-0 p-0 text-center" style="display: grid; justify-content: center;">
-                            <div class="p-0 m-0">
-                                <span t-field="doc.name" class="p-0 m-0" style="font-size: 3.8rem" />
-                            </div>
-                            <div class="p-0 m-0" style="">
-                                <img t-att-src="'/report/barcode/QR/%s'%doc.barcode" style="width:15rem;height:15rem;" alt="barcode" />
-                            </div>
-                            <div class="p-0 m-0 mt-1">
-                                <span t-field="doc.barcode" class="p-0 m-0" style="font-size: 1.5rem" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </t>
-        </t>
-    </template>
-
-    <!-- ##### 4x6 ##### -->
-    <record id="report_location_qrlabel_4x6" model="ir.actions.report">
-        <field name="name">Location QR 4x6</field>
-        <field name="model">stock.location</field>
-        <field name="binding_model_id" ref="stock.model_stock_location" />
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">thinksoft_labels.location_qrlabel_4x6</field>
-        <field name="report_file">thinksoft_labels.location_qrlabel_4x6</field>
-        <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x6" />
-    </record>
-
-    <template id="location_qrlabel_4x6">
-        <t t-call="web.basic_layout">
-            <t t-foreach="docs" t-as="doc">
-                <div class="container m-0 p-0">
-                    <div class="page m-0 p-0" style="margin-bottom:0.2rem;">
-                        <style>
+        <!-- ##### 4x6 ##### -->
+        <template id="location_qrlabel_4x6">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="container m-0 p-0">
+                        <div class="page m-0 p-0" style="margin-bottom:0.2rem;">
+                            <style>
               .location {
                 display:block;
                 margin:0 auto;
-                                                                                                                                                                                                                                                <!-- max-width: 480px; -->
                 max-width: 87%;
                 direction: rtl;
                 overflow: hidden;
                 text-overflow: clip;
                 white-space: nowrap;
-
                 font-size:80px;
                 font-family: Arial Black,Arial Bold,Gadget,sans-serif;
                 font-weight:900;
@@ -102,19 +72,20 @@
                 max-height:85px;
                 padding: 2px 0 2px;
               }
-
-                        </style>
-                        <div class="content m-0 p-0 text-center" style="">
-                            <div class="location " style="">
-                                <span t-field="doc.barcode" class="" />
-                            </div>
-                            <div class="p-0 m-0" style="">
-                                <img t-att-src="'/report/barcode/QR/%s'%doc.barcode" style="width:18rem;height:18rem;" alt="barcode" />
+                            </style>
+                            <div class="content m-0 p-0 text-center" style="">
+                                <div class="location " style="">
+                                    <span t-field="doc.barcode" class="" />
+                                </div>
+                                <div class="p-0 m-0" style="">
+                                    <img t-att-src="'/report/barcode/QR/%s'%doc.barcode" style="width:18rem;height:18rem;" alt="barcode" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </t>
             </t>
-        </t>
-    </template>
+        </template>
+
+    </data>
 </odoo>
