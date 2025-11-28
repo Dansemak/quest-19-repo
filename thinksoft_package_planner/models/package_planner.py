@@ -48,8 +48,6 @@ class thinksoft_package(models.Model):
     def button_skid_label(self):
         return self.env.ref('thinksoft_package_planner.box_skid_qweb_report').report_action(self)
 
-    def button_crate_label(self):
-        return self.env.ref('thinksoft_package_planner.box_crate_qweb_report').report_action(self)
     def button_box_label(self):
         return self.env.ref('thinksoft_package_planner.box_labels_qweb_report').report_action(self)
 
@@ -99,7 +97,7 @@ class package_line(models.Model):
     pick_qty = fields.Float('Pick')
     inbox_qty = fields.Char(compute='get_package_planner', string='In Box')
     boxs = fields.Integer(compute='get_package_planner', string='Boxes')
-    crates = fields.Char(compute='get_package_planner', string='Crates')
+    # crates = fields.Char(compute='get_package_planner', string='Crates')
     skids = fields.Char(compute='get_package_planner', string='Skids')
     qty_packed = fields.Integer(compute='get_package_planner', string='Qty Packed')
     desc = fields.Text(compute='get_package_planner', string='Description')
@@ -117,7 +115,7 @@ class package_line(models.Model):
         for pack in self:
             pack.qty_packed = 0
             pack.skids = 0
-            pack.crates = 0
+            # pack.crates = 0
             pack.inbox_qty = 0
             pack.boxs = 0
             inbox_qty_lst = []
@@ -130,8 +128,8 @@ class package_line(models.Model):
                     skid_crate_list.append(val.no)
                 if val.crate_skid == 'skid':
                     pack.skids = ', '.join(map(str, skid_crate_list))
-                if val.crate_skid == 'crate':
-                    pack.crates = ', '.join(map(str, skid_crate_list))
+                # if val.crate_skid == 'crate':
+                #     pack.crates = ', '.join(map(str, skid_crate_list))
             pack.inbox_qty = ', '.join(map(str, inbox_qty_lst))
             pack.boxs = len(set(inbox_qty_lst))
 
@@ -170,7 +168,7 @@ class package_line(models.Model):
                 'pack_in': package_id.pack_type,
                 'pack_in_no': box_no,
                 'qty_packed': max_qty,
-                'crate_skid': package_id.crate_skid,
+                # 'crate_skid': package_id.crate_skid,
                 'no': package_id.cs_no,
                 'pack_id': package_id.id
             })

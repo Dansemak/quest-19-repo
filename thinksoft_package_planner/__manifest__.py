@@ -6,10 +6,10 @@
 
     The purpose of this module is to generate the labels needed for a shipment when an order
     is fullfilled.  By using this planner the user will be able to print labels for each
-    box, crate and pallet required in an order.  The labels will list the product and 
-    quantities that are in the box, crate or pallet.  If more than one box is used in the
+    box and pallet required in an order.  The labels will list the product and 
+    quantities that are in the box or pallet.  If more than one box is used in the
     shipment, the label will indicate a box number of quantity value such as BOX 1 of 3.
-    The same is true for crates and pallets.  The labels will dislay the order number,
+    The same is true for pallets.  The labels will dislay the order number,
     shipping address and quantities.  This makes it easier for receivers to quickly 
     locate a specific product when receiving a shipment.
 
@@ -30,7 +30,6 @@
         'report/box_labels_qweb.xml',
         'report/box_labels_qweb_template.xml',
         'report/box_labels_skid_qweb_template.xml',
-        'report/box_labels_crate_qweb_template.xml',
     ],
     'demo_xml': [],
     'test': [],

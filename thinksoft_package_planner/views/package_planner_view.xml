@@ -21,7 +21,7 @@
                         <field name="pick_qty"/>
                         <field name="inbox_qty"/>
                         <field name="boxs"/>
-                        <field name="crates"/>
+                        <!-- <field name="crates"/> -->
                         <field name="skids"/>
                         <field name="qty_packed"/>
                         <field name="name" invisible="1"/>
@@ -43,7 +43,7 @@
                                 <field name="seq" invisible="1"/>
                                    <field name="name" invisible="1"/>
                                    <field name="boxs" invisible="1"/>
-                                   <field name="crates" invisible="1"/>
+                                   <!-- <field name="crates" invisible="1"/> -->
                                    <field name="skids" invisible="1"/>
                                    <field name="last_box_no"/>
                                    <field name="pack_type"/>

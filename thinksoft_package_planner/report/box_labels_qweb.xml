@@ -38,15 +38,4 @@
             <field name="binding_model_id" ref="model_stock_picking"/>
             <field name="binding_type">report</field>
         </record>
-
-        <record id="box_crate_qweb_report" model="ir.actions.report">
-            <field name="name">Crate Labels</field>
-            <field name="model">stock.picking</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">thinksoft_package_planner.box_crate_qweb_template</field>
-            <field name="report_file">thinksoft_package_planner.box_crate_qweb_template</field>
-            <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_box_labels"/>
-            <field name="binding_model_id" ref="model_stock_picking"/>
-            <field name="binding_type">report</field>
-        </record>
 </odoo>

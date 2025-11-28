@@ -23,8 +23,8 @@ class Box_label_skid(models.AbstractModel):
             else:
                 max_skid = 0
             return max_skid
-        elif count_type == "crate":
-            return int(self.max_crate)
+        # elif count_type == "crate":
+        #     return int(self.max_crate)
         else:
             return 0
 
