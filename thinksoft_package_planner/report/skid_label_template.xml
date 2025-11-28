@@ -174,7 +174,7 @@
 																t-esc="b_value['qty']"/> / <t
 																t-esc="b_value['pick_qty']"/></td>
 														<td style="padding:4px;">
-															<t t-esc="b_value['inbox_qty']"/>
+															<t t-esc="b_value['in_box']"/>
 														</td>
 													</tr>
 												</t>

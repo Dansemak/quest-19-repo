@@ -19,9 +19,9 @@
                         <field name="max_qty_pack"/>
                         <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
                         <field name="pick_qty"/>
-                        <field name="inbox_qty"/>
-                        <field name="boxs"/>
-                        <field name="skids"/>
+                        <field name="in_box"/>
+                        <field name="box_qty"/>
+                        <field name="skid_qty"/>
                         <field name="qty_packed"/>
                         <field name="name" invisible="1"/>
                         <button name="button_package_label_3x4" string="3x4" type="object" invisible="1"/>
@@ -33,7 +33,7 @@
                                <group>
                                    <field name="product_id"/>
                                    <field name="pick_qty" readonly="True"/>
-                                   <field name="inbox_qty" invisible="1"/>
+                                   <field name="in_box" invisible="1"/>
                                    <field name="qty_packed" invisible="1"/>
                                    <field name="ordered" readonly="True"/>
                                    <field name="last_box_no" invisible="1"/>
@@ -41,8 +41,8 @@
                                <group>
                                 <field name="seq" invisible="1"/>
                                    <field name="name" invisible="1"/>
-                                   <field name="boxs" invisible="1"/>
-                                   <field name="skids" invisible="1"/>
+                                   <field name="box_qty" invisible="1"/>
+                                   <field name="skid_qty" invisible="1"/>
                                    <field name="last_box_no"/>
                                    <field name="pack_type"/>
                                    <field name="max_qty_pack"/>

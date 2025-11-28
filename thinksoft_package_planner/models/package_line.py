@@ -22,10 +22,9 @@ class package_line(models.Model):
         string="MTR",
     )
     pick_qty = fields.Float("Pick")
-    inbox_qty = fields.Char(compute="get_package_planner", string="In Box")
-    boxs = fields.Integer(compute="get_package_planner", string="Boxes")
-    # crates = fields.Char(compute='get_package_planner', string='Crates')
-    skids = fields.Char(compute="get_package_planner", string="Skids")
+    in_box = fields.Char(compute="get_package_planner", string="In Box")
+    box_qty = fields.Integer(compute="get_package_planner", string="Boxes")
+    skid_qty = fields.Char(compute="get_package_planner", string="Skids")
     qty_packed = fields.Integer(compute="get_package_planner", string="Qty Packed")
     desc = fields.Text(compute="get_package_planner", string="Description")
 
@@ -47,24 +46,22 @@ class package_line(models.Model):
     def get_package_planner(self):
         for pack in self:
             pack.qty_packed = 0
-            pack.skids = 0
+            pack.skid_qty = 0
             # pack.crates = 0
-            pack.inbox_qty = 0
-            pack.boxs = 0
-            inbox_qty_lst = []
+            pack.in_box = 0
+            pack.box_qty = 0
+            in_box_list = []
             skid_crate_list = []
             for val in pack.package_planner_line:
                 pack.qty_packed += val.qty_packed
-                if val.pack_in_no not in inbox_qty_lst:
-                    inbox_qty_lst.append(val.pack_in_no)
+                if val.pack_in_no not in in_box_list:
+                    in_box_list.append(val.pack_in_no)
                 if val.no not in skid_crate_list:
                     skid_crate_list.append(val.no)
                 if val.crate_skid == "skid":
-                    pack.skids = ", ".join(map(str, skid_crate_list))
-                # if val.crate_skid == 'crate':
-                #     pack.crates = ', '.join(map(str, skid_crate_list))
-            pack.inbox_qty = ", ".join(map(str, inbox_qty_lst))
-            pack.boxs = len(set(inbox_qty_lst))
+                    pack.skid_qty = ", ".join(map(str, skid_crate_list))
+            pack.in_box = ", ".join(map(str, in_box_list))
+            pack.box_qty = len(set(in_box_list))
 
             pack.desc = pack.move_id.product_id.description
 

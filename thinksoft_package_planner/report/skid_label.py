@@ -10,7 +10,7 @@ class SkidLabel(models.AbstractModel):
     def _get_max_count(self, package_line, count_type):
         if count_type == "skid":
             skids = []
-            sk_list = set(line.skids for line in package_line)
+            sk_list = set(line.skid_qty for line in package_line)
             s_list = []
             for skd in sk_list:
                 if "," in skd:
@@ -23,15 +23,12 @@ class SkidLabel(models.AbstractModel):
             else:
                 max_skid = 0
             return max_skid
-        # elif count_type == "crate":
-        #     return int(self.max_crate)
         else:
             return 0
 
     def _get_skids(self, package_line):
-        # skids_no = []
         skids = []
-        sk_list = set(line.skids for line in package_line)
+        sk_list = set(line.skid_qty for line in package_line)
         s_list = []
         for skd in sk_list:
             if "," in skd:
@@ -72,14 +69,14 @@ class SkidLabel(models.AbstractModel):
                                     "name": line.product_id.name,
                                     "desc": line.desc,
                                     "pick_qty": int(line.pick_qty),
-                                    "inbox_qty": line.inbox_qty,
+                                    "in_box": line.in_box,
                                     "qty": qnty,
                                     "heat": ", ".join(
                                         mtr.heat_number or ""
                                         for mtr in line.mtr_template_ids
                                     ),
                                     "tagging": line.tagging,
-                                    "box": line.boxs,
+                                    "box": line.box_qty,
                                 }
                             ]
                         }
