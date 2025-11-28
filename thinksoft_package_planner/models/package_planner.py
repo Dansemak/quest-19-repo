@@ -11,31 +11,31 @@ class thinksoft_package(models.Model):
     def create_product(self):
         package_line_obj = self.env['package.line']
         create, update = False, False
-        for move in self.move_lines:
+        for move in self.move_line_ids:
             res = {
                 'product_id': move.product_id.id,
                 # 'pick_qty': val.pick_qty, # Get it from stock.move.line
                 'seq': move.seq_no,
-                'ordered': move.product_uom_qty,
-                'name': move.name,
+                'ordered': move.quantity,
+                # 'name': move.name,
                 'picking_id': self.id,
                 'move_id': move.id,
-                'tagging': move.tagging,
+                'tagging': move.move_id.tagging,
             }
             for move_line in self.move_line_ids:
                 if move_line.move_id.id == res['move_id']:
                     res['pick_qty'] = move_line.qty_done
-                    res['mtr_tag_ids'] = move_line.mtr_tag_ids
+                    res['mtr_tag_ids'] = move_line.mtr_template_ids
                     continue
 
             package_line_ids = package_line_obj.search([('move_id', '=', move.id)])
             if not package_line_ids:
                 new_package_line = package_line_obj.create(res)
-                move.package_line_id = new_package_line.id
+                move.move_id.package_line_id = new_package_line
                 create = True
             else:
                 package_line_ids.write(res)
-                move.package_line_id = package_line_ids[0].id
+                move.move_id.package_line_id = package_line_ids[0].id
                 update = True
         if create:
             body = _("Package has been created")
@@ -188,10 +188,10 @@ class package_line(models.Model):
 
     @api.model
     def create(self, vals):
-        seq = 10
-        if vals.get('package_planner_line'):
-            for value in vals['package_planner_line']:
-                if value[2]:
-                    value[2]['seq'] = seq
-                seq += 10
-        return super().create(vals)
+        for val in vals:
+            seq = 10
+            if val.get('package_planner_line'):
+                for value in val['package_planner_line']:
+                    if len(value) > 2 and isinstance(value[2], dict):
+                        value[2].setdefault('seq', seq)
+                    seq += 10

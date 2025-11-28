@@ -6,13 +6,12 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
         <xpath expr="//page[@name='extra']" position="after">
-            <!--<page string="Package" attrs="{'invisible': [('picking_type', '!=','Delivery Orders')]}">-->
-            <page string="Package" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}">
+            <page string="Package">
                 <button name="create_product" type="object" string="Create/Update Package" class="oe_highlight"/>
                 <button name="button_skid_label" type="object" string="Print Skid Labels" class="oe_right"/>
                 <button name="button_box_label" type="object" string="Print Box Labels" class="oe_right"/>
                 <field name="package_line">
-                    <tree>
+                    <list>
                         <field name="seq"/>
                         <field name="product_id"/>
                         <field name="desc"/>
@@ -29,7 +28,7 @@
                         <button name="button_package_label_3x4" string="3x4" type="object" invisible="1"/>
                         <button name="button_package_label_1_25x4" string="1.25x4" type="object"/>
                         <field name="ordered" invisible="1"/>
-                    </tree>
+                    </list>
                      <form string="Package Plan">   
                            <group>
                                <group>
@@ -57,7 +56,7 @@
                                </group>
                            </group>
                             <field name="package_planner_line" nolabel="1">
-                               <tree string="Package Planning Details" editable="bottom">
+                               <list string="Package Planning Details" editable="bottom">
                                    <field name="seq_no"/>
                                    <field name="pack_in"/>
                                    <field name="pack_in_no"/>
@@ -66,7 +65,7 @@
                                    <field name="no"/>
                                    <field name="available_mtr_tag_ids" widget="many2many_tags" invisible="1"/>
                                    <field name="mtr_tag_ids" widget="many2many_tags" domain="[('id', 'in', available_mtr_tag_ids)]" options="{'no_create': True}"/>
-                               </tree>
+                               </list>
                            </field>
                            <button name="save_load" string="Update Package" type="object" class="oe_highlight"/>
                        </form>
