@@ -1,2 +1,2 @@
 from . import box_label
-from . import box_label_skid
+from . import skid_label
