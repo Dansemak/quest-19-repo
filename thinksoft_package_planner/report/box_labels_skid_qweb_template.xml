@@ -37,7 +37,7 @@
 								<div class="row mb-2">
 									<div class="col-12 text-uppercase" style="font-size:12px;font-family:Arial;">
 										<strong>CUSTOMER:</strong>
-										<span t-esc="doc.sale_partner_id.name"/>
+										<span t-esc="doc.partner_id.name"/>
 									</div>
 								</div>
 								<div class="row mb-2">
@@ -100,7 +100,7 @@
 									<div class="col-12">
 										<span>SHIP VIA:</span>
 										<strong>
-											<span t-esc="doc['sale_ship_via']['name']"/>
+											<span t-esc="doc['carrier_id']['name']"/>
 										</strong>
 									</div>
 								</div>
