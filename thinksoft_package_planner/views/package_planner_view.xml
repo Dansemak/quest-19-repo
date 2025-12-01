@@ -48,7 +48,6 @@
                                    <field name="max_qty_pack"/>
                                    <field name="is_skid"/>
                                    <field name="cs_no"/>
-                                   <field name="heat"/>
                                    <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
                                    <button name="load_lines" type="object" string="Calculate" class="oe_highlight" />
                                </group>
