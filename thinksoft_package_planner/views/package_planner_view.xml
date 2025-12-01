@@ -46,7 +46,7 @@
                                    <field name="last_box_no"/>
                                    <field name="pack_type"/>
                                    <field name="max_qty_pack"/>
-                                   <field name="crate_skid"/>
+                                   <field name="is_skid"/>
                                    <field name="cs_no"/>
                                    <field name="heat"/>
                                    <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
@@ -59,7 +59,7 @@
                                    <field name="pack_in"/>
                                    <field name="pack_in_no"/>
                                    <field name="qty_packed" sum="Total Quantity Packed"/>
-                                   <field name="crate_skid"/>
+                                   <field name="is_skid"/>
                                    <field name="no"/>
                                    <field name="available_mtr_template_ids" widget="many2many_tags" invisible="1"/>
                                    <field name="mtr_template_ids" widget="many2many_tags" domain="[('id', 'in', available_mtr_template_ids)]" options="{'no_create': True}"/>

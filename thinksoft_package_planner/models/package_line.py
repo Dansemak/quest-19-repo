@@ -35,7 +35,7 @@ class package_line(models.Model):
         "Package Type",
         default="box",
     )
-    crate_skid = fields.Selection([("skid", "Skid"), ("crate", "Crate")], "Crate/Skid")
+    is_skid = fields.Boolean("Skid")
     cs_no = fields.Integer("Crate/Skid No")
     name = fields.Char("Description", size=32)
     package_planner_line = fields.One2many(
@@ -51,15 +51,15 @@ class package_line(models.Model):
             pack.in_box = 0
             pack.box_qty = 0
             in_box_list = []
-            skid_crate_list = []
+            skid_list = []
             for val in pack.package_planner_line:
                 pack.qty_packed += val.qty_packed
                 if val.pack_in_no not in in_box_list:
                     in_box_list.append(val.pack_in_no)
-                if val.no not in skid_crate_list:
-                    skid_crate_list.append(val.no)
-                if val.crate_skid == "skid":
-                    pack.skid_qty = ", ".join(map(str, skid_crate_list))
+                if val.no not in skid_list:
+                    skid_list.append(val.no)
+                if val.is_skid:
+                    pack.skid_qty = ", ".join(map(str, skid_list))
             pack.in_box = ", ".join(map(str, in_box_list))
             pack.box_qty = len(set(in_box_list))
 
@@ -107,7 +107,7 @@ class package_line(models.Model):
                     "pack_in": package_id.pack_type,
                     "pack_in_no": box_no,
                     "qty_packed": max_qty,
-                    # 'crate_skid': package_id.crate_skid,
+                    'is_skid': package_id.is_skid,
                     "no": package_id.cs_no,
                     "pack_id": package_id.id,
                 }

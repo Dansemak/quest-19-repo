@@ -14,10 +14,7 @@ class package_planner_line(models.Model):
     ], 'Package Type')
     pack_in_no = fields.Integer('Pack-in No')
     qty_packed = fields.Integer('Qty Packed')
-    crate_skid = fields.Selection([
-        ('skid', 'Skid'),
-        ('crate', 'Crate'),
-    ], 'Crate/Skid')
+    is_skid = fields.Boolean("Skid")
     no = fields.Integer('No')
     # Heat field will need to be removed, since mtr_template_ids will be used instead.
     heat = fields.Char('Archived Heat#', size=20, readonly=True)
