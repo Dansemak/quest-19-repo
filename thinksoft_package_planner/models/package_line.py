@@ -69,18 +69,15 @@ class package_line(models.Model):
         return self.env.ref("thinksoft_package_planner.3x4_qweb_report").report_action(
             self
         )
-        return True
 
     def button_package_label_1_25x4(self):
         return self.env.ref(
             "thinksoft_package_planner.1_25x4_qweb_report"
         ).report_action(self)
-        return True
 
     def load_lines(self):
         package_id = self
         package_line_obj = self.env["package.planner.line"]
-        line_ids = map(lambda x: x.id, package_id.package_planner_line)
         if package_id.package_planner_line:
             for l in package_id.package_planner_line:
                 l.unlink()

@@ -9,7 +9,6 @@ class SkidLabel(models.AbstractModel):
 
     def _get_max_count(self, package_line, count_type):
         if count_type == "skid":
-            skids = []
             sk_list = set(line.skid_qty for line in package_line)
             s_list = []
             for skd in sk_list:

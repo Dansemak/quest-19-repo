@@ -5,7 +5,7 @@ class package_planner_line(models.Model):
     _name = "package.planner.line"
     _description = "Package Planner Line"
 
-    pack_id = fields.Many2one('package.line', 'Package', readonly=True, )
+    pack_id = fields.Many2one('package.line', 'Package', readonly=True)
     seq_no = fields.Integer('#')
     pack_in = fields.Selection([
         ('box', 'Box'),
