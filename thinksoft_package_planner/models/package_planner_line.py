@@ -15,7 +15,7 @@ class package_planner_line(models.Model):
     pack_in_no = fields.Integer('Pack-in No')
     qty_packed = fields.Integer('Qty Packed')
     is_skid = fields.Boolean("Skid")
-    no = fields.Integer('No')
+    skid_number = fields.Integer('No')
     available_mtr_template_ids = fields.One2many('mtr.template', compute='_compute_pack_mtr_template_ids')
     mtr_template_ids = fields.Many2many(comodel_name="mtr.template", relation="mtr_template_package_planner_line_rel",
                                    column1="id", column2="name", string="MTR")

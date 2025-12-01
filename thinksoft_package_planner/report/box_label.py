@@ -40,7 +40,7 @@ class BoxLabel(models.AbstractModel):
                                             mtr.heat_number or ""
                                             for mtr in line.mtr_template_ids
                                         ),
-                                        "desc": line.desc,
+                                        "description": line.description,
                                         "tagging": line.tagging,
                                     }
                                 ]

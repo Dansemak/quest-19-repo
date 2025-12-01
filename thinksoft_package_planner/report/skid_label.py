@@ -51,7 +51,7 @@ class SkidLabel(models.AbstractModel):
                 qnty = 0
                 show = False
                 for p in line.package_planner_line:
-                    if p.is_skid and p.no == box["skid"]:
+                    if p.is_skid and p.skid_number == box["skid"]:
                         show = True
                         if line.product_id.id in product:
                             qnty += p.qty_packed
@@ -66,7 +66,7 @@ class SkidLabel(models.AbstractModel):
                                     "seq_no": line.seq,
                                     "product_id": line.product_id.id,
                                     "name": line.product_id.name,
-                                    "desc": line.desc,
+                                    "description": line.description,
                                     "pick_qty": int(line.pick_qty),
                                     "in_box": line.in_box,
                                     "qty": qnty,

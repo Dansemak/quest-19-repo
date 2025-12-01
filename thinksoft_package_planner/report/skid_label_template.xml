@@ -158,7 +158,7 @@
 														<td style="padding:4px;">
 															<strong style="font-size:14px;"><t t-esc="b_value['name']"/></strong>
 															<br/>
-															<t t-esc="b_value['desc']"/>
+															<t t-esc="b_value['description']"/>
 															<t t-if="b_value['heat']">
 																<span style="display:block;font-size:14px;">
 																	HEAT#: <strong><t t-esc="b_value['heat']"/></strong>

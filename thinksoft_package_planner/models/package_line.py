@@ -19,12 +19,12 @@ class package_line(models.Model):
         column2="name",
         string="MTR",
     )
-    pick_qty = fields.Float("Pick")
+    pick_qty = fields.Float("Pick Qty")
     in_box = fields.Char(compute="get_package_planner", string="In Box")
     box_qty = fields.Integer(compute="get_package_planner", string="Boxes")
     skid_qty = fields.Char(compute="get_package_planner", string="Skids")
     qty_packed = fields.Integer(compute="get_package_planner", string="Qty Packed")
-    desc = fields.Text(compute="get_package_planner", string="Description")
+    description = fields.Text(compute="get_package_planner", string="Description")
 
     ordered = fields.Integer("Ordered")
     last_box_no = fields.Integer("Last Used Box #")
@@ -34,7 +34,7 @@ class package_line(models.Model):
         default="box",
     )
     is_skid = fields.Boolean("Skid")
-    cs_no = fields.Integer("Crate/Skid No")
+    skid_number = fields.Integer("Skid No")
     name = fields.Char("Description", size=32)
     package_planner_line = fields.One2many(
         "package.planner.line", "pack_id", "Package Details"
@@ -45,7 +45,6 @@ class package_line(models.Model):
         for pack in self:
             pack.qty_packed = 0
             pack.skid_qty = 0
-            # pack.crates = 0
             pack.in_box = 0
             pack.box_qty = 0
             in_box_list = []
@@ -54,14 +53,14 @@ class package_line(models.Model):
                 pack.qty_packed += val.qty_packed
                 if val.pack_in_no not in in_box_list:
                     in_box_list.append(val.pack_in_no)
-                if val.no not in skid_list:
-                    skid_list.append(val.no)
+                if val.skid_number not in skid_list:
+                    skid_list.append(val.skid_number)
                 if val.is_skid:
                     pack.skid_qty = ", ".join(map(str, skid_list))
             pack.in_box = ", ".join(map(str, in_box_list))
             pack.box_qty = len(set(in_box_list))
 
-            pack.desc = pack.move_id.product_id.description
+            pack.description = pack.move_id.product_id.description
 
     def button_package_label_3x4(self):
         return self.env.ref("thinksoft_package_planner.3x4_qweb_report").report_action(
@@ -103,7 +102,7 @@ class package_line(models.Model):
                     "pack_in_no": box_no,
                     "qty_packed": max_qty,
                     'is_skid': package_id.is_skid,
-                    "no": package_id.cs_no,
+                    "skid_number": package_id.skid_number,
                     "pack_id": package_id.id,
                 }
             )

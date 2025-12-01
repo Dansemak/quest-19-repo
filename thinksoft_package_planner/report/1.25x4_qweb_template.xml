@@ -43,7 +43,7 @@
 								<span class="ml-2" style="font-weight:normal;" t-field="doc.product_id.name" />
 								<br />
 								<span style="font-weight:bold;">Item Description:</span>
-								<span style="font-weight:normal; " t-field="doc.desc" />
+								<span style="font-weight:normal; " t-field="doc.description" />
 							</div>
 							<div class="col-3" style="">
 								<img

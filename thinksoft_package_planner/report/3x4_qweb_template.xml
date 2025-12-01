@@ -57,7 +57,7 @@
                         <div class="col-12 mt-2">
                             <div style="font-size:8;font-weight:bold;">Item Description:<br />
                             <span
-                                    style="font-size:10.5; font-weight:normal; " t-field="doc.desc" />
+                                    style="font-size:10.5; font-weight:normal; " t-field="doc.description" />
                             </div>
                         </div>
                     </div>
