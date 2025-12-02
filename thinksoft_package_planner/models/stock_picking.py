@@ -13,7 +13,7 @@ class StockPicking(models.Model):
             res = {
                 "product_id": move.product_id.id,
                 "seq": move.seq_no,
-                'description': move.description_picking,
+                "description": move.description_picking,
                 "picking_id": self.id,
                 "move_id": move.id,
                 "tagging": move.tagging,

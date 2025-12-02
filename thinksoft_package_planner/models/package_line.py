@@ -24,7 +24,7 @@ class package_line(models.Model):
     box_qty = fields.Integer(compute="get_package_planner", string="Boxes")
     skid_qty = fields.Char(compute="get_package_planner", string="Skids")
     qty_packed = fields.Integer(compute="get_package_planner", string="Qty Packed")
-    description = fields.Text(compute="get_package_planner", string="Description")
+    description = fields.Text(string="Description")
 
     last_box_no = fields.Integer("Last Used Box #")
     pack_type = fields.Selection(
@@ -57,8 +57,6 @@ class package_line(models.Model):
                     pack.skid_qty = ", ".join(map(str, skid_list))
             pack.in_box = ", ".join(map(str, in_box_list))
             pack.box_qty = len(set(in_box_list))
-
-            pack.description = pack.move_id.product_id.description
 
     def button_package_label_3x4(self):
         return self.env.ref("thinksoft_package_planner.3x4_qweb_report").report_action(
