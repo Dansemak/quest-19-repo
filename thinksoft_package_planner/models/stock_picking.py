@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class thinksoft_package(models.Model):
+class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     package_line = fields.One2many("package.line", "picking_id", "Package Details")
