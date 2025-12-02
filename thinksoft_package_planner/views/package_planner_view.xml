@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
         <xpath expr="//page[@name='extra']" position="after">
             <page string="Package">
-                <button name="create_product" type="object" string="Create/Update Package" class="oe_highlight"/>
+                <button name="button_create_packages" type="object" string="Update Package" class="oe_highlight"/>
                 <button name="button_skid_label" type="object" string="Print Skid Labels" class="oe_right"/>
                 <button name="button_box_label" type="object" string="Print Box Labels" class="oe_right"/>
                 <field name="package_line">
