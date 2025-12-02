@@ -26,7 +26,6 @@ class package_line(models.Model):
     qty_packed = fields.Integer(compute="get_package_planner", string="Qty Packed")
     description = fields.Text(compute="get_package_planner", string="Description")
 
-    ordered = fields.Integer("Ordered")
     last_box_no = fields.Integer("Last Used Box #")
     pack_type = fields.Selection(
         [("box", "Box"), ("bag", "Bag"), ("sleeve", "Sleeve")],
