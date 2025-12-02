@@ -34,7 +34,6 @@ class package_line(models.Model):
     )
     is_skid = fields.Boolean("Skid")
     skid_number = fields.Integer("Skid No")
-    name = fields.Char("Description", size=32)
     package_planner_line = fields.One2many(
         "package.planner.line", "pack_id", "Package Details"
     )

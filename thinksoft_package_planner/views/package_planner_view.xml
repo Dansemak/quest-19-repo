@@ -23,7 +23,6 @@
                         <field name="in_box"/>
                         <field name="box_qty"/>
                         <field name="skid_qty"/>
-                        <!-- <field name="name" invisible="1"/> -->
                         <button name="button_package_label_3x4" string="3x4" type="object" invisible="1"/>
                         <button name="button_package_label_1_25x4" string="1.25x4" type="object"/>
                     </list>
@@ -38,7 +37,6 @@
                                </group>
                                <group>
                                 <field name="seq" invisible="1"/>
-                                   <field name="name" invisible="1"/>
                                    <field name="box_qty" invisible="1"/>
                                    <field name="skid_qty" invisible="1"/>
                                    <field name="last_box_no"/>

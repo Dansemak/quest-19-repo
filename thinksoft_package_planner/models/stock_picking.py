@@ -15,7 +15,7 @@ class thinksoft_package(models.Model):
                 "product_id": move.product_id.id,
                 # 'pick_qty': val.pick_qty, # Get it from stock.move.line
                 "seq": move.seq_no,
-                # 'name': move.name,
+                'description': move.description_picking,
                 "picking_id": self.id,
                 "move_id": move.id,
                 "tagging": move.tagging,
