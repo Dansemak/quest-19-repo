@@ -10,7 +10,7 @@
                 <button name="button_create_packages" type="object" string="Update Package" class="oe_highlight"/>
                 <button name="button_skid_label" type="object" string="Print Skid Labels" class="oe_right"/>
                 <button name="button_box_label" type="object" string="Print Box Labels" class="oe_right"/>
-                <field name="package_line">
+                <field name="package_line_ids">
                     <list>
                         <field name="seq"/>
                         <field name="product_id"/>

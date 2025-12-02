@@ -64,10 +64,10 @@ class BoxLabel(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         picking = self.env["stock.picking"].search([("id", "=", docids[0])])
-        get_boxes = self._get_boxes(picking.package_line)
+        get_boxes = self._get_boxes(picking.package_line_ids)
         docs = picking
-        movelines = self._get_box_label(get_boxes, picking.package_line)
-        get_max_count = self._get_max_count(picking.package_line, "box")
+        movelines = self._get_box_label(get_boxes, picking.package_line_ids)
+        get_max_count = self._get_max_count(picking.package_line_ids, "box")
         return {
             "doc_ids": docids,
             "data": {},

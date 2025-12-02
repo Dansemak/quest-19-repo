@@ -85,10 +85,10 @@ class SkidLabel(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         picking = self.env["stock.picking"].search([("id", "=", docids[0])])
-        get_boxes = self._get_skids(picking.package_line)
+        get_boxes = self._get_skids(picking.package_line_ids)
         docs = picking
-        movelines = self._get_box_skids(get_boxes, picking.package_line)
-        get_max_count = self._get_max_count(picking.package_line, "skid")
+        movelines = self._get_box_skids(get_boxes, picking.package_line_ids)
+        get_max_count = self._get_max_count(picking.package_line_ids, "skid")
         return {
             "doc_ids": docids,
             "data": {},
