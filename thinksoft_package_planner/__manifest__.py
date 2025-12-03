@@ -24,7 +24,7 @@
         'security/ir.model.access.csv',
         'views/stock_picking_views.xml',
         'report/3x4_qweb_template.xml',
-        'report/1.25x4_qweb_template.xml',
+        'report/1_25x4_label_report.xml',
         'report/box_label_template.xml',
         'report/skid_label_template.xml',
     ],

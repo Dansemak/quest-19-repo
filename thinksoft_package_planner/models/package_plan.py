@@ -65,7 +65,7 @@ class PackagePlan(models.Model):
 
     def button_package_label_1_25x4(self):
         return self.env.ref(
-            "thinksoft_package_planner.1_25x4_qweb_report"
+            "thinksoft_package_planner.1_25x4_label_report"
         ).report_action(self)
 
     def load_lines(self):
