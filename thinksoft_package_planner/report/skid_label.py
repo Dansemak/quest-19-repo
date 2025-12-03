@@ -63,7 +63,7 @@ class SkidLabel(models.AbstractModel):
                         {
                             str(box["skid"]): [
                                 {
-                                    "seq_no": line.seq,
+                                    "seq_no": line.seq_no,
                                     "product_id": line.product_id.id,
                                     "name": line.product_id.name,
                                     "description": line.description,

@@ -12,7 +12,7 @@
                 <button name="button_box_label" type="object" string="Print Box Labels" class="oe_right"/>
                 <field name="package_plan_ids">
                     <list>
-                        <field name="seq"/>
+                        <field name="seq_no"/>
                         <field name="product_id"/>
                         <field name="description"/>
                         <field name="tagging"/>
@@ -36,7 +36,7 @@
                                    <field name="last_box_no" invisible="1"/>
                                </group>
                                <group>
-                                <field name="seq" invisible="1"/>
+                                <field name="seq_no" invisible="1"/>
                                    <field name="box_qty" invisible="1"/>
                                    <field name="skid_qty" invisible="1"/>
                                    <field name="last_box_no"/>

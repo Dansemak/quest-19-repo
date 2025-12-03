@@ -30,7 +30,7 @@ class BoxLabel(models.AbstractModel):
                             {
                                 str(box["box"]): [
                                     {
-                                        "seq_no": line.seq,
+                                        "seq_no": line.seq_no,
                                         "product_id": line.product_id.id,
                                         "name": line.product_id.name,
                                         "pick_qty": int(line.pick_qty),

@@ -12,7 +12,7 @@ class StockPicking(models.Model):
         for move in self.move_ids:
             res = {
                 "product_id": move.product_id.id,
-                "seq": move.seq_no,
+                "seq_no": move.seq_no,
                 "description": move.description_picking,
                 "picking_id": self.id,
                 "move_id": move.id,

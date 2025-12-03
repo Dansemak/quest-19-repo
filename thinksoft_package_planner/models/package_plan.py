@@ -8,7 +8,7 @@ class PackagePlan(models.Model):
     _description = "Package Plan"
 
     picking_id = fields.Many2one("stock.picking", "Reference")
-    seq = fields.Integer("#")
+    seq_no = fields.Integer("#")
     product_id = fields.Many2one("product.product", "Product")
     tagging = fields.Char("Tagging")
     max_qty_pack = fields.Integer("Max Qty/Package")
