@@ -15,16 +15,16 @@ class StockPicking(models.Model):
                 "seq_no": move.seq_no,
                 "description": move.description_picking,
                 "picking_id": self.id,
-                "move_id": move.id,
+                "stock_move_id": move.id,
                 "tagging": move.tagging,
             }
             for move_line in self.move_line_ids:
-                if move_line.id == res["move_id"]:
+                if move_line.id == res["stock_move_id"]:
                     res["pick_qty"] = move_line.qty_done
                     res["mtr_template_ids"] = move_line.mtr_template_ids
                     continue
 
-            packages = package_plan.search([("move_id", "=", move.id)])
+            packages = package_plan.search([("stock_move_id", "=", move.id)])
             
             if not packages:
                 move.package_plan_id = package_plan.create(res)

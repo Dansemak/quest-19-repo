@@ -19,7 +19,7 @@
                         <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
                         <field name="max_qty_pack"/>
                         <field name="pick_qty"/>
-                        <field name="qty_packed"/>
+                        <field name="packed_qty"/>
                         <field name="in_box"/>
                         <field name="box_qty"/>
                         <field name="skid_qty"/>
@@ -32,14 +32,14 @@
                                    <field name="product_id"/>
                                    <field name="pick_qty" readonly="True"/>
                                    <field name="in_box" invisible="1"/>
-                                   <field name="qty_packed" invisible="1"/>
-                                   <field name="last_box_no" invisible="1"/>
+                                   <field name="packed_qty" invisible="1"/>
+                                   <field name="last_box_used" invisible="1"/>
                                </group>
                                <group>
                                 <field name="seq_no" invisible="1"/>
                                    <field name="box_qty" invisible="1"/>
                                    <field name="skid_qty" invisible="1"/>
-                                   <field name="last_box_no"/>
+                                   <field name="last_box_used"/>
                                    <field name="package_type"/>
                                    <field name="max_qty_pack"/>
                                    <field name="is_skid"/>
@@ -53,7 +53,7 @@
                                    <field name="seq_no"/>
                                    <field name="package_type"/>
                                    <field name="in_box"/>
-                                   <field name="qty_packed" sum="Total Quantity Packed"/>
+                                   <field name="packed_qty" sum="Total Quantity Packed"/>
                                    <field name="is_skid"/>
                                    <field name="skid_number"/>
                                    <field name="available_mtr_template_ids" widget="many2many_tags" invisible="1"/>

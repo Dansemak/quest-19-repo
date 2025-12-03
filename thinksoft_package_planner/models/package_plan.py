@@ -23,10 +23,9 @@ class PackagePlan(models.Model):
     in_box = fields.Char(compute="get_package_planner", string="In Box")
     box_qty = fields.Integer(compute="get_package_planner", string="Boxes")
     skid_qty = fields.Char(compute="get_package_planner", string="Skids")
-    qty_packed = fields.Integer(compute="get_package_planner", string="Qty Packed")
+    packed_qty = fields.Integer(compute="get_package_planner", string="Packed Qty")
     description = fields.Text(string="Description")
-
-    last_box_no = fields.Integer("Last Used Box #")
+    last_box_used = fields.Integer("Last Used Box #")
     package_type = fields.Selection(
         [("box", "Box"), ("sleeve", "Sleeve")],
         "Package Type",
@@ -37,18 +36,18 @@ class PackagePlan(models.Model):
     package_plan_line_ids = fields.One2many(
         "package.plan.line", "package_plan_id", "Package Details"
     )
-    move_id = fields.Many2one("stock.move", "Move Reference")
+    stock_move_id = fields.Many2one("stock.move", "Stock Move Reference")
 
     def get_package_planner(self):
         for pack in self:
-            pack.qty_packed = 0
+            pack.packed_qty = 0
             pack.skid_qty = 0
             pack.in_box = 0
             pack.box_qty = 0
             in_box_list = []
             skid_list = []
             for val in pack.package_plan_line_ids:
-                pack.qty_packed += val.qty_packed
+                pack.packed_qty += val.packed_qty
                 if val.in_box not in in_box_list:
                     in_box_list.append(val.in_box)
                 if val.skid_number not in skid_list:
@@ -85,7 +84,7 @@ class PackagePlan(models.Model):
             )
         seq_no = 1
         qty = 0
-        box_no = package_id.last_box_no + 1
+        box_no = package_id.last_box_used + 1
         while qty < package_id.pick_qty:
             max_qty = package_id.max_qty_pack
             check_qty = package_id.pick_qty - qty
@@ -96,7 +95,7 @@ class PackagePlan(models.Model):
                     "seq_no": seq_no,
                     "package_type": package_id.package_type,
                     "in_box": box_no,
-                    "qty_packed": max_qty,
+                    "packed_qty": max_qty,
                     'is_skid': package_id.is_skid,
                     "skid_number": package_id.skid_number,
                     "package_plan_id": package_id.id,
@@ -109,12 +108,12 @@ class PackagePlan(models.Model):
 
     def save_load(self):
         package_id = self
-        if package_id.pick_qty < package_id.qty_packed:
+        if package_id.pick_qty < package_id.packed_qty:
             raise UserError(
                 _(
                     'Error! Quantity Packed cannot exceed Pick quantity= "%s" (Quantity Packed=%d).'
                 )
-                % (package_id.pick_qty, package_id.qty_packed)
+                % (package_id.pick_qty, package_id.packed_qty)
             )
         return True
 

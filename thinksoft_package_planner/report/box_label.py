@@ -34,7 +34,7 @@ class BoxLabel(models.AbstractModel):
                                         "product_id": line.product_id.id,
                                         "name": line.product_id.name,
                                         "pick_qty": int(line.pick_qty),
-                                        "qty": p.qty_packed,
+                                        "qty": p.packed_qty,
                                         "in_box": p.in_box,
                                         "heat": ", ".join(
                                             mtr.heat_number or ""

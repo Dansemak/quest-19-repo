@@ -54,9 +54,9 @@ class SkidLabel(models.AbstractModel):
                     if p.is_skid and p.skid_number == box["skid"]:
                         show = True
                         if line.product_id.id in product:
-                            qnty += p.qty_packed
+                            qnty += p.packed_qty
                         else:
-                            qnty = p.qty_packed
+                            qnty = p.packed_qty
                             product.append(line.product_id.id)
                 if show:
                     packs.append(

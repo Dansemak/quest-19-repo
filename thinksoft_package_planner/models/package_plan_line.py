@@ -12,7 +12,7 @@ class PackagePlanLine(models.Model):
         ('sleeve', 'Sleeve'),
     ], 'Package Type')
     in_box = fields.Integer('In Box')
-    qty_packed = fields.Integer('Qty Packed')
+    packed_qty = fields.Integer('Packed Qty')
     is_skid = fields.Boolean("Skid")
     skid_number = fields.Integer('Skid #')
     available_mtr_template_ids = fields.One2many('mtr.template', compute='_compute_pack_mtr_template_ids')
