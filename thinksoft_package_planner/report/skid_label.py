@@ -50,7 +50,7 @@ class SkidLabel(models.AbstractModel):
             for line in package_line:
                 qnty = 0
                 show = False
-                for p in line.package_planner_line:
+                for p in line.package_plan_line:
                     if p.is_skid and p.skid_number == box["skid"]:
                         show = True
                         if line.product_id.id in product:
@@ -85,10 +85,10 @@ class SkidLabel(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         picking = self.env["stock.picking"].search([("id", "=", docids[0])])
-        get_boxes = self._get_skids(picking.package_line_ids)
+        get_boxes = self._get_skids(picking.package_plan_ids)
         docs = picking
-        movelines = self._get_box_skids(get_boxes, picking.package_line_ids)
-        get_max_count = self._get_max_count(picking.package_line_ids, "skid")
+        movelines = self._get_box_skids(get_boxes, picking.package_plan_ids)
+        get_max_count = self._get_max_count(picking.package_plan_ids, "skid")
         return {
             "doc_ids": docids,
             "data": {},

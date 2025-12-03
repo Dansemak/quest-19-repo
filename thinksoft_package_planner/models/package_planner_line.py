@@ -1,11 +1,11 @@
 from odoo import fields, models
 
 
-class package_planner_line(models.Model):
-    _name = "package.planner.line"
-    _description = "Package Planner Line"
+class PackagePlanLine(models.Model):
+    _name = "package.plan.line"
+    _description = "Package Plan Line"
 
-    pack_id = fields.Many2one('package.line', 'Package', readonly=True)
+    pack_id = fields.Many2one('package.plan', 'Package', readonly=True)
     seq_no = fields.Integer('#')
     pack_in = fields.Selection([
         ('box', 'Box'),
@@ -17,7 +17,7 @@ class package_planner_line(models.Model):
     is_skid = fields.Boolean("Skid")
     skid_number = fields.Integer('No')
     available_mtr_template_ids = fields.One2many('mtr.template', compute='_compute_pack_mtr_template_ids')
-    mtr_template_ids = fields.Many2many(comodel_name="mtr.template", relation="mtr_template_package_planner_line_rel",
+    mtr_template_ids = fields.Many2many(comodel_name="mtr.template", relation="mtr_template_package_plan_line_rel",
                                    column1="id", column2="name", string="MTR")
     
     def _compute_pack_mtr_template_ids(self):

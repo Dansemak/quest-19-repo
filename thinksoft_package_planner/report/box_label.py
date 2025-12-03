@@ -11,7 +11,7 @@ class BoxLabel(models.AbstractModel):
         inbox = []
         boxes = []
         for line in package_line:
-            for l in line.package_planner_line:
+            for l in line.package_plan_line:
                 if l.pack_in_no not in inbox:
                     inbox.append(l.pack_in_no)
         inbox.sort()
@@ -24,7 +24,7 @@ class BoxLabel(models.AbstractModel):
         packs = []
         for box in b:
             for line in package_line:
-                for p in line.package_planner_line:
+                for p in line.package_plan_line:
                     if p.pack_in_no == box["box"]:
                         packs.append(
                             {
@@ -52,7 +52,7 @@ class BoxLabel(models.AbstractModel):
         if count_type == "box":
             inbox = []
             for line in package_line:
-                for l in line.package_planner_line:
+                for l in line.package_plan_line:
                     if l.pack_in_no not in inbox:
                         inbox.append(l.pack_in_no)
             inbox.sort()
@@ -64,10 +64,10 @@ class BoxLabel(models.AbstractModel):
     @api.model
     def _get_report_values(self, docids, data=None):
         picking = self.env["stock.picking"].search([("id", "=", docids[0])])
-        get_boxes = self._get_boxes(picking.package_line_ids)
+        get_boxes = self._get_boxes(picking.package_plan_ids)
         docs = picking
-        movelines = self._get_box_label(get_boxes, picking.package_line_ids)
-        get_max_count = self._get_max_count(picking.package_line_ids, "box")
+        movelines = self._get_box_label(get_boxes, picking.package_plan_ids)
+        get_max_count = self._get_max_count(picking.package_plan_ids, "box")
         return {
             "doc_ids": docids,
             "data": {},

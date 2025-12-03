@@ -19,12 +19,12 @@
 
         <record id="1_25x4_qweb_report" model="ir.actions.report">
             <field name="name">1_25x4 Report</field>
-            <field name="model">package.line</field>
+            <field name="model">package.plan</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">thinksoft_package_planner.1_25x4_report</field>
             <field name="report_file">thinksoft_package_planner.1_25x4_report</field>
             <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_1_25x4"/>
-            <field name="binding_model_id" ref="model_package_line"/>
+            <field name="binding_model_id" ref="model_package_plan"/>
             <field name="binding_type">report</field>
         </record>
     </data>

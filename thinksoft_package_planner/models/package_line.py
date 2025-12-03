@@ -3,9 +3,9 @@ from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
 
-class package_line(models.Model):
-    _name = "package.line"
-    _description = "Package Line"
+class PackagePlan(models.Model):
+    _name = "package.plan"
+    _description = "Package Plan"
 
     picking_id = fields.Many2one("stock.picking", "Reference")
     seq = fields.Integer("#")
@@ -14,7 +14,7 @@ class package_line(models.Model):
     max_qty_pack = fields.Integer("Max Qty/Package")
     mtr_template_ids = fields.Many2many(
         comodel_name="mtr.template",
-        relation="mtr_template_package_line_rel",
+        relation="mtr_template_package_plan_rel",
         column1="id",
         column2="name",
         string="MTR",
@@ -34,8 +34,8 @@ class package_line(models.Model):
     )
     is_skid = fields.Boolean("Skid")
     skid_number = fields.Integer("Skid No")
-    package_planner_line = fields.One2many(
-        "package.planner.line", "pack_id", "Package Details"
+    package_plan_line = fields.One2many(
+        "package.plan.line", "pack_id", "Package Details"
     )
     move_id = fields.Many2one("stock.move", "Move Reference")
 
@@ -47,7 +47,7 @@ class package_line(models.Model):
             pack.box_qty = 0
             in_box_list = []
             skid_list = []
-            for val in pack.package_planner_line:
+            for val in pack.package_plan_line:
                 pack.qty_packed += val.qty_packed
                 if val.pack_in_no not in in_box_list:
                     in_box_list.append(val.pack_in_no)
@@ -70,9 +70,9 @@ class package_line(models.Model):
 
     def load_lines(self):
         package_id = self
-        package_line_obj = self.env["package.planner.line"]
-        if package_id.package_planner_line:
-            for l in package_id.package_planner_line:
+        package_line_obj = self.env["package.plan.line"]
+        if package_id.package_plan_line:
+            for l in package_id.package_plan_line:
                 l.unlink()
         if package_id.max_qty_pack <= 0:
             raise UserError(_("Load Error Please fill all the packaging details!"))
@@ -122,8 +122,8 @@ class package_line(models.Model):
     # def create(self, vals):
     #     for val in vals:
     #         seq = 10
-    #         if val.get('package_planner_line'):
-    #             for value in val['package_planner_line']:
+    #         if val.get('package_plan_line'):
+    #             for value in val['package_plan_line']:
     #                 if len(value) > 2 and isinstance(value[2], dict):
     #                     value[2].setdefault('seq', seq)
     #                 seq += 10

@@ -4,10 +4,10 @@ from odoo import fields, models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    package_line_ids = fields.One2many("package.line", "picking_id", "Package Details")
+    package_plan_ids = fields.One2many("package.plan", "picking_id", "Package Details")
 
     def button_create_packages(self):
-        package_line = self.env["package.line"]
+        package_plan = self.env["package.plan"]
         message = "Package has been updated"
         for move in self.move_ids:
             res = {
@@ -24,14 +24,14 @@ class StockPicking(models.Model):
                     res["mtr_template_ids"] = move_line.mtr_template_ids
                     continue
 
-            packages = package_line.search([("move_id", "=", move.id)])
+            packages = package_plan.search([("move_id", "=", move.id)])
             
             if not packages:
-                move.package_line_id = package_line.create(res)
+                move.package_plan_id = package_plan.create(res)
                 message = "Package has been created"
             else:
                 packages.write(res)
-                move.package_line_id = packages[0].id
+                move.package_plan_id = packages[0].id
         
         self.message_post(body=message)
 
