@@ -59,7 +59,7 @@ class PackagePlan(models.Model):
             pack.box_qty = len(set(in_box_list))
 
     def button_package_label_3x4(self):
-        return self.env.ref("thinksoft_package_planner.3x4_qweb_report").report_action(
+        return self.env.ref("thinksoft_package_planner.3x4_label_report").report_action(
             self
         )
 

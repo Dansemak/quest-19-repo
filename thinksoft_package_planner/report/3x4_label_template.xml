@@ -17,7 +17,7 @@
         <field name="dpi">80</field>
     </record>
 
-    <record id="3x4_qweb_report" model="ir.actions.report">
+    <record id="3x4_label_report" model="ir.actions.report">
         <field name="name">3x4 Report</field>
         <field name="model">package.plan</field>
         <field name="report_type">qweb-pdf</field>
