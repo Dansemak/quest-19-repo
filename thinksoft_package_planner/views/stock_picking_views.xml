@@ -48,11 +48,11 @@
                                    <button name="load_lines" type="object" string="Calculate" class="oe_highlight" />
                                </group>
                            </group>
-                            <field name="package_plan_line" nolabel="1">
+                            <field name="package_plan_line_ids" nolabel="1">
                                <list string="Package Planning Details" editable="bottom">
                                    <field name="seq_no"/>
-                                   <field name="pack_in"/>
-                                   <field name="pack_in_no"/>
+                                   <field name="package_type"/>
+                                   <field name="in_box"/>
                                    <field name="qty_packed" sum="Total Quantity Packed"/>
                                    <field name="is_skid"/>
                                    <field name="skid_number"/>

@@ -50,7 +50,7 @@ class SkidLabel(models.AbstractModel):
             for line in package_line:
                 qnty = 0
                 show = False
-                for p in line.package_plan_line:
+                for p in line.package_plan_line_ids:
                     if p.is_skid and p.skid_number == box["skid"]:
                         show = True
                         if line.product_id.id in product:

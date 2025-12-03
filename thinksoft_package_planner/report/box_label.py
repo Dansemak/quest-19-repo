@@ -11,9 +11,9 @@ class BoxLabel(models.AbstractModel):
         inbox = []
         boxes = []
         for line in package_line:
-            for l in line.package_plan_line:
-                if l.pack_in_no not in inbox:
-                    inbox.append(l.pack_in_no)
+            for l in line.package_plan_line_ids:
+                if l.in_box not in inbox:
+                    inbox.append(l.in_box)
         inbox.sort()
 
         for i in inbox:
@@ -24,8 +24,8 @@ class BoxLabel(models.AbstractModel):
         packs = []
         for box in b:
             for line in package_line:
-                for p in line.package_plan_line:
-                    if p.pack_in_no == box["box"]:
+                for p in line.package_plan_line_ids:
+                    if p.in_box == box["box"]:
                         packs.append(
                             {
                                 str(box["box"]): [
@@ -35,7 +35,7 @@ class BoxLabel(models.AbstractModel):
                                         "name": line.product_id.name,
                                         "pick_qty": int(line.pick_qty),
                                         "qty": p.qty_packed,
-                                        "pack_in_no": p.pack_in_no,
+                                        "in_box": p.in_box,
                                         "heat": ", ".join(
                                             mtr.heat_number or ""
                                             for mtr in line.mtr_template_ids
@@ -52,9 +52,9 @@ class BoxLabel(models.AbstractModel):
         if count_type == "box":
             inbox = []
             for line in package_line:
-                for l in line.package_plan_line:
-                    if l.pack_in_no not in inbox:
-                        inbox.append(l.pack_in_no)
+                for l in line.package_plan_line_ids:
+                    if l.in_box not in inbox:
+                        inbox.append(l.in_box)
             inbox.sort()
             if inbox:
                 return int(max(inbox))
