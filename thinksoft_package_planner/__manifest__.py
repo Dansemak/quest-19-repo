@@ -22,7 +22,7 @@
     'init_xml': [],
     'data': [
         'security/ir.model.access.csv',
-        'views/package_planner_view.xml',
+        'views/stock_picking_views.xml',
         'report/3x4_qweb.xml',
         'report/3x4_qweb_template.xml',
         'report/1.25x4_qweb.xml',
