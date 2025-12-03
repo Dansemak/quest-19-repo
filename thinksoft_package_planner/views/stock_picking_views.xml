@@ -40,7 +40,7 @@
                                    <field name="box_qty" invisible="1"/>
                                    <field name="skid_qty" invisible="1"/>
                                    <field name="last_box_no"/>
-                                   <field name="pack_type"/>
+                                   <field name="package_type"/>
                                    <field name="max_qty_pack"/>
                                    <field name="is_skid"/>
                                    <field name="skid_number"/>

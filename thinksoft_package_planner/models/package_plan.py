@@ -27,15 +27,15 @@ class PackagePlan(models.Model):
     description = fields.Text(string="Description")
 
     last_box_no = fields.Integer("Last Used Box #")
-    pack_type = fields.Selection(
-        [("box", "Box"), ("bag", "Bag"), ("sleeve", "Sleeve")],
+    package_type = fields.Selection(
+        [("box", "Box"), ("sleeve", "Sleeve")],
         "Package Type",
         default="box",
     )
     is_skid = fields.Boolean("Skid")
     skid_number = fields.Integer("Skid No")
-    package_plan_line = fields.One2many(
-        "package.plan.line", "pack_id", "Package Details"
+    package_plan_line_ids = fields.One2many(
+        "package.plan.line", "package_plan_id", "Package Details"
     )
     move_id = fields.Many2one("stock.move", "Move Reference")
 
@@ -47,10 +47,10 @@ class PackagePlan(models.Model):
             pack.box_qty = 0
             in_box_list = []
             skid_list = []
-            for val in pack.package_plan_line:
+            for val in pack.package_plan_line_ids:
                 pack.qty_packed += val.qty_packed
-                if val.pack_in_no not in in_box_list:
-                    in_box_list.append(val.pack_in_no)
+                if val.in_box not in in_box_list:
+                    in_box_list.append(val.in_box)
                 if val.skid_number not in skid_list:
                     skid_list.append(val.skid_number)
                 if val.is_skid:
@@ -71,8 +71,8 @@ class PackagePlan(models.Model):
     def load_lines(self):
         package_id = self
         package_line_obj = self.env["package.plan.line"]
-        if package_id.package_plan_line:
-            for l in package_id.package_plan_line:
+        if package_id.package_plan_line_ids:
+            for l in package_id.package_plan_line_ids:
                 l.unlink()
         if package_id.max_qty_pack <= 0:
             raise UserError(_("Load Error Please fill all the packaging details!"))
@@ -94,12 +94,12 @@ class PackagePlan(models.Model):
             package_line_obj.create(
                 {
                     "seq_no": seq_no,
-                    "pack_in": package_id.pack_type,
-                    "pack_in_no": box_no,
+                    "package_type": package_id.package_type,
+                    "in_box": box_no,
                     "qty_packed": max_qty,
                     'is_skid': package_id.is_skid,
                     "skid_number": package_id.skid_number,
-                    "pack_id": package_id.id,
+                    "package_plan_id": package_id.id,
                 }
             )
             seq_no += 1
@@ -122,8 +122,8 @@ class PackagePlan(models.Model):
     # def create(self, vals):
     #     for val in vals:
     #         seq = 10
-    #         if val.get('package_plan_line'):
-    #             for value in val['package_plan_line']:
+    #         if val.get('package_plan_line_ids'):
+    #             for value in val['package_plan_line_ids']:
     #                 if len(value) > 2 and isinstance(value[2], dict):
     #                     value[2].setdefault('seq', seq)
     #                 seq += 10
