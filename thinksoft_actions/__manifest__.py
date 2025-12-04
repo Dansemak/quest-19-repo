@@ -17,6 +17,8 @@
         "sale",
         "sale_timesheet",
         "sale_pdf_quote_builder",
+        "stock",
+        "thinksoft_stock_ext",
     ],
     "data": [
         "views/stock_picking_views.xml",
