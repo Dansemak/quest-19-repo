@@ -136,7 +136,7 @@
                     <table class="text-uppercase mt8" style="border-collapse: collapse; width:100%;">
                       <tbody>
                         <tr>
-                          <th style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;"> Shipping Address: </th>
+                          <th style="border: 1px solid #525659; border-top-color: #525659; text-align: left;"> Shipping Address: </th>
                         </tr>
                         <tr>
                           <td class="address" style="border-bottom-color: 1px solid #fff;">
@@ -199,8 +199,8 @@
                     </t>
                     <!-- <t t-if="o.move_type=='out_invoice'"> -->
                     <tr style="border: 1px solid #525659;">
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="text-capitalize">Customer Reference</span>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659; ">
+                        <span class="">Customer Reference</span>
                       </th>
                       <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
                       <!-- <span class="" t-field="o.purchase_id" /> -->

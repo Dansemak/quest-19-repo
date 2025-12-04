@@ -111,8 +111,8 @@
         <t t-if="'partner_id' in doc.fields_get()">
           <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
         </t>
-        <div class="oe_structure" style="">
-          <div class="container">
+        <div class="oe_structure" >
+          <div class="container" style="">
             <div class="row">
              <!-- ************************************** VENDOR ************************* -->
               <div class="info1 col-6" >
@@ -123,9 +123,6 @@
                           </th>
                         </tr>
                         <tr>
-                          <!-- <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                            <address t-field="doc.partner_contact_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-                          </td> -->
                           <td class="address" style="">
                             <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
                           </td>
@@ -155,7 +152,7 @@
                     </tr>
 
                     <tr style="border: 1px solid #525659;">
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;text-transform: uppercase;">
                         <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">

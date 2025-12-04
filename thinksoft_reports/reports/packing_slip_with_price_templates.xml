@@ -248,7 +248,7 @@
                           <th style="border-top-color: #525659; height: 11.5px; background-color: #f1f1f1!important;" colspan="3">Shipping Information</th>
                         </tr>
                         <tr>
-                          <td rowspan="" style="">
+                          <td rowspan="" style="" class="address">
                             <div style="">Sold To:</div>
                             <!-- <div t-field="doc.sale_partner_id.name" class="font-weight-bold"/> -->
                             <!-- <div t-field="doc.sale_partner_id.name" class="font-weight-bold" /> -->

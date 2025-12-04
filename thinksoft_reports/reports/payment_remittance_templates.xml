@@ -41,7 +41,7 @@
                     <div class="col-5 top-address">
                         <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
                     </div>
-                    <!--********************** TITLE *********************-->
+                    <!-- ********************** TITLE ********************* -->
                     <div class="col-3 title" style="position: relative; text-align:right;">
                         <span class="text-uppercase" style="margin-right:-40px;">
                         Payment Remittance
@@ -82,12 +82,12 @@
                                 <t t-if="o.date" t-set="p_date" t-value="o.date.strftime('%m%d%Y')" />
                                 <t t-if="not o.date" t-set="p_date" t-value="''" />
 
-                                <!--**************** DATE ******************-->
+                                <!-- **************** DATE ****************** -->
                                 <div class=" container " style="">
                                     <div class="row  " style="width:100%;">
                                         <div class="col-12  date-amount d-flex justify-content-between" style="width:100%;">
-                                            <table class="table" width="100%">
-                                            <!--**************** DATE ******************-->
+                                            <table class="table" width="100%" style="border-collapse: collapse; border-spacing: 0; ">
+                                            <!-- **************** DATE ****************** -->
                                             <tr>
                                                 <td width="86%"/>
                                                 <td style="text-align:left;">
@@ -105,7 +105,7 @@
                                                 <td width="86%"/>
                                                 <td style="font-size:18px; text-align:left;">M M D D Y Y Y Y</td>
                                             </tr>
-                                            <!--**************** AMOUNT IN WORDS & AMOUNT ******************-->
+                                            <!-- **************** AMOUNT IN WORDS & AMOUNT ****************** -->
                                             <tr>
                                                 <td width="86%">
                                                 <span t-esc="o.currency_id.amount_to_text(o.amount)" />
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <!--**************** PAYEE ADDRESS & MEMO ******************-->
+                                <!-- **************** PAYEE ADDRESS & MEMO ****************** -->
                                 <div class=" container " style="margin:20px 0 20px;">
                                     <div class="row">
                                     <table width="100%" class="">
@@ -146,88 +146,102 @@
                                     <t t-set="invoices" t-value="[]"/>
                                 </t>
 
-                                <!--**************** PAYEE ADDRESS & MEMO ******************-->
-                                <!-- <div class="container " style="margin:20px 0 20px;"> -->
+                                <!-- <t t-foreach="invoices" t-as="inv">
+                                    <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials())" t-set="otherCurrency" t-value="True" />
+                                </t> -->
                                 <div class="row ">
                                     <table class="memo" width="100%">
                                         <thead>
-                                            <th class="text-left"><strong>Date</strong></th>
-                                            <th class="text-left"><strong>Supplier Invoice</strong></th>
-                                            <th class="text-left"><strong>Bill/Payment No.</strong></th>
-                                            <th class="text-left"><strong>Billed Amount</strong></th>
-                                            <th class="text-left"><strong>Amount Paid</strong></th>
+                                            <th class="text-center"><strong>Date</strong></th>
+                                            <th class="text-center"><strong>Supplier Invoice</strong></th>
+                                            <th class="text-center"><strong>Bill / Payment No.</strong></th>
+                                            <th class="text-end"><strong>Billed Amount</strong></th>
+                                            <th class="text-end"><strong>Amount Paid</strong></th>
                                         </thead>
                                         <tbody>
-                                            <t t-foreach="invoices" t-as="inv">
-                                                <!-- MOVE -->
-                                                <t t-if="inv.move_type != 'entry'">
-                                                    <!-- BILL ROW -->
-                                                    <tr>
-                                                        <!--************** DATE **************-->
-                                                        <td class="text-center">
-                                                            <span t-field="inv.invoice_date"/>
-                                                        </td >
-                                                        <!--************* SUPPLIER INVOICE *******-->
-                                                        <td class="text-center">
-                                                            <span t-field="inv.ref" />
-                                                        </td>
-                                                        <!--*********** BILLED No *****************-->
-                                                        <td class="text-center">
-                                                            <span t-field="inv.name"/>
-                                                        </td>
-                                                        <!-- <td t-if="otherCurrency"/> -->
-                                                        <!--*********** BILLED AMT *****************-->
-                                                        <td class="text-end">
-                                                            <span t-field="inv.amount_total"/>
-                                                        </td>
-                                                        <td class="text-end"></td>
-                                                    </tr>
-                                                    <!-- *******PAYMENTS/REVERSALS ROW **********-->
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <span t-field="o.date"/>
-                                                        </td>
-                                                        <td class="text-center">
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <span t-field="o.name"/>
-                                                        </td>
-                                                        <td></td>
-                                                        <td class="text-end">
-                                                            <span t-esc="-(o.amount)" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="border border-2"/>
+                                        <t t-foreach="invoices" t-as="inv">
+                                            <!-- MOVE -->
+                                            <t t-if="inv.move_type != 'entry'">
+                                            <tr>
+                                                <!-- ************** DATE ************** -->
+                                                <td class="text-center">
+                                                    <span t-field="inv.invoice_date"/>
+                                                </td>
+                                                <!-- *************** SUPPLIER INVOICE *************** --> 
+                                                <td class="text-center">
+                                                    <span t-field="inv.ref" />
+                                                </td>
+                                                <!-- *********** Bill/Payment No. ***************** -->
+                                                <td class="text-center">
+                                                    <span t-field="inv.name"/>
+                                                </td>
+                                                <!-- ************* BILLED AMT ***************** -->
+                                                <td class="text-end">
+                                                    <span t-field="inv.amount_total"/>
+                                                </td>
+                                                <!-- <td t-if="otherCurrency"/> -->
+                                                <!-- ***************** AMT PAID ********************** -->
+                                                <td class="text-end">
+                                                    
+                                                </td>
+                                                <!-- <td/> -->
+
+                                            </tr>
+                                            <!-- ************** PAYMENTS/REVERSALS ********** -->
+                                            <tr t-foreach="inv._get_reconciled_invoices_partials()" t-as="par">
+                                                <t t-if="par and len(par) &gt;= 3 and par[2] and par[2].move_id">
+                                                    <t t-set="payment" t-value="par[2].move_id" />
+
+                                                    <!-- ************** DATE ************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="payment.date" />
+                                                    </td>
+                                                    <!-- *************** SUPPLIER INVOICE *************** -->
+                                                    <td class="text-center">
+                                                    <!-- <span t-field="payment.supplier_invoice_number" /> -->
+                                                        <span t-field="payment.ref" />
+                                                    </td>
+                                                    <!-- *********** BILLED No ***************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="payment.name" />
+                                                    </td>
+                                                    <!-- ************* BILLED AMT ***************** -->
+                                                    <td class="text-end">
+                                                        <t t-set="amountPayment" t-value="-payment.amount_total" />
+                                                        <t t-set="amountInvoice" t-value="-par[1]" />
+                                                        <t t-set="currencyPayment" t-value="payment.currency_id" />
+                                                        <t t-set="currencyInvoice" t-value="inv.currency_id" />
+                                                    </td>                                                  
+                                                    <!-- ***************** AMT PAID ********************** -->
+                                                    <td class="text-end">
+                                                    <span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}" />
+                                                    </td>
                                                 </t>
+                                            </tr>
+                                            <tr class="border border-2"/>
                                             </t>
+                                        </t>
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <!--**************** TOTAL & BALANCE  ******************-->
-                                <!-- <div class=" container " style="margin:20px 0 20px;"> -->
+                                <!-- **************** TOTAL & BALANCE  ***************** *-->
                                 <div class="row totals-section">
-                                    <table class=" mt-3" width="100%" style="font-weight:bold;">
+                                    <table class="mt-3" width="100%" style="font-weight:bold;">
                                         <tr>
-                                            <td width="70%" style="">
-                                                <span t-field="o.journal_id" />
-                                            </td>
-                                            <th class="text-end" style="">Total Paid: </th>
-                                            <td class="text-end">
-                                                <span class="" t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
-                                            </td>
+                                        <td width="70%" style="">
+                                            <span t-field="o.journal_id" />
+                                        </td>
+                                        <th class="text-end" style="">Total Paid: </th>
+                                        <td class="text-end"><span class="" t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                        </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-start" style="">
-                                                <span t-field="o.name" />
-                                            </td>
-                                            <th class="text-end">Balance:</th>
-                                            <!-- <td class="text-right"><span class=" " t-field="inv.amount_residual"/></td> -->
-                                            <!-- <t t-set="inv" t-value="invoices and list(invoices)[0] or False"/> -->
-                                            <td class="text-end">
-                                                <span t-if="inv" t-field="inv.amount_residual"/>
-                                            </td>
-
+                                        <td><span t-field="o.name" /></td>
+                                        <th class="text-end">Balance:</th>
+                                        <td class="text-end">
+                                            <span t-if="inv" t-field="inv.amount_residual"/>
+                                        </td>
                                         </tr>
                                     </table>
                                 </div>

@@ -14,21 +14,22 @@
             padding: 0!important;
         } --> */
         .main_page,.header,.footer {
-            font-family: 'Roboto Condensed','Sansation',  sans-serif ;
-            /* font-weight: 250 !important; */
-            /* font-size: 12px!important;   */
-
+            font-family: 'Roboto Condensed','Sansation',  sans-serif ;   
+            /* font-weight: 250 !important; */          
         }
-
+        
         table tr th, table tr td {
             /* font-weight: normal;              */
             line-height: 1.2;
             text-transform: uppercase;
             padding: 8px !important;
-            vertical-align: middle;
+            vertical-align: middle;     
+        }
+        .info1  { 
+            padding-right: 20px !important;
         }
         .info1 table tr th { 
-            /* text-align: left !important; */
+            font-size: 10px !important;
             background-color: #DEEAF6;  
         } 
         .info table, .info1 table { 
@@ -39,19 +40,20 @@
         }
 
         .info table tr th, .info1 table tr th {
-            font-size: 12px !important;
+            /* font-size: 10px !important; */
             line-height: 0.5;
             overflow: hidden;
             white-space: nowrap;
             height:5px;
             background-color: #F2F2F2;
             vertical-align:middle;
+            text-transform: uppercase !important;
         }
         .info table tr td, .info1 table tr td {
             line-height: 0.5;
             overflow: hidden;
             white-space: nowrap;
-            vertical-align:middle;
+            vertical-align:middle !important;
         }
         .note table tr th, .delivery table tr th,.info1 table tr th {
             line-height: 0.5;
@@ -102,12 +104,12 @@
         .conditions {
             font-size: 12px !important;
         }
-        td.address,td.declaration {
+        td.address, td.declaration {
             line-height: 1.5 !important;
             padding: 8px !important;
         }
         .line-items tr th, .line-items tr td {
-            font-size: 10px !important;
+            font-size: 12px !important;
         }
         .page_break {
             page-break-before: always;
@@ -122,4 +124,29 @@
         }
         .total table th{ text-align: right !important; background-color: #f1f1f1 !important;  }
         .total table td{ text-align: right !important; }
+
+        .quality-control table tbody tr th {
+              background-color: #F2F2F2;
+              border: 1px solid #525659;
+              /* text-align: right; */
+            }
+
+        .quality-control table thead tr th {
+            height: 5px;
+            line-height: 0.5;
+            background-color: #E2EFD9;
+            vertical-align: middle;
+            border: 1px solid #525659;
+            
+        }
+
+        .quality-control table tr td {
+            border: 1px solid #525659;
+            height: 14px;
+            vertical-align: middle !important;
+        }
+
+        .quality-control table tr td span {
+            margin-top: 10px;
+        }
 

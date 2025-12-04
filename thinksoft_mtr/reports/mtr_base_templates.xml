@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="mtr_external_layout">
+    <template id="mtr_external_layout">            
         <div class="header row">
+        <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                .header,.footer {
+                      font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                    }
+            </style>
             <div class="col-4">
                 <img src="/thinksoft_mtr/static/img/quest-logo.jpg" style="width:200px;"/>
             </div>

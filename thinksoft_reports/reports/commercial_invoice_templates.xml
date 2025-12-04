@@ -81,8 +81,8 @@
             </div>
             <!-- <div class="footer "
                 style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-                <div class="footer" style="font-size:11px; width:100%;">
-                <div class="container ">
+            <div class="footer" style="font-size:11px; width:100%;">
+              <div class="container ">
                 <div class="row">
                     <div class="col-12">
                     <span class="text-left" style="">Print Date:</span>
@@ -341,7 +341,7 @@
                                         <t t-foreach="doc.move_ids" t-as="line">
                                             <t t-set="untaxed_amount" t-value="untaxed_amount + (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity)"/>
                                         </t>
-                                        <span t-out="untaxed_amount" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- SUBTOTAL (CAD) -->
+                                        <span t-out="untaxed_amount" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/>
                                     </td>
                                     </tr>
                                     <!-- ******************** GST (5%) ******************** -->
@@ -372,7 +372,7 @@
                                             </t>
 
                                             <strong>
-                                                <span t-out="total" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- TOTAL (CAD) -->
+                                                <span t-out="total" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/>
                                             </strong>
                                         </td>
                                     </tr>

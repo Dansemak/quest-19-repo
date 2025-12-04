@@ -19,6 +19,8 @@
         "reports/4x4_label_for_all_templates.xml",
         "reports/ir_actions_report.xml",
         "reports/4x4_label.xml",
+        "reports/print_label_4x4_templates.xml",
+        "reports/rack_label_12x4.xml",
     ],
     "installable": True,
     "application": False,

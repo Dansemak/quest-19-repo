@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_label_12x4">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="'partner_id' in doc.fields_get()">
+                    <t t-call="thinksoft_labels.product_label_12x4_document" t-lang="doc.partner_id.lang"/>
+                </t>
+                <t t-if="'partner_id' not in doc.fields_get()">
+                    <t t-call="thinksoft_labels.product_label_12x4_document"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="internal_layout">
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <div class="header">
+            <div class="row"></div>
+        </div>
+
+        <div class="article">
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="product_label_12x4_document">
+        <t t-call="thinksoft_labels.internal_layout">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+
+                *, *::before, *::after {
+                    box-sizing: border-box;
+                }
+                .main-page {
+                    font-family: 'Roboto Condensed', 'Sansation', sans-serif;
+                }
+                .item {
+                    display: block;
+                    text-align: center;
+                    max-width: 99%;
+                    overflow: hidden;
+                    text-overflow: clip;
+                    white-space: nowrap;
+                    font-weight: 900;
+                    font-size: 68px;
+                }
+                .description {
+                    width: 100%;
+                    text-align: center;
+                    font-family: sans-serif;
+                    font-weight: 900;
+                    font-size: 25px;
+                    height: 150px;
+                    overflow: hidden;
+                    text-overflow: clip;
+                }
+            </style>
+
+            <div class="main-page">
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <!-- ******************** Item Code ********************** -->
+                                <div style="margin-top:5px;">
+                                    <div style="text-align:center;">
+                                        <div class="item">
+                                            <span t-field="doc.name" style="font-family:sans-serif; line-height:1.2;"/>
+                                        </div>
+
+                                        <!-- ******************** Description ********************** -->
+                                        <div class="description">
+                                           <span t-out="(doc.description or '').replace('&lt;[^&gt;]*&gt;', ' ')" style="font-family:sans-serif; line-height:1.2;"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- **************************** Barcode ************************ -->
+                                <div class="bcode" style="display:block; margin-top: 15px;">
+                                     <span t-field="doc.name" t-options='{"widget": "barcode", "barcode_type": "Code128", "width":800, "height":100}'
+                                    style="text-align:center; width:800px; height:100px; margin: 0 auto; display:block;" />
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>
+
+</odoo>
