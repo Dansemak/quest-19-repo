@@ -1,48 +1,41 @@
 from odoo import fields, models
-from odoo.tools.translate import _
 
 
-class thinksoft_package(models.Model):
+class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    package_line = fields.One2many("package.line", "picking_id", "Package Details")
+    package_plan_ids = fields.One2many("package.plan", "picking_id", "Package Details")
 
-    def create_product(self):
-        package_line_obj = self.env["package.line"]
-        create, update = False, False
+    def button_create_packages(self):
+        package_plan = self.env["package.plan"]
+        message = "Package has been updated"
         for move in self.move_ids:
             res = {
                 "product_id": move.product_id.id,
-                # 'pick_qty': val.pick_qty, # Get it from stock.move.line
-                "seq": move.seq_no,
-                "ordered": move.quantity,
-                # 'name': move.name,
+                "seq_no": move.seq_no,
+                "description": move.description_picking,
                 "picking_id": self.id,
-                "move_id": move.id,
+                "stock_move_id": move.id,
                 "tagging": move.tagging,
             }
             for move_line in self.move_line_ids:
-                if move_line.id == res["move_id"]:
+                if move_line.id == res["stock_move_id"]:
                     res["pick_qty"] = move_line.qty_done
                     res["mtr_template_ids"] = move_line.mtr_template_ids
                     continue
 
-            package_line_ids = package_line_obj.search([("move_id", "=", move.id)])
-            if not package_line_ids:
-                new_package_line = package_line_obj.create(res)
-                move.package_line_id = new_package_line
-                create = True
+            packages = package_plan.search([("stock_move_id", "=", move.id)])
+            
+            if not packages:
+                move.package_plan_id = package_plan.create(res)
+                message = "Package has been created"
             else:
-                package_line_ids.write(res)
-                move.package_line_id = package_line_ids[0].id
-                update = True
-        if create:
-            body = _("Package has been created")
-            self.message_post(body=body)
-        if update:
-            body = "Package has been updated"
-            self.message_post(body=body)
-        return True
+                packages.write(res)
+                move.package_plan_id = packages[0].id
+        
+        self.message_post(body=message)
+
+        return
 
     def button_skid_label(self):
         return self.env.ref(

@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+	<record id="paperformat_1_25x4" model="report.paperformat">
+		<field name="name">1_25x4 Paper Format</field>
+		<field name="default" eval="True"/>
+		<field name="format">custom</field>
+		<field name="page_height">31</field>
+		<field name="page_width">100</field>
+		<field name="orientation">Portrait</field>
+		<field name="margin_top">3</field>
+		<field name="margin_bottom">5</field>
+		<field name="margin_left">0</field>
+		<field name="margin_right">0</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">37</field>
+		<field name="dpi">80</field>
+	</record>
+
+	<record id="1_25x4_label_report" model="ir.actions.report">
+		<field name="name">1_25x4 Report</field>
+		<field name="model">package.plan</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">thinksoft_package_planner.1_25x4_report</field>
+		<field name="report_file">thinksoft_package_planner.1_25x4_report</field>
+		<field name="paperformat_id" ref="thinksoft_package_planner.paperformat_1_25x4"/>
+		<field name="binding_model_id" ref="model_package_plan"/>
+		<field name="binding_type">report</field>
+	</record>
+
 	<template id="1_25x4_report">
 		<t t-call="web.html_container">
 			<t t-foreach="docs" t-as="doc">
@@ -43,7 +71,7 @@
 								<span class="ml-2" style="font-weight:normal;" t-field="doc.product_id.name" />
 								<br />
 								<span style="font-weight:bold;">Item Description:</span>
-								<span style="font-weight:normal; " t-field="doc.desc" />
+								<span style="font-weight:normal; " t-field="doc.description" />
 							</div>
 							<div class="col-3" style="">
 								<img
