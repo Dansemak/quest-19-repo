@@ -17,13 +17,19 @@
             <t t-set="company" t-value="res_company" />
         </t>
         <div class="header">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                .container {
+                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                }
+            </style>
             <div class="row d-flex justify-content-between">
                 <div class="col-6">
                     <span class="text-uppercase"
-                        style="font-weight:bold; font-size:14px;">
+                        style="font-weight:bold; font-size:15px;">
                         Cust:</span>
                     <span class="code"
-                        style="margin-left:2px;color:#43464f; font-weight:normal;font-size:14px;"
+                        style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;"
                         t-field="doc.picking_id.partner_customer_id" />
                 </div>
                 <div class="col-6">
@@ -50,13 +56,19 @@
                                     <div class="wrapper">
                                         <div class="row">
                                             <t t-call="thinksoft_labels.internal_layout">
+                                                <style>
+                                                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                                                .container {
+                                                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                                                }
+                                                </style>
                                                 <div class="row mt-3">
                                                     <div class="col-12">
                                                         <span class="text-uppercase"
-                                                            style="font-weight:bold; font-size:14px;">
+                                                            style="font-weight:bold; font-size:15px;">
                                                             P/N:</span>
                                                         <span class="code"
-                                                            style="margin-left:2px;color:#43464f; font-weight:normal;font-size:14px;"
+                                                            style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;"
                                                             t-field="doc.product_id" />
                                                     </div>
                                                 </div>
@@ -66,17 +78,17 @@
                                                 <div class="row mt-2">
                                                     <div class="col-12">
                                                         <span class="text-uppercase"
-                                                            style="font-weight:bold;font-size:14px;">
+                                                            style="font-weight:bold;font-size:15px;">
                                                             Description:</span>
                                                         <span class="item"
-                                                            style="margin-left:2px;color:#43464f; font-weight:normal;font-size:14px;"
+                                                            style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;"
                                                             t-field="doc.product_id.description" />
                                                     </div>
                                                 </div>
                                                 <!-- ############# DETAILS ############## -->
 
-                                                <div class="row mt-2"
-                                                    style="font-weight:bold;font-size:14px;">
+                                                <div class="row mt-0"
+                                                    style="font-weight:bold;font-size:15px;">
                                                     <!-- ***************** QTY ***************** -->
 
                                                     <div class="col-4">
@@ -100,7 +112,7 @@
                                                 </div>
 
                                                 <div class="row  mt-2"
-                                                    style="font-weight:bold;font-size:14px;">
+                                                    style="font-weight:bold;font-size:15px;">
                                                     <!-- ********** PO# ******** -->
                                                     <div class="col-6">
                                                         <span class="text-uppercase"
@@ -123,7 +135,7 @@
                                                 <div class="row mt-2">
                                                     <!-- ******************** HT# ******************* -->
                                                     <div class="col-12"
-                                                        style="font-size:14px;">
+                                                        style="font-size:15px;">
                                                         <span class="text-uppercase"
                                                             style="font-weight:bold;">
                                                             HEAT#:</span>
@@ -143,8 +155,8 @@
                                                         </t>
                                                     </div>
                                                 </div>
-                                                <div class="row  mt-2"
-                                                    style="font-size:14px;">
+                                                <div class="row mt-2"
+                                                    style="font-size:15px;">
                                                     <!-- ********** TAGGING ********** -->
                                                     <div class="col-12">
                                                         <div>
