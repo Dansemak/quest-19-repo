@@ -19,6 +19,7 @@
         "sale_pdf_quote_builder",
         "stock",
         "thinksoft_stock_ext",
+        "purchase",
     ],
     "data": [
         "views/stock_picking_views.xml",
