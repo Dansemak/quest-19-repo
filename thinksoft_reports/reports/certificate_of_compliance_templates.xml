@@ -29,7 +29,7 @@
                 font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
                 font-family:'Oswald',
@@ -119,7 +119,7 @@
                     <tbody>
                       <tr>
                         <th
-                          style="border: 1px solid #525659; border-top-color: #525659;">Ship
+                          style="border: 1px solid #525659; border-top-color: #525659; text-align: center;">Ship
                           to</th>
                       </tr>
                       <tr>
@@ -129,7 +129,7 @@
                       </tr>
 
                       <tr>
-                        <th style="border: 1px solid #525659; ">Contact</th>
+                        <th style="border: 1px solid #525659; text-align: center;">Contact</th>
                       </tr>
                       <tr>
                         <td style="">
@@ -137,7 +137,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th style="border: 1px solid #525659; ">phone</th>
+                        <th style="border: 1px solid #525659; text-align: center;">phone</th>
                       </tr>
                       <tr>
                         <td style="">
@@ -208,7 +208,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <th style="text-transform:none; width:150px;">Authorized
+                          <th style="text-transform:none !important; width:150px;">Authorized
                             Signature</th>
                           <td />
                         </tr>
@@ -257,15 +257,12 @@
                           <td rowspan="2" class="text-center" style="">
                             <span t-field="line.seq_no" style=""/>
                           </td>
-                           <!-- ******************** Part # ******************** -->
-                          <td rowspan="" style=" ">
-                            <div style="text-align: left; margin-bottom:3px;" class="">
-                              <span class="" t-field="line.product_id" />
-                            </div>
-                            <!-- ******************** Description ******************** -->
-                            <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
-                              <span t-field="line.product_id.description" />
-                            </div>
+                           <td >
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
                           </td>
                           <!-- ******************** PICK QTY ******************** -->
                           <td colspan="" class="text-center">

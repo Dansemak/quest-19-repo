@@ -25,9 +25,9 @@
         </t>
         <div class="header">
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+               
                 .header {
-                        font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                        font-family: Arial, Helvetica, sans-serif;
                         
                     }
             </style>
@@ -62,9 +62,9 @@
     <template id="print_label_4x4_template_document">
         <t t-call="thinksoft_labels.internal_layout">
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+               
                 .main-page {
-                    font-family: 'Roboto Condensed','Sansation',  sans-serif !important;
+                   font-family: Arial, Helvetica, sans-serif;
 
                 }
             </style>

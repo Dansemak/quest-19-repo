@@ -18,8 +18,9 @@
   <template name="Report with header and footer standard" id="report_external_layout_receiving_list">
       <div class="header pe-5" style="">
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
                 font-family:'Oswald', sans-serif;
@@ -262,16 +263,13 @@
                         <td rowspan="2" class="text-center" style="">
                           <span t-field="line.seq_no" style="" />
                         </td>
-                        <!--************************* Part *****************************-->
-                        <td rowspan="" style="">
-                              <div style="text-align: left; margin-bottom: 3px;" class="">
-                                <span class="text-uppercase" t-field="line.product_id" />
-                              </div>
-                               <!--******************** Description *********************-->
-                              <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
-                                <span style="" t-field="line.product_id.description" />
-                              </div>
-                            </td>
+                        <td >
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
+                        </td>
                         <!--*************************** UOM ***************************-->
                         <td class="text-center">
                           <span t-field="line.product_uom" style="" />

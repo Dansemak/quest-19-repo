@@ -22,12 +22,12 @@
     <template name="Report with header and footer standard" id="report_external_layout_manufacture_copy">
       <div class="header pe-5" style="">
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
            .header,.footer {
                 font-family: 'Roboto Condensed','Sansation',  sans-serif ;
               }
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
                 font-family:'Oswald',
@@ -123,7 +123,7 @@
                     <table class="text-uppercase" style=" border-collapse:collapse;">
                       <tbody style="">
                          <tr >
-                          <th style="text-align: left; height:11.5px; border: 1px solid #525659; border-top-color: #525659;font-size: 11px;">Ship to
+                          <th style="text-align: center; height:11.5px; border: 1px solid #525659; border-top-color: #525659;font-size: 11px;">Ship to
                           </th>
                         </tr>
                         <tr>
@@ -132,7 +132,7 @@
                         </td>
                         </tr>
                         <tr>
-                          <th style="text-align: left; height:11.5px; border: 1px solid #525659; font-size: 11px;">Contact</th>
+                          <th style="text-align: center; height:11.5px; border: 1px solid #525659; font-size: 11px;">Contact</th>
                         </tr>
                         <tr>
                           <td class="address" style="">
@@ -140,7 +140,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <th style=" text-align: left; height:11.5px; border: 1px solid #525659; font-size: 11px;">phone</th>
+                          <th style=" text-align: center; height:11.5px; border: 1px solid #525659; font-size: 11px;">phone</th>
                         </tr>
                         <tr>
                           <td class="address" style="">
@@ -153,9 +153,11 @@
                     <div class="mt-3 comment" >
                       <table class=""  style=" border-collapse:collapse; ">
                         <tbody style="line-height:1;">
-                          <tr><th style="text-align: left; height:11.5px; line-height:0.5">INTERNAL COMMENT</th></tr>
-                          <tr><td style="color:#5b5b5b !important; height: 104px; white-space:normal; line-height:1; text-transform: initial!important; vertical-align:top;">
-                          <span t-field="doc.comment_text"/>
+                          <tr><th style="text-align: center; height:11.5px; line-height:0.5">INTERNAL COMMENT</th></tr>
+                          <tr><td style="color:#5b5b5b !important; height: 104px; white-space:normal; line-height:1; text-transform: initial!important; vertical-align:top !important;">
+                            <!-- <span t-field="doc.comment_text"/> -->
+                            <t t-set="desc" t-value="(doc.comment_text or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
                           </td></tr>
                         </tbody>
                       </table>
@@ -237,7 +239,8 @@
                             <span class="" >NOTE</span>
                           </th>
                           <td style="text-align: left; border: 1px solid #525659; white-space: wrap;text-transform: none;vertical-align:top;line-height: 0.5;" >
-                             <span  t-field="doc.sale_note_id"  class="notes"/>
+                             <!-- <span  t-field="doc.sale_note_id"  class="notes"/> -->
+                             <span t-esc="(doc.sale_note_id or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
                           </td>
                         </tr>
                       </tbody>
@@ -302,15 +305,12 @@
                           <td rowspan="2" class="text-center">
                             <span t-field="line.seq_no"/>
                           </td>
-                          <!--************** Part # ********************-->
-                          <td rowspan="2">
-                            <div style="text-align: left; margin-bottom:3px;">
-                              <span class="float:right; text-uppercase " t-field="line.product_id"/>
-                            </div>
-                            <!--*****************  Description ***************-->
-                            <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;">
-                               <span t-field="line.product_id.description" />
-                            </div>
+                          <td rowspan="2" style="font-size:11px; vertical-align: midddle; white-space: none;">
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
                           </td>
                           <!--***************************** MO / Responsible ****************************-->
                           <td rowspan="2" class="text-center">

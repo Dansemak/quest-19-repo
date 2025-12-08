@@ -28,7 +28,7 @@
                 font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
               }
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
                 font-family:'Oswald', sans-serif;
@@ -181,19 +181,13 @@
                         <td rowspan="" class="text-center" style="">
                           <span t-field="line.seq_no" style="" />
                         </td> 
-                        <!--######### Part ######## -->
-                        <td rowspan="" style="">
-                          <div style="text-align: left; margin-bottom: 3px;" class="">
-                            <span class="float:right; text-uppercase" t-field="line.product_id" />
-                            <!--  <span>
-                                   <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp; width=%s; height=%s' % ('Code128', line.product_id.default_code, 200, 20)" style="padding:0; background:none!important; width:150px;height:20px" data-original-title="" title="" aria-describedby="tooltip576547"/>
-                                 </span> -->
-                          </div>
-                           <!-- ######### Description ##########-->
-                          <div style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;" >
-                              <span t-field="line.product_id.description" />
-                            </div> 
-                        </td>
+                        <td rowspan="2" style="font-size:11px; vertical-align: midddle; white-space: none;">
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
+                          </td>
                         <!--######### MO ###########-->
                         <!-- <td class="text-center">
                           <span t-field="line.created_production_id" style="" />

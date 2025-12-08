@@ -29,6 +29,10 @@
   <template name="Custom Production Order header and footer" id="report_production_order_header_footer">
     <div class="header pe-5" style="">
                 <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                    .header,.footer {
+                      font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                    }
                     .top-address{
                         line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
                     }
@@ -255,8 +259,7 @@
                     style="margin-top: 15px;"> -->
                     <div  class="mb8  quality-control "
                     style="margin-top: 15px;">
-                    <table class="table table table-hover" data-name=""
-                      style="height: 100%; border-collapse:collapse;">
+                    <table class="table " style="height: 100%; border-collapse:collapse;">                     
                       <thead>
                         <tr>
                           <th class="text-uppercase text-center"
