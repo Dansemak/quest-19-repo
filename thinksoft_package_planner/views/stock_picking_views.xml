@@ -45,7 +45,7 @@
                                    <field name="is_skid"/>
                                    <field name="skid_number"/>
                                    <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
-                                   <button name="load_lines" type="object" string="Calculate" class="oe_highlight" />
+                                   <button name="calculate_packaging" type="object" string="Calculate" class="oe_highlight" />
                                </group>
                            </group>
                             <field name="package_plan_line_ids" nolabel="1">
