@@ -23,7 +23,6 @@
                         <field name="in_box"/>
                         <field name="box_qty"/>
                         <field name="skid_qty"/>
-                        <button name="button_package_label_3x4" string="3x4" type="object" invisible="1"/>
                         <button name="button_package_label_1_25x4" string="1.25x4" type="object"/>
                     </list>
                      <form string="Package Plan">   
