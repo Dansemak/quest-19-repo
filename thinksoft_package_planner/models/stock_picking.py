@@ -18,11 +18,8 @@ class StockPicking(models.Model):
                 "pick_qty": move.quantity if move.picked else 0,
                 "stock_move_id": move.id,
                 "tagging": move.tagging,
+                "mtr_template_ids": move.mtr_template_ids
             }
-            for move_line in self.move_line_ids:
-                if move_line.id == res["stock_move_id"]:
-                    res["mtr_template_ids"] = move_line.mtr_template_ids
-                    continue
 
             packages = package_plan.search([("stock_move_id", "=", move.id)])
             

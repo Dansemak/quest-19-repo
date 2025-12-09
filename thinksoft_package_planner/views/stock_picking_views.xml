@@ -35,6 +35,7 @@
                                     <field name="packed_qty" readonly="1"/>
                                     <field name="box_qty" readonly="1"/>
                                     <field name="in_box" readonly="1"/>
+                                    <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
                                 </group>
                                 <group>
                                     <field name="last_box_used"/>
@@ -42,7 +43,6 @@
                                     <field name="max_qty_pack"/>
                                     <field name="is_skid"/>
                                     <field name="skid_number"/>
-                                    <field name="mtr_template_ids" widget="many2many_tags" readonly="1" force_save="1"/>
                                     <button string="Calculate" name="calculate_packaging" type="object" class="oe_highlight"/>
                                 </group>
                             </group>
@@ -54,8 +54,6 @@
                                     <field name="packed_qty" sum="Total Quantity Packed"/>
                                     <field name="is_skid"/>
                                     <field name="skid_number"/>
-                                    <field name="available_mtr_template_ids" widget="many2many_tags" column_invisible="1"/>
-                                    <field name="mtr_template_ids" widget="many2many_tags" domain="[('id', 'in', available_mtr_template_ids)]" options="{'no_create': True}"/>
                                 </list>
                             </field>
                             <button name="save_load" string="Update Package" type="object" class="oe_highlight"/>
