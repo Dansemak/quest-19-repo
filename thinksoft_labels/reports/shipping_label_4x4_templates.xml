@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
 
-    <template id="shipping_label_4x4_template">
-        <t t-call="web.html_container">
-            <!-- <h1>Shipping Label 4x4</h1> -->
-            <t t-foreach="docs" t-as="doc">
-                <!--
-                    As language is not required for all objects.
-                    So for now, If partner is available in object then pass
-                    that partner's language.
-                -->
-                <t t-if="'partner_id' in doc.fields_get()">
-                    <t t-call="thinksoft_labels.shipping_label_4x4_template_document" t-lang="doc.partner_id.lang" />
-                </t>
-                <t t-if="'partner_id' not in doc.fields_get()">
-                    <t t-call="thinksoft_labels.shipping_label_4x4_template_document" />
+        <template id="shipping_label_4x4_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-if="'partner_id' in doc.fields_get()">
+                        <t t-call="thinksoft_labels.shipping_label_4x4_template_document" t-lang="doc.partner_id.lang" />
+                    </t>
+                    <t t-if="'partner_id' not in doc.fields_get()">
+                        <t t-call="thinksoft_labels.shipping_label_4x4_template_document" />
+                    </t>
                 </t>
             </t>
-        </t>
-    </template>
+        </template>
 
 
     <template id="report_external_layout_shipping_label_4x4">
@@ -82,28 +77,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- </div>
-                        <div class="container mt-3" style=""> -->
-                        <!--#######################
-                        SHIP VIA ####################-->
-
-
-                        <div class="row mt-3">
-                            <div class="col-12">
-                                <span style="font-weight:bold;">
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <span style="font-weight:bold;">
                                     SHIP VIA:
                                 </span>
                                 <span class="text-uppercase ms-2" style="font-weight:normal;" t-field="doc.sale_id.carrier_id.name" />
                             </div>
-                        </div>
-                        <!--#######################
-                        PO# / SO# ####################-->
-                        <div class="row mt-3" style="">
-                            <!--**********
-                            PO#  ********-->
-                            <div class="info col-6">
-                                <span class="text-uppercase" style="font-weight:bold;">
+                            <div class="row mt-3" style="">
+                                <div class="info col-6">
+                                    <span class="text-uppercase" style="font-weight:bold;">
                                     C-PO#:</span>
                                 <span class="" style="margin-left:2px; font-weight:normal;" t-field="doc.client_order_ref" />
                                 <!-- <span class=" text-uppercase  ms-2" t-field="doc.origin" /> -->
@@ -126,7 +109,8 @@
                         </div>
                     <!-- </div> -->
                 </div>
-            </div>
-        </t>
-    </template>
+            </t>
+        </template>
+
+    </data>
 </odoo>
