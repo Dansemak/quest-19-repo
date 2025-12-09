@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ <data>
+  <template id="waybill_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <!--
+                    As language is not required for all objects.
+                    So for now, If partner is available in object then pass
+                    that partner's language.
+                -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-call="thinksoft_reports.waybill_template_document" t-lang="doc.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in doc.fields_get()">
+          <t t-call="thinksoft_reports.waybill_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+
+  <template name="Report with header and footer standard" id="report_layout_waybill">
+    <div class="header pe-5" style="">
+        <style>
+            .top-address{
+                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+              }
+            .title{
+                font-family:'Oswald', sans-serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                text-align: left !important;
+                line-height: 1.2 !important;
+              }
+            .barcode{
+                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+              }
+        </style>
+        <div class="container">
+          <div class="row mb-2">
+            <!-- ********************************* LOGO
+            ********************************************* -->
+            <div class="col-4">
+              <div class="">
+                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
+                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
+                  title="" aria-describedby="tooltip269202" />
+              </div>
+            </div>
+            <!-- ************************************** ADDRESS *************************** -->
+            <div class="col-3 top-address">
+              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                780.461.7009</p>
+            </div>
+            <!-- ************************************** TITLE
+            ******************************************** -->
+            <div class="col-5 d-flex justify-content-end top-address" style=" ">
+              <div style="padding:0!important; text-align:center; ">
+                <!--**********************
+                BARCODE *********************-->
+                <span t-field="doc.name"
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                  style="" />
+                <br />
+                <div class="barcode" t-field="doc.name" />
+              </div>
+              <!--**********************
+              TITLE *********************-->
+              <div class="title text-uppercase" style="">
+                Waybill
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-raw="0" />
+    </div>
+    <div class="footer clearfix" style="font-size: 11px; width: 100%;">
+            <div class="container">
+              <div class="row d-flex justify-content-center last-page">
+                <div class="col-md-12 col-xs-12">
+                  <div class="s_block mt8 mb16">
+                    <table class="" style="width: 100%; border-collapse: collapse; font-size: 11px; border: 1px solid #525659; padding: 8px !important;" cellspacing="0">
+                      <tbody>
+                        <tr class="text-uppercase">
+                          <td colspan="2" style="padding: 8px; border: 1px solid #525659;">
+                            <!--<place x="1.1cm" y="0cm" height="7.1cm" width="16.8cm">-->
+                            <para style="P7">CONSOLIDATED WAYBILL IS ON ORIGINAL SALES ORDER NUMBER &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt; &amp;gt;</para>
+                          </td>
+                          <td colspan="" style="white-space: nowrap; vertical-align: middle; padding: 8px; border: 1px solid #525659; width: 300px;">
+                            <span class="">
+                              <span>SHIP WITH SO:</span>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3" style="padding: 8px; border: 1px solid #525659;">
+                            <place x="1.1cm" y="0cm" height="6.0cm" width="18.7cm">
+                              <para style="P7">
+                                1. Any agreement covering the transportation of the goods described herein with other than due dispatch, or for specific time, must be endorsed on this bill of lading and signed by the parties hereto.
+                              </para>
+                              <br />
+                              <para style="P7">2. When a shippment is at shipper's risk, the words "At Shipper's Risk" must be entered and initialed by both parties hereto.</para>
+                            </place>
+                          </td>
+                        </tr>
+                        <tr class="text-uppercase">
+                          <td colspan="" style="background-color: #f2f2f2; vertical-align: middle; padding: 8px; border: 1px solid #525659;">
+                            <div class="">
+                              <span class="me-2">SHIPPER:</span><b><span class="" t-field="doc.sale_id.partner_shipping_id.name" /></b>
+                            </div>
+                          </td>
+                          <td colspan="2" style="background-color: #f2f2f2; vertical-align: middle; padding: 8px; border: 1px solid #525659;">
+                            <span class="me-2">PICK UP DATE:</span><b> <span class="" t-field="doc.scheduled_date" /></b>
+                          </td>
+                          <!-- <td colspan="3" style="padding: 8px; border: 1px solid #525659;">
+                          <b><span class="" t-field="doc.sale_id.ship_date"/></b>
+                          </td> -->
+                        </tr>
+                        <tr>
+                          <td colspan="" style="padding: 8px; border: 1px solid #525659; height: 50px;"><span class="">SHIPPER SIGNATURE</span><br /></td>
+                          <td colspan="" style="padding: 8px; border: 1px solid #525659;"><span class="">CARRIER SIGNATURE</span><br /></td>
+                          <td colspan="" style="padding: 8px; border: 1px solid #525659;"><span class="">RECEIVER SIGNATURE</span><br /></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 mt-3">
+              <span class="text-left" style="">Print Date:</span>
+              <span class="ms-2"
+                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                style="margin-right: 250px; text-align: right;" />
+              <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+              <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                  style="text-align: right;" class="topage" /></div>
+            </div>
+              </div>
+            </div>
+          </div>
+  </template>
+
+  <template id="waybill_template_document">
+  <t t-call="thinksoft_reports.report_layout_waybill">
+    <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+      <div class="main_page">
+
+          <!--
+            As language is not required for all objects.
+            So for now, If partner is available in object then pass
+            that partner's language.
+          -->
+        <!--  <t t-if="'partner_id' in doc.fields_get()">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+          </t> -->
+          <div class="oe_structure" style="font-size: 11px;">
+            <div class="container">
+              <div class="row">
+                <!-- ************************************** SHIP TO ******************************************** -->
+                <div class="info1 col-6" >
+                  <table class="text-uppercase" style=" border-collapse:collapse; width:100%;">
+                    <tbody>
+                      <tr>
+                        <th
+                          style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;">Ship
+                          to</th>
+                      </tr>
+                      <tr>
+                      <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th style="border: 1px solid #525659; font-size: 11px;">Contact</th>
+                      </tr>
+                      <tr>
+                        <td style="">
+                          <span class="" t-field="doc.sale_id.partner_contact_id.name"/>
+                        </td>
+                      </tr>
+                      <!-- <tr>
+                        <th style="border: 1px solid #525659; font-size: 11px;">phone</th>
+                      </tr>
+                      <tr>
+                        <td style="">
+                          <span class="" t-field="doc.sale_id.partner_contact_id.phone" />
+                        </td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- *************************** REPORT INFO ************ -->
+                <div class="info col-6">
+                  <table class="text-uppercase" style="width: 100%; border-collapse: collapse;" cellspacing="0">
+                    <tbody style="">
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">DELIVERY DATE</span>
+                        </th>
+                        <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
+                          <span class="" t-field="doc.sale_id.commitment_date" />
+                          <!-- <span class="" t-field="doc.scheduled_date"/> -->
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span class="">SALES ORDER</span></th>
+                        <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
+                          <span class="" t-field="doc.sale_id" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span class="">CUSTOMER REFERENCE</span></th>
+                        <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
+                          <span class="" t-field="doc.client_order_ref" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">SHIPPING INFORMATION</span>
+                        </th>
+                        <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
+                          <span t-field="doc.carrier_id.name"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">FREIGHT CHARGES</span>
+                        </th>
+                        <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
+                          <span class="" t-field="doc.sale_id.sale_freight_id" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">Waybill</span>
+                        </th>
+                        <td style="text-align: left; border: 1px solid #525659; white-space: wrap; text-transform: none; vertical-align: top; line-height: 0.5;">
+                          <span class="notes" t-field="doc.waybill" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">phone</span>
+                        </th>
+                        <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5;">
+                          <span class="" t-field="doc.sale_id.partner_contact_id.phone" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="container" style="margin:20px 0 20px;" >
+              <div class="row items">
+                <div class="col-md-12 col-xs-12">
+                  <div class="line-items mt8 mb8">
+                    <table style="width: 100%;">
+                      <thead style="">
+                        <div style="clear: both;">
+                          <tr>
+                            <th rowspan="" style="border-botttom-color: #525659; white-space: nowrap; width: 80px;">Number of pieces</th>
+                            <th style="border-bottom-color: #525659; white-space: nowrap; width: 400px;">Package Description</th>
+                            <!-- <th rowspan="" style=" border-botttom-color: #525659;white-space: nowrap;">Waybill</th> -->
+                            <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">WEIGHT</th>
+                          </tr>
+                        </div>
+                      </thead>
+                      <tbody>
+                        <tr style="" class="">
+                          <!--********************** Number of pieces *************************-->
+                          <td rowspan="2" class="text-center" style="">
+                            <span t-field="doc.sale_id.purchase_order_count" style="" />
+                          </td>
+                          <!--********************** Package Description *************************-->
+                          <td class="">
+                            <span  t-field="doc.product_id.description" style=""/>
+                          </td>
+                          <!-- <td class="text-center"><span  t-field="doc.way_bill"/> </td>--><!-- Waybill -->
+                          <!--********************** WEIGHT *************************-->
+                          <td class="text-center">
+                            <span t-field="doc.product_id.weight" />
+                          </td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </t>
+  </template>
+  </data>
+</odoo>

@@ -16,10 +16,15 @@
                 <field name="comment_text" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
             </xpath>
 
+            <!-- hiding the previous carrier_id -->
+            <xpath expr="//field[@name='carrier_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
             <xpath expr="//field[@name='origin']" position="before">
                 <label for="carrier_id"  invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']"/>
                 <div name="carrier_fields" class="o_row" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT', 'IN']">
-                    <xpath expr="//field[@name='carrier_id']" position="move"/>
+                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True, 'no_open': True}"/>
                     <label for="cut_off" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
                     <field name="cut_off" widget="float_time" readonly="True" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
                 </div>

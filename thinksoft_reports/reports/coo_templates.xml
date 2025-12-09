@@ -3,7 +3,7 @@
   <data>
     <!-- All of the ir.actions.reports live here -->
     <!--********************************* COO *********************************-->
-  
+
   <template id="coo_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="doc">
@@ -22,14 +22,18 @@
       </t>
     </t>
   </template>
-  <template name="Report header and footer standard" id="report_external_layout_coo"> 
-      <div class="header pe-5" style=""> 
+  <template name="Report header and footer standard" id="report_external_layout_coo">
+      <div class="header pe-5" style="">
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+            .header,.footer { 
+                  font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+                }
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
-                font-family:'Oswald', 
+                font-family:'Oswald',
                 sans-serif !important;
                 font-size: 24px !important;
                 font-weight: bold !important;
@@ -39,7 +43,7 @@
             .barcode{
                 font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -72,7 +76,7 @@
               <!--**********************
               TITLE *********************-->
               <div class="title text-uppercase">
-                CERTIFICATION <br/> OF ORIGIN 
+                CERTIFICATION <br/> OF ORIGIN
               </div>
             </div>
           </div>
@@ -111,15 +115,15 @@
         <t t-if="'partner_id' in doc.fields_get()">
           <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
         </t>
-        <div class="oe_structure" style="">
-          <div class="container">
+        <div class="oe_structure" >
+          <div class="container" style="">
             <div class="row">
              <!-- ************************************** VENDOR ************************* -->
               <div class="info1 col-6" >
                   <table class="" style="border-collapse: collapse; ">
                       <tbody>
                         <tr>
-                          <th style="border: 1px solid #525659; border-top-color: #525659; text-align:left; ">Vendor:
+                          <th style="border: 1px solid #525659; border-top-color: #525659; text-align:center; ">Vendor:
                           </th>
                         </tr>
                         <tr>
@@ -129,20 +133,8 @@
                         </tr>
                       </tbody>
                     </table>
-                <!-- <table class="" style="border-collapse: collapse;">
-                    <tbody>
-                      <tr>
-                        <th style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;">Vendor:</th>
-                      </tr>
-                      <tr>
-                        <td style="border-bottom-color: 1px solid #fff;">
-                          <address t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table> -->
               </div>
-           
+
               <div class="info col-6">
                 <table class="text-uppercase" style="border-collapse: collapse;">
                   <tbody style="">
@@ -162,16 +154,17 @@
                         <span class="" t-field="doc.sale_id" />
                       </td>
                     </tr>
-                    
+
                     <tr style="border: 1px solid #525659;">
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;text-transform: uppercase;">
+                        <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
-                        <span class="" t-field="doc.origin" />
+                        <!-- <span class="" t-field="doc.origin" /> -->
+                        <span class="" t-field="doc.client_order_ref"/>
                       </td>
                     </tr>
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -189,11 +182,14 @@
                   <!-- <tbody t-foreach="doc.move_lines" t-as="line"> -->
                    <tbody t-foreach="doc.move_line_ids" t-as="line">
                     <tr>
-                      <td style="border-botttom-color: #525659 !important;">
-                        <!-- <span t-field="line.product_desc" /> -->
-                         <span t-field="line.product_id.description_sale" />
-                      </td>
-                      <td style="border-botttom-color: #525659 !important;">
+                      <td >
+                        <!-- ******************  Part # ****************** -->
+                        <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                        <!-- ******************  Description ****************** -->
+                        <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                        <t t-raw=" ' '.join(desc.split()) " />
+                        </td>
+                      <td class="text-center" style="border-botttom-color: #525659 !important;">
                           <span t-field="line.product_id.country_of_origin" />
                       </td>
                     </tr>
@@ -220,8 +216,8 @@
 
               </div>
             </div>
-          </div>      
-        </div>    
+          </div>
+        </div>
     </div>
      </t>
   </template>

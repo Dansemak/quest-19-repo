@@ -26,7 +26,7 @@
                     <button name="button_close" string="Close" type="object" class="oe_highlight" invisible="state in ('closed', 'cancelled')"/>
                     <button name="button_cancel" string="Cancel" type="object" invisible="state in ('closed', 'cancelled')"/>
                     <button name="button_reopen" string="Re-open" type="object" invisible="state == 'open'"/>
-                        
+
                     <field name="state" widget="statusbar" statusbar_visible="open,closed"/>
                 </header>
                 <sheet>
@@ -116,7 +116,7 @@
         </field>
     </record>
 
-    
+
     <record id="ncr_claim_action_list" model="ir.actions.act_window">
         <field name="name">NCR</field>
         <field name="res_model">ncr.claim</field>
