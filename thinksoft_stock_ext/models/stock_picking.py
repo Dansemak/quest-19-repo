@@ -24,5 +24,20 @@ class StockPicking(models.Model):
     client_order_ref = fields.Char(related="sale_id.client_order_ref")
     salesperson_id = fields.Many2one("res.users", related="sale_id.user_id", string="Salesperson")
     partner_customer_id = fields.Many2one("res.partner", related="sale_id.partner_id", string="Customer")
-    box_qty = fields.Integer(string="Number of boxes", help="Number of boxes and skids")
-    skid_qty = fields.Integer(string="Number of skids")
+    box_qty = fields.Integer(string="Number of boxes", help="Number of boxes and skids", store=True)
+    skid_qty = fields.Integer(string="Number of skids", store=True)
+
+    # transfering team_responsible, box_qty, and skid_qty data from transfer to transfer
+    def _action_done(self):
+        res = super()._action_done()
+
+        for picking in self:
+            next_pickings = picking.move_ids.move_dest_ids.picking_id
+
+            if next_pickings:
+                next_pickings.write({'team_responsible': picking.team_responsible})
+                next_pickings.write({'box_qty': picking.box_qty})
+                next_pickings.write({'skid_qty': picking.skid_qty})
+
+        return res
+
