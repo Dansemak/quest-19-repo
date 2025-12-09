@@ -20,7 +20,7 @@ class PackagePlan(models.Model):
         column2="name",
         string="MTR",
     )
-    pick_qty = fields.Float("Pick Qty")
+    pick_qty = fields.Float("Picked Qty")
     in_box = fields.Char(compute="get_package_planner", string="In Box")
     box_qty = fields.Integer(compute="get_package_planner", string="Boxes")
     skid_qty = fields.Char(compute="get_package_planner", string="Skids")
@@ -33,7 +33,7 @@ class PackagePlan(models.Model):
         default="box",
     )
     is_skid = fields.Boolean("Skid")
-    skid_number = fields.Integer("Skid No")
+    skid_number = fields.Integer("Num of Skids")
     package_plan_line_ids = fields.One2many(
         "package.plan.line", "package_plan_id", "Package Details"
     )
