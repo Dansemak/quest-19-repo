@@ -181,7 +181,7 @@
                         <td rowspan="" class="text-center" style="">
                           <span t-field="line.seq_no" style="" />
                         </td> 
-                        <td rowspan="2" style="font-size:11px; vertical-align: midddle; white-space: none;">
+                        <td rowspan="" style="font-size:11px; vertical-align: midddle; white-space: none;">
                             <!-- ******************  Part # ****************** -->
                             <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
                             <!-- ******************  Description ****************** -->
@@ -201,7 +201,7 @@
                         <td style="text-align: center;" class=""/>
                         <!--############## QTY RESERVED #############-->
                         <td style="text-align: center;" class="">
-                          <span t-field="line.reserved_availability" class="text-center" />
+                          <!-- <span t-field="line.reserved_availability" class="text-center" /> -->
                         </td>
                         <!--################# UOM #####################-->
                         <td style="text-align: center;" class="">
