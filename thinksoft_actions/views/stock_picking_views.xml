@@ -24,13 +24,7 @@
                     name="thinksoft_reports.action_report_packing_slip"
                     groups="stock.group_stock_user"
                     type="action"
-                    invisible="picking_type_sequence_code != 'PACK'"
-                    data-hotkey="o"/>
-                <button string="Print"
-                    name="thinksoft_reports.action_report_order_confirmation"
-                    groups="stock.group_stock_user"
-                    type="action"
-                    invisible="picking_type_sequence_code != 'OUT'"
+                    invisible="picking_type_sequence_code not in ['PACK', 'OUT']"
                     data-hotkey="o"/>
                 <button string="Print"
                     name="thinksoft_reports.action_report_receiving_list"

@@ -20,10 +20,12 @@
         "stock",
         "thinksoft_stock_ext",
         "purchase",
+        "account",
     ],
     "data": [
         "views/stock_picking_views.xml",
         "views/sale_order_views.xml",
+        "views/account_move_views.xml",
         "report/ir_actions_report.xml",
     ],
     "installable": True,
