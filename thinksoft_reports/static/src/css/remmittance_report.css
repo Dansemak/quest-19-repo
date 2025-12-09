@@ -1,0 +1,75 @@
+ @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+        
+ @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+  
+td:empty::after,td:empty::before{ content: "\00a0"; line-height: 0.9; } 
+    
+
+        /* <!-- .title table td {
+        line-height:normal;
+            border-color:#fff;
+            padding: 0!important;
+        } --> */
+.main_page,.header,.footer { 
+            font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+            font-weight: 250 !important;
+            /* font-size: 12px!important;   */
+
+        }
+.date table tr td {
+            /* font-size: 12px !important;  */
+            line-height: 0.5; 
+            overflow: hidden; 
+            white-space: nowrap; 
+            height:5px; 
+            border: none !important;
+            /* background-color: #F2F2F2; */
+            vertical-align:middle; 
+}
+.remittance_page {
+    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+    font-weight: 250 !important;
+    /* font-size: 12px!important;   */
+}
+.remittance_page table {
+    border-collapse: collapse; 
+    border: none !important;
+    margin-bottom: 10px !important; 
+    table-layout: fixed;
+    border: 0 solid #fff !important;
+}
+
+
+.remittance_page table tr th, .remittance_page table tr td {
+    border-collapse: collapse; 
+    font-size: 16px !important;
+    text-transform: none !important; 
+    /* border: 0 solid #fff !important; */
+    line-height: 1.2;
+    padding: 8px !important; 
+    vertical-align: middle; 
+} 
+.remittance_page .date table tr td {
+    border-collapse: collapse; 
+    border: 0 solid #fff !important;
+    border-style: none !important;
+    border-width: unset !important;
+}
+.remittance_page  table.memo tr th {
+    /* text-align: left !important; */
+    background-color: #F2F2F2;
+    border: 1px solid #525659;
+    line-height: 0.5;  
+}
+.remittance_page  table.memo tr td {  
+    border: 1px solid #525659;
+    
+}
+.remittance_page .totals-section table tr td, .remittance_page .totals-section table tr th {  
+    border: 1px solid #525659;
+    
+}
+.remittance_page .totals-section table tr th {  
+    background-color: #F2F2F2;
+    
+}
