@@ -96,23 +96,3 @@ class PackagePlan(models.Model):
             self.env["package.plan.line"].create(lines)
         return
 
-    def save_load(self):
-        package_id = self
-        if package_id.pick_qty < package_id.packed_qty:
-            raise UserError(
-                _(
-                    'Error! Quantity Packed cannot exceed Pick quantity= "%s" (Quantity Packed=%d).'
-                )
-                % (package_id.pick_qty, package_id.packed_qty)
-            )
-        return True
-
-    # @api.model
-    # def create(self, vals):
-    #     for val in vals:
-    #         seq = 10
-    #         if val.get('package_plan_line_ids'):
-    #             for value in val['package_plan_line_ids']:
-    #                 if len(value) > 2 and isinstance(value[2], dict):
-    #                     value[2].setdefault('seq', seq)
-    #                 seq += 10

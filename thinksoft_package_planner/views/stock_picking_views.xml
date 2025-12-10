@@ -56,7 +56,6 @@
                                     <field name="skid_number"/>
                                 </list>
                             </field>
-                            <button name="save_load" string="Update Package" type="object" class="oe_highlight"/>
                         </form>
                     </field>
                 </page>
