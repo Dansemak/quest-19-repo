@@ -1,6 +1,6 @@
 {
     'name': 'Package Planner',
-    'version': '19.0.0.1',
+    'version': '19.0.1.0',
     'category': 'Addons Custom/Thinksoft Package Planner',
     'description': """
         The purpose of this module is to generate the labels needed for a shipment when an order
