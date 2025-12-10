@@ -27,7 +27,7 @@
                   font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
                 }
             .top-address{
-                <!-- line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif; -->
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
                 font-family: Arial, Helvetica, sans-serif;
                 line-height:1; font-size:13px;
               }
@@ -35,7 +35,7 @@
                 font-family:'Oswald',sans-serif !important;              
                 font-size: 24px !important;
                 font-weight: bold !important;
-                text-align: left !important;
+                text-align: right !important;
                 line-height: 1.2 !important;
               }
             .barcode{
@@ -105,12 +105,8 @@
       </t>
       <!-- //////////////////////////////////////// MAIN PAGE /////////////////////////////////// -->
     <div class="main_page" style="">
-    <!-- <div class="page"> -->
-      
         <div class="oe_structure" style="">
-
           <div class="container">
-            <!-- ############################  BODY  ######################### -->
             <div class="row">
               <!-- *************************** CUSTOMER ADDRESS *************************-->
               <div class="info1 col-6 " >
@@ -308,6 +304,7 @@
                         <td style=" text-align: center;" rowspan="2">
                         <!-- <span t-field="line.state"/> -->
                           <!-- <span t-field="line.string_availability_info"/> -->
+                          <span t-field="line.product_id.qty_available"/>
                         </td>
                         <!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
                         <!--***************** UNIT PRICE *********************-->

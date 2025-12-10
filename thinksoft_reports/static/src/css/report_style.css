@@ -26,8 +26,8 @@
               vertical-align: middle;
         }
 
-        .main_page,.header,.footer {
-            font-family: Arial, Helvetica, sans-serif;
+        .main_page{
+            font-family: Arial, Helvetica, sans-serif !important;
             /* font-family: 'Roboto Condensed','Sansation',  sans-serif ;    */      
         }
         

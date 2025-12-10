@@ -80,6 +80,7 @@
 
                                         <!-- ******************** Description ********************** -->
                                         <div class="description">
+                                        <!-- <t t-esc="tagless_description[doc.id]"/> -->
                                            <span t-out="(doc.description or '').replace('&lt;[^&gt;]*&gt;', ' ')" style="font-family:sans-serif; line-height:1.2;"/>
                                         </div>
                                     </div>

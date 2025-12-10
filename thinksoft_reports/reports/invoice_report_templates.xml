@@ -30,16 +30,14 @@
               }
             .title{
                 font-family:'Oswald',sans-serif;
-                font-optical-sizing: auto;
-                font-style: normal;
+                <!-- font-optical-sizing: auto; -->
                 font-size: 24px !important;
                 font-weight: 900 !important;
-                text-align: left !important;
                 line-height: 1.2 !important;
-                text-align: right !important;
+                text-align: left !important;
               }
             .barcode{
-                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+                font-size:18px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
               }
         </style>
       <div class="container">
