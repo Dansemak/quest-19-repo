@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form_inherit_thinksoft_actions" model="ir.ui.view">
+        <field name="name">stock.picking.view.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+
+            <!-- Hiding the second print button -->
+            <xpath expr="//header//button[@name='511']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <!-- switching the print button action to print the respective custom reports -->
+            <xpath expr="//header//button[@name='do_print_picking']" position="replace">
+                <button string="Print"
+                    name="thinksoft_reports.action_report_pick_list"
+                    groups="stock.group_stock_user"
+                    type="action"
+                    invisible="picking_type_sequence_code != 'PICK'"
+                    data-hotkey="o"/>
+                <button string="Print"
+                    name="thinksoft_reports.action_report_packing_slip"
+                    groups="stock.group_stock_user"
+                    type="action"
+                    invisible="picking_type_sequence_code not in ['PACK', 'OUT']"
+                    data-hotkey="o"/>
+                <button string="Print"
+                    name="thinksoft_reports.action_report_receiving_list"
+                    groups="stock.group_stock_user"
+                    type="action"
+                    invisible="picking_type_sequence_code != 'IN'"
+                    data-hotkey="o"/>
+                <button string="Print"
+                    name="thinksoft_reports.action_report_manufacture_copy"
+                    groups="stock.group_stock_user"
+                    type="action"
+                    invisible="picking_type_sequence_code != 'MO'"
+                    data-hotkey="o"/>
+            </xpath>
+
+            <!-- adding label printing button on stock moves -->
+            <xpath expr="//button[@name='action_show_details']" position="after">
+                <button name="action_print_label" string="Label" type="object" optional="show" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
