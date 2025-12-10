@@ -77,6 +77,18 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
         </record>
+        <!-- ********************************* 4x4 Label ********************************* -->
+        <record id="4x4_label" model="ir.actions.report">
+            <field name="name">4x4 Label</field>
+            <field name="model">stock.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.label_4x4_template</field>
+            <field name="report_file">thinksoft_labels.label_4x4_template</field>
+            <field name="print_report_name">'4x4LBL-%s' % (object.product_id.name)</field>
+            <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
 
     </data>
 </odoo>
