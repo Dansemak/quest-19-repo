@@ -106,7 +106,7 @@
             </div>
   </template>
   <template id="production_order_document">
-    
+
       <t t-call="thinksoft_reports.report_production_order_header_footer">
         <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
         <div class="main_page">
@@ -165,7 +165,7 @@
                       </tr>
                     </tbody>
                   </table>
-                
+
                 </div>
                 <!-- ************************************** REPORT INFO ******************************************** -->
                 <div class="info col-6">
@@ -184,17 +184,17 @@
                           <span class="">REQUIRED DELIVERY DATE</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <!-- <span class="" t-field="doc.sale_id.commitment_date"/> -->
-                          <t t-set="sol" t-value="doc.move_finished_ids.move_dest_ids"/>
-                          <t t-if="sol and sol[0].sale_line_id">
-                              <span t-field="sol[0].sale_line_id.order_id.commitment_date"/>
-                          </t>
+                            <!-- <span class="" t-field="doc.sale_id.commitment_date"/> -->
+                            <!-- <t t-set="sol" t-value="doc.move_finished_ids.move_dest_ids"/>
+                            <t t-if="sol and sol[0].sale_line_id">
+                                <span t-field="sol[0].sale_line_id.order_id.commitment_date"/>
+                            </t> -->
+                            <span t-field="doc.sale_line_id.order_id.commitment_date"/>
                         </td>
                       </tr>
                       <tr>
                         <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">DO.</span>
-                          <span class="text-capitalize"> No</span>
+                          <span class="">Manufacturing Order</span>
                         </th>
                         <td style="border: 1px solid #525659;">
                           <span class="" t-field="doc.name" />
@@ -202,8 +202,7 @@
                       </tr>
                       <tr>
                         <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">SO</span>
-                          <span class="text-capitalize"> No</span>
+                          <span class="">Source Document</span>
                         </th>
                         <td style="border: 1px solid #525659;">
                           <span class="" t-field="doc.origin" />
@@ -211,15 +210,10 @@
                       </tr>
                       <tr>
                         <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">PO </span>
-                          <span class="text-capitalize"> No</span>
+                          <span class="">Customer Reference</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <!-- <span class="" t-field="doc.client_order_ref" /> -->
-                          <t t-set="sol" t-value="doc.move_finished_ids.move_dest_ids"/>
-                          <t t-if="sol and sol[0].sale_line_id">
-                              <span t-field="sol[0].sale_line_id.order_id.client_order_ref"/>
-                          </t>
+                            <span t-field="doc.sale_line_id.order_id.client_order_ref"/>
                         </td>
                       </tr>
                       <tr>
@@ -227,25 +221,23 @@
                           <span class="">SALESPERSON</span>
                         </th>
                         <td style="border: 1px solid #525659;">
+                          <span class="" t-field="doc.sale_line_id.order_id.user_id" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">Responsible</span>
+                        </th>
+                        <td style="border: 1px solid #525659;">
                           <span class="" t-field="doc.user_id" />
                         </td>
                       </tr>
-                      <!-- <tr>
-                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">MFG TECHNICIAN</span>
-                        </th>
-                        <td style="border: 1px solid #525659;"></td>
-                      </tr> -->
                       <tr>
                         <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">SHIP VIA</span>
+                          <span class="">Shipping Method</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <!-- <span t-field="doc.carrier_id.name"/> -->
-                          <t t-set="sol" t-value="doc.move_finished_ids.move_dest_ids"/>
-                          <t t-if="sol and sol[0].sale_line_id">
-                              <span t-field="sol[0].sale_line_id.order_id.carrier_id.name"/>
-                          </t>
+                          <span class="" t-field="doc.sale_line_id.order_id.carrier_id.name" />
                         </td>
                       </tr>
                       <tr>
@@ -253,10 +245,7 @@
                           <span class="">CUSTOMER</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <!-- <span class="" t-field="doc.partner_id"/> -->
-                          <t t-set="cust_name" t-value="sol[0].sale_line_id.order_id.partner_id.name or ''"/>
-                          <span t-esc="cust_name[:20]"/>
-
+                          <span class="" t-field="doc.sale_line_id.order_id.partner_id.name" />
                         </td>
                       </tr>
                     </tbody>
@@ -273,7 +262,7 @@
                     style="margin-top: 15px;"> -->
                     <div  class="mb8  quality-control "
                     style="margin-top: 15px;">
-                    <table class="table " style="height: 100%; border-collapse:collapse;">                     
+                    <table class="table " style="height: 100%; border-collapse:collapse;">
                       <thead>
                         <tr>
                           <th class="text-uppercase text-center"
@@ -285,7 +274,7 @@
                       <tbody>
                         <tr>
                           <td style="text-transform: initial!important;">
-                            <!-- <span class="" t-field="doc.comment_text"/> -->
+                            <span class="" t-field="doc.sale_line_id.order_id.comment_text"/>
                           </td>
                         </tr>
                       </tbody>
@@ -341,7 +330,7 @@
                           <span t-field="doc.product_id"/>
                         </td>
                         <td>
-                          <span t-field="doc.sale_line_id.name"/>
+                          <span t-esc="doc.sale_line_id.product_id.description"/>
                         </td>
                         <td class="text-center">
                           <span t-field="doc.product_qty"/>
@@ -432,7 +421,7 @@
 
                       <tbody>
                         <tr class="">
-                          <td colspan="" style=""> Heat#</td>
+                          <td colspan="" style="">Heat#</td>
                           <td colspan="3" style="">
                             <!-- <span t-field="doc.product_id.heat_number" /> -->
                           </td>
@@ -446,6 +435,6 @@
           </div>
         </div>
       </t>
-    
+
   </template>
 </odoo>
