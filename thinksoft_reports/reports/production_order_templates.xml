@@ -244,7 +244,11 @@
                           <span class="">CUSTOMER</span>
                         </th>
                         <td style="border: 1px solid #525659;">
-                          <span class="" t-field="doc.sale_line_id.order_id.partner_id.name" />
+                          <!-- <span class="" t-field="doc.sale_line_id.order_id.partner_id.name" /> -->
+                          <t t-set="cust_name" t-value="doc.sale_line_id.order_id.partner_id.name or ''"/>
+                          <span t-esc="cust_name[:20]"/>
+
+
                         </td>
                       </tr>
                     </tbody>
