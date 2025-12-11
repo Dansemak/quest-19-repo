@@ -14,11 +14,4 @@ class PackagePlanLine(models.Model):
     in_box = fields.Integer('In Box')
     packed_qty = fields.Integer('Packed Qty')
     is_skid = fields.Boolean("Skid")
-    skid_number = fields.Integer('Skid #')
-    available_mtr_template_ids = fields.One2many('mtr.template', compute='_compute_pack_mtr_template_ids')
-    mtr_template_ids = fields.Many2many(comodel_name="mtr.template", relation="mtr_template_package_plan_line_rel",
-                                   column1="id", column2="name", string="MTR")
-    
-    def _compute_pack_mtr_template_ids(self):
-        for record in self:
-            record.available_mtr_template_ids = record.package_plan_id.mtr_template_ids
+    skid_number = fields.Integer('On Skid #')

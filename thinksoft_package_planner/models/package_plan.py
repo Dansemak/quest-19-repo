@@ -1,6 +1,7 @@
 from odoo import fields, models
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
+from math import ceil
 
 
 class PackagePlan(models.Model):
@@ -19,7 +20,7 @@ class PackagePlan(models.Model):
         column2="name",
         string="MTR",
     )
-    pick_qty = fields.Float("Pick Qty")
+    pick_qty = fields.Float("Picked Qty")
     in_box = fields.Char(compute="get_package_planner", string="In Box")
     box_qty = fields.Integer(compute="get_package_planner", string="Boxes")
     skid_qty = fields.Char(compute="get_package_planner", string="Skids")
@@ -32,7 +33,7 @@ class PackagePlan(models.Model):
         default="box",
     )
     is_skid = fields.Boolean("Skid")
-    skid_number = fields.Integer("Skid No")
+    skid_number = fields.Integer("Num of Skids")
     package_plan_line_ids = fields.One2many(
         "package.plan.line", "package_plan_id", "Package Details"
     )
@@ -57,72 +58,41 @@ class PackagePlan(models.Model):
             pack.in_box = ", ".join(map(str, in_box_list))
             pack.box_qty = len(set(in_box_list))
 
-    def button_package_label_3x4(self):
-        return self.env.ref("thinksoft_package_planner.3x4_label_report").report_action(
-            self
-        )
-
     def button_package_label_1_25x4(self):
         return self.env.ref(
             "thinksoft_package_planner.1_25x4_label_report"
         ).report_action(self)
 
-    def load_lines(self):
-        package_id = self
-        package_line_obj = self.env["package.plan.line"]
-        if package_id.package_plan_line_ids:
-            for l in package_id.package_plan_line_ids:
-                l.unlink()
-        if package_id.max_qty_pack <= 0:
-            raise UserError(_("Load Error Please fill all the packaging details!"))
-        if package_id.pick_qty < package_id.max_qty_pack:
-            raise UserError(
-                _(
-                    'Error! Max Quantity Package cannot exceed Pick quantity= "%s" and Max Quantity=%d.'
-                )
-                % (package_id.pick_qty, package_id.max_qty_pack)
-            )
-        seq_no = 1
-        qty = 0
-        box_no = package_id.last_box_used + 1
-        while qty < package_id.pick_qty:
-            max_qty = package_id.max_qty_pack
-            check_qty = package_id.pick_qty - qty
-            if check_qty != 0 and check_qty < package_id.max_qty_pack:
-                max_qty = package_id.pick_qty - qty
-            package_line_obj.create(
+    def calculate_packaging(self):
+        if self.package_plan_line_ids:
+            self.package_plan_line_ids.unlink()
+        if self.max_qty_pack <= 0:
+            raise UserError(_("Please fill all the packaging details!"))
+        if self.pick_qty < self.max_qty_pack:
+            raise UserError(_(f"'Max Qty/Package' cannot exceed Pick Quantity of {self.pick_qty}."))
+        
+        num_boxes = ceil(self.pick_qty / self.max_qty_pack)
+        start_box = (self.last_box_used or 0) + 1
+        lines = []
+        for idx in range(num_boxes):
+            if idx == num_boxes - 1:
+                packed_qty = int(self.pick_qty - self.max_qty_pack * (num_boxes - 1))
+            else:
+                packed_qty = self.max_qty_pack
+
+            lines.append(
                 {
-                    "seq_no": seq_no,
-                    "package_type": package_id.package_type,
-                    "in_box": box_no,
-                    "packed_qty": max_qty,
-                    'is_skid': package_id.is_skid,
-                    "skid_number": package_id.skid_number,
-                    "package_plan_id": package_id.id,
+                    "seq_no": idx + 1,
+                    "package_type": self.package_type,
+                    "in_box": start_box + idx,
+                    "packed_qty": packed_qty,
+                    "is_skid": self.is_skid,
+                    "skid_number": self.skid_number,
+                    "package_plan_id": self.id,
                 }
             )
-            seq_no += 1
-            qty += package_id.max_qty_pack
-            box_no += 1
-        return True
 
-    def save_load(self):
-        package_id = self
-        if package_id.pick_qty < package_id.packed_qty:
-            raise UserError(
-                _(
-                    'Error! Quantity Packed cannot exceed Pick quantity= "%s" (Quantity Packed=%d).'
-                )
-                % (package_id.pick_qty, package_id.packed_qty)
-            )
-        return True
+        if lines:
+            self.env["package.plan.line"].create(lines)
+        return
 
-    # @api.model
-    # def create(self, vals):
-    #     for val in vals:
-    #         seq = 10
-    #         if val.get('package_plan_line_ids'):
-    #             for value in val['package_plan_line_ids']:
-    #                 if len(value) > 2 and isinstance(value[2], dict):
-    #                     value[2].setdefault('seq', seq)
-    #                 seq += 10
