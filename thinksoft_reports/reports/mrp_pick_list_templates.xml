@@ -201,7 +201,10 @@
                         <td style="text-align: center;" class=""/>
                         <!--############## QTY RESERVED #############-->
                         <td style="text-align: center;" class="">
-                          <!-- <span t-field="line.reserved_availability" class="text-center" /> -->
+                          <!-- <span t-esc="line.reserved_availability" class="text-center" /> -->
+                          <span t-esc="line.forecast_availability" />
+
+
                         </td>
                         <!--################# UOM #####################-->
                         <td style="text-align: center;" class="">

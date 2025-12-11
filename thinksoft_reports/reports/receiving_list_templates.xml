@@ -168,7 +168,8 @@
                         <span class="">PURCHASE REP </span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <span class="" t-field="o.user_id.name" />
+                        <!-- <span class="" t-field="o.user_id.name" /> -->
+                        <span class="" t-field="o.purchase_id.user_id" />
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
@@ -176,7 +177,6 @@
                         <span class="">SHIPPING INFORMATION</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="o.sale_ship_via" /> -->
                          <span t-field="o.carrier_id.name"/>
                       </td>
                     </tr>
@@ -207,6 +207,8 @@
                         <span class="">BOX/SKID QUANTITY</span>
                       </th>
                       <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.box_qty" /><span> boxes,</span>
+                        <span class="" t-field="o.skid_qty" /><span> skids</span>
                       </td>
                     </tr>
                     <tr>
@@ -214,6 +216,8 @@
                         <span class="">WEIGHT</span>
                       </th>
                       <td style="border: 1px solid #525659;">
+                        <span class="" style="white-space: nowrap;" t-field="o.shipping_weight" />
+                        <span class="" style="white-space: nowrap;" t-field="o.weight_uom_name" />
                       </td>
                     </tr>
                   </tbody>

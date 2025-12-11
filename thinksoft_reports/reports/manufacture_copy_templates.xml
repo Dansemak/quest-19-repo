@@ -239,8 +239,8 @@
                             <span class="" >NOTE</span>
                           </th>
                           <td style="text-align: left; border: 1px solid #525659; white-space: wrap;text-transform: none;vertical-align:top;line-height: 0.5;" >
-                             <!-- <span  t-field="doc.sale_note_id"  class="notes"/> -->
-                             <span t-esc="(doc.sale_note_id or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                             <span  t-field="doc.sale_note_id"  class="notes"/>
+                             <!-- <span t-esc="(doc.sale_note_id or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/> -->
                           </td>
                         </tr>
                       </tbody>

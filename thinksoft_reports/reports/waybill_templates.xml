@@ -22,8 +22,9 @@
   <template name="Report with header and footer standard" id="report_layout_waybill">
     <div class="header pe-5" style="">
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Hubot+Sans:ital,wght@0,200..900;1,200..900&amp;family=Oswald:wght@200..700&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;family=Tangerine:wght@400;700&amp;display=swap');
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
               }
             .title{
                 font-family:'Oswald', sans-serif;

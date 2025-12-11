@@ -196,7 +196,7 @@
                         <td></td>
                       </tr>
                       <tr>
-                        <th style="font-size:12px; text-transform:none; width:150px;">Quality Control Signature</th>
+                        <th style="font-size:12px; text-transform:none; width:150px;background-color: #E2EFD9 !important;">Quality Control Signature</th>
                         <td></td>
                       </tr>
                     </tbody>

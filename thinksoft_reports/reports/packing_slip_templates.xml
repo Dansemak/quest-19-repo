@@ -327,11 +327,11 @@
                             </td>
                             <!--************** BOX **************-->
                             <td class="text-center">
-                              <!-- <span t-field="line.package_line_id.inbox_qty"/> -->
+                              <span t-field="line.package_plan_id.in_box"/>
                             </td>
                             <!--************** SKID **************-->
                             <td class="text-center">
-                              <!-- <span t-field="line.package_line_id.skids"/> -->
+                              <span t-field="line.package_plan_id.skid_number"/>
                             </td>
                           </tr>
                         </tbody>
