@@ -9,17 +9,20 @@
                 <t t-set="company" t-value="res_company" />
             </t>
 
-            <div class="header pe-5" style="width:100%;  padding-bottom:10px; border-bottom:3px solid #c30000; margin-top:30px!important;">
+            <!-- <div class="header pe-5" style="width:100%;  padding-bottom:10px; border-bottom:3px solid #c30000; margin-top:30px!important;"> -->
+            <div class="header pe-5" style="width:100%;  padding-bottom:10px; margin-top:30px!important;">
                 <style>
-                    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                    <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
                     .header,.footer {
-                        font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                        font-family: Arial, Helvetica, sans-serif;
+                        <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
                         }
                     .top-address{
-                        line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                        line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
                     }
                     .title{
-                        font-family:'Oswald',sans-serif !important;
+                        <!-- font-family:'Oswald',sans-serif !important; -->
+                        font-family:Arial, Helvetica, sans-serif;
                         font-size: 23px !important;
                         font-weight: bold !important;
                         text-align: right !important;
@@ -27,7 +30,7 @@
                         text-align: right !important;
                     }
                     .barcode{
-                        font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+                        font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:Arial, Helvetica, sans-serif;
                     }
                 </style>
                 <div class="row mb-2">
@@ -38,11 +41,11 @@
                         </div>
                     </div>
                     <!-- ************************************** ADDRESS *************************** -->
-                    <div class="col-5 top-address">
+                    <div class="col-4 top-address">
                         <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
                     </div>
                     <!-- ********************** TITLE ********************* -->
-                    <div class="col-3 title" style="position: relative; text-align:right;">
+                    <div class="col-4 title" style="position: relative; text-align:right;">
                         <span class="text-uppercase" style="margin-right:-40px;">
                         Payment Remittance
                         </span>
@@ -89,8 +92,8 @@
                                             <table class="table" width="100%" style="border-collapse: collapse; border-spacing: 0; ">
                                             <!-- **************** DATE ****************** -->
                                             <tr>
-                                                <td width="86%"/>
-                                                <td style="text-align:left;">
+                                                <td width="80%"/>
+                                                <td style="text-align:right;vertical-align:bottom !important;">
                                                 <span t-esc="p_date[0]" />
                                                 <span t-esc="p_date[1]" />
                                                 <span t-esc="p_date[2]" />
@@ -102,15 +105,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td width="86%"/>
-                                                <td style="font-size:18px; text-align:left;">M M D D Y Y Y Y</td>
+                                                <td width="80%"/>
+                                                <td style="font-size:18px; text-align:right; vertical-align:top !important;">M M D D Y Y Y Y</td>
                                             </tr>
                                             <!-- **************** AMOUNT IN WORDS & AMOUNT ****************** -->
                                             <tr>
-                                                <td width="86%">
+                                                <td width="80%">
                                                 <span t-esc="o.currency_id.amount_to_text(o.amount)" />
                                                 </td>
-                                                <td class="text-right" style="" width="">
+                                                <td class="text-end" style="" width="">
                                                 <span t-field="o.amount" />
                                                 </td>
                                             </tr>

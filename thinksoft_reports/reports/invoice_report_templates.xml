@@ -21,58 +21,59 @@
   <template name="Invoice report custom header and footer" id="invoice_custom_header_layout">
     <div class="header pe-5">
       <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer {
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+          <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+          .header,.footer {
+              font-family: Arial, Helvetica, sans-serif;
+              <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
               }
-            .top-address{
-                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
-              }
-            .title{
-                font-family:'Oswald',sans-serif;
-                font-optical-sizing: auto;
-                font-size: 24px !important;
-                font-weight: 900 !important;
-                line-height: 1.2 !important;
-                text-align: right !important;
-              }
-            .barcode{
-                font-size:18px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
-              }
-        </style>
+          .top-address{
+              line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+          }
+          .title{
+              <!-- font-family:'Oswald',sans-serif !important; -->
+              font-family:Arial, Helvetica, sans-serif;
+              font-size: 24px !important;
+              font-weight: bold !important;
+              line-height: 1.2 !important;
+              text-align: right !important;
+          }
+          .barcode{
+              font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+          }
+      </style>
       <div class="container">
         <div class="row mb-2">
           <!-- ********************************* LOGO ********************************************* -->
           <div class="col-4">
             <div class="">
-              <img class="img img-responsive " style="width:200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title="" alt="quest logo" />
+              <img class="img" style="width:200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
             </div>
           </div>
           <div class="col-3 top-address">
             <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
           </div>
-          <div class="col-5 ">
+          <div class="col-5 d-flex justify-content-end title text-uppercase">
 
               <!--********************** TITLE *********************-->
-            <div class="title text-uppercase text-end">
+            <!-- <div class="title text-uppercase  "> -->
 
 
-                        <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'" style="margin-right:-40px;">
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'" class="" style="">
                           Invoice
                         </span>
-                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'" style="margin-right:-40px;">
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'" clas="" style="">
                           Draft Invoice
                         </span>
-                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'" style="margin-right:-40px;">
-                          Cancelled <br/> Invoice
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'" style=" ">
+                          Cancelled Invoice
                         </span>
-                        <span t-if="o.move_type == 'out_refund'" style="margin-right:-40px;">
+                        <span t-if="o.move_type == 'out_refund'" style=" ">
                           Credit Note
                         </span>
-                        <span t-if="o.move_type == 'in_refund'" style="margin-right:-40px;">
-                          Vendor<br/> Credit Note
+                        <span t-if="o.move_type == 'in_refund'" style=" ">
+                          Vendor Credit Note
                         </span>
-                        <span t-if="o.move_type == 'in_invoice'" style="margin-right:-40px;">
+                        <span t-if="o.move_type == 'in_invoice'" style=" ">
                           Vendor Bill
                         </span>
 
@@ -80,7 +81,7 @@
                   <!-- </tr>
                 </tbody>
               </table> -->
-            </div>
+            <!-- </div> -->
           </div>
         </div>
       </div>

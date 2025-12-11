@@ -23,23 +23,21 @@
       <template name="Report with header and footer standard" id="report_external_layout_packing_slip">
         <div class="header pe-5" style="">
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer {
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+            .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
               }
-            .top-address{
-                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
+          .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
               }
             .title{
-                font-family:'Oswald',
-                sans-serif !important;
+                font-family:Arial, Helvetica, sans-serif;
                 font-size: 24px !important;
                 font-weight: bold !important;
-                text-align: left !important;
                 line-height: 1.2 !important;
+                text-align: left !important;
               }
             .barcode{
-                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
               }
         </style>
         <div class="container">
@@ -48,25 +46,23 @@
             ********************************************* -->
             <div class="col-4">
               <div class="">
-                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
-                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
-                  title="" aria-describedby="tooltip269202" />
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
               </div>
             </div>
             <!-- ************************************** ADDRESS *************************** -->
             <div class="col-3 top-address">
               <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
-                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F:
                 780.461.7009</p>
             </div>
             <!-- ************************************** TITLE
             ******************************************** -->
-            <div class="col-5 d-flex justify-content-end top-address" style=" ">
+            <div class="col-5 d-flex justify-content-end " >
               <div style="padding:0!important; text-align:center; ">
                 <!--**********************
                 BARCODE *********************-->
                 <span t-field="doc.name"
-                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
                   style="" />
                 <br />
                 <div class="barcode" t-field="doc.name" />
