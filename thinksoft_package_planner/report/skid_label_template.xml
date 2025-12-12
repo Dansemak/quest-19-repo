@@ -72,14 +72,15 @@
 										<strong>
 											<span >SHIP TO:</span>
 										</strong>
-										<!-- <div style="font-size:12;font-family:Arial;"
-										t-esc="doc['partner_id']['name']"></div>
-						<div style="font-size:12;font-family:Arial;" t-esc="doc['partner_id']['street2']"></div>
-						<div style="font-size:12;font-family:Arial;" t-esc="doc['partner_id']['city']"></div> -->
-										<div groups="sale.group_delivery_invoice_address">
-											<div t-field="doc.partner_id"
-												t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}" />
-										</div>
+										<div style="font-size:12;font-family:Arial;" t-esc="doc.partner_id.name"></div>
+                                        <div style="font-size:12;font-family:Arial;" t-esc="doc.partner_id.street"></div>
+                                        <div style="font-size:12;font-family:Arial;" t-esc="doc.partner_id.street2"></div>
+                                        <div style="font-size:12;font-family:Arial;">
+                                            <span t-field="doc.partner_id.city"/>
+                                            <span t-field="doc.partner_id.state_id.name"/>
+                                            <span t-field="doc.partner_id.zip"/>
+                                        </div>
+                                        <div style="font-size:12;font-family:Arial;" t-field="doc.partner_id.country_id.name"></div>
 									</div>
 								</div>
 								<!-- <div class="row">
@@ -93,7 +94,7 @@
 					</div>
 					<div class="col-xs-3"><span style="font-size:48;font-weight:bold;font-family:Arial;">SKID</span>
 					<span style="display:block;text-margin:right;">
-						<span style="font-family:Helvetica;font-size:26;" t-esc="box['skid']"/> 
+						<span style="font-family:Helvetica;font-size:26;" t-esc="box['skid']"/>
 						<span style="font-family:Helvetica;font-size:18;"> of </span>
 						<span style="font-family:Helvetica;font-size:26;" t-esc="total_boxes"/>
 					</span>
