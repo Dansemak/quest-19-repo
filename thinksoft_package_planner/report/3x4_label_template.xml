@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_3x4" model="report.paperformat">
+        <field name="name">3x4 Paper Format</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">70</field>
+        <field name="page_width">95</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">80</field>
+    </record>
+
+    <record id="3x4_label_report" model="ir.actions.report">
+        <field name="name">3x4 Report</field>
+        <field name="model">package.plan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">thinksoft_package_planner.label_3x4_template</field>
+        <field name="report_file">thinksoft_package_planner.label_3x4_template</field>
+        <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_3x4"/>
+        <field name="binding_model_id" ref="model_package_plan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+     <template id="label_3x4_template">
+        <t t-call="web.html_container">
+
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="'partner_id' in doc.fields_get()">
+                    <t t-call="thinksoft_package_planner.3x4_report_document" t-lang="doc.partner_id.lang"/>
+                </t>
+                <t t-if="'partner_id' not in doc.fields_get()">
+                    <t t-call="thinksoft_package_planner.3x4_report_document"/>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="internal_layout">
+    <!-- <template id="internal_layout_label_3x4"> -->
+        <!-- Multicompany -->
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id" />
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company" />
+        </t>
+        <div class="header">
+            <div class="row">
+            </div>
+        </div>
+        <div class="article">
+            <t t-raw="0" />
+        </div>
+        <div class="footer">
+            <div class="container ">
+                <div class="row">
+                <div class="col-12" style=" text-align: center; font-family:sans-serif;font-size: 10px;">www.questgasket.com</div> 
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="3x4_report_document">
+        <t t-call="thinksoft_package_planner.internal_layout">
+            <div class="page">
+                <div class="container" style="margin:0 !important;">
+                     <div class="row">
+                        <div class="col-12">
+                            <img class="img" style="width:200px; display:block; margin-left:auto; margin-right:auto;" data-name="&lt; img / &gt;" src="/thinksoft_package_planner/static/src/img/quest-logo.jpg" data-original-title="" title="" aria-describedby="tooltip269202" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <span style="font-size:8;font-weight:bold;">Item Code:</span>
+                            <span class="ml-2" style="font-size:10.5;font-weight:normal;"
+                                t-field="doc.product_id" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <div style="font-size:8;font-weight:bold;">Item Description:<br />
+                            <span
+                                    style="font-size:10.5; font-weight:normal; " t-field="doc.description" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="margin-top:12px;">
+                            <p style="font-size:10; margin-bottom:15px; font-weight:bold;">HEAT #: <span
+                                    class="ml-2" style="font-size:10; font-weight:normal;"
+                                    t-field="doc.heat" />
+                            </p>
+                            <!-- <span style="">
+                                <img
+                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', doc.product_id.name, 100, 100)"
+                                    style="width:60px;height:60px;" />
+                            </span> -->
+                        </div>
+                        <div class="col-6" style="margin-top:10px;font-size:10;">
+                                <div class="">
+                                    <span style="font-weight:bold;">S.O:</span><span class="ml-2" t-field="doc.picking_id.origin" />		
+                                </div>
+                            <t t-if="doc.picking_id.production_id">
+                                <div class="">
+                                    <span style="font-weight:bold;">M.O:</span><span class="ml-2" t-field="doc.picking_id.production_id" />		
+                                </div>
+                            </t>
+                            <div style="font-weight:bold;">Qty: <span
+                                    class="ml-2" style="font-weight:normal;"
+                                    t-field="doc.max_qty_pack" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

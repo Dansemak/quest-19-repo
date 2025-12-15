@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <data>
+  <template id="purchase_order_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <h1>Purchase Order</h1>
+        <!--
+              As language is not required for all objects.
+              So for now, If partner is available in object then pass
+              that partner's language.
+          -->
+        <t t-if="'partner_id' in o.fields_get()">
+          <t t-call="thinksoft_reports.purchase_order_template_document" t-lang="o.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in o.fields_get()">
+          <t t-call="thinksoft_reports.purchase_order_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+  <template name="Report with header and footer standard" id="report_external_layout_purchase_order">
+    <div class="header pe-5" style="">
+        <style>
+          .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
+              }
+          .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+              }
+            .title{
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                line-height: 1.2 !important;
+                text-align: left !important;
+              }
+            .barcode{
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+              }
+        </style>
+        <div class="container">
+          <div class="row mb-2">
+            <!-- ********************************* LOGO
+            ********************************************* -->
+            <div class="col-4">
+              <div class="">
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
+              </div>
+            </div>
+            <!-- ************************************** ADDRESS *************************** -->
+            <div class="col-3 top-address">
+              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                780.461.7009</p>
+            </div>
+            <!-- ************************************** TITLE
+            ******************************************** -->
+            <div class="col-5 d-flex justify-content-end " style=" ">
+              <div style="padding:0!important; text-align:center; ">
+                <!--**********************
+                BARCODE *********************-->
+                <span t-field="o.name"
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
+                  style="" />
+                <br />
+                <div class="barcode" t-field="o.name" />
+              </div>
+              <!--********************** TITLE *********************-->
+              <div class="title text-uppercase">
+                <t t-if="o.state=='draft'">
+                      <font style="">Request for<br/> Quote</font>
+                    </t>
+                    <t t-if="o.state != 'draft'">
+                      <font>Purchase<br/> Order</font>
+                    </t>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <t t-raw="0" />
+      </div>
+        <div class="footer" style="font-size:11px; width:100%;">
+        <div class="container ">
+          <div class="row">
+            <div class="col-12">
+              <span class="text-left" style="">Print Date:</span>
+              <span class="ms-2"
+                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                style="margin-right: 250px; text-align: right;" />
+              <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+              <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                  style="text-align: right;" class="topage" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </template>
+  <template id="purchase_order_template_document">
+  <t t-call="thinksoft_reports.report_external_layout_purchase_order">
+      <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+      <div class="main_page">
+        <div class="oe_structure" style="">
+          <div class="container">
+            <div class="row">
+              <!-- ************************* VENDOR ************************* -->
+              <div class="info1 col-6" style="">
+                <div class="">
+                  <table class="text-uppercase" style="border-collapse: collapse; width:100%;">
+                    <tbody>
+                      <tr>
+                        <th style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;">Vendor:</th>
+                      </tr>
+                      <tr>
+                        <td class="address" >
+                          <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- ***************************** SHIPPING ADDRESS ************************* -->
+                  <!-- <t t-if="o.dest_address_id and (o.dest_address_id != o.partner_id)"> -->
+                  <t t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+                    <table class="text-uppercase mt16" style="border-collapse: collapse;">
+                      <tbody style="">
+                        <tr>
+                          <th style="border: 1px solid #525659; border-top-color: #525659; font-size: 11px;"> Shipping Address: </th>
+                        </tr>
+                        <tr>
+                          <td class="address" style="border-bottom-color: 1px solid #fff;">
+                            <!-- <div groups="sale.group_delivery_invoice_address"> -->
+                              <address t-field="o.picking_type_id.warehouse_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                            <!-- </div> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </t>
+                </div>
+              </div>
+              <div class="info col-6">
+                <table class="text-uppercase" style="border-collapse: collapse; width:100%;" cellspacing="0">
+                  <tr>
+                    <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                      <t t-if="o.state=='draft'">RFQ <span class="text-capitalize">No</span>
+                      </t>
+                      <span t-if="o.state != 'draft'">PO <span class="text-capitalize">No</span>
+                      </span>
+                      <!-- <span>PO</span><span class="text-capitalize">No</span> -->
+                    </th>
+                    <td style="border-top-color: #525659; border: 1px solid #525659;">
+                      <span t-field="o.name" />
+                    </td>
+                  </tr>
+                  <tr style="border: 1px solid black;">
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>ORDER DATE</span>
+                    </th>
+                    <td style="border: 1px solid #525659;">
+                      <span t-field="o.date_approve" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>SHIP DATE</span>
+                    </th>
+                    <td style="border: 1px solid #525659;">
+                    <span t-field="o.date_planned" />
+                      <!-- <span class="" t-field="o.sale_id.commitment_date" /> -->
+                    </td>
+                  </tr>
+                  <tr style="border: 1px solid black;">
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>TERMS</span>
+                    </th>
+                    <td style="border: 1px solid black;">
+                      <span t-field="o.payment_term_id" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>SHIP VIA</span>
+                    </th>
+                    <td style="border: 1px solid #525659;">
+                      <span t-field="o.picking_ids.carrier_id"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>Vendor Contact</span>
+                    </th>
+                    <td style="border: 1px solid #525659;">
+                      <span t-field="o.partner_contact_id.name" />
+                    </td>
+                  </tr>
+                  <!--  <tr><th style="text-align: right; white-space: nowrap; border: 1px solid #525659;"><span>CONFIRMATION DATE</span></th><td style="border: 1px solid #525659;"><span t-field="o.date_approve"/></td></tr> -->
+                  <tr>
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>BUYER</span>
+                    </th>
+                    <td style="border: 1px solid #525659;">
+                    <span class="" t-field="o.user_id" />
+                      <!-- <span t-field="o.sales_rep_id"/> -->
+                    </td>
+                  </tr>
+                  <tr style="border: 1px solid black;">
+                    <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                      <span>Freight Charges</span>
+                    </th>
+                    <td style="border: 1px solid black;">
+                      <span t-field="o.sale_freight_id" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="container" style="margin:20px 0 20px;">
+            <div class="row items">
+              <div class="col-md-12 ">
+                <div class="">
+                  <table class="line-items" style="width: 100%; ">
+                    <thead>
+                      <tr style="height:23pt;">
+                        <th style="border: 1px solid black; width:33pt;" rowspan="2" align="center"> LINE </th>
+                        <th align="" style="text-align:left;">PART #</th>
+                        <th style="white-space: nowrap;" rowspan="2" align=""> QUANTITY </th>
+                        <th style="white-space: nowrap;" rowspan="2" align=""> UOM </th>
+                        <t t-if="o.state != 'draft'">
+                          <th style="white-space: nowrap;" rowspan="2" align="center"> UNIT PRICE </th>
+                          <th style="" rowspan="2" align="center"> EXTENDED PRICE </th>
+                        </t>
+                      </tr>
+                      <tr>
+                        <th style="white-space: nowrap; text-align:left;">DESCRIPTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <!-- <tbody t-foreach="o.move_ids" t-as="line"> -->
+                      <tr class="text-center" t-foreach="o.order_line" t-as="line" style="text-transform: normal;" >
+                        <td style="">
+                          <span t-field="line.seq_no" style="" />
+                        </td>
+                       <td style="text-align: left !important;">
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left !important; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
+                        </td>
+                        <!--***************** BOX QTY *******************-->
+                        <!-- <t t-if="o.state != 'draft'">
+                          <td style="" />
+                        </t> -->
+                        <!--***************** QUANTITY *************-->
+                        <td style="">
+                          <span t-field="line.product_uom_qty" />
+                        </td>
+                        <!--*************** UOM ********************-->
+                        <td style="">
+                          <span t-field="line.product_uom_id.name" />
+                        </td>
+                        <!-- <td style=""><span t-field="line.string_availability_info"/></td> -->
+                        <t t-if="o.state != 'draft'">
+                          <td style="text-align:right;">
+                            <span style="margin-right: 2px;">$</span>
+                            <span t-esc="'{:.2f}'.format(line.price_unit)" />
+                            <!-- UNIT PRICE -->
+                          </td>
+                          <td style="text-align:right;">
+                            <span t-esc="'{:.2f}'.format(line.price_subtotal)" />
+                            <!-- EXTENDED PRICE -->
+                          </td>
+                        </t>
+                      </tr>
+                      <t t-if="o.state != 'draft'">
+                        <tr style="">
+                          <td style="" rowspan="3" colspan="4" />
+                          <th style=" border: 1px solid #525659; background-color: lightgray; text-align: right !important; white-space: nowrap;font-size:14px !important;"> SUBTOTAL </th>
+                          <td style=" text-align: right;font-size:14px !important;">
+                            <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style=" border: 1px solid #525659; background-color: lightgray; text-align: right; white-space: nowrap;font-size:14px !important;"> GST (5%) </th>
+                          <td style=" border: 1px solid #525659; text-align: right;font-size:14px !important;">
+                            <span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="font-weight: bold; border: 1px solid #525659; background-color: lightgray; text-align: right; white-space: nowrap; font-size:14px !important;"> TOTAL </th>
+                          <td style="font-weight: bold; font-size:14px !important; text-align:right;">
+                            <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                          </td>
+                        </tr>
+                      </t>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container mt42">
+            <div class="row last-page" style="border-top: 1px dotted #000; padding-bottom: 5px; padding-top: 10px;">
+              <div class="col-12">
+                <div style="font-size: 14px !important; font-weight: bold;">
+                  <span>GST Registration #: 861900272</span>
+                  <span style="font-style: italic; margin-left:250px; " class=" text-end">Thank you for your business!</span>
+                </div>
+                <div class="t_block mt8 mb8">
+                  <p style="font-size: 10px;" class=""> Enter this order in accordance with the prices, terms, delivery method, and specifications listed above. Notify us immediately if you are unable to fulfill any requested portion of the purchase order as specified. </p>
+                </div>
+                <div class="text-center mt-3" style="font-size: 12px;">THE PURCHASE ORDER NUMBER MUST APPEAR ON ALL RELATED CORRESPONDENCE, SHIPPING PAPERS, AND INVOICE</div>
+              </div>
+              <!-- <div id="total" class="col-3"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+  </data>
+</odoo>
