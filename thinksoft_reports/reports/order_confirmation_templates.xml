@@ -22,10 +22,8 @@
   <template name="Report with header and footer standard" id="report_external_layout_order_confirmation">
       <div class="header pe-5" style="">
         <style>
-            <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
             .header,.footer {
                 font-family: Arial, Helvetica, sans-serif;
-                <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
                 }
             .top-address{
                 line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;

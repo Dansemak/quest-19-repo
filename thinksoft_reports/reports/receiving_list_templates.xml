@@ -191,6 +191,7 @@
                         <span class="">DATE RECEIVED</span>
                       </th>
                       <td style="border: 1px solid #525659;">
+                      <span t-field="o.date_done"/>
                       </td>
                     </tr>
                     <!-- <tr>

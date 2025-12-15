@@ -208,8 +208,8 @@
                         <tr>
                           <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">Number of Pieces</th>
                           <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
-                            <span class="" t-field="doc.box_qty" /><span> boxes,</span>
-                            <span class="" t-field="doc.skid_qty" /><span> skids</span>
+                            <!-- <span class="" t-field="doc.box_qty" /><span> boxes,</span>
+                            <span class="" t-field="doc.skid_qty" /><span> skids</span> -->
                           </td>
                         </tr>
                         <tr>
@@ -218,8 +218,8 @@
                           </th>
                           <td style="vertical-align: middle; border: 1px solid #525659;">
                             <!-- TOTAL WEIGHT -->
-                            <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
-                            <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" />
+                            <!-- <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
+                            <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" /> -->
                           </td>
                         </tr>
                       </tbody>
@@ -269,9 +269,9 @@
                                 <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">UoM</th>
                                 <!-- <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">order QTY</th> -->
                                 <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">Shipped</th>
-                                <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;width: 50px;">BO</th>
-                                <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">ITEM WT</th>
-                                <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;">TOTAL WEIGHT</th>
+                                <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;text-align: right;"> UNIT PRICE<br/>ITEM WT</th>
+                                 <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;width: 50px;text-align: right;">BO</th>
+                                <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;text-align: right;">TOTAL WEIGHT</th>
                                 <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">BOX</th>
                                 <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">SKID</th>
                             </tr>
@@ -303,18 +303,19 @@
                             <td class="text-end">
                               <span t-field="line.quantity" />
                             </td>
-                            <td colspan="" class="text-center">
-                                <!--****************** BO ************************************-->
-                                <!--<span class="" style="white-space: nowrap;" t-field="line.probo_qty" />-->
-                                <span t-esc="(line.sale_line_id.product_uom_qty - line.quantity)"></span>
-                            </td>
-                             <!--************************** Item Weight **********************-->
+                           
+                             <!--************************** ITEM PRICE ITEM.WT **********************-->
                             <td colspan="" class="text-end">
-                              <!-- <span class=" report-well" t-field="line.pick_qty" /> -->
+                              <span style="margin-right: 1px;">$</span>
+                              <span t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))" style="" />
                                 <div class="" data-name="label: field">
                                     <span class="" t-field="line.product_id.weight" style="color: rgb(0, 123, 255); white-space: nowrap;" />
                                     <span class="text-lowercase" t-field="line.product_id.weight_uom_name" style="color: rgb(0, 123, 255); white-space: nowrap;"/>
                                 </div>
+                            </td>
+                             <!--****************** BO ************************************-->
+                            <td colspan="" class="text-end">
+                                <span t-esc="(line.sale_line_id.product_uom_qty - line.quantity)"></span>
                             </td>
                             <!--************** TOTAL WEIGHT **************-->
                             <td colspan="" class="text-end">
@@ -322,11 +323,11 @@
                                 <span class="text-lowercase" t-field="line.product_id.weight_uom_name" style="color: rgb(0, 123, 255); white-space: nowrap;"/>
                             </td>
                             <!--************** BOX **************-->
-                            <td class="text-center">
+                            <td class="text-end">
                               <span t-field="line.package_plan_id.in_box"/>
                             </td>
                             <!--************** SKID **************-->
-                            <td class="text-center">
+                            <td class="text-end">
                               <span t-field="line.package_plan_id.skid_number"/>
                             </td>
                           </tr>
@@ -343,17 +344,33 @@
                                     </t>
                                     <strong><span t-out="total_shipped" t-options="{'widget': 'float', 'precision': 3}"/></strong>
                                 </td>
+                                <!-- UNIT PRICE/ITEM WT -->          
+                                    <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
+                                        <t t-set="total_unitprice" t-value="0"/>
+                                        <t t-foreach="doc.move_ids" t-as="line">
+                                            <t t-set="total_unitprice" t-value="total_unitprice + (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))"/>
+                                        </t>
+                                        <span t-out="total_unitprice" t-options="{'widget': 'float', 'precision': 2}"/>
+                                        <!-- <strong>——</strong> -->
+                                        <div class="" data-name="label: field">
+                                            <!-- <strong style="color: rgb(0, 123, 255);">——</strong> -->
+                                            <t t-set="total_lb" t-value="0"/>
+                                            <t t-foreach="doc.move_ids" t-as="line">
+                                                <t t-set="total_lb" t-value="total_lb + line.product_id.weight"/>
+                                            </t>
+                                            <span t-out="total_lb" t-options="{'widget': 'float', 'precision': 2}" style="color: rgb(0, 123, 255);"/>
+                                        </div>
+                                    </td>
                                 <!-- BACK ORDER QUANTITY TOTAL -->
-                                <td rowspan="" style="border: #525659 solid 1px;">
+                                <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                     <t t-set="total_bo" t-value="0"/>
                                     <t t-foreach="doc.move_ids" t-as="line">
                                         <t t-set="total_bo" t-value="total_bo + (line.sale_line_id.product_uom_qty - line.quantity)"/>
                                     </t>
                                     <strong><span t-out="total_bo"/></strong>
                                 </td>
-                                <td rowspan="" style="border: #525659 solid 1px; color: rgb(0, 123, 255); text-align: right;"><strong>——</strong></td>
                                 <!-- TOTAL WEIGHT -->
-                                <td rowspan="" style="border: #525659 solid 1px; color: rgb(0, 123, 255);">
+                                <td rowspan="" style="border: #525659 solid 1px; color: rgb(0, 123, 255); text-align: right;">
                                     <t t-set="total_weight" t-value="0"/>
                                     <t t-set="weight_uom" t-value="0"/>
                                     <t t-foreach="doc.move_ids" t-as="line">
@@ -367,15 +384,19 @@
                                 <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                     <t t-set="total_boxes" t-value="0"/>
                                     <t t-foreach="doc.move_ids" t-as="line">
-                                        <t t-set="total_boxes" t-value="total_boxes + 0"/> <!--WIP-->
+                                        <t t-set="boxes"
+                                          t-value="sum(int(x.strip()) for x in (line.package_plan_id.in_box or '').split(',') if x.strip().isdigit())"/>
+                                        <t t-set="total_boxes" t-value="total_boxes + boxes"/>
                                     </t>
-                                   <span t-out="total_boxes"/>
+                                    <span t-out="total_boxes"/>
+
                                 </td>
                                 <!-- TOTAL SKIDS -->
                                 <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                     <t t-set="total_skids" t-value="0"/>
                                     <t t-foreach="doc.move_ids" t-as="line">
-                                        <t t-set="total_skids" t-value="total_skids + 0"/> <!--WIP-->
+                                        <t t-set="total_skids" t-value="total_skids + int(line.package_plan_id.skid_number or 0)"/> 
+                                        <!--WIP-->
                                     </t>
                                     <span t-out="total_skids"/>
                                 </td>
@@ -389,6 +410,7 @@
                 <div class="row items">
                   <div class="col-md-12 col-xs-12" style="margin-top:20px;">
                     <div class="s_block mt8 mb8">
+                    <t t-if="any(line.mtr_template_ids for line in doc.mtr_move_ids)">
                       <table style="width: 100%;">
                         <thead style="">
                           <div style="clear: both;">
@@ -399,30 +421,30 @@
                             </tr>
                           </div>
                         </thead>
-                        <!-- <tbody t-foreach="doc.move_line_ids_without_package" t-as="line" style=""> -->
-                        <tbody t-foreach="doc.move_line_ids" t-as="line">
-                          <!-- <t t-if="line.mtr_tag_ids"> -->
-                            <tr style="">
-                              <!--************** line **************** -->
-                              <td rowspan="" class="text-center" style="">
-                                <!-- <span t-field="line.move_id.seq_no" style="" /> -->
+                        <tbody t-foreach="doc.mtr_move_ids" t-as="line">
+                          <t t-if="line.mtr_template_ids">
+                            <tr>
+                              <!-- ************** line ************** -->
+                              <td class="text-center">
+                                <span t-field="line.seq_no"/>
                               </td>
-                              <!--************** Product ***************-->
-                              <td rowspan="" style="">
-                                <!-- <span t-field="line.move_id.product_id" /> -->
+                              <!-- ************** Product ************** -->
+                              <td>
+                                <span t-field="line.product_id"/>
                               </td>
-                              <!--************** MTR ***************-->
-                              <td class="">
-                                <!-- <t t-foreach="line.mtr_tag_ids" t-as="mtr"> -->
+                              <!-- ************** MTR ************** -->
+                              <td> 
+                                <t t-foreach="line.mtr_template_ids" t-as="mtr">
                                   <span class="me-2">
-                                  <!-- <span t-field="mtr.name"/> -->
+                                    <span t-field="mtr.name"/>
                                   </span>
-                                <!-- </t> -->
+                                </t>
                               </td>
                             </tr>
-                          <!-- </t> -->
+                          </t>
                         </tbody>
                       </table>
+                      </t>
                     </div>
                   </div>
                 </div>

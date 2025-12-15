@@ -196,6 +196,7 @@
                         <span class="">TOTAL PACKAGE #</span>
                       </th>
                       <td style="border: 1px solid #525659;">
+                      <span class="" t-field="doc.box_qty" /><span> boxes,</span>
                         <!-- <span class="" t-field="doc.package_line.boxs"  /> -->
                       </td>
                     </tr>
@@ -326,7 +327,7 @@
                           <!-- <span class=" report-well" t-field="line.pick_qty" /> -->
                           <!-- <span class="report-well" t-field="line.quantity_done" /> -->
                           <div class="" data-name="label: field">
-                            <span class="report-well" t-field="line.weight" style="color: rgb(0, 123, 255); white-space: nowrap;" />
+                            <span class="report-well" t-esc="line.product_id.weight * line.quantity" style="color: rgb(0, 123, 255); white-space: nowrap;" />
                             <span class="text-lowercase" t-field="line.product_id.weight_uom_name" style="color: rgb(0, 123, 255); white-space: nowrap;"/>
                           </div>
                         </td>

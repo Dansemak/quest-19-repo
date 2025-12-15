@@ -22,7 +22,6 @@
     <template name="Report with header and footer standard" id="report_external_layout_manufacture_copy">
       <div class="header pe-5" style="">
         <style>
-            <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
            .header,.footer {
                 font-family: Arial, Helvetica,  sans-serif;
               }
@@ -268,7 +267,7 @@
                             <td><span>QUANTITY QC: </span></td>
                           </tr>
                           <tr>
-                            <th style=""><span style="">MANUFACTURED BY:</span></th>
+                            <th style="background-color: #DEEAF6 !important;text-transform: capitalize;"><span style="">Manufactured By:</span></th>
                             <td></td>
                           </tr>
                         </tbody>
@@ -316,10 +315,12 @@
                             <!-- <span  t-esc="line.created_production_id and line.created_production_id.name or '' " /> -->
                             <!-- <span  t-field="line.manufacture_id.name"/> -->
                             <span  t-esc="line.created_production_id.name"/>
+                            <!-- <span t-esc="line.production_id.name"/> -->
 
                             <!--*****************  Responsible ***************-->
                             <div style=" color:#5b5b5b !important;margin-top:3px;">
-                               <span  t-esc="line.created_production_id.user_id.name"/>
+                               <!-- <span  t-esc="line.created_production_id.user_id.name"/> -->
+                               <span  t-esc="line.picking_id.user_id.name"/>
                             </div>
 
                           </td>

@@ -34,7 +34,7 @@
     <template id="product_label_12x4_document">
         <t t-call="thinksoft_labels.internal_layout">
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
 
                 *, *::before, *::after {
                     box-sizing: border-box;

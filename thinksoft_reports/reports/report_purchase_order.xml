@@ -73,7 +73,7 @@
                       <font style="">Request for<br/> Quote</font>
                     </t>
                     <t t-if="o.state != 'draft'">
-                      <font>Purchase Order</font>
+                      <font>Purchase<br/> Order</font>
                     </t>
               </div>
             </div>

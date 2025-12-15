@@ -41,7 +41,7 @@
                         t-field="doc.picking_id.sale_partner_id" />
                 </div> -->
                 <div class="col-12 ">
-                    <img class="img" style="width:150px; display:block; margin:0 auto;" data-name="&lt; img / &gt;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
+                    <img  style="width:150px; display:block; margin:0 auto;"  src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
                 </div>
             </div>
         </div>

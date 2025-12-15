@@ -77,7 +77,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
         </record>
-        <!-- ^********************************* 4x4 Label ********************************* -->
+        <!-- ^********************************* Stock 4x4 Label ********************************* -->
         <record id="4x4_label" model="ir.actions.report">
             <field name="name">4x4 Label</field>
             <field name="model">stock.move</field>

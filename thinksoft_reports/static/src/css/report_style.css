@@ -133,7 +133,8 @@
             font-size: 13px !important;
         }
         td.address, td.declaration {
-            line-height: 1.8 !important;
+            font-size: 11px !important;
+            line-height: 1.5 !important;
             padding: 8px !important;
         }
 
