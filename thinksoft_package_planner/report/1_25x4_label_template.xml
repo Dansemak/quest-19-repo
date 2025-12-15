@@ -54,7 +54,7 @@
 		<div class="footer">
             <div class="container ">
                 <div class="row">
-                <div class="col-12" style=" text-align: center; font-family:sans-serif;font-size: 9px;">www.questgasket.com</div> 
+                <div class="col-12" style=" text-align: center; font-family:sans-serif;font-size: 9px;">www.questgasket.com</div>
                 </div>
             </div>
         </div>
@@ -73,17 +73,17 @@
 								<span style="font-weight:bold;">Item Description:</span>
 								<span style="font-weight:normal; " t-field="doc.description" />
 							</div>
-							<div class="col-3" style="">
+							<div class="col-3" style="margin-top:-5px;">
 								<img
-									t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', doc.product_id.name, 100, 100)"
-									style="width:50px;height:50px" />
+									t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', doc.product_id.name, 150, 150)"
+									style="width:75px;height:75px" />
 							</div>
 						</div>
-						<div class="row" style="margin-top:13px;">
+						<div class="row">
 							<div class="col-9" style="font-size:9px;">
-								<span style="font-weight:bold;">S.O:</span><span class="ml-2" t-field="doc.picking_id.origin" />		
+								<span style="font-weight:bold;">S.O: </span><span class="ml-2" t-field="doc.picking_id.origin" />
 							</div>
-							 <div class="col-3" style="font-size:9px;"><span style="font-weight:bold;">Qty: </span><span
+							 <div class="col-3" style="font-size:9px; margin-left:10px;"><span style="font-weight:bold;">Qty: </span><span
                                     class="ml-2" style="font-weight:normal;"
                                     t-field="doc.max_qty_pack" />
                             </div>
