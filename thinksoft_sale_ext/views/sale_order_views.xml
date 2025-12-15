@@ -92,6 +92,7 @@
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>
                 <field name="purchase_order_id" optional="show" options="{'no_create': True}"/>
+                <field name="string_availability_info" optional="show"/>
             </xpath>
 
         </field>
