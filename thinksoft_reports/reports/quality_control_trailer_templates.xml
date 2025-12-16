@@ -291,7 +291,7 @@
                             </span>
                           </th>
                           <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">BO</th>
-                          <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;">SUBTOTAL</th>
+                          <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;text-align: right;">SUBTOTAL</th>
                         </tr>
                         <tr>
                           <th style="text-align: left; border-bottom-color: #525659;">Description</th>
