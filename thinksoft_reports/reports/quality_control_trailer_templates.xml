@@ -20,38 +20,32 @@
     </t>
   </template>
   <template name="Report with header and footer standard" id="report_external_layout_quality_control_trailer">
-      <div class="header pe-5" style=""> 
+      <div class="header pe-5" style="">
         <style>
-          
-          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Hubot+Sans:ital,wght@0,200..900;1,200..900&amp;family=Oswald:wght@200..700&amp;family=Raleway:ital,wght@0,100..900;1,100..900&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;family=Tangerine:wght@400;700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
+            .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
               }
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
               }
             .title{
-                font-family:'Oswald', sans-serif;
-                font-optical-sizing: auto;
-                font-style: normal;
+                font-family:Arial, Helvetica, sans-serif;
                 font-size: 24px !important;
                 font-weight: bold !important;
-                text-align: left !important;
                 line-height: 1.2 !important;
+                text-align: left !important;
               }
             .barcode{
-                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
             ********************************************* -->
             <div class="col-4">
               <div class="">
-                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
-                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
-                  title="" aria-describedby="tooltip269202" />
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
               </div>
             </div>
             <!-- ************************************** ADDRESS *************************** -->
@@ -62,12 +56,12 @@
             </div>
             <!-- ************************************** TITLE
             ******************************************** -->
-            <div class="col-5 d-flex justify-content-end top-address" style=" ">
+            <div class="col-5 d-flex justify-content-end " style=" ">
               <div style="padding:0!important; text-align:center; ">
                 <!--**********************
                 BARCODE *********************-->
                 <span t-field="doc.name"
-                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
                   style="" />
                 <br />
                 <div class="barcode" t-field="doc.name" />
@@ -87,7 +81,7 @@
       </div>
       <!-- <div class="footer "
         style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -119,7 +113,7 @@
                     </tr>
                     <tr>
                         <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
                         </td>
                         </tr>
                         <tr>
@@ -127,19 +121,17 @@
                         </tr>
                         <tr>
                           <td class="address" style="">
-                            <!-- <span t-field="doc.sale_id.sale_contact_id"/> -->
-                             <span t-field="doc.sale_id.partner_shipping_id.name"/>
+                             <span class="" t-field="doc.sale_id.partner_contact_id.name"/>
                           </td>
                         </tr>
                         <tr>
-                          <th style=" text-align: left; height:11.5px; border: 1px solid #525659; font-size: 11px;">phone</th>
+                          <th style=" height:11.5px; border: 1px solid #525659; font-size: 11px;">phone</th>
                         </tr>
                         <tr>
                           <td class="address" style="">
-                            <span class="" t-field="doc.sale_id.partner_shipping_id.phone" />
-                             <!-- <span t-field="doc.sale_id.user_id.phone"/> -->
+                            <span class="" t-field="doc.sale_id.partner_contact_id.phone" />
                           </td>
-                        </tr> 
+                        </tr>
                   </tbody>
                     </table>
               </div>
@@ -178,17 +170,16 @@
                         <span class="">SALESPERSON</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="doc.sale_reps_id" /> -->
-                        <span class="" t-field="doc.sale_id.user_id" />
+                        <span class="" t-field="doc.salesperson_id" />
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
                       <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
+                        <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="doc.client_order_ref" /> -->
-                         <span class="" t-field="doc.origin" />
+                        <span class="" t-field="doc.client_order_ref" />
+                         <!-- <span class="" t-field="doc.origin" /> -->
                       </td>
                     </tr>
                     <tr>
@@ -197,6 +188,7 @@
                       </th>
                       <td style="border: 1px solid #525659;">
                         <!-- <span class="" t-field="doc.charge_type_id" /> -->
+                        <span class="" t-field="doc.sale_id.sale_freight_id" />
                       </td>
                     </tr>
                     <tr>
@@ -204,6 +196,7 @@
                         <span class="">TOTAL PACKAGE #</span>
                       </th>
                       <td style="border: 1px solid #525659;">
+                      <span class="" t-field="doc.box_qty" /><span> boxes,</span>
                         <!-- <span class="" t-field="doc.package_line.boxs"  /> -->
                       </td>
                     </tr>
@@ -213,8 +206,8 @@
                       </th>
                       <td style="vertical-align: middle; border: 1px solid #525659;">
                         <!-- TOTAL WEIGHT -->
-                        <!-- <span class="" style="white-space: nowrap;" t-field="doc.total_weight" /> -->
-                        <!-- <span class="text-lowercase" style="color: rgb(0, 123, 255); white-space: nowrap;">lbs</span> -->
+                        <!-- <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
+                        <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" /> -->
                       </td>
                     </tr>
                     <tr>
@@ -222,7 +215,7 @@
                         <span class="">WAYBILL #</span>
                       </th>
                       <td style="text-align: left; border: 1px solid #525659;">
-                        <!-- <span t-field="doc.way_bill" /> -->
+                        <span t-field="doc.waybill" />
                       </td>
                     </tr>
                   </tbody>
@@ -236,41 +229,40 @@
                 <table class="table table table-hover" style="height: 50px; border-collapse: collapse; width: 100%;" cellspacing="0">
                   <tbody style="line-height: 1;">
                     <tr>
-                      <th style="height: 11.5px;">INTERNAL COMMENT</th>
+                      <th style="height: 11.5px; font-size: 11px !important; text-align: center;">INTERNAL COMMENT</th>
                     </tr>
                     <tr>
                       <td style="">
-                        <!-- <div style="text-transform: initial; line-height: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis;" t-field="doc.comment_text" /> -->
+                        <div style="text-transform: uppercase; line-height: 1; font-size: 10px; overflow: hidden; text-overflow: ellipsis;" t-field="doc.comment_text" />
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <!-- ********************************* DELIVERY ORDER DETAILS ******************************* -->
-              <div class="delivery col-6" style="margin-top: -20px !important;">
+              <!-- <div class="delivery col-6" style="margin-top: -20px !important;"> -->
+              <div class=" mt-3 delivery col-6" style="font-size: 11px !important;">
                 <table class="table text-uppercase table table-hover" data-name="&lt; table &gt;" style="border-collapse: collapse; width: 100%;" cellspacing="0">
                   <tbody>
                     <tr>
-                      <th style="border-top-color: #525659; height: 11.5px; background-color: #f1f1f1!important;" colspan="2">Shipping Information</th>
+                      <th style="width: 50%; border-top-color: #525659; height: 11.5px; background-color: #e2efd9 !important; font-size: 11px !important; text-align: center;" colspan="2">Shipping Information</th>
                     </tr>
                     <tr>
                       <td rowspan="2" style="">
                         <div style="">Sold To:</div>
                         <!-- <div t-field="doc.sale_partner_id.name" class="font-weight-bold"/> -->
-                        <!-- <div t-field="doc.sale_partner_id.name" class="font-weight-bold" /> -->
-                         <span t-field="doc.sale_id.user_id.name"/>
+                         <strong><span t-field="doc.partner_customer_id.name" class="mt-3"/></strong>
                       </td>
                       <td>
                         <div style="">Courier Used:</div>
-                        <!-- <div t-field="doc.sale_ship_via" class="font-weight-bold" /> -->
-                         <span t-field="doc.carrier_id.name"/>
+                         <strong><span t-field="doc.carrier_id.name" class="mt-3"/></strong>
                       </td>
                     </tr>
                     <tr>
                       <!-- <td style="height:35px;"><span style=" margin-right:15px;">STOCK PICKER:</span><br/><span t-field="doc.sale_stock_picker_id" class="font-weight-bold"/></td> -->
                       <td>
-                        <div>Tracking Number:</div>
-                        <div t-field="doc.carrier_tracking_ref" class="font-weight-bold" />
+                        <div style="">Tracking Number:</div>
+                        <strong><div t-field="doc.carrier_tracking_ref" class="mt-3" /></strong>
                       </td>
                     </tr>
                     <!-- <tr><td style="height:35px;"><span style=" margin-right:15px;">PACKER:</span><br/><span t-field="doc.packer" class="font-weight-bold"/></td><td><span style=" margin-right:15px;">TIME CALLED:</span><br/><span t-field="doc.time_called" class="font-weight-bold"/></td></tr> -->
@@ -294,7 +286,7 @@
                           <th rowspan="2" style="border-top-color: #525659;">
                             <span class="">
                               <span style="">
-                                <font style=""> PICK QTY <br /> NET.WT </font>
+                                <font style=""> PICKED QTY <br /> ITEM WT </font>
                               </span>
                             </span>
                           </th>
@@ -306,57 +298,53 @@
                         </tr>
                       </div>
                     </thead>
-                    <!-- <tbody t-foreach="doc.move_lines" t-as="line" style=""> -->
-                     <tbody t-foreach="doc.move_line_ids" t-as="line" style="">
+                    <tbody t-foreach="doc.move_ids" t-as="line">
+                     <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
                       <tr style="">
                         <!--******************************* line ***********************************-->
                         <td rowspan="2" class="text-center" style="">
-                          <!-- <span t-field="line.seq_no" style="" /> -->
-                           <t t-esc="line_index + 1" />
+                          <span t-field="line.seq_no" style="" />
                         </td>
-                        <!--************************** Part # *************************************-->
-                        <td rowspan="" style="">
-                          <div style="text-align: left; margin-bottom: 3px;" class="">
-                            <span class="float:right; text-uppercase" t-field="line.product_id" />
-                            
-                          </div>
-                          <!--****************************  Description ******************************-->
-                          <div>
-                            <!-- <span t-field="line.sale_line_id.name" /> -->
-                              <span t-field="line.product_id.description_sale" />
-                            <!-- <span  t-field="line.name"/> -->
-                          </div>
+                        <td >
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
                         </td>
-                        <!--******************************* UOM ****************************--> 
+                        <!--******************************* UOM ****************************-->
                         <td class="text-center">
-                          <!-- <span t-field="line.product_uom" style="" /> -->
+                          <span t-field="line.product_uom" style="" />
                         </td>
-                        <!--***************************** QTY ****************************-->
+                        <!--***************************** ORDER QTY ****************************-->
                         <td class="text-center">
-                          <!-- <span t-field="line.product_uom_qty" /> -->
+                          <span t-field="line.sale_line_id.product_uom_qty" />
+
                         </td>
                         <!--**************************** PICK QTY ***************************-->
                         <td colspan="" class="text-center">
-                          
+                          <span t-field="line.quantity" />
                           <!-- <span class=" report-well" t-field="line.pick_qty" /> -->
                           <!-- <span class="report-well" t-field="line.quantity_done" /> -->
                           <div class="" data-name="label: field">
-                            <!-- <span class="report-well" t-field="line.weight" style="color: rgb(0, 123, 255); white-space: nowrap;" />
-                            <span class="text-lowercase" style="color: rgb(0, 123, 255); white-space: nowrap;">lbs</span> -->
+                            <span class="report-well" t-esc="line.product_id.weight * line.quantity" style="color: rgb(0, 123, 255); white-space: nowrap;" />
+                            <span class="text-lowercase" t-field="line.product_id.weight_uom_name" style="color: rgb(0, 123, 255); white-space: nowrap;"/>
                           </div>
                         </td>
                         <!--***************************** BO ****************************-->
                         <td colspan="" class="text-center">
-                          
+
                           <!-- <span data-name="label: field" t-esc=" line.product_uom_qty - line.pick_qty"></span> -->
-                          <!-- <span t-esc=" (line.product_uom_qty - line.quantity_done)" /> -->
+                          <span t-esc="(line.sale_line_id.product_uom_qty - line.quantity)" />
                         </td>
                         <!--***************************** SUBTOTAL ****************************-->
-                        <td colspan="" class="text-center">
+                        <td colspan="" class="text-end">
+                          <span style="margin-right: 2px;">$</span>
+                          <span class="report-well" t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity)" />
                           <!-- <span style="margin-right: 2px;">$</span>
                           <span class="report-well" t-esc="round( (line.quantity_done * line.product_price),2)" /> -->
                         </td>
-                        
+
                       </tr>
                     </tbody>
                   </table>
@@ -365,7 +353,7 @@
             </div>
           </div>
           <!--  <div class="footer clearfix" style="font-size: 11px; width: 100%;"><div class="container"><div class="row"><div class="col-12 s_block mt8"><span class="text-left" style="">Print Date:</span><span class="ml-2" t-esc="time.strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;" /><span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span><div style="display: inline-block; float: right;">Page: <span class="page ml-2" /> of <span style="text-align: right;" class="topage" /></div></div></div></div></div> -->
-        </div>     
+        </div>
     </div>
     </t>
   </template>

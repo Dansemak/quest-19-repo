@@ -27,6 +27,11 @@
         "reports/pick_list_templates.xml",
         "reports/payment_remittance_templates.xml",
         "reports/ir_actions_report.xml",
+        "reports/report_purchase_order.xml",
+        "reports/waybill_templates.xml",
+        "reports/mrp_pick_list_templates.xml",
+        "reports/production_order_templates.xml",
+
     ],
     "installable": True,
     "application": False,
