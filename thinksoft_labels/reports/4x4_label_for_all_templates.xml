@@ -15,7 +15,7 @@
         </t>
     </template>
 
-    <template id="internal_layout_4x4">
+    <template id="internal_layout_4x4_for_all">
         <t t-if="o and 'company_id' in o">
             <t t-set="company" t-value="o.company_id" />
         </t>
@@ -24,24 +24,18 @@
         </t>
         <div class="header">
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-                .container {
-                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+            
+            .header {
+                    font-family: Arial, Helvetica, sans-serif;
                 }
             </style>
-            <div class="row d-flex justify-content-between">
-                <div class="col-6">
-                    <span class="text-uppercase"
-                        style="font-weight:bold; font-size:15px;">
-                        Cust:</span>
-                    <span class="code"
-                        style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;"
-                        t-field="doc.partner_customer_id" />
+            <div class="row ">
+                <div class="col-6" style="font-size:12px; padding-right:20px !important;">
+                    <span class="text-uppercase" style="font-weight:bold;">Cust:</span>                       
+                    <span class="code" style="margin-left:2px; font-weight:normal;line-height:1 !important;" t-field="doc.sale_id.partner_id.name" />
                 </div>
                 <div class="col-6">
-                    <img class="img" style="width:150px; display:block; float:right;"
-                        data-name="&lt; img / &gt;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg"
-                        data-original-title="" title="" aria-describedby="tooltip269202" />
+                    <img class="img float-end" style="width:150px; display:block; horizontal-align:right; " data-name="&lt; img / &gt;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
                 </div>
             </div>
         </div>
@@ -52,8 +46,8 @@
     </template>
 
     <template id="4x4_label_for_all_document">
-        <div class="main-page" style="margin:0 !important; font-size:13px;">
-            <div class="oe_structure">
+        <div class="main-page" style="margin:0 !important; ">
+            <div class="oe_structure" style="">
                 <div class="container" style="margin:0 !important; ">
                     <div class="row">
                         <table class="table" style="">
@@ -64,121 +58,91 @@
                                         <div class="wrapper">
                                             <div class="container">
                                                 <div class="row">
-                                                    <t t-call="thinksoft_labels.internal_layout_4x4">
+                                                    <t t-call="thinksoft_labels.internal_layout_4x4_for_all">
+                                                        <link rel="stylesheet" t-att-href="'/thinksoft_labels/static/src/css/report_style.css'" />
                                                         <style>
-                                                        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
                                                         .container {
-                                                            font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                                                            font-family: Arial, Helvetica, sans-serif;
                                                         }
                                                         </style>
-                                                        <!-- <link rel="stylesheet" t-att-href="'/thinksoft_labels/static/src/css/report_style.css'"/> -->
-                                                        <!--###############
-                                                CUSTOMER  #########################-->
-
-                                                        <!-- <div class="row">
-                                                        <div class="col-12">
-                                                            <span class="text-uppercase" style="font-weight:bold; font-size:15px;">
-                                                                Customer:</span>
-                                                            <span class="code" style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;" t-field="doc.sale_partner_id" />
-                                                        </div>
-                                                    </div> -->
-                                                        <!--#######################
-                                                ITEM  ####################-->
-
-                                                        <div class="row mt-3">
-                                                            <div class="col-12" >
-                                                                <span class="text-uppercase" style="font-weight:bold; font-size:15px;">
+                                                        <div class="row mt-3" >
+                                                            <div class="col-12" style="margin-top:30px !important; font-size:14px!important;">
+                                                                <span class="text-uppercase" style="font-weight:bold; ">
                                                                 P/N:</span>
-                                                                <span class="code" style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;" t-field="line.product_id" />
+                                                                <span class="code" style="margin-left:2px; font-size:14px!important; font-weight:normal;" t-field="line.product_id" />
                                                             </div>
                                                         </div>
-                                                        <!--#######################
-                                                DESCRIPTION  ##############-->
+                                                        <!-- ####################### DESCRIPTION  ############## -->
+                                                
 
                                                         <div class="row mt-2">
-                                                            <div class="col-12">
-                                                                <span class="text-uppercase" style="font-weight:bold;font-size:15px;">
+                                                            <div class="col-12" style="font-size:14px!important;">
+                                                                <span class="text-uppercase" style="font-weight:bold; font-size:14px!important;">
                                                                 Description:</span>
-                                                                <!-- <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;" t-field="line.product_desc" /> -->
-                                                                <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;" t-field="line.product_id.description" />
+                                                                <!-- <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="line.product_desc" /> -->
+                                                                <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal; line-height:1.2; font-size:11px!important;" t-field="line.product_id.description" />
                                                             </div>
                                                         </div>
-                                                        <!--#############
-                                                DETAILS  ##############-->
+                                                        <!-- ############# DETAILS  ############## -->
+                                               
 
-                                                        <div class="row  mt-2">
-                                                            <!--*****************
-                                                    QTY  ********-->
+                                                        <div class="row  mt-3">
+                                                            <!-- ***************** QTY  ******** -->
+                                                   
 
                                                             <div class="col-4">
-                                                                <span class="text-uppercase" style="font-weight:bold; font-size:15px;">
-                                                                Qty:______</span>
+                                                                <span class="text-uppercase" style="font-weight:bold; font-size:14px!important;">
+                                                                Qty:________</span>
                                                             </div>
-                                                            <!--************
-                                                    BOX#  ************-->
+                                                            <!-- ************ BOX#  ************ -->
+                                                    
 
-                                                            <div class="col-4">
-                                                                <span class="text-uppercase" style="font-weight:bold; font-size:15px;">
-                                                                BOX#:______</span>
+                                                            <div class="col-4 text-center">
+                                                                <span class="text-uppercase" style="font-weight:bold; font-size:14px!important;">
+                                                                BOX#:________</span>
                                                             </div>
-                                                            <!--*************
-                                                    SKID#  ************-->
-                                                            <div class="col-4">
-                                                                <span class="text-uppercase" style="font-weight:bold; font-size:15px;">
-                                                                SKID#:______</span>
+                                                            <!-- ************* SKID#  ************-->
+                                                    
+                                                            <div class="col-4 text-end">
+                                                                <span class="text-uppercase" style="font-weight:bold; font-size:14px!important;">
+                                                                SKID#:________</span>
                                                             </div>
                                                         </div>
 
-                                                        <div class="row  mt-2" style="font-size:15px;">
-                                                            <!--**********
-                                                    PO#  ********-->
-                                                            <div class="col-6">
-                                                                <span class="text-uppercase" style="font-weight:bold;">
-                                                                C-PO#:</span>
-                                                                <!-- <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;" t-field="doc.client_order_ref" /> -->
-                                                                <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;" t-field="doc.client_order_ref" />
-                                                            </div>
-                                                            <!--************
-                                                    PO#  **********-->
-                                                            <div class="col-6">
-                                                                <span class="text-uppercase" style="font-weight:bold;">
-                                                                SO#:</span>
-                                                                <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;" t-field="doc.origin" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mt-2" style="font-size:15px;">
-                                                            <!--***************************
-                                                        HT#  ********************************-->
-
-                                                            <div class="col-12">
+                                                        <div class="row  mt-2" style="">
+                                                            <!-- ********** PO#  ******** -->
+                                                    
+                                                            <div class="col-6" style="font-size:14px!important;">
                                                                 <span class="text-uppercase" style="font-weight:bold; ">
-                                                                HEAT#:</span>
-                                                                <t t-foreach="line.mtr_template_ids" t-as="mtr">
-                                                                    <t t-if="not mtr_last">
-                                                                        <span class="item"
-                                                                            style="margin-left:2px;color:#43464f;
-                                                                            font-weight:normal;"
-                                                                            t-field="mtr.heat_number"/>,
-                                                                    </t>
-                                                                    <t t-else="">
-                                                                        <span class="item"
-                                                                            style="margin-left:2px;color:#43464f;
-                                                                            font-weight:normal;"
-                                                                            t-field="mtr.heat_number"/>
-                                                                    </t>
-                                                                </t>
+                                                                C-PO#:</span>
+                                                                <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="doc.client_order_ref" />
+                                                                <!-- <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="doc.origin" /> -->
+                                                            </div>
+                                                            <!-- ************ SO#  ************ -->
+                                                            <div class="col-6 text-end" style="font-size:14px!important;">
+                                                                <span class="text-uppercase" style="font-weight:bold; margin-right:2px;">
+                                                                SO#:</span>              
+                                                                <span class="font-size:14px!important;" style="font-size:14px!important; font-weight:normal;" t-field="doc.origin" />
                                                             </div>
                                                         </div>
-                                                        <div class="row mt-2" style="font-size:15px;">
-                                                            <!--**********
-                                                    TAGGING  ********-->
+                                                        <div class="row mt-2" style="">
+                                                            <!-- ********** HT#  ********** -->
                                                             <div class="col-12">
+                                                                <span class="text-uppercase" style="font-weight:bold; font-size:14px!important;">
+                                                                HEAT#:</span>
+                                                                <!-- <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important;
+                                                            font-weight:normal;" t-field="line.heat"/> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="row  mt-2" style="">
+                                                            <!-- ********** TAGGING  ******** --> 
+                                                            <div class="col-12 " style="font-size:14px!important;">
                                                                 <div>
-                                                                    <span class="text-uppercase" style="font-weight:bold;">
+                                                                    <span class="text-uppercase" style="font-weight:bold; ">
                                                                     TAGGING:</span>
                                                                 </div>
                                                                 <div>
-                                                                    <span class="item" style="margin-left:2px;color:#43464f; font-weight:normal;" t-field="line.tagging" />
+                                                                    <!-- <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="line.tagging" /> -->
                                                                 </div>
                                                             </div>
 
