@@ -93,7 +93,7 @@
                         <div class="col-6" style="margin-top:12px;">
                             <p style="font-size:10; margin-bottom:15px; font-weight:bold;">HEAT #: <span
                                     class="ml-2" style="font-size:10; font-weight:normal;"
-                                    t-field="doc.heat" />
+                                    t-field="doc.mtr_template_ids.heat_number"/>
                             </p>
                             <!-- <span style="">
                                 <img
@@ -103,11 +103,11 @@
                         </div>
                         <div class="col-6" style="margin-top:10px;font-size:10;">
                                 <div class="">
-                                    <span style="font-weight:bold;">S.O:</span><span class="ml-2" t-field="doc.picking_id.origin" />		
+                                    <span style="font-weight:bold;">SO: </span><span class="ml-2" t-field="doc.picking_id.origin"/>		
                                 </div>
-                            <t t-if="doc.picking_id.production_id">
+                            <t t-if="doc.stock_move_id.created_production_id">
                                 <div class="">
-                                    <span style="font-weight:bold;">M.O:</span><span class="ml-2" t-field="doc.picking_id.production_id" />		
+                                    <span style="font-weight:bold;">MO: </span><span class="ml-2" t-field="doc.stock_move_id.created_production_id"/>		
                                 </div>
                             </t>
                             <div style="font-weight:bold;">Qty: <span

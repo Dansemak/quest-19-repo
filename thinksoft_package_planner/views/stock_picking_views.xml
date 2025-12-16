@@ -25,6 +25,7 @@
                             <field name="max_qty_pack"/>
                             <field name="in_box"/>
                             <field name="skid_qty"/>
+                            <button string="3x4" name="button_3x4_label_report" type="object"/>
                             <button string="1.25x4" name="button_package_label_1_25x4" type="object"/>
                         </list>
                         <form string="Package Plan">   
