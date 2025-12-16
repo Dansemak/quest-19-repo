@@ -8,8 +8,9 @@
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft Purchase Limit",
     "version": "19.0.0.1",
-    "depends": ["base"],
+    "depends": ["base", "purchase"],
     "data": [
         "views/res_users_views.xml",
+        "views/purchase_order_views.xml",
     ],
 }
