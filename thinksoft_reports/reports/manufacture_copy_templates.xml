@@ -320,7 +320,7 @@
                             <!--*****************  Responsible ***************-->
                             <div style=" color:#5b5b5b !important;margin-top:3px;">
                                <!-- <span  t-esc="line.created_production_id.user_id.name"/> -->
-                               <span  t-esc="line.picking_id.user_id.name"/>
+                               <span t-esc="line.created_production_id.user_id.name"/>
                             </div>
 
                           </td>

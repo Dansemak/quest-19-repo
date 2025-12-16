@@ -146,10 +146,8 @@
                 <table class="text-uppercase" style="border-collapse: collapse; width:100%;" cellspacing="0">
                   <tr>
                     <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
-                      <t t-if="o.state=='draft'">RFQ <span class="text-capitalize">No</span>
-                      </t>
-                      <span t-if="o.state != 'draft'">PO <span class="text-capitalize">No</span>
-                      </span>
+                      <span t-if="o.state=='draft'">RFQ</span>
+                      <span t-if="o.state != 'draft'">Purchase Order</span>
                       <!-- <span>PO</span><span class="text-capitalize">No</span> -->
                     </th>
                     <td style="border-top-color: #525659; border: 1px solid #525659;">
@@ -183,7 +181,7 @@
                   </tr>
                   <tr>
                     <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                      <span>SHIP VIA</span>
+                      <span>Carrier</span>
                     </th>
                     <td style="border: 1px solid #525659;">
                       <span t-field="o.picking_ids.carrier_id"/>
@@ -272,6 +270,7 @@
                             <!-- UNIT PRICE -->
                           </td>
                           <td style="text-align:right;">
+                            <span style="margin-right: 2px;">$</span>
                             <span t-esc="'{:.2f}'.format(line.price_subtotal)" />
                             <!-- EXTENDED PRICE -->
                           </td>

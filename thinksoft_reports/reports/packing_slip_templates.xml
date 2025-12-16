@@ -208,8 +208,8 @@
                         <tr>
                           <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">Number of Pieces</th>
                           <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
-                            <!-- <span class="" t-field="doc.box_qty" /><span> boxes,</span>
-                            <span class="" t-field="doc.skid_qty" /><span> skids</span> -->
+                            <span class="" t-field="doc.box_qty" /><span> boxes,</span>
+                            <span class="" t-field="doc.skid_qty" /><span> skids</span>
                           </td>
                         </tr>
                         <tr>
@@ -218,8 +218,8 @@
                           </th>
                           <td style="vertical-align: middle; border: 1px solid #525659;">
                             <!-- TOTAL WEIGHT -->
-                            <!-- <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
-                            <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" /> -->
+                            <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
+                            <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" />
                           </td>
                         </tr>
                       </tbody>
@@ -303,7 +303,7 @@
                             <td class="text-end">
                               <span t-field="line.quantity" />
                             </td>
-                           
+
                              <!--************************** ITEM PRICE ITEM.WT **********************-->
                             <td colspan="" class="text-end">
                               <span style="margin-right: 1px;">$</span>
@@ -344,7 +344,7 @@
                                     </t>
                                     <strong><span t-out="total_shipped" t-options="{'widget': 'float', 'precision': 3}"/></strong>
                                 </td>
-                                <!-- UNIT PRICE/ITEM WT -->          
+                                <!-- UNIT PRICE/ITEM WT -->
                                     <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                         <t t-set="total_unitprice" t-value="0"/>
                                         <t t-foreach="doc.move_ids" t-as="line">
@@ -384,9 +384,7 @@
                                 <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                     <t t-set="total_boxes" t-value="0"/>
                                     <t t-foreach="doc.move_ids" t-as="line">
-                                        <t t-set="boxes"
-                                          t-value="sum(int(x.strip()) for x in (line.package_plan_id.in_box or '').split(',') if x.strip().isdigit())"/>
-                                        <t t-set="total_boxes" t-value="total_boxes + boxes"/>
+                                        <t t-set="total_boxes" t-value="total_boxes + int(line.package_plan_id.box_qty or 0)"/>
                                     </t>
                                     <span t-out="total_boxes"/>
 
@@ -395,7 +393,7 @@
                                 <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                     <t t-set="total_skids" t-value="0"/>
                                     <t t-foreach="doc.move_ids" t-as="line">
-                                        <t t-set="total_skids" t-value="total_skids + int(line.package_plan_id.skid_number or 0)"/> 
+                                        <t t-set="total_skids" t-value="total_skids + int(line.package_plan_id.skid_qty or 0)"/>
                                         <!--WIP-->
                                     </t>
                                     <span t-out="total_skids"/>
@@ -433,7 +431,7 @@
                                 <span t-field="line.product_id"/>
                               </td>
                               <!-- ************** MTR ************** -->
-                              <td> 
+                              <td>
                                 <t t-foreach="line.mtr_template_ids" t-as="mtr">
                                   <span class="me-2">
                                     <span t-field="mtr.name"/>
