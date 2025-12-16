@@ -10,7 +10,7 @@ class PurchaseOrder(models.Model):
         for order in self:
             if order.amount_total > self.env.user.purchase_limit:
                 order.write({"purchase_hold": True})
-                order.message_post(body="Purchase Hold}")
+                order.message_post(body="Purchase Hold")
                 return
             if order.amount_total <= self.env.user.purchase_limit:
                 order.write({"purchase_hold": False})

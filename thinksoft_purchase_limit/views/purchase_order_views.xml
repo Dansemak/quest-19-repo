@@ -16,6 +16,10 @@
                 </div>
             </xpath>
 
+            <xpath expr="//div[@name='button_box']" position="before">
+                <widget name="web_ribbon" title="ON HOLD" bg_color="bg-danger" invisible="purchase_hold != True"/>
+            </xpath>
+
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="purchase_hold"/>
             </xpath>
