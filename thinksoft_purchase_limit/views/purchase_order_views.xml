@@ -17,7 +17,6 @@
             </xpath>
 
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="purchase_limit"/>
                 <field name="purchase_hold"/>
             </xpath>
 
