@@ -183,7 +183,7 @@
                     </tr>
                     <tr style="border: 1px solid #525659;">
                       <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
+                        <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659;">
                         <span class="" t-field="o.client_order_ref"/>
@@ -282,7 +282,7 @@
                                 <t t-set="desc" t-value="(line.name or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
                                 <t t-raw=" ' '.join(desc.split()) " />
                             </t>
-           
+
                         </td>
                         <!--********** QUANTITY **********-->
                         <td style=" border-right-style:hidden; text-align: center;" rowspan="2">
@@ -297,8 +297,8 @@
                         <!-- <td style=" text-align: center;" rowspan="2"><span t-field="line.state"/> -->
                         <td style=" text-align: center;" rowspan="2">
                         <!-- <span t-field="line.state"/> -->
-                          <!-- <span t-field="line.string_availability_info"/> -->
-                          <span t-field="line.product_id.qty_available"/>
+                          <span t-field="line.string_availability_info"/>
+                          <!-- <span t-field="line.product_id.qty_available"/> -->
                         </td>
                         <!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
                         <!--***************** UNIT PRICE *********************-->
@@ -480,11 +480,11 @@
               </div>
             </div>
           </div>
-        </div>   
+        </div>
     </div>
      <!-- END OF MAIN PAGE -->
     </t>
-   
+
   </template>
    </data>
 </odoo>

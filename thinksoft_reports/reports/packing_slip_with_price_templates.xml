@@ -187,7 +187,7 @@
                         </tr>
                         <tr style="border: 1px solid #525659;">
                           <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                            <span class="">CUSTOMER REF(PO)</span>
+                            <span class="">CUSTOMER REFERENCE</span>
                           </th>
                           <td style="border: 1px solid #525659;">
                             <span class="" t-field="doc.client_order_ref" />
@@ -214,8 +214,8 @@
                             <span class="">TOTAL WEIGHT</span>
                           </th>
                           <td style="vertical-align: middle; border: 1px solid #525659;">
-                            <!-- <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
-                            <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" /> -->
+                            <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
+                            <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" />
                           </td>
                         </tr>
                         <tr>
@@ -316,7 +316,7 @@
                                 <!--****************** Shipped *************************-->
                                 <td class="text-end">
                                   <span t-field="line.quantity" />
-                                </td>           
+                                </td>
                                 <!--****************** ITEM PRICE ITEM.WT *************************-->
                                 <td colspan="" class="text-end">
                                     <span style="margin-right: 1px;">$</span>
@@ -356,8 +356,8 @@
                                             <t t-set="total_shipped" t-value="total_shipped + line.quantity"/>
                                         </t>
                                         <span t-out="total_shipped" t-options="{'widget': 'float', 'precision': 3}"/>
-                                    </td>                                   
-                                    <!-- UNIT PRICE/ITEM WT -->          
+                                    </td>
+                                    <!-- UNIT PRICE/ITEM WT -->
                                     <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                         <t t-set="total_unitprice" t-value="0"/>
                                         <t t-foreach="doc.move_ids" t-as="line">
@@ -435,7 +435,7 @@
                                 <span t-field="line.product_id"/>
                               </td>
                               <!-- ************** MTR ************** -->
-                              <td> 
+                              <td>
                                 <t t-foreach="line.mtr_template_ids" t-as="mtr">
                                   <span class="me-2">
                                     <span t-field="mtr.name"/>
