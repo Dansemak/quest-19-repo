@@ -1,236 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id="paperformat_skid_label" model="report.paperformat">
-        <field name="name">Skid Label Paper Format</field>
-        <field name="default" eval="True" />
-        <field name="format">custom</field>
-        <field name="page_height">203</field>
-        <field name="page_width">102</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top">6</field>
-        <field name="margin_bottom">5</field>
-        <field name="margin_left">2</field>
-        <field name="margin_right">2</field>
-        <field name="header_line" eval="False" />
-        <field name="header_spacing">20</field>
-        <field name="dpi">80</field>
-    </record>
-
-    <record id="skid_label_report" model="ir.actions.report">
-        <field name="name">Skid Label</field>
-        <field name="model">stock.picking</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">thinksoft_package_planner.skid_label_template</field>
-        <field name="report_file">thinksoft_package_planner.skid_label_template</field>
-        <field name="paperformat_id" ref="thinksoft_package_planner.paperformat_skid_label" />
-        <field name="binding_model_id" ref="model_stock_picking" />
-        <field name="binding_type">report</field>
-    </record>
-
-    <template id="skid_label_template">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
-                <t t-call="thinksoft_package_planner.box_label_internal_layout">
-                    <style>
+	<record id="paperformat_skid_label" model="report.paperformat">
+		<field name="name">Skid Label Paper Format</field>
+		<field name="default" eval="True" />
+		<field name="format">custom</field>
+		<field name="page_height">203</field>
+		<field name="page_width">102</field>
+		<field name="orientation">Portrait</field>
+		<field name="margin_top">6</field>
+		<field name="margin_bottom">5</field>
+		<field name="margin_left">2</field>
+		<field name="margin_right">2</field>
+		<field name="header_line" eval="False" />
+		<field name="header_spacing">20</field>
+		<field name="dpi">80</field>
+	</record>
+	<record id="skid_label_report" model="ir.actions.report">
+		<field name="name">Skid Label</field>
+		<field name="model">stock.picking</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">thinksoft_package_planner.skid_label_template</field>
+		<field name="report_file">thinksoft_package_planner.skid_label_template</field>
+		<field name="paperformat_id" ref="thinksoft_package_planner.paperformat_skid_label" />
+		<field name="binding_model_id" ref="model_stock_picking" />
+		<field name="binding_type">report</field>
+	</record>
+	<template id="skid_label_template">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="thinksoft_package_planner.box_label_internal_layout">
+					<style>
 						.col-4, .col-2,.col-3,.col-6,.col-5,.col-12,.col-8,.col-10
 								{padding:0; margin:0;}
 						.page {
 								font-family: Arial, Helvetica, sans-serif;
 							}
+                        table tr td, table tr th {
+                            vertical-align: middle;
+                        }
                     </style>
-                    <t t-foreach="get_boxes" t-as="box">
-                        <div class="page">
-
-                            <!-- <div class="container"> -->
-                            <div class="row mb-3">
-                                <div class="col-4" style="">
-                                    <img style="float:left; width: 200px;  margin-right:50px;" src="/thinksoft_package_planner/static/src/img/quest-logo.jpg" />
-                                </div>
-                                <div class="col-2" />
-                                <div class="col-6" style="text-align:right;font-weight:bold; font-weight:bold;text-margin:right;font-size:33px;">
-                                    <h2>SKID <span t-esc="box['skid']" />
-                                    </h2>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12" style="font-size:12px;">
-                                    <span t-field="doc.company_id.street2" />
- ,                                    <span t-field="doc.company_id.city" />
-,                                    <span t-field="doc.company_id.zip" />
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12 text-uppercase" style="font-size:12px;">
-                                    <strong>CUSTOMER:</strong>
-                                    <span t-esc="doc.partner_id.name" />
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12 text-uppercase" style="font-size:12px;">
-                                    <strong>
-                                        <span >SHIP TO:</span>
-                                    </strong>
-                                    <div style="font-size:12;font-family:Arial;" t-esc="doc.partner_id.name"></div>
-                                    <div style="font-size:12;font-family:Arial;" t-esc="doc.partner_id.street"></div>
-                                    <div style="font-size:12;font-family:Arial;" t-esc="doc.partner_id.street2"></div>
-                                    <div style="font-size:12;font-family:Arial;">
-                                        <span t-field="doc.partner_id.city" />
-                                        <span t-field="doc.partner_id.state_id.name" />
-                                        <span t-field="doc.partner_id.zip" />
-                                    </div>
-                                    <div style="font-size:12;font-family:Arial;" t-field="doc.partner_id.country_id.name"></div>
-                                    <!-- <div style="font-size:12;" t-esc="doc['partner_id']['name']"></div>
-										<div style="font-size:12;" t-esc="doc['partner_id']['street2']"></div>
-										<div style="font-size:12;" t-esc="doc['partner_id']['city']"></div> -->
-                                    <div groups="sale.group_delivery_invoice_address">
-                                        <div t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}" />
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
-					<div class="col-xs-9"><span style='font-size:33;font-family:Arial;'>QUEST</span>
-						<p style='font-size:11;font-family:Arial;'>
-						<span t-field="doc.company_id.street2"/>
-						<span style="display:block;">
-							<span t-field="doc.company_id.city"/>,<span t-field="doc.company_id.zip"/>
-						</span>
-						</p>
-					</div>
-					<div class="col-xs-3"><span style="font-size:48;font-weight:bold;font-family:Arial;">SKID</span>
-					<span style="display:block;text-margin:right;">
-						<span style="font-family:Helvetica;font-size:26;" t-esc="box['skid']"/>
-						<span style="font-family:Helvetica;font-size:18;"> of </span>
-						<span style="font-family:Helvetica;font-size:26;" t-esc="total_boxes"/>
-					</span>
-					</div>
-				</div>
-				<div class="row">
-				</div>
-				 <div class="row">
-					<div class="col-xs-12 text-uppercase">
-						<strong><span style='font-size:13;font-family:Arial;'>SHIP TO:</span></strong>
-						<div style="font-size:12;font-family:Arial;" t-esc="doc['partner_id']['name']"></div>
-						<div style="font-size:12;font-family:Arial;" t-esc="doc['partner_id']['street2']"></div>
-						<div style="font-size:12;font-family:Arial;" t-esc="doc['partner_id']['city']"></div>
-					</div>
-				</div> -->
-                            <div class="row text-uppercase" style="font-size:14px;font-family:Arial;">
-                                <div class="col-xs-9">
-                                    <span style='font-size:33;'>QUEST</span>
-                                    <p style='font-size:11;'>
-                                        <span t-field="doc.company_id.street2" />
-                                        <span style="display:block;">
-                                            <span t-field="doc.company_id.city" />
-,                                            <span t-field="doc.company_id.zip" />
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="col-xs-3">
-                                    <span style="font-size:48;font-weight:bold;">SKID</span>
-                                    <span style="display:block;text-margin:right;">
-                                        <span style="font-family:Helvetica;font-size:26;" t-esc="box['skid']" />
-                                        <span style="font-family:Helvetica;font-size:18;"> of </span>
-                                        <span style="font-family:Helvetica;font-size:26;" t-esc="total_boxes" />
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="row">
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 text-uppercase">
-                                    <strong>
-                                        <span style='font-size:13;'>SHIP TO:</span>
-                                    </strong>
-                                    <div style="font-size:12;" t-esc="doc['partner_id']['name']"></div>
-                                    <div style="font-size:12;" t-esc="doc['partner_id']['street2']"></div>
-                                    <div style="font-size:12;" t-esc="doc['partner_id']['city']"></div>
-                                </div>
-                            </div> -->
-                            <div class="row text-uppercase" style="font-size:12px;">
-                                <div class="col-6">
-                                    <span>PO #</span>
-                                    <strong>
-                                        <span t-esc="doc['client_order_ref']" />
-                                    </strong>
-                                </div>
-                                <div class="col-6 pl-2">
-                                    <span>SO #</span>
-                                    <strong>
-                                        <span t-esc="doc['origin']" />
-                                    </strong>
-                                </div>
-                            </div>
-                            <div class="row text-uppercase" style="font-size:12px;">
-                                <div class="col-12">
-                                    <span>SHIP VIA:</span>
-                                    <strong>
-                                        <span t-esc="doc['carrier_id']['name']" />
-                                    </strong>
-                                </div>
-                            </div>
-                            <!-- <div class="row mt-2 mb-3" style="width:100%;border-top: 1px dashed #000;" /> -->
-                            <!-- <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+					<t t-foreach="get_boxes" t-as="box">
+						<div class="page">
+							<!-- <div class="container"> -->
+							<div class="row mb-3">
+								<div class="col-4" style="">
+									<img style="float:left; width: 200px;  margin-right:50px;" src="/thinksoft_package_planner/static/src/img/quest-logo.jpg" />
+								</div>
+								<div class="col-2" />
+								<div class="col-6" style="text-align:right;font-weight:bold; font-weight:bold;text-margin:right;font-size:33px;">
+									<h2>SKID 
+										<span t-esc="box['skid']"/>
+									</h2>
+									<!-- <div class="" style="font-size:18px;font-weight:bold;text-align:center;"><span style="" t-esc="box['skid']" /><span style=""> of </span><span style="" t-esc="total_boxes" /></div> -->
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-12" style="font-size:11px;">
+									<span t-field="doc.company_id.name" />
+									<span t-field="doc.company_id.street2" />
+ ,                                  
+									<span t-field="doc.company_id.city" />
+,                                   
+									<span t-field="doc.company_id.zip" />
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-12 text-uppercase" style="font-size:12px;">
+									<strong>CUSTOMER:</strong>
+									<span t-esc="doc.partner_id.name" />
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-12 text-uppercase" style="font-size:12px;">
+									<strong>
+										<span >SHIP TO:</span>
+									</strong>
+									<!-- <div groups="sale.group_delivery_invoice_address"> -->
+									<div t-field="doc.partner_id"
+												t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}" />
+									<!-- </div> -->
+								</div>
+							</div>
+							<div class="row text-uppercase" style="font-size:12px;">
+								<div class="col-6">
+									<span>PO #</span>
+									<strong>
+										<span t-esc="doc['client_order_ref']" />
+									</strong>
+								</div>
+								<div class="col-6 pl-2">
+									<span>SO #</span>
+									<strong>
+										<span t-esc="doc['origin']" />
+									</strong>
+								</div>
+							</div>
+							<div class="row text-uppercase" style="font-size:12px;">
+								<div class="col-12">
+									<span>SHIP VIA:</span>
+									<strong>
+										<span t-esc="doc['carrier_id']['name']" />
+									</strong>
+								</div>
+							</div>
+							<!-- <div class="row mt-2 mb-3" style="width:100%;border-top: 1px dashed #000;" /> -->
+							<!-- <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 								- - - - - - - - - - </p> -->
-                            <div class="row mt-3">
-                                <table width="100%" style="font-size:10px; padding:0; margin:0;">
-                                    <thead>
-                                        <tr style="background-color: #F2F2F2;">
-                                            <th style="padding:4px;width:10%;">LINE</th>
-                                            <th style="padding:4px;width:60%; text-align:left;">PART DESCRIPTION</th>
-                                            <th style="padding:4px;width:20%;">QTY/of</th>
-                                            <th style="padding:4px;width:10%;">BOX</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <t t-foreach="get_box_label" t-as="p">
-                                            <t t-if="str(box['skid']) in p">
-                                                <tr>
-                                                    <t t-set="b_value" t-value="p[str(box['skid'])][0]" />
-                                                    <td style="padding:4px; text-align:center;">
-                                                        <t t-esc="b_value['seq_no']" />
-                                                    </td>
-                                                    <td style="padding:4px;">
-                                                        <strong style="font-size:11px;">
-                                                            <t t-esc="b_value['name']" />
-                                                        </strong>
-                                                        <br />
-                                                        <t t-esc="b_value['description']" />
-                                                        <t t-if="b_value['heat']">
-                                                            <span style="display:block;font-size:11px;">
-																	HEAT#: <strong>
-                                                                <t t-esc="b_value['heat']" />
-                                                            </strong>
-                                                        </span>
-                                                    </t>
-                                                    <t t-if="b_value['tagging']">
-                                                        <span style="display:block;font-size:11px;">
-																	TAG: <strong>
-                                                            <t t-esc="b_value['tagging']" />
-                                                        </strong>
-                                                    </span>
-                                                </t>
-                                            </td>
-                                            <td style="padding:4px; text-align:center;">
-                                                <t t-esc="b_value['qty']" />
- /                                                <t t-esc="b_value['pick_qty']" />
-                                            </td>
-                                            <td style="padding:4px; text-align:center;">
-                                                <t t-esc="b_value['in_box']" />
-                                            </td>
-                                        </tr>
-                                    </t>
-                                </t>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p style="page-break-after:always;" />
-                    <!-- </div> -->
-                </div>
-            </t>
-        </t>
-    </t>
-</t>
-</template>
-
+							<div class="row mt-3">
+								<table width="100%" style="font-size:10px; padding:0; margin:0;">
+									<thead>
+										<tr style="background-color: #F2F2F2;">
+											<th style="padding:4px;width:10%;">LINE</th>
+											<th style="padding:4px;width:60%; text-align:left;">PART DESCRIPTION</th>
+											<th style="padding:4px;width:20%;">QTY/of</th>
+											<th style="padding:4px;width:10%;">BOX</th>
+										</tr>
+									</thead>
+									<tbody>
+										<t t-foreach="get_box_label" t-as="p">
+											<t t-if="str(box['skid']) in p">
+												<tr>
+													<t t-set="b_value" t-value="p[str(box['skid'])][0]" />
+													<td style="padding:4px; text-align:center;">
+														<t t-esc="b_value['seq_no']" />
+													</td>
+													<td style="padding:4px;">
+														<strong style="font-size:11px;">
+															<t t-esc="b_value['name']" />
+														</strong>
+														<br />
+														<t t-esc="b_value['description']" />
+														<t t-if="b_value['heat']">
+															<span style="display:block;font-size:11px;">
+																	HEAT#: 
+																<strong>
+																	<t t-esc="b_value['heat']" />
+																</strong>
+															</span>
+														</t>
+														<t t-if="b_value['tagging']">
+															<span style="display:block;font-size:11px;">
+                                                                        TAG: 
+																<strong>
+																	<t t-esc="b_value['tagging']" />
+																</strong>
+															</span>
+														</t>
+													</td>
+													<td style="padding:4px; text-align:center;">
+														<t t-esc="b_value['qty']" />
+    /                                                
+														<t t-esc="b_value['pick_qty']" />
+													</td>
+													<td style="padding:4px; text-align:center;">
+														<t t-esc="b_value['in_box']" />
+													</td>
+												</tr>
+											</t>
+										</t>
+									</tbody>
+								</table>
+							</div>
+							<p style="page-break-after:always;" />
+							<!-- </div> -->
+						</div>
+					</t>
+				</t>
+			</t>
+		</t>
+	</template>
 </odoo>

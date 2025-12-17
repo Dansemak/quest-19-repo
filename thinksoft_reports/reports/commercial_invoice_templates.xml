@@ -249,9 +249,9 @@
                                         <th rowspan="2" style="text-align:center; border-top-color: solid #525659;  border-bottom-color: #525659;">HS Code</th>
                                         <th rowspan="2" style="text-align:center; border-top-color: solid #525659;  border-bottom-color: #525659;">Country of Origin</th>
                                         <th rowspan="2" style=" border-top-color: #525659; border-botttom-color: #525659;">QTY SHP</th>
-                                        <th rowspan="2">UNIT PRICE</th>
+                                        <th rowspan="2" style="text-align: right;">UNIT PRICE</th>
                                         <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659; ">UoM</th>
-                                        <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; ">ext. Price</th >
+                                        <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; text-align: right;">ext. Price</th >
                                         </tr>
                                         <tr>
                                         <th colspan="" style="text-align:left;  border-bottom-color: #525659; ">Description</th>
