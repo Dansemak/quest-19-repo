@@ -20,7 +20,7 @@
   </template>
 
   <template name="Report with header and footer standard" id="report_external_layout_mrp_pick_list">
-    <div class="header pe-5" style=""> 
+    <div class="header pe-5" style="">
         <style>
             <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
             .header,.footer {
@@ -41,7 +41,7 @@
             .barcode{
                 font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
             }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
@@ -166,9 +166,9 @@
                           <th style="text-align: left; border-bottom-color: #525659; width: 380px;">
                             Description
                           </th>
-                         
+
                         </tr>
-                        
+
                       </div>
                     </thead>
                     <!-- <tbody t-foreach="doc.move_lines" t-as="line" style=""> -->
@@ -177,7 +177,7 @@
                       <!--########## line ########### -->
                         <td rowspan="" class="text-center" style="">
                           <span t-field="line.seq_no" style="" />
-                        </td> 
+                        </td>
                         <td rowspan="" style="font-size:11px; vertical-align: midddle; white-space: none;">
                             <!-- ******************  Part # ****************** -->
                             <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
@@ -198,7 +198,7 @@
                         <td style="text-align: center;" class=""/>
                         <!--############## QTY RESERVED #############-->
                         <td style="text-align: center;" class="">
-                          <!-- <span t-esc="line.reserved_availability" class="text-center" /> -->
+                          <span t-esc="line.reserved_availability" class="text-center" />
                         </td>
                         <!--################# UOM #####################-->
                         <td style="text-align: center;" class="">

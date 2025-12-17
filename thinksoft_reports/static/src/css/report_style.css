@@ -11,7 +11,7 @@
             line-height: 0.9;
         }
 
-        *,*:before,*:after {   
+        *,*:before,*:after {
               box-sizing: border-box;
             }
 
@@ -28,26 +28,26 @@
 
         .main_page{
             font-family: Arial, Helvetica, sans-serif !important;
-            /* font-family: 'Roboto Condensed','Sansation',  sans-serif ;    */      
+            /* font-family: 'Roboto Condensed','Sansation',  sans-serif ;    */
         }
-        
+
         /* table tr th, table tr td {
 
             line-height: 1.2;
             text-transform: uppercase;
             padding: 8px !important;
-            vertical-align: middle !important;     
+            vertical-align: middle !important;
         } */
-        
-        .info1  { 
+
+        .info1  {
             padding-right: 20px !important;
         }
-        .info1 table tr th { 
+        .info1 table tr th {
             font-size: 11px !important;
             background-color: #DEEAF6 !important;
-            vertical-align: middle !important;  
-        } 
-        .info table, .info1 table {            
+            vertical-align: middle !important;
+        }
+        .info table, .info1 table {
             width:100%;
             text-transform: uppercase;
             border: 1px solid #525659;
@@ -150,18 +150,18 @@
             border: 1px solid #525659;
         }
         .total table th{
-            font-size:14px !important; 
-            text-align: right !important; 
+            font-size:14px !important;
+            text-align: right !important;
             background-color: lightgray !important;
             /* background-color: #f1f1f1 !important; */
-            vertical-align: middle !important;  
+            vertical-align: middle !important;
         }
-        .total table td{ 
+        .total table td{
             font-size:14px !important;
-            text-align: right !important; 
+            text-align: right !important;
             vertical-align: middle !important;}
 
-        .quality-control table tbody tr th {            
+        .quality-control table tbody tr th {
             background-color: #F2F2F2 !important;
             border: 1px solid #525659;
             vertical-align: middle !important;

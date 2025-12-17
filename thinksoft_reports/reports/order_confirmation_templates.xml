@@ -170,7 +170,9 @@
                         <span>CUSTOMER</span>
                       </th>
                       <td style="border-top-color: #525659; border: 1px solid #525659;">
-                        <span class="" t-field="doc.partner_id.name" />
+                        <!-- <span class="" t-field="doc.partner_id.name" /> -->
+                        <t t-set="cust_name" t-value="doc.partner_id.name or ''"/>
+                          <span t-esc="cust_name[:20]"/>
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
@@ -235,9 +237,9 @@
                             <span style="">QTY SHP</span>
                           </th>
                           <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; ">QTY BO</th>
-                          <th rowspan="2">UNIT PRICE</th>
+                          <th rowspan="2" style="text-align: right;">UNIT PRICE</th>
                           <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659; ">UoM</th>
-                          <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; ">ext. Price</th>
+                          <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; text-align: right;">ext. Price</th>
                         </tr>
                         <tr>
                           <th style="text-align:left;  border-bottom-color: #525659; ">Description</th>

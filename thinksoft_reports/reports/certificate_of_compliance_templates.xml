@@ -35,7 +35,7 @@
                 <!-- font-family:'Oswald', -->
                 font-family:Arial, Helvetica, sans-serif;
                 sans-serif !important;
-                font-size: 24px !important;
+                font-size: 23px !important;
                 font-weight: bold !important;
                 text-align: left !important;
                 line-height: 1.2 !important;
@@ -49,7 +49,7 @@
             <!-- ******************** LOGO ******************** -->
             <div class="col-4">
               <div class="">
-                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />           
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
               </div>
             </div>
             <!-- ******************** ADDRESS ******************** -->
@@ -164,7 +164,7 @@
                       <tr>
                         <th
                           style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                          <span class="">purchase order</span>
+                           <span class="">Customer Reference</span>
                         </th>
                         <td style="border: 1px solid #525659;">
                           <span class="" t-field="doc.client_order_ref" />

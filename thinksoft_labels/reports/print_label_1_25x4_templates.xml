@@ -18,9 +18,9 @@
         <template id="print_label_1_25x4_template_document">
             <div class="main-page" style="padding: 5px 0 !important;">
                 <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+                <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
                 .container {
-                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
+                    font-family: Arial, Helvetica, sans-serif;
                 }
                 </style>
                 <t t-if="'partner_id' in doc.fields_get()">

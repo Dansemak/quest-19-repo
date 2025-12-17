@@ -38,7 +38,7 @@ class RackLabel12x4Report(models.AbstractModel):
         for product in docs:
             if product.description:
                 tagless_description[product.id] = self.remove_html_tags(product.description)
-        
+
         return {
             'doc_ids': docids,
             'doc_model': 'product.template',

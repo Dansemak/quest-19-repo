@@ -196,8 +196,8 @@
                         <span class="">TOTAL PACKAGE #</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                      <span class="" t-field="doc.box_qty" /><span> boxes,</span>
-                        <!-- <span class="" t-field="doc.package_line.boxs"  /> -->
+                        <span class="" t-field="doc.box_qty" /><span> boxes,</span>
+                        <span class="" t-field="doc.skid_qty" /><span> skids</span>
                       </td>
                     </tr>
                     <tr>
@@ -206,8 +206,8 @@
                       </th>
                       <td style="vertical-align: middle; border: 1px solid #525659;">
                         <!-- TOTAL WEIGHT -->
-                        <!-- <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
-                        <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" /> -->
+                        <span class="" style="white-space: nowrap;" t-field="doc.shipping_weight" />
+                        <span class="" style="white-space: nowrap;" t-field="doc.weight_uom_name" />
                       </td>
                     </tr>
                     <tr>
@@ -291,7 +291,7 @@
                             </span>
                           </th>
                           <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">BO</th>
-                          <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;">SUBTOTAL</th>
+                          <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;text-align: right;">SUBTOTAL</th>
                         </tr>
                         <tr>
                           <th style="text-align: left; border-bottom-color: #525659;">Description</th>
