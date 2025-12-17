@@ -67,56 +67,60 @@
     </template>
     <template id="3x4_report_document">
         <t t-call="thinksoft_package_planner.internal_layout">
+            <style>
+                .page {
+                    font-family: Arial, Helvetica, sans-serif;
+                }
+            </style>
             <div class="page">
-                <div class="container" style="margin:0 !important;">
                      <div class="row">
                         <div class="col-12">
-                            <img class="img" style="width:200px; display:block; margin-left:auto; margin-right:auto;" data-name="&lt; img / &gt;" src="/thinksoft_package_planner/static/src/img/quest-logo.jpg" data-original-title="" title="" aria-describedby="tooltip269202" />
+                            <img class="img" style="width:180px; display:block; margin-left:auto; margin-right:auto;"  src="/thinksoft_package_planner/static/src/img/quest-logo.jpg"  />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 mt-3">
-                            <span style="font-size:8;font-weight:bold;">Item Code:</span>
-                            <span class="ml-2" style="font-size:10.5;font-weight:normal;"
+                        <div class="col-12 mt-3 text-center" style="">
+                            <span style="font-size:12px; font-weight:bold;">Item Code:</span><br />
+                            <span class="ml-2" style="font-size:14px;font-weight:normal;"
                                 t-field="doc.product_id" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 mt-2">
-                            <div style="font-size:8;font-weight:bold;">Item Description:<br />
-                            <span
-                                    style="font-size:10.5; font-weight:normal; " t-field="doc.description" />
+                        <div class="col-12 mt-2 text-center" style="">
+                            <div style="font-size:12px;font-weight:bold;">Item Description:<br />
+                                <span style="font-size:11px; font-weight:normal; " t-field="doc.description" />     
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6" style="margin-top:12px;">
-                            <p style="font-size:10; margin-bottom:15px; font-weight:bold;">HEAT #: <span
-                                    class="ml-2" style="font-size:10; font-weight:normal;"
+                        <div class="col-12" style="margin-top:14px;">
+                            <p style="font-size:12px; margin-bottom:15px; font-weight:bold;">HEAT #: <span
+                                    class="ml-2" style="font-size:14px; font-weight:normal;"
                                     t-field="doc.mtr_template_ids.heat_number"/>
                             </p>
-                            <!-- <span style="">
-                                <img
-                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', doc.product_id.name, 100, 100)"
-                                    style="width:60px;height:60px;" />
-                            </span> -->
-                        </div>
-                        <div class="col-6" style="margin-top:10px;font-size:10;">
-                                <div class="">
-                                    <span style="font-weight:bold;">SO: </span><span class="ml-2" t-field="doc.picking_id.origin"/>		
-                                </div>
-                            <t t-if="doc.stock_move_id.created_production_id">
-                                <div class="">
-                                    <span style="font-weight:bold;">MO: </span><span class="ml-2" t-field="doc.stock_move_id.created_production_id"/>		
-                                </div>
-                            </t>
-                            <div style="font-weight:bold;">Qty: <span
-                                    class="ml-2" style="font-weight:normal;"
-                                    t-field="doc.max_qty_pack" />
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="">
+                            <div class="">
+                                <span style="font-weight:bold; font-size:12px;">SO: </span><span class="ml-2" t-field="doc.picking_id.origin" style="font-size:14px; font-weight:normal;"/>		
                             </div>
                         </div>
+                        <div class="col-6 text-end" style="">
+                            <t t-if="doc.stock_move_id.created_production_id">
+                                <span style="font-weight:bold; font-size:12px;">MO: </span>
+                                <span class="ms-2" t-field="doc.stock_move_id.created_production_id" style="font-size:14px; font-weight:normal;"/>		
+                            </t> 
+                        </div>       
                     </div>
-                </div>
+
+                    <div class="row">
+                    <div class="col-12 text-center" style="">
+                            <span style="font-weight:bold; font-size:12px;">Qty:</span> 
+                            <span class="ms-2"  t-field="doc.max_qty_pack" style="font-size:14px; font-weight:normal;"/>
+                        </div>
+                    </div> 
+
             </div>
         </t>
     </template>

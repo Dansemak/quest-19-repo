@@ -198,7 +198,7 @@
                         <td style="text-align: center;" class=""/>
                         <!--############## QTY RESERVED #############-->
                         <td style="text-align: center;" class="">
-                          <span t-esc="line.reserved_availability" class="text-center" />
+                          <span t-esc="line.quantity" class="text-center" />
                         </td>
                         <!--################# UOM #####################-->
                         <td style="text-align: center;" class="">
