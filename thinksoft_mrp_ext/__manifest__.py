@@ -9,9 +9,17 @@
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
     "version": "19.0.0.0.1",
-    "depends": ["base", "mrp", "sale_mrp", "website"],
+    "depends": [
+        "base",
+        "mrp",
+        "sale_mrp",
+        "website",
+    ],
     "data": [
-        "views/mrp_production_views.xml"
+        "security/ir.model.access.csv",
+        "views/mrp_department_views.xml",
+        "views/mrp_production_views.xml",
+        "views/mrp_bom_views.xml",
     ],
     "installable": True,
     "application": False,

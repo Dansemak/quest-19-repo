@@ -12,6 +12,11 @@
                 <field name="note" />
             </xpath>
 
+            <!-- adding the manufacturing department to the header -->
+            <xpath expr="//div[@name='bom_div']" position="after">
+                <field name="department_id" />
+            </xpath>
+
             <!-- adding the customer inforamtion to the production order -->
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="partner_id" invisible="not sale_line_id"/>
