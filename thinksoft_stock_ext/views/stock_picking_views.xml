@@ -26,7 +26,7 @@
                 <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" />
 
                 <!-- moving the shipping_weight and label to the header -->
-                <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="move">
+                <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="move"/>
                 <xpath expr="//group[@name='carrier_data']//div[3]" position="move"/>
 
                 <!-- adding the box_qty and skid_qty to serve as the No Pieces -->

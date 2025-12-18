@@ -20,32 +20,35 @@
     </t>
   </template>
   <template name="Report with header and footer standard" id="report_external_layout_oxygen_clean_certificate">
-      <div class="header pe-5" style=""> 
+      <div class="header pe-5" style="">
         <style>
+            .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
+              }
             .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:Arial, Helvetica,sans-serif;
+              }
+            .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
               }
             .title{
-                font-family:'Oswald', 
-                sans-serif !important;
+                font-family:Arial, Helvetica, sans-serif;
                 font-size: 24px !important;
                 font-weight: bold !important;
-                text-align: left !important;
                 line-height: 1.2 !important;
+                text-align: left !important;
               }
             .barcode{
-                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
               }
-        </style>    
+        </style>
         <div class="container">
           <div class="row mb-2">
             <!-- ********************************* LOGO
             ********************************************* -->
             <div class="col-4">
               <div class="">
-                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
-                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
-                  title="" aria-describedby="tooltip269202" />
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
               </div>
             </div>
             <!-- ************************************** ADDRESS *************************** -->
@@ -56,12 +59,12 @@
             </div>
             <!-- ************************************** TITLE
             ******************************************** -->
-            <div class="col-5 d-flex justify-content-end top-address" style=" ">
+            <div class="col-5 d-flex justify-content-end " >
               <div style="padding:0!important; text-align:center; ">
                 <!--**********************
                 BARCODE *********************-->
                 <span t-field="doc.name"
-                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
                   style="" />
                 <br />
                 <div class="barcode" t-field="doc.name" />
@@ -81,7 +84,7 @@
       </div>
       <!-- <div class="footer "
         style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-        <div class="footer" style="font-size:11px; width:100%;">      
+        <div class="footer" style="font-size:11px; width:100%;">
         <div class="container ">
           <div class="row">
             <div class="col-12">
@@ -117,27 +120,27 @@
                 <table class="text-uppercase" style="height:234px; border-collapse:collapse;">
                   <tbody style="">
                     <tr>
-                      <th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px;">Ship to</th>
+                      <th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px; text-align: center;">Ship to</th>
                     </tr>
                     <tr>
                         <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
                         </td>
                     </tr>
                     <tr>
-                      <th style="border: 1px solid #525659; font-size: 11px;">Contact</th>
+                      <th style="border: 1px solid #525659; font-size: 11px; text-align: center;">Contact</th>
                     </tr>
                     <tr>
                       <td style="">
-                        <!-- <span t-field="doc.sale_contact_id" /> -->
+                        <span class="" t-field="doc.sale_id.partner_contact_id.name"/>
                       </td>
                     </tr>
                     <tr>
-                      <th style="border: 1px solid #525659; font-size: 11px;">phone</th>
+                      <th style="border: 1px solid #525659; font-size: 11px; text-align: center;">phone</th>
                     </tr>
                     <tr>
                       <td style="">
-                        <!-- <span class="" t-field="doc.sale_contact_id.phone" /> -->
+                        <span class="" t-field="doc.sale_id.partner_contact_id.phone" />
                       </td>
                     </tr>
                   </tbody>
@@ -157,7 +160,7 @@
                     </tr>
                     <tr>
                       <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">P.O.</span>
+                        <span class="">Source Document</span>
                       </th>
                       <td style="border: 1px solid #525659;">
                         <!-- <span class="" t-field="doc.client_order_ref" /> -->
@@ -169,7 +172,7 @@
                         <span class="">prepared by</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="doc.sale_reps_id" /> -->
+                        <span class="" t-field="doc.salesperson_id" />
                         <!-- <span class="" t-field="doc.sale_id.partner_contact_id"/> -->
                       </td>
                     </tr>
@@ -179,7 +182,9 @@
                       </th>
                       <td style="border-top-color: #525659; border: 1px solid #525659;">
                         <!-- <span class="" t-field="doc.sale_contact_id.name" /> -->
-                         <span class="" t-field="doc.user_id.name" />
+                         <!-- <span class="" t-field="doc.partner_contact_id.name" /> -->
+                         <t t-set="cust_name" t-value="doc.partner_contact_id.name or ''"/>
+                          <span t-esc="cust_name[:20]"/>
                       </td>
                     </tr>
                   </tbody>
@@ -195,7 +200,7 @@
                         <td></td>
                       </tr>
                       <tr>
-                        <th style="font-size:12px; text-transform:none; width:150px;">Quality Control Signature</th>
+                        <th style="font-size:12px; text-transform:none; width:150px;background-color: #E2EFD9 !important;">Quality Control Signature</th>
                         <td></td>
                       </tr>
                     </tbody>
@@ -218,7 +223,7 @@
                         </td>
                         <td>
                            <!-- <span style="font-family:'DejaVu Sans',sans-serif; font-size:20px;">&#x2610;</span> -->
-                           <i class="fa fa-square-o" style="font-size:18px;"></i> 
+                           <i class="fa fa-square-o" style="font-size:18px;"></i>
                         </td>
                       </tr>
                       <tr>
@@ -258,7 +263,7 @@
                         </td>
                         <td>
                           <!-- <font style="font-size: 20px;">☐</font> -->
-                            <i class="fa fa-square-o" style="font-size:18px;"></i> 
+                            <i class="fa fa-square-o" style="font-size:18px;"></i>
                         </td>
                       </tr>
                       <tr>
@@ -268,7 +273,7 @@
                           </div>
                         </td>
                         <td>
-                          <i class="fa fa-square-o" style="font-size:18px;"></i> 
+                          <i class="fa fa-square-o" style="font-size:18px;"></i>
                         </td>
                       </tr>
                       <tr>
@@ -287,7 +292,7 @@
               </div>
               <div class="col-4" style="white-space:nowrap;">
                 <div class="q_block mt8 mb8">
-                  <div class="">Date Cleaned <span class="ml-2">_________________________________________</span>
+                  <div class="">Date Cleaned <span class="ml-2">___________________________</span>
                   </div>
                 </div>
               </div>
@@ -309,36 +314,30 @@
                         <th style="text-align:left;  border-bottom-color: #525659; ">Description</th>
                       </tr>
                     </thead>
-                    <!-- <tbody t-foreach="doc.move_lines" t-as="line"> -->
-                     <tbody t-foreach="doc.move_line_ids" t-as="line" style="">
+                     <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
+                     <tbody t-foreach="doc.move_ids" t-as="line">
                       <tr>
                         <!--******************************* Sequence Number ***********************************-->
                         <td rowspan="2" class="text-center">
-                          <!-- <span t-field="line.seq_no" /> -->
-                           <t t-esc="line_index + 1" />
+                          <span t-field="line.seq_no" />
                         </td>
-                        <td>
-                          <!--******************************* Part # ***********************************-->
-                          <div style="text-align: left; margin-bottom:3px;">
-                            <span class="float:right; text-uppercase " t-field="line.product_id" />
-                          </div>
-                          <!--******************************* Description ***********************************-->
-                          <div>
-                            <!-- <span t-field="line.sale_line_id.name" /> -->
-                             <span t-field="line.product_id.description_sale" />
-                            <!-- <span  t-field="line.name"/> -->
-                          </div>
+                        <td >
+                          <!-- ******************  Part # ****************** -->
+                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                          <!-- ******************  Description ****************** -->
+                          <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                          <t t-raw=" ' '.join(desc.split()) " />
                         </td>
-                        <!--******************************* order QTY ***********************************-->
-                        <!-- <td class="text-center"><span  t-field="line.product_uom_qty"/></td> -->
-                         <!--****************************** PICK QTY **********************************-->                      
-                        <td colspan="" class="text-center">                         
-                          <!-- <span class=" report-well" t-field="line.quantity_done" /> -->
+                        <!--*******************************  QTY Shipped ***********************************-->
+                        <td class="text-center">
+                          <!-- <span  t-field="line.product_uom_qty"/> -->
+                          <span class="" t-field="line.quantity" />
                         </td>
+
                         <!--******************************* UOM ***********************************-->
                         <td class="text-center">
-                          <!-- <span t-field="line.product_uom" /> -->
-                        </td>                       
+                          <span t-field="line.product_uom" />
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -346,7 +345,7 @@
               </div>
             </div>
           </div>
-        </div>    
+        </div>
     </div>
     </t>
   </template>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_thinksoft_trim_spaces_thinksoft_trim_spaces,thinksoft_trim_spaces.thinksoft_trim_spaces,model_thinksoft_trim_spaces_thinksoft_trim_spaces,base.group_user,1,1,1,1
