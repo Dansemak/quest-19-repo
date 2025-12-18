@@ -7,7 +7,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft Purchase Limit",
-    "version": "19.0.0.1",
+    "version": "19.0.1.0",
     "depends": ["base", "purchase"],
     "data": [
         "views/res_users_views.xml",
