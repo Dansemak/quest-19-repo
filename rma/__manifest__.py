@@ -8,7 +8,7 @@
     "version": "19.0.1.0.1",
     "category": "RMA",
     "website": "https://github.com/OCA/rma",
-    "author": "Tecnativa, Odoo Community Association (OCA)", Thinksoft Inc.,
+    "author": "Tecnativa, Odoo Community Association (OCA), Thinksoft Inc.",
     "maintainers": ["pedrobaeza", "chienandalu"],
     "license": "AGPL-3",
     "depends": ["stock_account"],
