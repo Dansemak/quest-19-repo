@@ -28,6 +28,11 @@ class SaleOrder(models.Model):
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
     )
+    customer_end_user_id = fields.Many2one(
+        "company.user",
+        string="End User",
+        help="The user/company/project at the end of the sales flow that will inevitably receive these products",
+    )
     carrier_cut_off = fields.Float(related="carrier_id.cut_off")
 
     # outside salesperson assigned from the customer"s outside_salesperson_id field
@@ -44,4 +49,3 @@ class SaleOrder(models.Model):
         for order in self:
             order.partner_contact_id = contacts.ids
             order.outside_salesperson_id = order.partner_id.outside_salesperson_id
-
