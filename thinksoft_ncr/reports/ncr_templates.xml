@@ -10,95 +10,97 @@
     </template>
 
     <template id="report_external_layout_ncr">
-      <div class="header row">
-        <div class="col-4"> 
-          <img src="/thinksoft_mtr/static/img/quest-logo.jpg" style="width:250px;"/>
-        </div>
-        <div class="col-4">
-          <p style="line-height:1; font-size:14px;">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
-        </div>
-        <div class="title col-4">
-          <table style="width:100%;">
-            <tbody style="border:0;">
-              <tr style="border:0;">
-                <td style="border:0;">
-                  <img t-att-src="'/report/barcode/Code128/%s' % o.name" style="width:200px; height:30px; margin-left:-100px;"/>
-                  <br/>
-                  <div t-field="o.name" style="font-size:18px; margin-top:4px; font-weight:bold; margin-left:-65px;"/>
-                </td>
-                <td style="border:0;">
-                  <font style="font-size:18px; font-weight:bold;">NON-CONFORMANCE REPORT</font>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="article">
-        <t t-raw="0"/>
-      </div>
-      <div class="footer container" style="font-size:11px;">
-        <span>Print Date:</span>
-        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"/>
-        <span style="margin-left:225px;">www.questgasket.com</span>
-        <div style="float:right;">Page: <span class="page"/> of <span class="topage"/></div>
-      </div>
+      <div class="header pe-5" style="">
+                <style>
+                    <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+                  .header,.footer {
+                        font-family: Arial, Helvetica,  sans-serif;
+                      }
+                    .top-address{
+                        line-height:1; font-size:13px; font-family:Arial, Helvetica,sans-serif;
+                      }
+                    .title{
+                        <!-- font-family:'Oswald', -->
+                        font-family:Arial, Helvetica, sans-serif;
+                        sans-serif !important;
+                        font-size: 18px !important;
+                        font-weight: bold !important;
+                        text-align: left !important;
+                        line-height: 1.2 !important;
+                      }
+                    .barcode{
+                        font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica,sans-serif;
+                      }
+                </style>
+                <div class="container">
+                <div class="row mb-2">
+                    <!-- ******************** LOGO ******************** -->
+                    <div class="col-4">
+                    <div class="">
+                        <img  style="width: 200px;" src="/thinksoft_ncr/static/src/img/quest-logo.jpg"  />    
+                    </div>
+                    </div>
+                    <!-- ******************** ADDRESS ******************** -->
+                    <div class="col-3 top-address">
+                    <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                        500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                        780.461.7009</p>
+                    </div>
+                    <!-- ******************** TITLE ******************** -->
+                    <div class="col-5 d-flex justify-content-end " >
+                    <div style="padding:0!important; text-align:center; ">
+                        <!-- ******************** BARCODE ******************** -->
+                        <!-- <span t-field="o.name"
+                        t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                        style="" /> -->
+                        <img t-att-src="'/report/barcode/Code128/%s' % o.name" style="width:200px; height:30px; "/>
+                        <br />
+                        <div class="barcode" t-field="o.name" />
+                    </div>
+                    <!-- ******************** TITLE ******************** -->
+                    <div class="title text-uppercase">
+                        Non-Conformance
+                        <br/>Report
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0" />
+            </div>
+            <!-- <div class="footer "
+                style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
+            <div class="footer" style="font-size:11px; width:100%;">
+              <div class="container ">
+                <div class="row">
+                    <div class="col-12">
+                    <span class="text-left" style="">Print Date:</span>
+                    <span class="ms-2"
+                        t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                        style="margin-right: 250px; text-align: right;" />
+                    <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+                    <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                        style="text-align: right;" class="topage" /></div>
+                    </div>
+                </div>
+                </div>
+            </div>
     </template>
 
     <template id="ncr_template_document">
       <t t-call="thinksoft_ncr.report_external_layout_ncr">
-        <main>
-          <style>
-            table,
-            tr,
-            td,
-            th {
-                font-size: 10px;
-                font-weight: normal;
-                font-family: Arial, Helvetica, sans-serif;
-                padding: 8px !important;
-                vertical-align: middle;
-            }
-
-            .items table thead tr th {
-                background-color: #f1f1f1 !important;
-                white-space: nowrap;
-                text-align: center;
-            }
-            .items table tr td {
-                line-height: normal;
-                padding: 10px;
-                page-break-inside: avoid !important;
-                page-break-after: auto !important;
-            }
-
-            .info table tr th {
-                font-size: 11px;
-                line-height: 1;
-                text-align: right;
-                overflow: hidden;
-                white-space: nowrap;
-                height: 5px;
-                background-color: #F2F2F2;
-                vertical-align: middle;
-            }
-            .info table tr td {
-                line-height: 1;
-                overflow: hidden;
-                white-space: normal;
-                height: 5px;
-                font-size: 11px;
-                vertical-align: middle;
-            }
-          </style>
-
+      <link rel="stylesheet" t-att-href="'/thinksoft_ncr/static/src/css/report_style.css'"/>
+        <main class="main_page">
           <div class="container">
             <div class="row">
-              <!-- ******************** ORDER DETAILS *************************-->
-              <div class="info col-6">
+              <!-- ******************** ORDER DETAILS ************************* -->
+              <div class="info col-6" style="padding-right:20px !important;">
                 <table class="text-uppercase" style="width:100%;">
                   <thead>
-                    <th colspan="2" style="text-align:center; background-color:#a5d7eb">ORDER DETAILS</th>
+                    <th colspan="2" >NCR DETAILS</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -172,7 +174,7 @@
               <div class="info col-6">
                 <table class="text-uppercase" style="width:100%;">
                   <thead>
-                    <th colspan="2" style="text-align:center; background-color:#a5d7eb;">CLAIM DETAILS</th>
+                    <th colspan="2" >CLAIM DETAILS</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -205,8 +207,8 @@
             </div>
           </div>
 
-          <div class="container items" style="margin:20px 0 20px;">
-            <table style="width:100%;">
+          <div class="container ncr-items" style="margin:20px 0 20px;">
+            <table style="width:100%;" >
               <thead>
                 <tr style="height:23pt;">
                   <th style="width:33pt;">
@@ -246,7 +248,7 @@
             </table>
           </div>
 
-          <div class="container info">
+          <div class="container ncr-items">
             <table style="width:100%;">
               <thead>
                 <th style="text-align:center;">NON-CONFORMACE NOTES</th>
@@ -260,7 +262,7 @@
               </tbody>
             </table>
           </div>
-          <div class="container info" style="margin:20px 0 20px;">
+          <div class="container ncr-items" style="margin:20px 0 20px;">
             <table style="width:100%;">
               <thead>
                 <th style="text-align:center;">ROOT CAUSE ANALYSIS NOTES</th>
@@ -274,7 +276,7 @@
               </tbody>
             </table>
           </div>
-          <div class="container info">
+          <div class="container ncr-items">
             <table style="width:100%;">
               <thead>
                 <th style="text-align:center;">CORRECTIVE ACTION NOTES</th>

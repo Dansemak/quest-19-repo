@@ -22,22 +22,21 @@
   <template name="Report with header and footer standard" id="report_external_layout_quotation">
      <div class="header pe-5">
       <style>
-              @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-            .header,.footer { 
-                  font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
-                }
+              .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
+              }
             .top-address{
-                line-height:1; font-size:13px; font-family:'Roboto Condensed','Sansation',sans-serif;
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
               }
             .title{
-                font-family:'Oswald',sans-serif !important;              
-                font-size: 23px !important;
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 24px !important;
                 font-weight: bold !important;
-                text-align: left !important;
                 line-height: 1.2 !important;
+                text-align: left !important;
               }
             .barcode{
-                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
               }
         </style>
       <div class="container">
@@ -57,14 +56,14 @@
                       <!-- <img t-att-src="'/report/barcode?type=%s&amp;value=%s&amp; width=%s; height=%s' % ('Code128', o.name, 600, 100)" style=" width:200px; height:30px; margin-left:-100px;" /> -->
 
                        <!--********************** BARCODE *********************-->
-                      <span t-field="o.name" t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}' style="" />
+                      <span t-field="o.name" t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}' style="" />
                       <br />
                       <div class="barcode" t-field="o.name" />
                     </div>
                      <!--********************** TITLE *********************-->
                     <div class="title text-uppercase" style="">
                       <t t-if="o.state == 'done' or o.state == 'sale'">
-                        <font style=" font-weight:bolder; ">Sales Order</font>
+                        <font style=" font-weight:bolder; white-space: nowrap;">Sales Order</font>
                       </t>
                       <t t-else="">
                         <font style=" font-weight:bolder;" >Quotation</font>
@@ -100,16 +99,11 @@
       </t>
       <!-- //////////////////////////////////////// MAIN PAGE /////////////////////////////////// -->
     <div class="main_page" style="">
-    <!-- <div class="page"> -->
-      
         <div class="oe_structure" style="">
-
           <div class="container">
-            <!-- ############################  BODY  ######################### -->
             <div class="row">
               <!-- *************************** CUSTOMER ADDRESS *************************-->
               <div class="info1 col-6 " >
-                <!-- <div class="mt-3 address"> -->
                 <div >
                   <table class="text-uppercase" style="border-collapse: collapse; width:100%;">
                     <tbody style="">
@@ -189,7 +183,7 @@
                     </tr>
                     <tr style="border: 1px solid #525659;">
                       <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
+                        <span class="">CUSTOMER REFERENCE</span>
                       </th>
                       <td style="border: 1px solid #525659;">
                         <span class="" t-field="o.client_order_ref"/>
@@ -208,7 +202,7 @@
                         <span class="">Contact</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="o.partner_contact_id.name"/> -->
+                        <span class="" t-field="o.partner_contact_id.name"/>
                       </td>
                     </tr>
                     <tr style="border: 1px solid #525659;">
@@ -216,7 +210,7 @@
                         <span class="">Phone</span>
                       </th>
                       <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="o.partner_contact_id.phone"/> -->
+                        <span class="" t-field="o.partner_contact_id.phone"/>
                       </td>
                     </tr>
                   </tbody>
@@ -233,17 +227,17 @@
             <div class="row items ">
               <div class="col-lg-12 " style="width:100%; ">
                 <div class="">
-                  <table class="line-items" style="vertical-align:middle; width:100%; font-size:8px !important;" cellspacing="0" >
+                  <table class="line-items" style="vertical-align:middle; width:100%; " cellspacing="0" >
                     <thead style="" class="">
                       <tr style="height:23pt; ">
                         <th style="width:33pt;" rowspan="2" bgcolor="">
                           <span>LINE</span>
                         </th>
-                        <th style="width:300px; text-align:left;">
+                        <th style="width:500px; text-align:left;">
                           <span>PART #</span>
                         </th>
                         <th style=" border-right-style:hidden;" rowspan="2">
-                          <span>QUANTITY</span>
+                          <span>QTY</span>
                         </th>
                         <th style="" rowspan="2">
                           <span>(UOM)</span>
@@ -255,7 +249,7 @@
                           <span>UNIT PRICE</span>
                         </th>
                         <th style=" white-space: nowrap; width:100px;" rowspan="2">
-                          <span>EXTENDED PRICE</span>
+                          <span>EXT PRICE</span>
                         </th>
                       </tr>
                       <!-- ######################################################################## -->
@@ -273,8 +267,22 @@
                           <span t-field="line.seq_no"/>
                         </td>
                         <!--********* Part # *****************-->
-                        <td style=" border-bottom-style:hidden; padding-bottom: 0;">
+                        <!-- <td style=" border-bottom-style:hidden; padding-bottom: 0;">
                           <span t-field="line.product_id"/>
+                        </td> -->
+                        <td rowspan="2">
+                            <!--********* Part # *****************-->
+                             <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!--*****************  Description ***************-->
+                            <t t-if="line.product_id">
+                                <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                                <t t-raw=" ' '.join(desc.split()) " />
+                            </t>
+                            <t t-else="">
+                                <t t-set="desc" t-value="(line.name or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                                <t t-raw=" ' '.join(desc.split()) " />
+                            </t>
+
                         </td>
                         <!--********** QUANTITY **********-->
                         <td style=" border-right-style:hidden; text-align: center;" rowspan="2">
@@ -288,29 +296,30 @@
                         <!--********** AVAILABILITY **********-->
                         <!-- <td style=" text-align: center;" rowspan="2"><span t-field="line.state"/> -->
                         <td style=" text-align: center;" rowspan="2">
-                        <span t-field="line.state"/>
-                          <!-- <span t-field="line.string_availability_info"/> -->
+                        <!-- <span t-field="line.state"/> -->
+                          <span t-field="line.string_availability_info"/>
+                          <!-- <span t-field="line.product_id.qty_available"/> -->
                         </td>
                         <!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
-                        <!-- UNIT PRICE -->
-                        <td style=" text-align: center;" rowspan="2">
+                        <!--***************** UNIT PRICE *********************-->
+                        <td style=" text-align: right;" rowspan="2">
                           <span style="margin-right:2px;">$</span>
                           <!-- <span t-esc="'{:.3f}'.format(line.dis_price_unit)"/>  -->
                           <span t-esc="'{:.3f}'.format(line.price_unit)"/>
                           <!-- <span t-esc="round(line.dis_price_unit,2)"/> -->
                         </td>
                         <!--*************** EXTENDED PRICE ******************-->
-                        <td style=" text-align: center;" rowspan="2">
+                        <td style=" text-align: right;" rowspan="2">
                           <span t-field="line.price_subtotal"/>
                         </td>
                       </tr>
                       <!-- ############################### DESCRIPTION ROW ############################################## -->
-                      <tr style="">
                       <!--***************  Description **********************-->
-                        <td style=" vertical-align:super; padding-top:0!important;">
-                          <span t-field="line.name"/>
+                      <!-- <tr style="">
+                        <td style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;">
+                        <span t-field="line.product_id.description" />
                         </td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                   <table style="width:100%;" class="mt-2">
@@ -347,10 +356,10 @@
                         </span>
                       </td>
                       <!--********************** SUBTOTAL  **********************************-->
-                      <td style="width:110px; white-space: nowrap;text-align: right; background-color: #f1f1f1!important; ">
+                      <td style="width:110px; white-space: nowrap;text-align: right; background-color: lightgray; font-size:14px !important;;" >
                         <span >SUBTOTAL</span>
                       </td>
-                      <td style="font-weight: bold; width:101px; white-space: nowrap; text-align: right;">
+                      <td style="font-weight: bold; width:101px; white-space: nowrap; text-align: right; font-size:14px !important;;">
                         <span t-field="o.amount_untaxed"/>
 
                       </td>
@@ -358,21 +367,21 @@
                     <!-- ################################################################################### -->
                     <tr style="white-space: nowrap; height:29pt">
                        <!--************************* GST (5%) ************************-->
-                      <td style="text-align: right; background-color: #f1f1f1!important; ">
+                      <td style="text-align: right; background-color: lightgray; font-size:14px !important;;">
                         <span style="" >GST (5%)</span>
                       </td>
-                      <td style=" white-space: nowrap; text-align: right;  ">
+                      <td style=" white-space: nowrap; text-align: right;  font-size:14px !important;;">
                         <span t-field="o.amount_tax"/>
                       </td>
                     </tr>
                     <!-- ################################################################################### -->
                     <tr style="height:29pt">
                       <!--********************** TOTAL  **********************************-->
-                      <td style="white-space: nowrap; text-align:right; background-color: #f1f1f1!important;">
+                      <td style="white-space: nowrap; text-align:right; background-color: lightgray; font-size:14px !important;;">
                         <span style="">TOTAL </span>
                       </td>
-                      <!-- <td style="white-space: nowrap; text-align: center; background-color: #f1f1f1!important; "><span t-esc="o.amount_total + o.amount_tax"/> -->
-                      <td style="font-weight: bold; white-space: nowrap; text-align: right; ">
+                      <!-- <td style="white-space: nowrap; text-align: center; background-color: lightgray; "><span t-esc="o.amount_total + o.amount_tax"/> -->
+                      <td style="font-weight: bold; white-space: nowrap; text-align: right; font-size:14px !important;;">
                         <strong>
                           <span t-field="o.amount_total"/>
                         </strong>
@@ -471,11 +480,11 @@
               </div>
             </div>
           </div>
-        </div>   
+        </div>
     </div>
      <!-- END OF MAIN PAGE -->
     </t>
-   
+
   </template>
    </data>
 </odoo>
