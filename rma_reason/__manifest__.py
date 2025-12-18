@@ -5,9 +5,9 @@
 
 {
     "name": "Rma Reason",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.1",
     "license": "AGPL-3",
-    "author": "Raumschmiede GmbH,BCIM,ACSONE SA/NV,Odoo Community Association (OCA)",
+    "author": "Raumschmiede GmbH,BCIM,ACSONE SA/NV,Odoo Community Association (OCA),Thinksoft Inc.",
     "website": "https://github.com/OCA/rma",
     "depends": ["rma"],
     "maintainers": ["sbejaoui"],
