@@ -27,4 +27,18 @@
         </field>
     </record>
 
+    <record id="mrp_production_tree_view_inherit_thinksoft_mrp_ext" model="ir.ui.view">
+        <field name="name">mrp.production.view.list.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+
+            <!-- adding the department of the BoM to the list view -->
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="department_id" optional="hide" />
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
