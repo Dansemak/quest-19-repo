@@ -71,6 +71,7 @@
             </xpath>
 
             <xpath expr="//group[@name='order_details']" position="inside">
+                <field name="customer_end_user_id" options="{'no_create': True}"/>
                 <label for="carrier_id"/>
                 <div name="carrier_fields" class="o_row">
                     <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>

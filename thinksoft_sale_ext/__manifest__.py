@@ -29,6 +29,8 @@
         "views/stock_picking_views.xml",
         "views/purchase_order_views.xml",
         "views/account_move_views.xml",
+        "views/company_user_views.xml",
+        "views/crm_lead_views.xml",
     ],
     "installable": True,
     "application": False,
