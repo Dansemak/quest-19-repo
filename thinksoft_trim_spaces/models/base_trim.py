@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, api
 
 
 class BaseTrimName(models.AbstractModel):
@@ -17,6 +17,7 @@ class BaseTrimName(models.AbstractModel):
         #     vals['name'] = vals['name'].strip()
         return vals
 
+    @api.model_create_multi
     def create(self, vals_list):
         if isinstance(vals_list, dict):
             vals_list = [vals_list]

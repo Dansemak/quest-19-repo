@@ -58,6 +58,7 @@
         id="mrp_menu_mrp_department_action_list"
         action="mrp_department_action_list"
         parent="mrp.menu_mrp_configuration"
+        groups="mrp.group_mrp_manager"
         sequence="100"/>
 
 </odoo>
