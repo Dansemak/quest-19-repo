@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
     "version": "19.0.0.0.1",
-    "depends": ["base"],
+    "depends": ["base", "mrp", "sale_mrp", "website"],
     "data": [
         "views/mrp_production_views.xml"
     ],
