@@ -12,5 +12,6 @@
     "data": [
         "views/res_users_views.xml",
         "views/purchase_order_views.xml",
+        # "views/purchase_limit_views.xml",
     ],
 }
