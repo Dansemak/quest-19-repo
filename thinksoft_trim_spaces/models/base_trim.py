@@ -16,7 +16,7 @@ class BaseTrimName(models.AbstractModel):
         # if 'name' in vals and isinstance(vals['name'], str):
         #     vals['name'] = vals['name'].strip()
         return vals
-
+    
     @api.model_create_multi
     def create(self, vals_list):
         if isinstance(vals_list, dict):
