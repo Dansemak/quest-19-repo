@@ -14,15 +14,16 @@
         "reports/reports_paperformats.xml",
         "reports/print_label_1_25x4_templates.xml",
         "reports/shipping_label_3x4_templates.xml",
+        "reports/print_label_3x4_templates.xml",
         "reports/shipping_label_4x4_templates.xml",
         "reports/location_labels.xml",
         "reports/4x4_label_for_all_templates.xml",
         "reports/4x4_label_templates.xml",
-        # Actions and menus always last
-        "reports/ir_actions_report.xml",
         "reports/4x4_label.xml",
         "reports/print_label_4x4_templates.xml",
         "reports/rack_label_12x4.xml",
+        # Actions and menus always last
+        "reports/ir_actions_report.xml",
     ],
     "installable": True,
     "application": False,

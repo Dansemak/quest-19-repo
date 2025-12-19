@@ -18,10 +18,11 @@
         </t>
         <div class="header">
             <style>
-                @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-                .container {
-                    font-family: 'Roboto Condensed','Sansation',  sans-serif ;
-                }
+                <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+                .header {
+                        font-family: Arial, Helvetica, sans-serif;
+                        
+                    }   
             </style>
             <div class="row d-flex justify-content-between">
                 <div class="col-6">
@@ -33,9 +34,7 @@
                         t-field="doc.picking_id.partner_customer_id" />
                 </div>
                 <div class="col-6">
-                    <img class="img" style="width:150px; display:block; float:right;"
-                        data-name="&lt; img / &gt;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg"
-                        data-original-title="" title="" aria-describedby="tooltip269202" />
+                    <img class="img" style="width:150px; display:block; float:right;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg"/>
                 </div>
             </div>
         </div>
