@@ -14,7 +14,7 @@
         </t>
     </template>
 
-    <template id="internal_layout">
+    <template id="internal_layout_product_4x4_label">
         <!-- Multicompany -->
         <t t-if="o and 'company_id' in o">
             <t t-set="company" t-value="o.company_id" />
@@ -24,20 +24,13 @@
         </t>
         <div class="header">
             <style>
-
                 .header {
-                        font-family: Arial, Helvetica, sans-serif;
-
+                    font-family: Arial, Helvetica, sans-serif;
                     }
             </style>
             <div class="row">
-                <!-- <div class="col-6">
-                    <span class="text-uppercase" style="font-weight:bold; font-size:16px;">
-                        Cust:</span>
-                    <span class="code" style="margin-left:2px;color:#43464f; font-weight:normal;font-size:16px;" t-field="doc.picking_id.sale_partner_id" />
-                </div> -->
-                <div class="col-12 ">
-                    <img style="width:150px; display:block; margin:0 auto;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
+                <div class="col-12">
+                    <img class="img " style="width:150px; display:block; margin:auto;" src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg" />
                 </div>
             </div>
         </div>
@@ -47,7 +40,7 @@
         <div class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-12" style="text-align: center; font-family:sans-serif;font-size: 8px;">
+                    <div class="col-12" style="text-align: center; font-size: 8px;">
                         www.questgasket.com</div>
                 </div>
             </div>
@@ -55,7 +48,7 @@
     </template>
 
     <template id="print_label_4x4_template_document">
-        <t t-call="thinksoft_labels.internal_layout">
+        <t t-call="thinksoft_labels.internal_layout_product_4x4_label">
             <style>
 
                 .main-page {
@@ -67,43 +60,43 @@
                 <div class="oe_structure" style="font-size:13px!important;">
                     <div class="container" style="margin:0 !important; padding:0 !important;">
                         <div class="row">
-                            <div class="col-12 mt-3" style="text-align:center; font-family:sans-serif; font-weight:bold;">
+                            <div class="col-12 mt-3" style="text-align:center;  font-weight:bold;">
                                 <span t-field="doc.product_id" />
                             </div>
                         </div>
                         <div class="row" style="margin:10px 0 0 0 !important;">
-                            <div class="col-6 mt-3" style="font-family:sans-serif; margin:0 !important;">
+                            <div class="col-6 mt-3" style=" margin:0 !important;">
                                 <span style="font-weight:bold;">QTY: ____</span>
                             </div>
-                            <div class="col-6 mt-3 " style="font-family:sans-serif; margin:0 !important;">
+                            <div class="col-6 mt-3 " style=" margin:0 !important;">
                                 <span style="margin-left:20px;">MO:</span>
                                 <span t-field="doc.name" style="text-align:right; margin-left:2px; font-weight:bold;" />
                             </div>
                         </div>
                         <div class="row" style="margin:10px 0 0 0 !important;">
-                            <div class="col-6 mt-3" style="font-family:sans-serif; margin:0 !important;">
+                            <div class="col-6 mt-3" style=" margin:0 !important;">
                                 <span style="font-weight:bold;">BOX ____ OF ____</span>
                             </div>
-                            <div class="col-6 mt-3 " style="font-family:sans-serif;  margin:0 !important;">
+                            <div class="col-6 mt-3 " style="  margin:0 !important;">
                                 <span style="margin-left:20px;">SO:</span>
                                 <span t-field="doc.origin" style="text-alighn:right; margin-left:2px; font-weight:bold;" />
                             </div>
                         </div>
                         <div class="row" style="margin:15px 0 !important;">
-                            <div class="col-6 " style="font-family:sans-serif; margin:0 !important;">
+                            <div class="col-6 " style=" margin:0 !important;">
                                 <span style="font-weight:bold;">HEAT #:</span>
                             </div>
                         </div>
-                        <!-- <t t-if="doc.product_id"> -->
+                        <!-- <t t-if="doc.product_id"> 
                         <div class="row" style="margin:0 !important;">
-                            <div class="col-12 mt-3" style="font-family:sans-serif;  line-height:1.2; margin:8px 0 3px 0 !important;  text-align:center;">
+                            <div class="col-12 mt-3" style="  line-height:1.2; margin:8px 0 3px 0 !important;  text-align:center;">
                                 <span t-field="doc.product_id" />
                             </div>
-                        </div>
-                        <!-- </t> -->
+                        </div> 
+                        </t> -->
                         <t t-if="doc.product_id.description">
                             <div class="row" style="margin:0 !important;">
-                                <div class="col-12 " style="font-family:sans-serif; font-size:11px; line-height:1.2; margin:0 0 5px 0 !important; text-align:center;">
+                                <div class="col-12 " style=" font-size:12px; line-height:1.2; margin:0 0 5px 0 !important; text-align:center;">
                                     <span t-field="doc.product_id.description" />
                                 </div>
                             </div>
