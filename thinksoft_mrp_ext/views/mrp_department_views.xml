@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="job_project_action_list" model="ir.actions.act_window">
-        <field name="name">Job Projects</field>
-        <field name="res_model">job.project</field>
+    <record id="mrp_department_action_list" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">mrp.department</field>
         <field name="view_mode">list,form,search</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create a new Sale Project
+                Create a new Department
             </p><p>
-                Create a new Sale Project
+                Create a new Department
             </p>
         </field>
     </record>
 
-    <record id="job_project_view_tree" model="ir.ui.view">
-        <field name="name">job.project.view.tree</field>
-        <field name="model">job.project</field>
+    <record id="mrp_department_view_tree" model="ir.ui.view">
+        <field name="name">mrp.department.view.tree</field>
+        <field name="model">mrp.department</field>
         <field name="arch" type="xml">
             <list duplicate="0">
                 <field name="name" />
@@ -24,9 +24,9 @@
         </field>
     </record>
 
-    <record id="job_project_view_form" model="ir.ui.view">
-        <field name="name">job.project.view.form</field>
-        <field name="model">job.project</field>
+    <record id="mrp_department_view_form" model="ir.ui.view">
+        <field name="name">mrp.department.view.form</field>
+        <field name="model">mrp.department</field>
         <field name="arch" type="xml">
             <form duplicate="0">
                 <sheet>
@@ -35,7 +35,7 @@
                             <label for="name" />
                         </div>
                         <h1 class="mb-0">
-                            <field name="name" class="mb-0" />
+                            <field name="name" class="mb-0" placeholder="e.g. MTR REQUIRED, MUST PICK UP TODAY, etc" />
                         </h1>
                     </div>
                     <field name="active" invisible="1" />
@@ -44,9 +44,9 @@
         </field>
     </record>
 
-    <record id="job_project_view_search" model="ir.ui.view">
-        <field name="name">job.project.view.search</field>
-        <field name="model">job.project</field>
+    <record id="mrp_department_view_search" model="ir.ui.view">
+        <field name="name">mrp.department.view.search</field>
+        <field name="model">mrp.department</field>
         <field name="arch" type="xml">
             <search>
                 <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
@@ -55,10 +55,10 @@
     </record>
 
     <menuitem
-        id="sale_menu_job_project_action_list"
-        action="job_project_action_list"
-        parent="sale.menu_sales_config"
-        groups="group_sale_extended_manager"
-        sequence="7"/>
+        id="mrp_menu_mrp_department_action_list"
+        action="mrp_department_action_list"
+        parent="mrp.menu_mrp_configuration"
+        groups="mrp.group_mrp_manager"
+        sequence="100"/>
 
 </odoo>

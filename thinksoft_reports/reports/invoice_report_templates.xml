@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="invoice_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <h1>Invoice</h1>
+        <!--
+                As language is not required for all objects.
+                So for now, If partner is available in object then pass
+                that partner's language.
+            -->
+        <t t-if="'partner_id' in o.fields_get()">
+          <t t-call="thinksoft_reports.invoice_template_document" t-lang="o.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in o.fields_get()">
+          <t t-call="thinksoft_reports.invoice_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+  <template name="Invoice report custom header and footer" id="invoice_custom_header_layout">
+    <div class="header pe-5">
+      <style>
+          <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+          .header,.footer {
+              font-family: Arial, Helvetica, sans-serif;
+              <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
+              }
+          .top-address{
+              line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+          }
+          .title{
+              <!-- font-family:'Oswald',sans-serif !important; -->
+              font-family:Arial, Helvetica, sans-serif;
+              font-size: 24px !important;
+              font-weight: bold !important;
+              line-height: 1.2 !important;
+              text-align: right !important;
+          }
+          .barcode{
+              font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+          }
+      </style>
+      <div class="container">
+        <div class="row mb-2">
+          <!-- ********************************* LOGO ********************************************* -->
+          <div class="col-4">
+            <div class="">
+              <img class="img" style="width:200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
+            </div>
+          </div>
+          <div class="col-3 top-address">
+            <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
+          </div>
+          <div class="col-5 d-flex justify-content-end title text-uppercase">
+
+              <!--********************** TITLE *********************-->
+            <!-- <div class="title text-uppercase  "> -->
+
+
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'" class="" style="">
+                          Invoice
+                        </span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'" clas="" style="">
+                          Draft Invoice
+                        </span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'" style=" ">
+                          Cancelled Invoice
+                        </span>
+                        <span t-if="o.move_type == 'out_refund'" style=" ">
+                          Credit Note
+                        </span>
+                        <span t-if="o.move_type == 'in_refund'" style=" ">
+                          Vendor Credit Note
+                        </span>
+                        <span t-if="o.move_type == 'in_invoice'" style=" ">
+                          Vendor Bill
+                        </span>
+
+
+                  <!-- </tr>
+                </tbody>
+              </table> -->
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-raw="0" />
+    </div>
+    <div class="footer " style="font-size:11px; width:100%; padding-top:8px; ">
+      <div class="container ">
+        <div class="row">
+          <div class="col-12">
+            <span class="text-left" style="">Print Date:</span>
+            <span class="ms-2" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;" />
+            <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+            <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span style="text-align: right;" class="topage" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="invoice_template_document">
+    <t t-call="thinksoft_reports.invoice_custom_header_layout">
+    <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+      <t t-if="'partner_id' in o.fields_get()">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+      </t>
+      <!-- //////////////////////////////////////// MAIN PAGE /////////////////////////////////// -->
+      <div class="main_page">
+        <div class="oe_structure">
+          <div class="container">
+            <div class="row">
+              <!-- ************************************** BILL TO ************************* -->
+              <div class="col-6 info1">
+                <div>
+                  <table class="text-uppercase" style="border-collapse: collapse; width:100%;">
+                    <tbody style="">
+                      <tr>
+                        <th style="border: 1px solid #525659; border-top-color: #525659; text-align: center; ">Invoice Address:</th>
+                      </tr>
+                      <tr>
+                        <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                          <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- <br /><br /> -->
+                  <!-- ************************************** SHIP TO ************************* -->
+                  <t t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)">
+                    <table class="text-uppercase mt8" style="border-collapse: collapse; width:100%;">
+                      <tbody>
+                        <tr>
+                          <th style="border: 1px solid #525659; border-top-color: #525659; text-align: center;"> Shipping Address: </th>
+                        </tr>
+                        <tr>
+                          <td class="address" style="border-bottom-color: 1px solid #fff;">
+                            <!-- <div groups="sale.group_delivery_invoice_address"> -->
+                              <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                              <!-- <address t-field="o.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/> -->
+                            <!-- </div> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </t>
+                </div>
+              </div>
+              <!-- #################################### MAIN INFO DETAILS ###################################### -->
+              <div class="info col-6">
+                <table class="text-uppercase" style="border-collapse: collapse;">
+                  <tbody style="">
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;"> Invoice <span class="text-capitalize">No</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659;">
+                        <span t-if="o.name != '/'" t-field="o.name" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">DATE</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span t-field="o.invoice_date" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                        <span>Source Document</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659;">
+                        <span t-field="o.invoice_origin" />
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">SALESPERSON</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <!-- <span class="" t-field="o.invoice_user_id" /> -->
+                        <span class="" t-field="o.invoice_user_id" />
+                      </td>
+                    </tr>
+                    <t t-if="o.move_type=='in_invoice'">
+                      <tr style="border: 1px solid #525659;">
+                        <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                          <span class="">Supplier Inv No</span>
+                        </th>
+                        <td style="border: 1px solid #525659;">
+                          <!-- <span t-field="o.supplier_invoice_number" /> -->
+                        </td>
+                      </tr>
+                    </t>
+                    <!-- <t t-if="o.move_type=='out_invoice'"> -->
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659; ">
+                        <span class="">Customer Reference</span>
+                      </th>
+                      <td style="border: 1px solid #525659; white-space: wrap; text-transform: uppercase; line-height: 0.5; overflow: hidden;">
+                      <!-- <span class="" t-field="o.purchase_id" /> -->
+                        <!-- <span class="" t-field="o.sale_id.client_order_ref" /> -->
+                        <span class="" t-field="o.ref" />
+                      </td>
+                    </tr>
+                    <!-- </t> -->
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Waybill</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span t-field="o.waybill" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Terms</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span t-field="o.invoice_payment_term_id" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                        <span>Due Date</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659;">
+                        <span t-field="o.invoice_date_due" />
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="container" style="margin:20px 0 20px;">
+            <div class="row items">
+              <div class="col-md-12 col-xs-12">
+                <div class="s_block mt8 mb8">
+                  <!-- #################################### ITEMS TABLE ################################## -->
+                  <table style="width: 100%;" class="line-items">
+                    <thead style="">
+                      <tr>
+                        <th style="text-align: left; border-top-color: solid #525659; border-bottom-color: #525659;">Part #</th>
+                        <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">QTY <span></span>(UOM) </th>
+                        <th rowspan="2" style="text-align:right;">PRICE</th>
+                        <!-- <t t-if="o.move_type=='out_refund'"> -->
+                         <!--   <th style="border: 1px solid black;">RESTOCKING FEE</th>
+                          <t t-set="colspan_val" t-value="colspan_val + 1"/>
+                        </t>   -->
+                        <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; text-align:right;">ext. Price</th>
+                      </tr>
+                      <tr>
+                        <th style="text-align: left; border-bottom-color: #525659;">Description</th>
+                      </tr>
+                      <!-- </div> -->
+                    </thead>
+                    <tbody t-foreach="o.invoice_line_ids" t-as="line" style="">
+                      <tr style="">
+                        <td >
+                        <!-- ******************  Part # ****************** -->
+                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                          <!-- ******************  Description ****************** -->
+                          <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                          <t t-raw=" ' '.join(desc.split()) " />
+
+                            <!-- <div style="line-height:1.3 !important; margin:0; padding:0; display:inline; color:#5b5b5b !important;" t-esc="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/> -->
+                        </td>
+
+                        <!-- ******************* QTY / UOM ******************* -->
+                        <td colspan="" class="text-center" style="white-space: nowrap;">
+                          <span t-field="line.quantity" />
+                          <span></span>
+                          <span t-field="line.product_uom_id" />
+                        </td>
+
+                        <!-- ********************* PRICE ******************* -->
+                        <td class="text-end" style="white-space: nowrap;">
+                          <span style="margin-right: 2px;">$</span>
+                          <!-- <span t-field="line.price_unit" />    dis_price_unit -->
+                          <!-- <span t-esc="round(line.price_unit,3)"/> -->
+
+                          <span t-esc="'{:.2f}'.format(line.price_unit * (1 - (line.discount / 100)),3)" />
+                        </td>
+
+                        <!-- <t t-if="o.move_type=='out_refund'">
+                          <td style="border: 1px solid black;">
+                            <span t-esc="'{:.2f}'.format(line.discount)" />
+                          </td>
+                        </t> -->
+                        <!--***************** ext. Price *******************-->
+                        <td colspan="" class="text-end" style="white-space: nowrap;">
+                          <span t-esc="'{:.2f}'.format(line.price_subtotal)" />
+                          <!--<span style="margin-right:2px;">
+                                    $</span><span t-esc="round((line.product_price * line.quantity_done),2)"/> -->
+                        </td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container mt42">
+            <div class="row last-page" style="border-top: 1px dotted #000; padding-bottom: 5px; padding-top: 10px;">
+              <div class="col-9 pe-5">
+                <div style="font-size: 14px !important; font-weight: bold;">
+                  <span>GST Registration #: 861900272</span>
+                  <span style="font-style: italic;" class="ms-5 text-center">Thank you for your business!</span>
+                </div>
+                <div class="t_block mt8 mb8">
+                  <p style="font-size: 12px !important;"> SELLER warrants product which is found to be defective in either workmanship or material, under normal use and service, will be replaced. This includes lowest transportation charges but not the cost of installation or removal. Or the purchase price will be refunded, provided that the SELLER receives written claim specifying the defect within (90) days from date of sale. In no event shall SELLER be liable for any claims, whether arising from breach of contract or warranty or claims of negligence or negligent manufacture, in excess of the purchase price. ALL OTHER WARRANTIES EXPRESSED OR IMPLIED INCLUDING ANY WARRANTIES OF MERCHANTABILITY AND FITNESS FOR PARTICULAR USE ARE HEREBY DISCLAIMED. The foregoing expresses all of SELLERS obligation and liabilities with respect to the quality of items furnished by it and shall under no circumstances be liable for consequential, collateral or special losses or damages. </p>
+                </div>
+                <div style="font-size: 13px !important;" class="t_block text-center mt-3">Service charges will be applied to overdue balance at 2% per month
+                  <p style="color:red; margin-top:15px;">“Please note that invoices paid by credit card are subject to a 3% credit card charge.”</p>
+                </div>
+              </div>
+              <div id="total" class="total col-3">
+                <table >
+                  <tbody>
+                    <tr>
+                      <th class="text-end" >Net Total:</th>
+                      <td class="text-end">
+                        <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                      </td>
+                    </tr>
+                    <tr style="padding-bottom: 20px;">
+                      <th class="text-end">GST (5%):</th>
+                      <td class="pb-3 text-end">
+                        <span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                      </td>
+                    </tr>
+                    <tr style="border-top: 1px solid #000; ">
+                      <th class="pb-2 text-end" style="padding-top: 6px; font-weight: bold;">
+                          <span>Total:</span>
+                      </th>
+                      <td class="text-end" style="padding-top: 6px; font-weight:400;">
+                        <div data-name="label: field">
+                        <strong>
+                            <span t-field="o.amount_total" />
+                        </strong>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr >
+                      <th class="text-end" style="font-weight: bold;">
+                          <span>Balance:</span>
+                      </th>
+                      <td class="text-end" style="font-weight:400;">
+                        <div  data-name="label: field">
+                            <strong>
+                              <span  t-field="o.amount_residual" />
+                            </strong>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

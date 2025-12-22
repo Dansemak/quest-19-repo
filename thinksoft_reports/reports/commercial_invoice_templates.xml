@@ -1,382 +1,387 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-     <!--********************************* Commercial Invoice *********************************-->
+        <!-- ******************** Commercial Invoice ******************** -->
 
-    <template id="commercial_invoice_template">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
-                <h1>Commercial Invoice</h1>
-                <!--
-                As language is not required for all objects.
-                So for now, If partner is available in object then pass
-                that partner's language.
-            -->
-            <t t-if="'partner_id' in doc.fields_get()">
-                <t t-call="thinksoft_reports.commercial_invoice_template_document" t-lang="doc.partner_id.lang"/>
+        <template id="commercial_invoice_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <h1>Commercial Invoice</h1>
+                    <!--
+                        As language is not required for all objects.
+                        So for now, If partner is available in object then pass
+                        that partner's language.
+                    -->
+                    <t t-if="'partner_id' in doc.fields_get()">
+                        <t t-call="thinksoft_reports.commercial_invoice_template_document" t-lang="doc.partner_id.lang"/>
+                    </t>
+                    <t t-if="'partner_id' not in doc.fields_get()">
+                        <t t-call="thinksoft_reports.commercial_invoice_template_document"/>
+                    </t>
+                </t>
             </t>
-            <t t-if="'partner_id' not in doc.fields_get()">
-                <t t-call="thinksoft_reports.commercial_invoice_template_document"/>
-            </t>
-            </t>
-        </t>
-    </template>
+        </template>
 
-    <template name="Report header and footer standard" id="report_external_layout_commercial_invoice"> 
-      <div class="header pe-5" style=""> 
-        <style>
-          @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
-           .header,.footer { 
-                font-family: 'Roboto Condensed','Sansation',  sans-serif ;                
-              }
-            .top-address{
-                line-height:1; font-size:14px; font-family:'Roboto Condensed','Sansation',sans-serif;
-              }
-            .title{
-                font-family:'Oswald', 
-                sans-serif !important;
-                font-size: 24px !important;
-                font-weight: bold !important;
-                text-align: left !important;
-                line-height: 1.2 !important;
-              }
-            .barcode{
-                font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:'Roboto Condensed','Sansation',sans-serif;
-              }
-        </style>    
-        <div class="container">
-          <div class="row mb-2">
-            <!-- ********************************* LOGO
-            ********************************************* -->
-            <div class="col-4">
-              <div class="">
-                <img class="img img-responsive " style="width: 200px;" data-name="&lt; img / &gt;"
-                  src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title=""
-                  title="" aria-describedby="tooltip269202" />
-              </div>
+        <template name="Report header and footer standard" id="report_external_layout_commercial_invoice">
+            <div class="header pe-5" style="">
+                <style>
+                    <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+                    .header,.footer {
+                        font-family: Arial, Helvetica, sans-serif;
+                        <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
+                        }
+                    .top-address{
+                        line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+                    }
+                    .title{
+                        <!-- font-family:'Oswald',sans-serif !important; -->
+                        font-family:Arial, Helvetica, sans-serif;
+                        font-size: 24px !important;
+                        font-weight: bold !important;
+                        line-height: 1.2 !important;
+                        text-align: left !important;
+                    }
+                    .barcode{
+                        font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+                    }
+                </style>
+                <div class="container">
+                <div class="row mb-2">
+                    <!-- ******************** LOGO ******************** -->
+                    <div class="col-4">
+                    <div class="">
+                        <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
+                    </div>
+                    </div>
+                    <!-- ******************** ADDRESS ******************** -->
+                    <div class="col-3 top-address">
+                    <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                        500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                        780.461.7009</p>
+                    </div>
+                    <!-- ******************** TITLE ******************** -->
+                    <div class="col-5 d-flex justify-content-end " style=" ">
+                    <div style="padding:0!important; text-align:center; ">
+                        <!-- ******************** BARCODE ******************** -->
+                        <span t-field="doc.name"
+                        t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
+                        style="" />
+                        <br />
+                        <div class="barcode" t-field="doc.name" />
+                    </div>
+                    <!-- ******************** TITLE ******************** -->
+                    <div class="title text-uppercase">
+                        Commercial<br/>Invoice
+                    </div>
+                    </div>
+                </div>
+                </div>
             </div>
-            <!-- ************************************** ADDRESS *************************** -->
-            <div class="col-3 top-address">
-              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
-                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
-                780.461.7009</p>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0" />
             </div>
-            <!-- ************************************** TITLE
-            ******************************************** -->
-            <div class="col-5 d-flex justify-content-end top-address" style=" ">
-              <div style="padding:0!important; text-align:center; ">
-                <!--**********************
-                BARCODE *********************-->
-                <span t-field="doc.name"
-                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
-                  style="" />
-                <br />
-                <div class="barcode" t-field="doc.name" />
-              </div>
-              <!--**********************
-              TITLE *********************-->
-              <div class="title text-uppercase">
-                Commercial<br/>Invoice
-              </div>
+            <!-- <div class="footer "
+                style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
+            <div class="footer" style="font-size:11px; width:100%;">
+              <div class="container ">
+                <div class="row">
+                    <div class="col-12">
+                    <span class="text-left" style="">Print Date:</span>
+                    <span class="ms-2"
+                        t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                        style="margin-right: 250px; text-align: right;" />
+                    <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+                    <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                        style="text-align: right;" class="topage" /></div>
+                    </div>
+                </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
-        t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-        <t t-raw="0" />
-      </div>
-      <!-- <div class="footer "
-        style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
-        <div class="footer" style="font-size:11px; width:100%;">      
-        <div class="container ">
-          <div class="row">
-            <div class="col-12">
-              <span class="text-left" style="">Print Date:</span>
-              <span class="ms-2"
-                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
-                style="margin-right: 250px; text-align: right;" />
-              <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
-              <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
-                  style="text-align: right;" class="topage" /></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
+        </template>
 
-  <template  id="commercial_invoice_template_document">
-    <div class="main_page" >
-      <t t-call="thinksoft_reports.report_external_layout_commercial_invoice">
-        <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
-      <!--
-                  As language is not required for all objects.
-                  So for now, If partner is available in object then pass
-                  that partner's language.
-              -->
-      <t t-if="'partner_id' in doc.fields_get()">
-        <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
-      </t>
-      <div class="oe_structure" style="font-size: 11px; ">
-        <div class="container" >
-          <div class="row">
-           <!-- ************************************** SHIP TO ******************************************** -->
-              <div class="info1 col-6" >
-               <table class="text-uppercase table table-borderless" style=" border-collapse:collapse;">
-                  <tbody style="">
-                    <tr ><th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px;">Bill To</th></tr>
+        <template id="commercial_invoice_template_document">
+            <t t-call="thinksoft_reports.report_external_layout_commercial_invoice">
+                <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+                <div class="main_page" >
+                    <!--
+                        As language is not required for all objects.
+                        So for now, If partner is available in object then pass
+                        that partner's language.
+                    -->
+                    <t t-if="'partner_id' in doc.fields_get()">
+                        <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
+                    </t>
+                    <div class="oe_structure" style="font-size: 11px; ">
+                        <div class="container" >
+                            <div class="row">
+                            <!-- ******************** SHIP TO ******************** -->
+                                <div class="info1 col-6" >
+                                    <table class="text-uppercase table table-borderless" style=" border-collapse:collapse;">
+                                    <tbody style="">
+                                        <tr ><th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px;text-align: center;">Bill To</th></tr>
 
-                    <tr>
-                      <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="doc.sale_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-                        </td>
-                    </tr>
-                    <!-- <tr><td style="border-bottom-color: 1px solid #525659; "><span style="" t-field="doc.sale_partner_id.zip"/></td></tr> -->
+                                        <tr>
+                                        <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                                            <address t-field="doc.sale_id.partner_invoice_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                            </td>
+                                        </tr>
+                                        <tr ><th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px; text-align: center;">Ship to</th></tr>
+                                        <tr>
+                                        <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                                            <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
 
-                     <tr ><th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px;">Ship to</th></tr>
-                    <tr>
-                      <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="doc.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                                <!-- ******************** REPORT INFO ******************** -->
+                                <div class="info col-6">
+                                    <table class="table text-uppercase"  style="border-collapse:collapse;" >
+                                        <tbody style="">
+                                            <tr >
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">DATE</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                                <span class="" t-field="doc.create_date" />
+                                            </td>
+                                            </tr>
+                                            <tr >
+                                            <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;" >
+                                            <span > TERMS</span>
+                                            </th>
+                                            <td style="border-top-color: #525659; border: 1px solid #525659;">
+                                                <span class="" t-field="doc.sale_id.payment_term_id" />
+                                            </td>
+                                            </tr>
+                                            <tr style="border: 1px solid #525659;">
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">CUSTOMER REFERENCE</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                                <!-- <span class="" t-field="doc.origin"/> -->
+                                                <span class="" t-field="doc.client_order_ref"/>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">DELIVERY DATE</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                                <span class="" t-field="doc.sale_id.commitment_date" />
+                                                <!-- <span class="" t-field="doc.scheduled_date"/> -->
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">SHIPPING INFOMATION</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                                <span t-field="doc.carrier_id.name"/>
+                                                <!-- <span class="" t-field="doc.sale_ship_via"/> -->
+                                            </td>
+                                            </tr>
+                                            <tr >
+                                            <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;" >
+                                            <span > VENDOR CONTACT</span>
+                                            </th>
+                                            <td style="border-top-color: #525659; border: 1px solid #525659;">
+                                                <span class="" t-field="doc.partner_contact_id.name" />
+                                            </td>
+                                            </tr>
+                                            <tr >
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">VENDOR PHONE</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                            <span class="" t-field="doc.partner_contact_id.phone" />
+                                            </td>
+                                            </tr>
+                                            <tr >
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">QUEST CONTACT</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                                <span t-field="doc.sale_id.outside_salesperson_id.name"/>
+                                            </td>
+                                            </tr>
 
-            <!-- ************************************** REPORT INFO ******************************************** -->
-              <div class="info col-6">
-                <table class="table text-uppercase"  style="border-collapse:collapse;" >
-                  <tbody style="">
-                    <tr >
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">DATE</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span class="" t-field="doc.create_date" />
-                      </td>
-                    </tr>
-                    <tr >
-                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;" >
-                       <span > TERMS</span>
-                      </th>
-                      <td style="border-top-color: #525659; border: 1px solid #525659;">
-                        <span class="" t-field="doc.sale_id.payment_term_id" />
-                      </td>
-                    </tr>
-                    <tr style="border: 1px solid #525659;">
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">CUSTOMER REF(PO)</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span class="" t-field="doc.origin"/>
-                        <!-- <span class="" t-field="doc.client_order_ref"/> -->
-                      </td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">DELIVERY DATE</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span class="" t-field="doc.sale_id.commitment_date" />
-                        <!-- <span class="" t-field="doc.scheduled_date"/> -->
-                      </td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">SHIPPING INFOMATION</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span t-field="doc.carrier_id.name"/>
-                        <!-- <span class="" t-field="doc.sale_ship_via"/> -->
-                      </td>
-                    </tr>
-                    <tr >
-                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;" >
-                       <span > VENDOR CONTACT</span>
-                      </th>
-                      <td style="border-top-color: #525659; border: 1px solid #525659;">
-                        <!-- <span class="" t-field="doc.sale_id.sale_contact_id.name" /> -->
-                        <span class="" t-field="doc.partner_id.name"/>
-                      </td>
-                    </tr>
-                    <tr >
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">VENDOR PHONE</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span class="" t-field="doc.sale_id.partner_id.phone" />
-                      </td>
-                    </tr>
-                    <tr >
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">QUEST CONTACT</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span t-field="doc.sale_id.user_id.name"/>
-                        <!-- <span class="" t-field="doc.sale_reps_id" /> -->
-                      </td>
-                    </tr>
+                                            <tr>
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">FOB</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                            <span class="" t-field="doc.sale_id.warehouse_id.name"/>
+                                                <!-- <span class="" t-field="doc.sale_freight_id"/> -->
 
-                    <tr>
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">FOB</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <!-- <span class="" t-field="doc.sale_id.warehouse_id.name"/> -->
-                        <!-- <span class="" t-field="doc.sale_id.charge_type_id"/> -->
-    
-                      </td>
-                    </tr>
-                    <!-- <tr >
-                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-                        <span class="">Country of Origin:</span>
-                      </th>
-                      <td style="border: 1px solid #525659;">
-                        <span class="" t-field="doc.partner_id.country_id" />
-                      </td>
-                    </tr> -->
-                    <tr>
-                      <td colspan="2" style="height: 15px; border: 1px solid #525659;">
-                         PRODUCERS | MANUFACTURER AVAILABLE UPON REQUEST
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
-        </div>
-        <div class="container" style="margin:20px 0 20px;" >
-          <div class="row items" >
-            <div class="col-md-12 col-xs-12">
-              <div class="">
-                 <table class="line-items" style="width:100%; ">
-                  <thead style="">
-                    <tr>
-                      <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color:#525659; width: 40px;" >Line</th>
-                      <th style="text-align:left; border-top-color: solid #525659;  border-bottom-color: #525659;">Part #</th>
-                      <th rowspan="2" style="text-align:center; border-top-color: solid #525659;  border-bottom-color: #525659;">HS Code</th>
-                      <th rowspan="2" style="text-align:center; border-top-color: solid #525659;  border-bottom-color: #525659;">Country of Origin</th>
-                      <th rowspan="2" style=" border-top-color: #525659; border-botttom-color: #525659;">QTY SHP</th>
-                      <th rowspan="2">UNIT PRICE</th>
-                       <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659; ">UoM</th>
-                      <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; ">ext. Price</th >
-                    </tr>
-                    <tr>
-                      <th colspan="" style="text-align:left;  border-bottom-color: #525659; ">Description</th>
-                    </tr>
-                  </thead>
-                  <!-- <tbody t-foreach="doc.move_lines" t-as="line" style="" > -->
-                   <tbody t-foreach="doc.move_line_ids" t-as="line" style="">
-                    <tr style="">
-                      <!--********************* line # ********************-->
-                      <td rowspan="2" class="text-center" style="">
-                        <!-- <span t-field="line.seq_no" style=""/> -->
-                         <t t-esc="line_index + 1" />
-                      </td> 
-                      <td colspan="" style="padding: 0  !important;" >
-                        <!--**************** Part # ***********************-->
-                        <div style="text-align: left; border-bottom:2px solid #ccc !important; padding: 0 !important;" >
-                          <div class="float:left; text-uppercase " style=" display:inline; line-height:25px !important; padding: 3px 20px 5px 10px !important;" t-field="line.product_id" />
-
-                          <!-- <div class="float:left; " style="line-height:25px !important; border-left:2px solid #ccc !important; display:inline; padding:3px 5px 0px 20px !important;" t-field="line.hs_code" />  -->
-                          <!-- <div class="float:left; " style="line-height:25px !important; border-left:2px solid #ccc !important; display:inline; padding:3px 5px 0px 20px !important;" t-field="line.country_of_origin" />  -->
+                                            </td>
+                                            </tr>
+                                            <!-- <tr >
+                                            <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                                                <span class="">Country of Origin:</span>
+                                            </th>
+                                            <td style="border: 1px solid #525659;">
+                                                <span class="" t-field="doc.partner_id.country_id" />
+                                            </td>
+                                            </tr> -->
+                                            <tr>
+                                            <td colspan="2" style="height: 15px; border: 1px solid #525659;">
+                                                PRODUCERS | MANUFACTURER AVAILABLE UPON REQUEST
+                                            </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <!--****************  Description *****************-->
-                        <div style="padding:3px 5px 5px 10px !important; line-height:20px !important;">
-                          <!-- <span t-field="line.sale_line_id.name" /> -->
-                           <span t-field="line.product_id.description_sale" />
-                          <!-- <span  t-field="line.name"/> -->
+                        <div class="container" style="margin:20px 0 20px;" >
+                            <div class="row items" >
+                                <div class="col-md-12 col-xs-12">
+                                <div class="">
+                                    <table class="line-items" style="width:100%; ">
+                                    <thead style="">
+                                        <tr>
+                                        <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color:#525659; width: 40px;" >Line</th>
+                                        <th style="text-align:left; border-top-color: solid #525659;  border-bottom-color: #525659;">Part #</th>
+                                        <th rowspan="2" style="text-align:center; border-top-color: solid #525659;  border-bottom-color: #525659;">HS Code</th>
+                                        <th rowspan="2" style="text-align:center; border-top-color: solid #525659;  border-bottom-color: #525659;">Country of Origin</th>
+                                        <th rowspan="2" style=" border-top-color: #525659; border-botttom-color: #525659;">QTY SHP</th>
+                                        <th rowspan="2" style="text-align: right;">UNIT PRICE</th>
+                                        <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659; ">UoM</th>
+                                        <th rowspan="2" style="white-space: nowrap; border-top-color: #525659; text-align: right;">ext. Price</th >
+                                        </tr>
+                                        <tr>
+                                        <th colspan="" style="text-align:left;  border-bottom-color: #525659; ">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
+                                    <tbody t-foreach="doc.move_ids" t-as="line">
+                                        <tr style="">
+                                        <!-- ******************** line # ******************** -->
+                                        <td rowspan="2" class="text-center" style="">
+                                            <span t-field="line.seq_no" style=""/>
+                                        </td>
+                                        <td >
+                                            <!-- ******************  Part # ****************** -->
+                                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                                            <!-- ******************  Description ****************** -->
+                                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                                            <t t-raw=" ' '.join(desc.split()) " />
+                                        </td>
+                                        <!-- ******************** Hs Code ******************** -->
+                                        <td colspan="" class="text-center"><span t-field="line.product_id.hs_code" /></td>
+                                        <!-- ******************** Country Of Origin ******************** -->
+                                        <td colspan="" class="text-center">
+                                            <span t-field="line.product_id.country_of_origin" />
+                                        </td>
+                                        <!-- ******************** QTY shipped ******************** -->
+                                        <td colspan="" class="text-center">
+                                            <!-- <span class="" t-field="line.packaging_uom_qty" /> -->
+                                            <span t-field="line.quantity" />
+                                        </td>
+                                        <!-- ******************** UNIT PRICE ******************** -->
+                                        <td class="text-end">
+                                            <span style="margin-right:2px;">$</span>
+                                            <span t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))" />
+                                        </td>
+                                        <!-- ******************** UOM ******************** -->
+                                        <td class="text-center">
+                                            <span  t-field="line.product_uom" style=""/>
+                                        </td>
+                                        <!-- ******************** ext. Price ******************** -->
+                                        <td colspan="" class="text-end">
+                                            <span style="margin-right:2px;">$</span>
+                                            <span class="" t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity)" />
+                                            <!-- <span t-esc="round(((line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100))) * line.quantity),2)"/> -->
+                                        </td>
+
+                                        </tr>
+                                    </tbody>
+                                    </table>
+
+                                    <table style="width:100%;" class="mt-2">
+                                    <tr style="height:29pt">
+                                        <td style="font-size:8px !important; " colspan="5" rowspan="3" >
+                                        <span class="">
+                                        <img class=" me-3 ms-2" style="display:inline; float:left;"  src="/thinksoft_reports/static/src/img/quest-crest.jpg" data-original-title="" alt="quest stamp" />
+                                        <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0; white-space: nowrap; line-height:2;" class="me-2">
+                                            <li>QUEST GASKET &#38; SUPPLY INC</li>
+                                            <li>UNIT 500, 3260 16 STREET</li>
+                                            <li>NISKU, AB</li>
+                                            <li>T9E 1P5</li>
+                                        </ul>
+
+                                        <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0 0 0 10px;  white-space: nowrap; line-height:2; border-left: 2px solid #7e7e7e;" class="me-3">
+                                            <li>QUEST GASKET &#38; SUPPLY INC.</li>
+                                            <li>BAY 27, 10099 15 STREET NE</li>
+                                            <li>CALGARY, AB</li>
+                                            <li>T3J 3P9</li>
+                                        </ul>
+
+                                        <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0 0 0 10px; white-space: nowrap; line-height:2;border-left: 2px solid #7e7e7e;" class="">
+                                            <li><i class="fa fa-envelope-o me-2 fa-lg" aria-hidden="true" />SALES@QUESTGASKET.COM</li>
+                                            <li><i class="fa fa-fw fa-phone me-2 fa-lg" aria-hidden="true" />780.463.4049 | C: 403-279-7007</li>
+                                            <li><i class="fa fa-desktop me-2 fa-lg" aria-hidden="true"/>WWW.QUESTGASKET.COM</li>
+                                            <li><i class="fa fa-fw fa-map-marker me-2 fa-lg" aria-hidden="true" />NISKU | CALGARY</li>
+                                        </ul>
+                                        </span>
+                                    </td>
+                                    <!-- ******************** SUBTOTAL ******************** -->
+                                    <td style="width:115px; white-space: nowrap;text-align: right; background-color: lightgray; ">
+                                    <span>SUBTOTAL </span>
+                                    </td>
+                                    <td style="width:105px; white-space: nowrap; text-align: right;">
+                                        <t t-set="untaxed_amount" t-value="0"/>
+                                        <t t-foreach="doc.move_ids" t-as="line">
+                                            <t t-set="untaxed_amount" t-value="untaxed_amount + (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity)"/>
+                                        </t>
+                                        <span t-out="untaxed_amount" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/>
+                                    </td>
+                                    </tr>
+                                    <!-- ******************** GST (5%) ******************** -->
+                                    <tr style="white-space: nowrap; height:29pt">
+                                    <td style="text-align: right; background-color: lightgray; font-size:14px !important;">
+                                    <span style="">GST (5%)</span>
+                                    </td>
+                                        <t t-set="tax_amount" t-value="0"/>
+
+                                        <t t-foreach="doc.move_ids" t-as="line">
+                                            <t t-set="tax_amount" t-value="tax_amount + (((line.sale_line_id.price_total * line.quantity) / line.sale_line_id.product_uom_qty) - (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity))"/>
+                                        </t>
+
+                                        <td style="white-space: nowrap; text-align: right; font-size:14px !important;">
+                                        <span t-out="tax_amount" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/>
+                                    </td>
+                                    </tr>
+                                        <!-- ******************** TOTAL ******************** -->
+                                        <tr style="height:29pt">
+                                        <td style="font-weight: bold; white-space: nowrap; text-align: right; background-color: lightgray; font-size:14px !important;"><span style="">TOTAL (<span t-field="doc.sale_id.currency_id"/>) </span>
+                                        </td>
+                                        <td style="font-weight: bold; white-space: nowrap; text-align: right; font-size:14px !important;">
+
+                                            <t t-set="total" t-value="0"/>
+
+                                            <t t-foreach="doc.move_ids" t-as="line">
+                                                <t t-set="total" t-value="total + ((line.sale_line_id.price_total * line.quantity) / line.sale_line_id.product_uom_qty)"/>
+                                            </t>
+
+                                            <strong>
+                                                <span t-out="total" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
                         </div>
-                      </td>
-                      <!--******************* Hs Code *****************-->
-                      <td colspan="" class="text-center"><span t-field="line.product_id.hs_code" /></td>
-                      <!--******************* Country Of Origin *****************-->
-                      <td colspan="" class="text-center">
-                        <span t-field="line.product_id.country_of_origin" />
-                        <!-- <span t-field="line.country_of_origin" /> -->
-                      </td>
-                      <!--******************* QTY shipped *****************-->
-                      <td colspan="" class="text-center">
-                        <span class="" t-field="line.packaging_uom_qty" />
-                        <!-- <span t-field="line.quantity_done" /> -->
-                      </td> 
-                      <!--****************** UNIT PRICE *******************-->
-                      <td class="text-center">
-                        <!-- <span style="margin-right:2px;">$</span> -->
-                        <!-- <span t-esc="'{:.2f}'.format(line.sale_line_id.dis_price_unit)" /> -->
-            
-                        <!-- <span  t-field="line.product_price"/> -->
-                      </td>
-                      <!-- *********************** UOM *******************-->
-                      <td class="text-center">
-                        <!-- <span  t-field="line.product_uom" style=""/> -->
-                      </td> 
-                      <!--*********************** ext. Price *************-->
-                      <td colspan="" class="text-center">
-                        <!-- <span style="margin-right:2px;">$</span> -->
-                        <!-- <span class="" t-esc="'{:.2f}'.format(line.sale_line_id.dis_price_unit * line.quantity_done)" /> -->
-                        <!-- <span t-esc="round((line.product_price * line.quantity_done),2)"/> -->
-                      </td> 
+                    </div>
+                </div>
+            </t>
+        </template>
 
-                    </tr>
-                  </tbody>
-                </table>
-
-                <table style="width:100%;" class="mt-2">
-                  <tr style="height:29pt">
-                    <td style="font-size:8px !important; " colspan="5" rowspan="3" >
-                     <span class="">
-                      <img class=" me-3 ms-2" style="display:inline; float:left;"  src="/thinksoft_reports/static/src/img/quest-crest.jpg" data-original-title="" alt="quest stamp" />
-                      <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0; white-space: nowrap; line-height:2;" class="me-2">
-                        <li>QUEST GASKET &#38; SUPPLY INC</li>
-                        <li>UNIT 500, 3260 16 STREET</li>
-                        <li>NISKU, AB</li>
-                        <li>T9E 1P5</li>
-                      </ul>
-
-                      <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0 0 0 10px;  white-space: nowrap; line-height:2; border-left: 2px solid #7e7e7e;" class="me-3">
-                        <li>QUEST GASKET &#38; SUPPLY INC.</li>
-                        <li>BAY 27, 10099 15 STREET NE</li>
-                        <li>CALGARY, AB</li>
-                        <li>T3J 3P9</li>
-                      </ul>
-
-                      <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0 0 0 10px; white-space: nowrap; line-height:2;border-left: 2px solid #7e7e7e;" class="">
-                        <li><i class="fa fa-envelope-o me-2 fa-lg" aria-hidden="true" />SALES@QUESTGASKET.COM</li>
-                        <li><i class="fa fa-fw fa-phone me-2 fa-lg" aria-hidden="true" />780.463.4049 | C: 403-279-7007</li>
-                        <li><i class="fa fa-desktop me-2 fa-lg" aria-hidden="true"/>WWW.QUESTGASKET.COM</li>
-                        <li><i class="fa fa-fw fa-map-marker me-2 fa-lg" aria-hidden="true" />NISKU | CALGARY</li>
-                      </ul>
-                    </span>
-                  </td>
-                  <td style="width:115px; white-space: nowrap;text-align: right; background-color: #f1f1f1!important; "><span>SUBTOTAL </span>
-                </td>
-                <td style="width:105px; white-space: nowrap; text-align: center; background-color: #f1f1f1!important;"><span t-field="doc.sale_id.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- SUBTOTAL (CAD) -->
-                </td>
-                </tr>
-                <!-- ###################################################################################################################################################################################### -->
-                <tr style="white-space: nowrap; height:29pt"><td style="text-align: right; background-color: #f1f1f1!important; "><span style="">GST (5%)</span>
-                </td>
-                <td style="white-space: nowrap; text-align: center; background-color: #f1f1f1!important; "><span t-field="doc.sale_id.amount_tax" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- GST (5%) -->
-                </td>
-                </tr>
-                <!-- ###################################################################################################################################################################################### -->
-                <tr style="height:29pt">
-                  <td style="white-space: nowrap; text-align: right; background-color: #f1f1f1!important;"><span style="">TOTAL (<span t-field="doc.sale_id.currency_id"/>) </span>
-                </td>
-                <!-- <td style="white-space: nowrap; text-align: center; background-color: #f1f1f1!important; "><span t-esc="o.amount_total + o.amount_tax"/> -->
-                <td style=" white-space: nowrap; text-align: center; background-color: #f1f1f1!important;"><span t-field="doc.sale_id.amount_total" t-options='{"widget": "monetary", "display_currency": doc.sale_id.currency_id}'/><!-- TOTAL (CAD) -->
-                </td>
-                </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        </div>
-      </t>
-    </div>
-  </template>
     </data>
 </odoo>

@@ -14,28 +14,52 @@ class StockPicking(models.Model):
         string="Note",
         help="Important notes relating to the PICK, PACK, and OUT",
         readonly=True,
-        related='sale_id.sale_note_id'
+        related="sale_id.sale_note_id",
     )
     comment_text = fields.Text(
         string="Comment",
         help="Specific comments relating to the Note and the PICK, PACK, and OUT",
         readonly=True,
-        related="sale_id.comment_text"
+        related="sale_id.comment_text",
     )
     sale_freight_id = fields.Many2one(
         "sale.freight",
         string="Freight Charge",
         help="Where and how the freight is being charged",
         readonly=True,
-        related="sale_id.sale_freight_id"
+        compute="_compute_order_fields",
+        store=True,
     )
     cut_off = fields.Float(
         related="carrier_id.cut_off",
         string="Cut Off",
         help="The time of day when the shipping cutoff occurs, in hours (0-24).",
     )
-    picking_type_sequence_code = fields.Char(related='picking_type_id.sequence_code')
-    partner_contact_id = fields.Many2one("res.partner", related="sale_id.partner_contact_id", string="Buyer")
+    carrier_id = fields.Many2one(
+        "delivery.carrier",
+        string="Shipping Method",
+        domain="[('id', 'in', allowed_carrier_ids)]",
+        check_company=True,
+        store=True,
+        compute="_compute_order_fields",
+    )
+    picking_type_sequence_code = fields.Char(related="picking_type_id.sequence_code")
+    partner_contact_id = fields.Many2one("res.partner", compute="_compute_order_fields", string="Contact", store=True)
+
+    # sets fields to related fields from sale.order or purchase.order
+    @api.depends(
+        "sale_id.partner_contact_id",
+        "purchase_id.partner_contact_id",
+        "sale_id.sale_freight_id",
+        "purchase_id.sale_freight_id",
+        "sale_id.carrier_id",
+        "purchase_id.carrier_id",
+    )
+    def _compute_order_fields(self):
+        for picking in self:
+            picking.partner_contact_id = picking.sale_id.partner_contact_id or picking.purchase_id.partner_contact_id
+            picking.sale_freight_id = picking.sale_id.sale_freight_id or picking.purchase_id.sale_freight_id
+            picking.carrier_id = picking.sale_id.carrier_id or picking.purchase_id.carrier_id
 
     # check that the country of origin is on the product if COO is required
     def button_validate(self):

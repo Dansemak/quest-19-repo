@@ -8,7 +8,8 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new End User
-            </p><p>
+            </p>
+            <p>
                 Create a new End User
             </p>
         </field>
@@ -54,11 +55,6 @@
         </field>
     </record>
 
-    <menuitem
-        id="sale_menu_company_user_action_list"
-        action="company_user_action_list"
-        parent="sale.menu_sales_config"
-        groups="group_sale_extended_manager"
-        sequence="8"/>
+    <menuitem id="sale_menu_company_user_action_list" action="company_user_action_list" parent="sale.menu_sales_config" groups="thinksoft_sale_ext.group_sale_extended_manager" sequence="8" />
 
 </odoo>

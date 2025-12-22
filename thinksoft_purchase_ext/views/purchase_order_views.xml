@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_form_inherit_thinksoft_purchase_ext" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='picking_type_id']" position="after">
+                <field name="carrier_id" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']//list//field[@name='sequence']" position="after">
+                <field name="seq_no" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
