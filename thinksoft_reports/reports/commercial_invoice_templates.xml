@@ -257,7 +257,6 @@
                                         <th colspan="" style="text-align:left;  border-bottom-color: #525659; ">Description</th>
                                         </tr>
                                     </thead>
-                                    <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
                                     <tbody t-foreach="doc.move_ids" t-as="line">
                                         <tr style="">
                                         <!-- ******************** line # ******************** -->
