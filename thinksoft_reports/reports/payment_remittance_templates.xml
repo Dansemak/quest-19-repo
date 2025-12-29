@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="check_layout1">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company" />
+            </t>
+
+            <!-- <div class="header pe-5" style="width:100%;  padding-bottom:10px; border-bottom:3px solid #c30000; margin-top:30px!important;"> -->
+            <div class="header pe-5" style="width:100%;  padding-bottom:10px; margin-top:30px!important;">
+                <style>
+                    <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+                    .header,.footer {
+                        font-family: Arial, Helvetica, sans-serif;
+                        <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
+                        }
+                    .top-address{
+                        line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+                    }
+                    .title{
+                        <!-- font-family:'Oswald',sans-serif !important; -->
+                        font-family:Arial, Helvetica, sans-serif;
+                        font-size: 23px !important;
+                        font-weight: bold !important;
+                        text-align: right !important;
+                        line-height: 1.2 !important;
+                        text-align: right !important;
+                    }
+                    .barcode{
+                        font-size:16px !important;  margin-top:4px !important; font-weight:500 !important;font-family:Arial, Helvetica, sans-serif;
+                    }
+                </style>
+                <div class="row mb-2">
+                    <!-- ********************************* LOGO ********************************************* -->
+                    <div class="col-4">
+                        <div class="">
+                        <img class="img img-responsive " style="width:200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title="" alt="quest logo" />
+                        </div>
+                    </div>
+                    <!-- ************************************** ADDRESS *************************** -->
+                    <div class="col-4 top-address">
+                        <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
+                    </div>
+                    <!-- ********************** TITLE ********************* -->
+                    <div class="col-4 title" style="position: relative; text-align:right;">
+                        <span class="text-uppercase" style="margin-right:-40px;">
+                        Payment Remittance
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0" />
+            </div>
+            <div class="footer " style="font-size:11px; width:100%; padding-top:8px; ">
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="text-left" style="">Print Date:</span>
+                            <span class="ms-2" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;" />
+                            <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+                            <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span style="text-align: right;" class="topage" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="report_thinksoft_payment_remittance">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="o" t-value="o.with_context(lang=lang)" />
+                    <t t-call="thinksoft_reports.check_layout1">
+                        <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/remmittance_report.css'"/>
+                        <!-- format_date MUST be set AFTER t-call -->
+                        <t t-set="format_date" t-value="format_date"/>
+
+                        <div class="main_page remittance_page" style="margin-top:10px;">
+                            <div class="oe_structure" style="">
+                                <t t-if="o.date" t-set="p_date" t-value="o.date.strftime('%m%d%Y')" />
+                                <t t-if="not o.date" t-set="p_date" t-value="''" />
+
+                                <!-- **************** DATE ****************** -->
+                                <div class=" container " style="">
+                                    <div class="row  " style="width:100%;">
+                                        <div class="col-12  date-amount d-flex justify-content-between" style="width:100%;">
+                                            <table class="table" width="100%" style="border-collapse: collapse; border-spacing: 0; ">
+                                            <!-- **************** DATE ****************** -->
+                                            <tr>
+                                                <td width="80%"/>
+                                                <td style="text-align:right;vertical-align:bottom !important;">
+                                                <span t-esc="p_date[0]" />
+                                                <span t-esc="p_date[1]" />
+                                                <span t-esc="p_date[2]" />
+                                                <span t-esc="p_date[3]" />
+                                                <span t-esc="p_date[4]" />
+                                                <span t-esc="p_date[5]" />
+                                                <span t-esc="p_date[6]" />
+                                                <span t-esc="p_date[7]" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="80%"/>
+                                                <td style="font-size:18px; text-align:right; vertical-align:top !important;">M M D D Y Y Y Y</td>
+                                            </tr>
+                                            <!-- **************** AMOUNT IN WORDS & AMOUNT ****************** -->
+                                            <tr>
+                                                <td width="80%">
+                                                <span t-esc="o.currency_id.amount_to_text(o.amount)" />
+                                                </td>
+                                                <td class="text-end" style="" width="">
+                                                <span t-field="o.amount" />
+                                                </td>
+                                            </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- **************** PAYEE ADDRESS & MEMO ****************** -->
+                                <div class=" container " style="margin:20px 0 20px;">
+                                    <div class="row">
+                                    <table width="100%" class="">
+                                        <tr>
+                                            <td style="">
+                                                <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.memo">
+                                            <td><b>Memo:</b> <span t-field="o.memo"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <!-- Get reconciled invoices from the payment -->
+                                <t t-if="o.reconciled_invoice_ids">
+                                    <t t-set="invoices" t-value="o.reconciled_invoice_ids"/>
+                                </t>
+                                <t t-elif="o.reconciled_bill_ids">
+                                    <t t-set="invoices" t-value="o.reconciled_bill_ids"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-set="invoices" t-value="[]"/>
+                                </t>
+
+                                <!-- <t t-foreach="invoices" t-as="inv">
+                                    <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials())" t-set="otherCurrency" t-value="True" />
+                                </t> -->
+
+                                <div class="row ">
+                                    <table class="memo" width="100%">
+                                        <thead>
+                                            <th class="text-center"><strong>Date</strong></th>
+                                            <th class="text-center"><strong>Supplier Invoice</strong></th>
+                                            <th class="text-center"><strong>Bill / Payment No.</strong></th>
+                                            <th class="text-end"><strong>Billed Amount</strong></th>
+                                            <th class="text-end"><strong>Amount Paid</strong></th>
+                                        </thead>
+                                        <tbody>
+                                        <t t-foreach="invoices" t-as="inv">
+                                            <!-- MOVE -->
+                                            <t t-if="inv.move_type != 'entry'">
+                                                <tr>
+                                                    <!-- ************** DATE ************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="inv.invoice_date"/>
+                                                    </td>
+                                                    <!-- *************** SUPPLIER INVOICE *************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="inv.ref" />
+                                                    </td>
+                                                    <!-- *********** Bill/Payment No. ***************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="inv.name"/>
+                                                    </td>
+                                                    <!-- ************* BILLED AMT ***************** -->
+                                                    <td class="text-end">
+                                                        <span t-field="inv.amount_total"/>
+                                                    </td>
+                                                    <!-- <td t-if="otherCurrency"/> -->
+                                                    <!-- ***************** AMT PAID ********************** -->
+                                                    <td class="text-end"></td>
+                                                    <!-- <td/> -->
+
+                                                </tr>
+                                                <!-- ************** PAYMENTS/REVERSALS ********** -->
+                                                <tr t-foreach="inv._get_reconciled_invoices_partials()[0]" t-as="par">
+                                                    <t t-set="payment" t-value="par[2].move_id" />
+                                                    <!-- ************** DATE ************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="payment.date" />
+                                                    </td>
+                                                    <!-- *************** SUPPLIER INVOICE *************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="payment.ref" />
+                                                    </td>
+                                                    <!-- *********** BILLED No ***************** -->
+                                                    <td class="text-center">
+                                                        <span t-field="payment.name" />
+                                                    </td>
+                                                    <!-- ************* BILLED AMT ***************** -->
+                                                    <td class="text-end"></td>
+                                                    <!-- ***************** AMT PAID ********************** -->
+                                                    <td class="text-end">
+                                                        <t t-set="amountInvoice" t-value="-par[1]" />
+                                                        <t t-set="currencyInvoice" t-value="inv.currency_id" />
+                                                        <span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="border border-2"/>
+                                            </t>
+                                        </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- **************** TOTAL & BALANCE  ***************** *-->
+                                <div class="row totals-section">
+                                    <table class="mt-3" width="100%" style="font-weight:bold;">
+                                        <tr>
+                                        <td width="70%" style="">
+                                            <span t-field="o.journal_id" />
+                                        </td>
+                                        <th class="text-end" style="">Total Paid: </th>
+                                        <td class="text-end"><span class="" t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                        </td>
+                                        </tr>
+                                        <tr>
+                                        <td><span t-field="o.name" /></td>
+                                        <th class="text-end">Balance:</th>
+                                        <td class="text-end">
+                                            <span t-if="inv" t-field="inv.amount_residual"/>
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            </div><!-- oe_structure -->
+                        </div><!-- End main_page -->
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

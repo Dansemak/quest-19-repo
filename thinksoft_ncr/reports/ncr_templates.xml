@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="ncr_template">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+          <t t-call="thinksoft_ncr.ncr_template_document"/>
+        </t>
+      </t>
+    </template>
+
+    <template id="report_external_layout_ncr">
+      <div class="header pe-5" style="">
+                <style>
+                    <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+                  .header,.footer {
+                        font-family: Arial, Helvetica,  sans-serif;
+                      }
+                    .top-address{
+                        line-height:1; font-size:13px; font-family:Arial, Helvetica,sans-serif;
+                      }
+                    .title{
+                        <!-- font-family:'Oswald', -->
+                        font-family:Arial, Helvetica, sans-serif;
+                        sans-serif !important;
+                        font-size: 18px !important;
+                        font-weight: bold !important;
+                        text-align: left !important;
+                        line-height: 1.2 !important;
+                      }
+                    .barcode{
+                        font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica,sans-serif;
+                      }
+                </style>
+                <div class="container">
+                <div class="row mb-2">
+                    <!-- ******************** LOGO ******************** -->
+                    <div class="col-4">
+                    <div class="">
+                        <img  style="width: 200px;" src="/thinksoft_ncr/static/src/img/quest-logo.jpg"  />    
+                    </div>
+                    </div>
+                    <!-- ******************** ADDRESS ******************** -->
+                    <div class="col-3 top-address">
+                    <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                        500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                        780.461.7009</p>
+                    </div>
+                    <!-- ******************** TITLE ******************** -->
+                    <div class="col-5 d-flex justify-content-end " >
+                    <div style="padding:0!important; text-align:center; ">
+                        <!-- ******************** BARCODE ******************** -->
+                        <!-- <span t-field="o.name"
+                        t-options='{"widget": "barcode", "barcode_type": "Code128", "width":250, "height":40}'
+                        style="" /> -->
+                        <img t-att-src="'/report/barcode/Code128/%s' % o.name" style="width:200px; height:30px; "/>
+                        <br />
+                        <div class="barcode" t-field="o.name" />
+                    </div>
+                    <!-- ******************** TITLE ******************** -->
+                    <div class="title text-uppercase">
+                        Non-Conformance
+                        <br/>Report
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0" />
+            </div>
+            <!-- <div class="footer "
+                style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
+            <div class="footer" style="font-size:11px; width:100%;">
+              <div class="container ">
+                <div class="row">
+                    <div class="col-12">
+                    <span class="text-left" style="">Print Date:</span>
+                    <span class="ms-2"
+                        t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                        style="margin-right: 250px; text-align: right;" />
+                    <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+                    <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                        style="text-align: right;" class="topage" /></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </template>
+
+    <template id="ncr_template_document">
+      <t t-call="thinksoft_ncr.report_external_layout_ncr">
+      <link rel="stylesheet" t-att-href="'/thinksoft_ncr/static/src/css/report_style.css'"/>
+        <main class="main_page">
+          <div class="container">
+            <div class="row">
+              <!-- ******************** ORDER DETAILS ************************* -->
+              <div class="info col-6" style="padding-right:20px !important;">
+                <table class="text-uppercase" style="width:100%;">
+                  <thead>
+                    <th colspan="2" >NCR DETAILS</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Issue Type</th>
+                      <td><span t-field="o.issue_type"/></td>
+                    </tr>
+                    <tr>
+                      <t t-if="o.issue_type == 'vendor'">
+                        <th>Purchase Order</th>
+                        <td><span t-field="o.purchase_order_id"/></td>
+                      </t>
+                      <t t-if="o.issue_type == 'customer'">
+                        <th>Sales Order</th>
+                        <td><span t-field="o.sale_order_id"/></td>
+                      </t>
+                    </tr>
+                    <t t-if="o.picking_id">
+                      <tr>
+                        <th>
+                          <t t-if="o.issue_type == 'vendor'">
+                            <span>Receipt</span>
+                          </t>
+                          <t t-if="o.issue_type == 'customer'">
+                            <span>Delivery Order</span>
+                          </t>
+                        </th>
+                        <td>
+                          <span t-field="o.picking_id"/>
+                        </td>
+                      </tr>
+                    </t>
+                    <t t-if="o.issue_type == 'customer'">
+                      <tr>
+                        <th>
+                          <span>Invoice</span>
+                        </th>
+                        <td>
+                          <span t-field="o.invoice_id"/>
+                        </td> 
+                      </tr>
+                    </t>
+                    <t t-if="o.partner_source">
+                      <tr>
+                        <th>
+                          <t t-if="o.partner_source == 'customer'">
+                            <span>Customer</span>
+                          </t>
+                          <t t-if="o.partner_source == 'vendor'">
+                            <span>Vendor</span>
+                          </t>
+                        </th>
+                        <td><span t-field="o.partner_id"/></td>
+                      </tr>
+                    </t>
+                    <t t-if="o.partner_source == 'customer'">
+                      <tr>
+                        <th colspan="2" style="text-align:center;">
+                          <span>Address</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                        </td>
+                      </tr>
+                    </t>
+                  </tbody>
+                </table>
+              </div>
+              <!-- ********************* CLAIM DETAILS ******************** -->
+              <div class="info col-6">
+                <table class="text-uppercase" style="width:100%;">
+                  <thead>
+                    <th colspan="2" >CLAIM DETAILS</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th><span>Created on</span></th>
+                      <td><span t-field="o.create_date"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Resolved By</span></th>
+                      <td><span t-field="o.resolved_by"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Source</span></th>
+                      <td><span t-field="o.category_source_id"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Department</span></th>
+                      <td><span t-field="o.category_department_id"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Section</span></th>
+                      <td><span t-field="o.category_section_id"/></td>
+                    </tr>
+                    <tr>
+                      <th><span>Issue</span></th>
+                      <td><span t-field="o.category_issue_id"/></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="container ncr-items" style="margin:20px 0 20px;">
+            <table style="width:100%;" >
+              <thead>
+                <tr style="height:23pt;">
+                  <th style="width:33pt;">
+                    <span>LINE</span>
+                  </th>
+                  <th style="width:300px;">
+                    <span>PRODUCT</span>
+                  </th>
+                  <th>
+                    <span>DESCRIPTION</span>
+                  </th>
+                  <th>
+                    <span>QUANTITY</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody t-foreach="o.product_line_ids" t-as="line">
+                <tr style="height:20pt; page-break-inside:avoid !important;">
+                  <!--********** line ***************** -->
+                  <td style="text-align:center;">
+                    <span t-esc="line_index + 1"/>
+                  </td>
+                  <!--************* PRODUCT *************-->
+                  <td>
+                    <span t-field="line.product_id"/>
+                  </td>
+                  <!--************* DESCRIPTION *************-->
+                  <td>
+                    <span t-field="line.product_line_desc"/>  
+                  </td>
+                  <!--************* QUANTITY *************-->
+                  <td style="text-align: center;">
+                    <span t-field="line.product_qty"/>  
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="container ncr-items">
+            <table style="width:100%;">
+              <thead>
+                <th style="text-align:center;">NON-CONFORMACE NOTES</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span t-field="o.non_conformance_notes"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="container ncr-items" style="margin:20px 0 20px;">
+            <table style="width:100%;">
+              <thead>
+                <th style="text-align:center;">ROOT CAUSE ANALYSIS NOTES</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span t-field="o.root_cause_analysis_notes"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="container ncr-items">
+            <table style="width:100%;">
+              <thead>
+                <th style="text-align:center;">CORRECTIVE ACTION NOTES</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span t-field="o.corrective_actions_notes"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </main>
+      </t>
+    </template>
+
+</odoo>

@@ -15,6 +15,7 @@ class CompanyUser(models.Model):
     )
 
     # adding python level constraint
+
     @api.constrains("name", "active")
     def _check_unique_active_name(self):
         for record in self:

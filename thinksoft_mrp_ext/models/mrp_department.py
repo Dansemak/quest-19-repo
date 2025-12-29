@@ -2,16 +2,16 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class jobProject(models.Model):
-    _name = "job.project"
-    _description = "Job Project"
+class MrpDepartment(models.Model):
+    _name = "mrp.department"
+    _description = "Manufacturing Department"
 
-    name = fields.Char(string="Job Project")
+    name = fields.Char("Department")
     active = fields.Boolean(default=True)
 
-    _unique_job_project_name = models.Constraint(
+    _unique_mrp_department_name = models.Constraint(
         "UNIQUE(name)",
-        "The Job Project name should be unique!",
+        "The manufacturing department name must be unique.",
     )
 
     # adding python level constraint
@@ -29,5 +29,5 @@ class jobProject(models.Model):
 
                 if existing:
                     raise ValidationError(
-                        "The job project name must be unique among active records."
+                        "The department name must be unique among active records."
                     )

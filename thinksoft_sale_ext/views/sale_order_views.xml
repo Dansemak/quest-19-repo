@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_order_form_inherit_sale_order" model="ir.ui.view">
+    <record id="view_order_form_inherit_thinksoft_sale_ext" model="ir.ui.view">
         <field name="name">sale.order.view.form.inherit</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
@@ -44,7 +44,25 @@
                 <field name="outside_salesperson_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
             </xpath>
 
-            <!-- COO Required, Notes, Comment,Shipping Method, Freight Charge, Job Project, and End User in header -->
+
+            <!-- placeholder adjustments -->
+            <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                <attribute name="placeholder">Customer Purchase Order Number</attribute>
+            </xpath>
+
+            <!-- Rearranging fields -->
+            <xpath expr="//group[@name='order_details']" position="inside">
+                <xpath expr="//field[@name='user_id']" position="move"/>
+                <xpath expr="//field[@name='client_order_ref']" position="move"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <xpath expr="//field[@name='validity_date']" position="move"/>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <xpath expr="//field[@name='commitment_date']" position="move"/>
+            </xpath>
+
+            <!-- COO Required, Notes, Comment, Shipping Method + Cut Off, Freight Charge, Job Project, and End User in header -->
 
             <xpath expr="//group[@name='partner_details']" position="inside">
                 <field name="is_coo_required"/>
@@ -54,8 +72,12 @@
 
             <xpath expr="//group[@name='order_details']" position="inside">
                 <field name="customer_end_user_id" options="{'no_create': True}"/>
-                <field name="customer_job_project_id" options="{'no_create': True}"/>
-                <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
+                <label for="carrier_id"/>
+                <div name="carrier_fields" class="o_row">
+                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
+                    <label for="carrier_cut_off"/>
+                    <field name="carrier_cut_off" widget="float_time" readonly="True"/>
+                </div>
                 <field name="sale_freight_id" options="{'no_create': True}"/>
             </xpath>
 
@@ -67,6 +89,46 @@
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
                 <field name="tagging" optional="show"/>
+                <field name="purchase_order_id" optional="show" options="{'no_create': True}"/>
+                <field name="string_availability_info" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="sale_order_tree_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">sale.order.view.list.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
+
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="options">{"numeric":true,"show_time":false}</attribute>
+                <attribute name="widget">datetime</attribute>
+            </xpath>
+
+            <!-- adding delivery method to list view -->
+
+            <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="carrier_id" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">sale.order.view.list.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
+
+            <xpath expr="//field[@name='create_date']" position="attributes">
+                <attribute name="options">{"numeric":true,"show_time":false}</attribute>
+                <attribute name="widget">datetime</attribute>
             </xpath>
 
         </field>
