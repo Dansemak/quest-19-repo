@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-
+from odoo.exceptions import UserError
 from odoo.addons.website.tools import text_from_html
 
 
@@ -18,3 +18,15 @@ class MrpProduction(models.Model):
         for production in self:
             production.note = text_from_html(production.product_id.description or "").strip()
 
+    # prevent completing MO if pick components transfer is not done
+    def button_mark_done(self):
+        for order in self:
+            if order.delivery_count:
+                for picking_id in order.picking_ids:
+                    if picking_id.state not in ['cancel', 'done']:
+                        raise UserError("Please Complete the Transfers before Completing the Manufacturing Order.")
+                    if picking_id.state == 'cancel' and order.delivery_count == 1:
+                        raise UserError("Please Create and Complete a new Transfer to Replace the Canceled" 
+                                          " Transfer before Completing the Manufacturing Order.")
+
+        return super().button_mark_done()
