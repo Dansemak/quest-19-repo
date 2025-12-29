@@ -11,7 +11,9 @@
                     <field name="mtr_move_ids">
                         <list create="false" delete="false" editable="bottom">
                             <field name="product_id" readonly="1"/>
+                            <field name="created_production_id" string="MO #" readonly="1"/>
                             <field name="mtr_template_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <button string="Pull from MO" name="button_pull_from_mo" type="object" class="oe_highlight"/>
                         </list>
                     </field>
                 </page>
