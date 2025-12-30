@@ -159,7 +159,7 @@
                     </table>
                 </page>
                 <page string="Original MTR">
-                    <field name="original_mtr" filename="original_mtr_filename" widget="pdf_viewer"/>
+                    <field name="original_mtr" filename="original_mtr_filename"/>
                 </page>
             </notebook>
 
