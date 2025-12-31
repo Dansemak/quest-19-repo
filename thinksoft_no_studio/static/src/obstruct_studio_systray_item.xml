@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="thinksoft_no_studio.StudioSystrayItem" t-inherit="web_enterprise.SystrayItem" t-inherit-mode="extension">
+        <xpath expr="//button" position="replace"/>
+    </t>
+
+</templates>
