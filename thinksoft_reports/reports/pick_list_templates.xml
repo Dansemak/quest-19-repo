@@ -125,6 +125,7 @@
                                         </tr>
                                         <tr>
                                             <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                                                <span t-field="doc.sale_id.partner_id.name"/>
                                                 <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}" />
                                             </td>
                                         </tr>
