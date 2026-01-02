@@ -6,42 +6,61 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
-            <data>
-                <xpath expr="/form[@name='Product Template']//page[@name='invoicing']" position="after">
-                    <page string="CMR" name="product_template_cmr">
-                        <field name="customer_material_reference">
-                            <list default_order="id desc">
-                                <field name="partner_id" />
-                                <field name="customer_product_code" />
-                            </list>
-                        </field>
-                    </page>
-                </xpath>
-            </data>
+            <xpath expr="/form[@name='Product Template']//page[@name='invoicing']" position="after">
+                <page string="CMR" name="product_template_cmr">
+                    <field name="customer_product_ids">
+                        <list default_order="partner_id,customer_product_code">
+                            <field name="partner_id" />
+                            <field name="customer_product_code" />
+                            <field name="customer_product_name" optional="hide" />
+                        </list>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
 
-    <!-- <record id="customer_part_tree" model="ir.ui.view">
-        <field name="name">product.customerinfo.tree</field>
+    <!-- List View -->
+    <record id="product_customerinfo_list" model="ir.ui.view">
+        <field name="name">product.customerinfo.list</field>
         <field name="model">product.customerinfo</field>
         <field name="arch" type="xml">
-            <tree string="Customer Part">
+            <list string="Customer Product Reference">
                 <field name="partner_id" />
-                <field name="customer_number" />
-                <field name="customer_delivery_address" />
+                <field name="customer_product_code" />
+                <field name="customer_product_name" optional="hide" />
                 <field name="product_tmpl_id" />
-                <field name="part_number" />
-            </tree>
+            </list>
         </field>
-    </record> -->
+    </record>
 
-    <!-- <record id="action_customer_part" model="ir.actions.act_window">
-        <field name="name">Customer Part</field>
+    <!-- Search View -->
+    <record id="search_product_customerinfo" model="ir.ui.view">
+        <field name="name">product.customerinfo.search</field>
+        <field name="model">product.customerinfo</field>
+        <field name="arch" type="xml">
+            <search string="Customer Product Reference">
+                <field name="product_tmpl_id" />
+                <field name="partner_id" />
+                <field name="customer_product_code" />
+                <field name="customer_product_name" />
+                <group name="group_by">
+                    <filter name="group_by_customer" context="{'group_by':'partner_id'}" />
+                    <filter name="group_by_product" context="{'group_by':'product_tmpl_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Window -->
+    <record id="action_product_customerinfo" model="ir.actions.act_window">
+        <field name="name">Customer Product Reference</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.customerinfo</field>
-        <field name="view_mode">tree,form</field>
-    </record> -->
+        <field name="view_mode">list,form</field>
+    </record>
 
-    <!-- <menuitem id="menu_customer_part" name="Customer Part" parent="stock.menu_stock_inventory_control" action="action_customer_part" sequence="50" /> -->
+    <!-- Menu Item -->
+    <menuitem id="menu_product_customerinfo" name="Customer Product Reference" parent="stock.menu_stock_inventory_control" action="action_product_customerinfo" sequence="50" />
 
 </odoo>

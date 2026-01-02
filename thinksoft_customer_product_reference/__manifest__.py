@@ -12,9 +12,15 @@
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
     "version": "19.0.0.0.1",
-    "depends": ["base"],
+    "depends": [
+        "base",
+        "product",
+        "sale",
+        "stock",
+    ],
     "data": [
-        "product_template_views.xml",
+        "security/ir.model.access.csv",
+        "views/product_template_views.xml",
     ],
     "installable": True,
     "application": False,

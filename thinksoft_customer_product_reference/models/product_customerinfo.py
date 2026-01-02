@@ -16,15 +16,14 @@ class ProductCustomerReference(models.Model):
         string="Customer Product Code", required=True, index=True
     )
     customer_product_name = fields.Char(string="Customer Product Name")
-    _sql_constraints = [
-        (
-            "uniq_customer_product",
-            "unique(partner_id, product_tmpl_id)",
-            "A customer can only have one reference per product.",
-        ),
-        (
-            "uniq_customer_code_per_customer",
-            "unique(partner_id, customer_product_code)",
-            "A customer product code must be unique per customer.",
-        ),
-    ]
+
+    # constraints
+    _uniq_customer_product = models.Constraint(
+        "unique(partner_id, product_tmpl_id)",
+        "A customer can only have one reference per product.",
+    )
+
+    _uniq_customer_code_per_customer = models.Constraint(
+        "unique(partner_id, customer_product_code)",
+        "A customer product code must be unique per customer.",
+    )
