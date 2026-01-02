@@ -274,7 +274,7 @@
                             <!--********* Part # *****************-->
                             
                             <!-- Will have to come back to this later to make the product name bold while the description is not bold -->
-                             
+
                              <!-- <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" /> -->
                             <!--*****************  Description ***************-->
                             <!-- <t t-if="line.product_id">
@@ -309,7 +309,7 @@
                         <td style=" text-align: right;" rowspan="2">
                           <span style="margin-right:2px;">$</span>
                           <!-- <span t-esc="'{:.3f}'.format(line.dis_price_unit)"/>  -->
-                          <span t-esc="'{:.3f}'.format(line.price_unit)"/>
+                          <span t-esc="'{:.3f}'.format(line.price_reduce_taxexcl)"/>
                           <!-- <span t-esc="round(line.dis_price_unit,2)"/> -->
                         </td>
                         <!--*************** EXTENDED PRICE ******************-->
