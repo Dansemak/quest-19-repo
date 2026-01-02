@@ -9,7 +9,7 @@
 
             <!-- adding the Customer before the contact field -->
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="partner_customer_id" invisible="not sale_id and picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
+                <field name="partner_customer_id" invisible="not sale_id and picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" options="{'no_create': True}" />
             </xpath>
 
             <!-- renaming shipping label-->
@@ -21,9 +21,9 @@
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="waybill" invisible="picking_type_sequence_code != 'OUT'" />
                 <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
-                <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" />
-                <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" />
-                <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" />
+                <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" options="{'no_create': True}" />
+                <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" options="{'no_create': True}" />
+                <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" options="{'no_create': True}" />
 
                 <!-- moving the shipping_weight and label to the header -->
                 <xpath expr="//group[@name='carrier_data']//label[@for='shipping_weight']" position="move"/>
