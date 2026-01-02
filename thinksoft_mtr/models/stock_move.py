@@ -30,3 +30,8 @@ class StockMove(models.Model):
                         mtr_ids.extend(mo_pick_move.mtr_template_ids.ids)
                         
                 move.mtr_template_ids = [(6, 0, list(set(mtr_ids)))]
+
+    def action_print_mtrs(self):
+        if self.mtr_template_ids:
+            return self.env.ref('thinksoft_mtr.action_report_mtr').report_action(self.mtr_template_ids)
+        return
