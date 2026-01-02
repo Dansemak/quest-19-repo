@@ -370,7 +370,7 @@
                                                 </td>
                                                 <!--************************ QTY REQUIRED **********************-->
                                                 <td style="text-align: center;" class="">
-                                                    <span t-field="line.sale_line_id.product_uom_qty" class="text-center" />
+                                                    <span t-field="line.product_uom_qty" class="text-center" />
                                                 </td>
                                                 <!--********************** UOM ************************-->
                                                 <td style="text-align: center;" class="">
