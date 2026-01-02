@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="thinksoft_no_studio.UnPromoteStudioDialog" t-inherit="web_enterprise.PromoteStudioDialog" t-inherit-mode="extension">
+        <xpath expr="//Dialog" position="replace">
+            <Dialog title="props.title" modalRef="modalRef">
+                <div>
+                    <h4>Odoo Studio is unavailable</h4>
+                    <t t-set-slot="footer">
+                        <button class="btn btn-secondary btn-block"
+                            t-on-click="props.close">
+                            Close
+                        </button>
+                    </t>
+                </div>
+            </Dialog>
+        </xpath>
+    </t>
+
+</templates>
