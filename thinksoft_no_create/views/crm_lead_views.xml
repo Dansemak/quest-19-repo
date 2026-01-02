@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_view_form_no_create" model="ir.ui.view">
+            <field name="name">crm.lead.form.no.create</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet/group/group[@name='opportunity_partner']/field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </xpath>
+
+                <xpath expr="/form/sheet/group/group[4]/field[@name='user_id']" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page[@name='lead']/group/group[3]/field[@name='campaign_id']" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page[@name='lead']/group/group[3]/field[@name='medium_id']" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page[@name='lead']/group/group[3]/field[@name='source_id']" position="attributes">
+                    <attribute name="options">{'no_create':True}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
