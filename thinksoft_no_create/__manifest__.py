@@ -13,6 +13,6 @@
         "views/sale_order_views.xml",
         "views/stock_picking_views.xml",
     ],
-    "auto_install": False,``
+    "auto_install": False,
     "application": False,
 }
