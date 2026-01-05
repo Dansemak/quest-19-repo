@@ -58,4 +58,19 @@
         </field>
     </record>
 
+    <record id="vpicktree_inherit_thinksoft_stock_ext" model="ir.ui.view">
+        <field name="name">stock.picking.view.list.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="team_responsible" optional="show" column_invisible="context.get('restricted_picking_type_code') not in ('outgoing', 'internal')"/>
+                <field name="picker_id" optional="show" column_invisible="context.get('restricted_picking_type_code') != 'internal'"/>
+                <field name="shipper_id" optional="show" column_invisible="context.get('restricted_picking_type_code') != 'outgoing'"/>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
