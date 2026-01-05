@@ -73,4 +73,25 @@
         </field>
     </record>
 
+    <record id="view_picking_internal_search_inherit_thinksoft_stock_ext" model="ir.ui.view">
+        <field name="name">stock.picking.view.search.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="team_responsible" invisible="context.get('restricted_picking_type_code') not in ('outgoing', 'internal')"/>
+                <field name="picker_id" invisible="context.get('restricted_picking_type_code') != 'internal'"/>
+                <field name="shipper_id" invisible="context.get('restricted_picking_type_code') != 'outgoing'"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string='Team' name="team_responsible" domain="[]" context="{'group_by' : 'team_responsible'}" invisible="context.get('restricted_picking_type_code') not in ('outgoing', 'internal')"/>
+                <filter string='Picker' name="picker" domain="[]" context="{'group_by' : 'picker_id'}" invisible="context.get('restricted_picking_type_code') != 'internal'"/>
+                <filter string='Shipper' name="shipper" domain="[]" context="{'group_by' : 'shipper_id'}" invisible="context.get('restricted_picking_type_code') != 'outgoing'"/>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
