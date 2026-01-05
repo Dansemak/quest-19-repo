@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="action_report_mtr_order_details" model="ir.actions.report">
         <field name="name">MTR Order Details</field>
         <field name="model">stock.picking</field>
@@ -7,107 +6,120 @@
         <field name="report_name">thinksoft_mtr.mtr_order_details_template</field>
         <field name="report_file">thinksoft_mtr.mtr_order_details_template</field>
         <field name="print_report_name">(object.name)</field>
+        <field name="paperformat_id" ref="thinksoft_mtr.paperformat_action_report_mtr" />
     </record>
-
     <template name="MTR Order Details Header" id="mtr_order_details_external_layout">
-      <div class="header">
-        <div class="row mb-2">
-          <!-- ********************************* LOGO ********************************************* -->
-          <div class="col-4">
-              <img class="img img-responsive" style="width:200px; background:#dddddd;" data-name="&lt; img / &gt;" src="/thinksoft_mtr/static/img/quest-logo.jpg" aria-describedby="tooltip269202"/>
-          </div>
-          <!-- ************************************** TITLE *************************** -->
-          <div class="title" style="text-align:right;">
-            <p style="line-height:1; font-size:25px;"><t t-esc="picking.name"/> MTRs</p>
-          </div>
+        <div class="header">
+            <div class="row mb-2">
+                <!-- ********************************* LOGO ********************************************* -->
+                <div class="col-6">
+                    <img class="img " style="width:200px; " src="/thinksoft_mtr/static/img/quest-logo.jpg" />
+                </div>
+                <!-- ************************************** TITLE *************************** -->
+                <div class="col-6 d-flex justify-content-between" style="line-height:1; font-size:25px; font-weight:bold; ">
+                    <div class="title" style="text-align:right;">
+                        <t t-esc="picking.name" />
+                        <span class="ms-4">MTRs</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-        <t t-raw="0"/>
-      </div>
-      <div class="footer" style="font-size:11px; width:100%;">
-        <div class="container">
-            <div class="row">
-            <div class="col-12">
-                <span class="text-left">Print Date:</span>
-                <span class="ml-2" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;"/>
-                <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
-                <div style="display: inline-block; float: right;">Page: <span class="page ml-2"/> of <span style="text-align: right;" class="topage"/></div>
-            </div>
-            </div>
+        <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0" />
+        </div>
+        <div class="footer" style="font-size:11px; width:100%;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-left">Print Date:</span>
+                        <span class="ml-2" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;" />
+                        <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+                        <div style="display: inline-block; float: right;">Page: 
+                            
+                            <span class="page ml-2" />
+of 
+                            <span style="text-align: right;" class="topage" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </template>
-
     <template id="mtr_order_details_template" name="MTR Order Details Template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="picking">
                 <t t-call="thinksoft_mtr.mtr_order_details_external_layout">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Customer</th>
-                            <td margin_left="10">
-                                <t t-esc="picking.partner_customer_id and picking.partner_customer_id.display_name or ''"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Origin</th>
-                            <td margin_left="10">
-                                <t t-esc="picking.origin"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Customer PO#</th>
-                            <td margin_left="10">
-                                <t t-esc="picking.client_order_ref"/>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div class="container" style="margin:10px 0 20px;">
-                        <div class="row items">
-                        <div class="col-lg-12">
-                        <div class="table-responsive-xxl">
-                            <table style="vertical-align:middle; width:100%;" cellspacing="0" class="table">
-                                <thead>
-                                    <tr style="height:23pt;">
-                                        <th style="width:33pt;" rowspan="2">
-                                            <span>LINE</span>
-                                        </th>
-                                        <th style="width:300px; text-align:left;">
-                                            <span>PART #</span>
-                                        </th>
-                                        <th style="border-right-style:hidden; text-align:center;" rowspan="2">
-                                            <span>MTR</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody t-foreach="picking.mtr_move_ids" t-as="line">
-                                    <tr style="height:20pt; page-break-inside: avoid !important;">
-                                        <!-- line # -->
-                                        <td style="text-align:center;" rowspan="2">
-                                            <span t-field="line.seq_no"/>
-                                        </td>
-                                        <!-- Part # -->
-                                        <td style="border-bottom-style:hidden; padding-bottom: 0;">
-                                            <span t-field="line.product_id"/>
-                                        </td>
-                                        <!-- MTR -->
-                                        <td style="border-right-style:hidden; text-align: center;" rowspan="2">
-                                            <t t-foreach="line.mtr_template_ids" t-as="mtr">
-                                                <span t-field="mtr.name"/><br/>
-                                            </t>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
+                    <link rel="stylesheet" t-att-href="'/thinksoft_mtr/static/css/report_style.css'" />
+                    <div class="main_page" style="">
+                        <div class="oe_structure">
+                            <div class="container">
+                                <div class="row info">
+                                    <table class="table table-bordered" style="vertical-align:middle; width:100%;" cellspacing="0">
+                                        <tr>
+                                            <th>Customer</th>
+                                            <td margin_left="10">
+                                                <t t-esc="picking.partner_customer_id and picking.partner_customer_id.display_name or ''" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Origin</th>
+                                            <td margin_left="10">
+                                                <t t-esc="picking.origin" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Customer PO#</th>
+                                            <td margin_left="10">
+                                                <t t-esc="picking.client_order_ref" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row ">
+                                    <div class="items col-12">
+                                        <div class="no-break-wrapper">
+                                            <table style="vertical-align:middle; width:50%;" cellspacing="0" class="table table-bordered">
+                                                <thead>
+                                                    <tr style="height:23pt;">
+                                                        <th style="width:33pt;" rowspan="2">
+                                                            <span>LINE</span>
+                                                        </th>
+                                                        <th style="width:300px; text-align:left;">
+                                                            <span>PART #</span>
+                                                        </th>
+                                                        <th style=" text-align:center;" rowspan="2">
+                                                            <span>MTR</span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody t-foreach="picking.mtr_move_ids" t-as="line">
+                                                    <tr style="height:20pt; page-break-inside: avoid !important;">
+                                                        <!-- line # -->
+                                                        <td style="text-align:center;" rowspan="2">
+                                                            <span t-field="line.seq_no" />
+                                                        </td>
+                                                        <!-- Part # -->
+                                                        <td style=" padding-bottom: 0;">
+                                                            <span t-field="line.product_id" />
+                                                        </td>
+                                                        <!-- MTR -->
+                                                        <td style="text-align: center;" rowspan="2">
+                                                            <t t-foreach="line.mtr_template_ids" t-as="mtr">
+                                                                <span t-field="mtr.name" />
+                                                                <br />
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </t>
             </t>
         </t>
     </template>
-
 </odoo>
