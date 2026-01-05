@@ -31,7 +31,6 @@
         "reports/waybill_templates.xml",
         "reports/mrp_pick_list_templates.xml",
         "reports/production_order_templates.xml",
-
     ],
     "installable": True,
     "application": False,
