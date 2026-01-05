@@ -93,6 +93,10 @@
                 <field name="string_availability_info" optional="show"/>
             </xpath>
 
+            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_id']" position="after">
+                <field name="weight" optional="show"/>
+            </xpath>
+
         </field>
     </record>
 

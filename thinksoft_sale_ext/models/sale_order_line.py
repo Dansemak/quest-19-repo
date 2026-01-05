@@ -9,6 +9,7 @@ class SaleOrderLine(models.Model):
     tagging = fields.Char(help="Customer Line Item Reference for custom identification or referencing of product in accordance to the customer")
     string_availability_info = fields.Char(string="Availability", help="Estimated time when the product will be available from now (i.g 3-5 BUSINESS DAYS, 2 WEEKS, etc.)")
     purchase_order_id = fields.Many2one("purchase.order", string="PO Number")
+    weight = fields.Char(compute="_compute_weight")
 
     # determining the line number of the sale.order.line record
     @api.depends("order_id", "order_id.order_line", "sequence")
@@ -26,6 +27,12 @@ class SaleOrderLine(models.Model):
             else:
                 line.seq_no = 0
 
+    # concatenating the weight and UoM
+    @api.depends("product_id", "product_id.weight", "product_id.weight_uom_name")
+    def _compute_weight(self):
+        for line in self:
+            line.weight = f"{line.product_id.weight} {line.product_id.weight_uom_name}"
+
     # setting the record string_availability_info in ALL CAPS; trimming string_availability_info and tagging
     @api.model
     def create(self, vals_list):
@@ -40,7 +47,7 @@ class SaleOrderLine(models.Model):
                 vals_list["string_availability_info"] = vals_list["string_availability_info"].upper().strip()
             if "tagging" in vals_list and vals_list["tagging"]:
                 vals_list["tagging"] = vals_list["tagging"].strip()
-                
+
         return super().create(vals_list)
 
     # setting the string_availability_info to ALL CAPS for consistency sake; trimming end whitespace
