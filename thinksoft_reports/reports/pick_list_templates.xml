@@ -125,6 +125,7 @@
                                         </tr>
                                         <tr>
                                             <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                                                <span t-field="doc.sale_id.partner_id.name"/>
                                                 <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}" />
                                             </td>
                                         </tr>
@@ -370,7 +371,7 @@
                                                 </td>
                                                 <!--************************ QTY REQUIRED **********************-->
                                                 <td style="text-align: center;" class="">
-                                                    <span t-field="line.sale_line_id.product_uom_qty" class="text-center" />
+                                                    <span t-field="line.product_uom_qty" class="text-center" />
                                                 </td>
                                                 <!--********************** UOM ************************-->
                                                 <td style="text-align: center;" class="">

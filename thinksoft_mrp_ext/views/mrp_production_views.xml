@@ -41,4 +41,8 @@
         </field>
     </record>
 
+    <record id="mrp.menu_procurement_compute_mrp" model="ir.ui.menu">
+        <field name="active">False</field>
+    </record>
+
 </odoo>
