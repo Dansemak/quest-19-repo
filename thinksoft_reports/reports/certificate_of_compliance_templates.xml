@@ -222,9 +222,8 @@
             </div>
             <div class=" container " style="margin:20px 0 20px;">
               <div class="row items">
-                <div class="col-md-12 col-xs-12">
-                  <div class="">
-
+                <div class="col-12">
+                  <div class="no-break-wrapper" style="">
                     <table class="line-items" style="width:100%;">
                       <thead style="">
                         <div style="clear:both;">

@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.0.0.1",
+    "version": "19.0.1.0",
     "depends": [
         "base",
         "sale",
@@ -29,6 +29,8 @@
         "views/stock_picking_views.xml",
         "views/purchase_order_views.xml",
         "views/account_move_views.xml",
+        "views/company_user_views.xml",
+        "views/crm_lead_views.xml",
     ],
     "installable": True,
     "application": False,

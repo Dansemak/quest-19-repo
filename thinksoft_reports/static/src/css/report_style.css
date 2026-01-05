@@ -24,8 +24,14 @@
               text-transform: uppercase;
               padding: 8px !important;
               vertical-align: middle;
+              border-collapse: collapse;
         }
-
+        .no-break-table {
+            page-break-inside: avoid !important;
+        }
+        .page_break {
+            page-break-before: always !important;
+        }
         .main_page{
             font-family: Arial, Helvetica, sans-serif !important;
             /* font-family: 'Roboto Condensed','Sansation',  sans-serif ;    */
@@ -72,10 +78,17 @@
             white-space: nowrap;
             vertical-align:middle !important;
         }
-        .note table tr th, .delivery table tr th {
+        .comment table th { height: 11.5px; }
+        .comment table tr td {
+            /* line-height: 1.2 !important; */
+            font-size: 14px !important;
+            vertical-align: middle !important;
+            border: 1px solid #525659;
+        }
+        .note table tr th, .delivery table tr th,.comment table tr th {
             line-height: 0.5;
-            background-color: #DEEAF6;
-            vertical-align:middle !important;
+            background-color: #DEEAF6 !important;
+            /* vertical-align:middle !important; */
             border:1px solid #525659;
             font-size:13px !important;
         }
@@ -83,7 +96,7 @@
             border: 1px solid #525659;
             font-size:13px !important;
         }
-        .items table tr{
+        .items table,.items table tr{
             page-break-inside: avoid !important;
             width: 100% !important;
         }
@@ -94,10 +107,12 @@
             text-align: center;
             border: 1px solid #525659;
             vertical-align:middle !important;
+            
         }
         .items table tr td {
             /* height: fit-content !important; */
-            height:20px !important;
+            /* height: min-content !important; */
+            height: auto !important;
             font-size: 12px;
             border: 1px solid #525659;
             vertical-align:middle !important;
@@ -105,15 +120,15 @@
         }
         .items table thead {
             display: table-header-group !important;
-            page-break-inside: avoid;
-            display: block;
+            /* display: table-row-group !important; */
+
         }
         .items table tfoot {
             display: table-row-group !important;
         }
         .items table tfoot tr {
             background-color: lightgrey !important;
-            page-break-inside: avoid;
+            page-break-inside: avoid !important;
         }
         .items table tfoot tr td{
             font-size: 14px !important;
@@ -124,6 +139,12 @@
             display: block !important;
             line-height: 1em !important;
             color:white;
+        }
+        .items tbody tr  {
+            page-break-inside: avoid !important;
+        }
+        .no-break-wrapper {
+            page-break-inside: avoid !important;
         }
         .conditions h1,.conditions h2 {
             font-size: 13px !important;
@@ -138,9 +159,7 @@
             padding: 8px !important;
         }
 
-        .page_break {
-            page-break-before: always;
-        }
+        
         .total table {
             width: 100%;
             padding: 0;
@@ -162,6 +181,7 @@
             vertical-align: middle !important;}
 
         .quality-control table tbody tr th {
+            font-size: 13px !important;
             background-color: #F2F2F2 !important;
             border: 1px solid #525659;
             vertical-align: middle !important;
@@ -179,6 +199,7 @@
         }
 
         .quality-control table tr td {
+            font-size: 13px !important;
             border: 1px solid #525659;
             height: 13px;
             vertical-align: middle !important;
@@ -187,4 +208,4 @@
         .quality-control table tr td span {
             margin-top: 10px;
         }
-
+        

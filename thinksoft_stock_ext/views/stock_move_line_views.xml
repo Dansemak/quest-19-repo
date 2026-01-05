@@ -33,4 +33,25 @@
         </field>
     </record>
 
+    <record id="view_stock_move_line_detailed_operation_tree_thinksoft_stock_ext" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.list.thinksoft.stock.ext</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//list" position="attributes">
+                <attribute name="default_order">seq_no asc, result_package_id desc, location_id asc, location_dest_id asc, picking_id asc, id</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="seq_no"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock.menu_procurement_compute" model="ir.ui.menu">
+        <field name="active">False</field>
+    </record>
+
 </odoo>

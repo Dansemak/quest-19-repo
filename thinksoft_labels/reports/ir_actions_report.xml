@@ -54,6 +54,18 @@
             <field name="paperformat_id" ref="thinksoft_labels.shipping_label_3x4_paperformat" />
             <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
         </record>
+        <!-- ********************************* PRINT LABEL 3x4 ********************************* -->
+        <record id="action_report_product_label_3x4" model="ir.actions.report">
+            <field name="name">Print Label 3x4</field>
+            <field name="model">mrp.production</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.print_label_3x4_template</field>
+            <field name="report_file">thinksoft_labels.print_label_3x4_template</field>
+            <field name="print_report_name">'Print Label 3x4'</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_label_3x4" />
+            <field name="binding_model_id" ref="mrp.model_mrp_production" />
+            <field name="binding_type">report</field>
+        </record>
         <!-- ********************************* Shipping Label 4x4 ********************************* -->
         <record id="action_report_shipping_label_4x4" model="ir.actions.report">
             <field name="name">Shipping Label 4x4</field>

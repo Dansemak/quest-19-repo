@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_production_form_view_inherit_thinksoft_mrp_ext" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- adding the product description to the header -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="note" />
+            </xpath>
+
+            <!-- adding the manufacturing department to the header -->
+            <xpath expr="//div[@name='bom_div']" position="after">
+                <field name="department_id" />
+            </xpath>
+
+            <!-- adding the customer inforamtion to the production order -->
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="partner_id" invisible="not sale_line_id"/>
+                <field name="sale_id" invisible="not sale_line_id"/>
+                <field name="client_order_ref" invisible="not sale_line_id or not client_order_ref"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="mrp_production_tree_view_inherit_thinksoft_mrp_ext" model="ir.ui.view">
+        <field name="name">mrp.production.view.list.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+
+            <!-- adding the department of the BoM to the list view -->
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="department_id" optional="hide" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="mrp.menu_procurement_compute_mrp" model="ir.ui.menu">
+        <field name="active">False</field>
+    </record>
+
+</odoo>
