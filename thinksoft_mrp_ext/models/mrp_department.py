@@ -6,7 +6,7 @@ class MrpDepartment(models.Model):
     _name = "mrp.department"
     _description = "Manufacturing Department"
 
-    name = fields.Char("Department")
+    name = fields.Char("Department", required=True)
     active = fields.Boolean(default=True)
 
     _unique_mrp_department_name = models.Constraint(

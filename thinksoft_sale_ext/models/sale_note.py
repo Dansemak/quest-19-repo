@@ -6,7 +6,7 @@ class SaleNote(models.Model):
     _name = "sale.note"
     _description = "Sale Note"
 
-    name = fields.Char("Note")
+    name = fields.Char("Note", required=True)
     active = fields.Boolean(default=True)
 
     _unique_sale_note_name = models.Constraint(
