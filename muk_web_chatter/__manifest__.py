@@ -6,7 +6,7 @@
         preference to set the position of the chatter in the form view.
     ''',
     'version': '19.0.1.2.3',
-    'category': 'Tools/UI',
+    'category': 'Addons Custom/MuK Chatter',
     'license': 'LGPL-3', 
     'author': 'MuK IT',
     'website': 'http://www.mukit.at',
