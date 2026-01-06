@@ -8,6 +8,9 @@ class StockPicking(models.Model):
         "stock.move", "picking_id", string="MTR Stock Moves", copy=True
     )
 
+    def action_print_mtr_order_details(self):
+        return self.env.ref('thinksoft_mtr.action_report_mtr_order_details').report_action(self)
+
     def action_print_all_mtrs(self):
         mtr_ids = set()  # Use a set to avoid duplicates
         for line in self.mtr_move_ids:

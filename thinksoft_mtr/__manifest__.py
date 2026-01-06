@@ -8,7 +8,7 @@
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft MTR",
     "application": True,
-    "version": "19.0.1.1",
+    "version": "19.0.1.2",
     "depends": ["base", "mail", "stock"],
     "data": [
         "security/mtr_groups.xml",
@@ -24,6 +24,7 @@
         "reports/mtr_nut_templates.xml",
         "reports/mtr_rtj_templates.xml",
         "reports/mtr_base_templates.xml",
+        "reports/mtr_order_details_templates.xml",
         "reports/ir_actions_report.xml",
         "data/ir_sequence_data.xml",
     ],

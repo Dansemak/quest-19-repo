@@ -8,6 +8,7 @@
 
             <xpath expr="//page[@name='extra']" position="after">
                 <page string="MTRs" name="mtr">
+                    <button string="Print MTR Top Sheet" name="action_print_mtr_order_details" type="object" class="float-end"/>
                     <button string="Print All MTRs" name="action_print_all_mtrs" type="object" class="oe_highlight float-end"/>
                     <field name="mtr_move_ids">
                         <list create="false" delete="false" editable="bottom">
