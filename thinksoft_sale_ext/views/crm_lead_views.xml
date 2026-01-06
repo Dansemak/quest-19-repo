@@ -17,6 +17,40 @@
         </field>
     </record>
 
+    <record id="view_crm_case_leads_filter_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">crm.lead.view.search.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="customer_end_user_id" />
+            </xpath>
+
+            <xpath expr="//group//filter[@name='source']" position="after">
+                <filter string='End User' name="customer_end_user" domain="[]" context="{'group_by' : 'customer_end_user_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_crm_case_opportunities_filter_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">crm.lead.opportunity.view.search.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="customer_end_user_id" />
+            </xpath>
+
+            <xpath expr="//group//filter[@name='source']" position="after">
+                <filter string='End User' name="customer_end_user" domain="[]" context="{'group_by' : 'customer_end_user_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
     <menuitem
         id="crm_menu_company_user_action_list"
         action="company_user_action_list"

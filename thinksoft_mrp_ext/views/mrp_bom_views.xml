@@ -19,7 +19,7 @@
     </record>
 
     <record id="mrp_bom_tree_view_inherit_thinksoft_mrp_ext" model="ir.ui.view">
-        <field name="name">mrp.bom.view.tree.inherit</field>
+        <field name="name">mrp.bom.view.list.inherit</field>
         <field name="model">mrp.bom</field>
         <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
         <field name="arch" type="xml">
@@ -27,6 +27,23 @@
             <!-- adding the department of the BoM to the list view -->
             <xpath expr="//field[@name='type']" position="after">
                 <field name="department_id" optional="show" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_mrp_bom_filter_inherit_thinksoft_mrp_ext" model="ir.ui.view">
+        <field name="name">mrp.bom.view.search.inherit</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.view_mrp_bom_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="department_id" />
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string='Department' name="department" domain="[]" context="{'group_by' : 'department_id'}"/>
             </xpath>
 
         </field>
