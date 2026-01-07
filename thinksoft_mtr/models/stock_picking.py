@@ -4,9 +4,7 @@ from odoo import fields, models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    mtr_move_ids = fields.One2many(
-        "stock.move", "picking_id", string="MTR Stock Moves", copy=True
-    )
+    mtr_move_ids = fields.One2many("stock.move", "picking_id", string="MTR Stock Moves")
 
     def action_print_mtr_order_details(self):
         return self.env.ref('thinksoft_mtr.action_report_mtr_order_details').report_action(self)

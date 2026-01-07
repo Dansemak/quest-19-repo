@@ -8,7 +8,7 @@
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft MTR",
     "application": True,
-    "version": "19.0.1.2",
+    "version": "19.0.1.3",
     "depends": ["base", "mail", "stock"],
     "data": [
         "security/mtr_groups.xml",
@@ -20,6 +20,7 @@
         "views/mtr_menu_views.xml",
         "views/stock_picking_views.xml",
         "views/stock_move_line_views.xml",
+        "reports/paperformats.xml",
         "reports/mtr_bar_stud_templates.xml",
         "reports/mtr_nut_templates.xml",
         "reports/mtr_rtj_templates.xml",
