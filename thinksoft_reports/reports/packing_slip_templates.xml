@@ -269,7 +269,7 @@
                                 <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">UoM</th>
                                 <!-- <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">order QTY</th> -->
                                 <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">Shipped</th>
-                                <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;text-align: right;"> UNIT PRICE<br/>ITEM WT</th>
+                                <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;text-align: right;">ITEM WT</th>
                                  <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;width: 50px;text-align: right;">BO</th>
                                 <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;text-align: right;">TOTAL WEIGHT</th>
                                 <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">BOX</th>
@@ -304,12 +304,10 @@
                               <span t-field="line.quantity" />
                             </td>
 
-                             <!--************************** ITEM PRICE ITEM.WT **********************-->
-                            <td colspan="" class="text-end">
-                              <span style="margin-right: 1px;">$</span>
-                              <span t-esc="'{:.2f}'.format(line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))" style="" />
-                                <div class="" data-name="label: field">
-                                    <span class="" t-field="line.product_id.weight" style="color: rgb(0, 123, 255); white-space: nowrap;" />
+                             <!--************************** ITEM.WT **********************-->
+                            <td class="text-end">
+                                <div data-name="label: field">
+                                    <span t-field="line.product_id.weight" style="color: rgb(0, 123, 255); white-space: nowrap;" />
                                     <span class="text-lowercase" t-field="line.product_id.weight_uom_name" style="color: rgb(0, 123, 255); white-space: nowrap;"/>
                                 </div>
                             </td>
@@ -344,16 +342,9 @@
                                     </t>
                                     <strong><span t-out="total_shipped" t-options="{'widget': 'float', 'precision': 3}"/></strong>
                                 </td>
-                                <!-- UNIT PRICE/ITEM WT -->
-                                    <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
-                                        <t t-set="total_unitprice" t-value="0"/>
-                                        <t t-foreach="doc.move_ids" t-as="line">
-                                            <t t-set="total_unitprice" t-value="total_unitprice + (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)))"/>
-                                        </t>
-                                        <span t-out="total_unitprice" t-options="{'widget': 'float', 'precision': 2}"/>
-                                        <!-- <strong>——</strong> -->
-                                        <div class="" data-name="label: field">
-                                            <!-- <strong style="color: rgb(0, 123, 255);">——</strong> -->
+                                <!-- ITEM WT -->
+                                    <td style="border: #525659 solid 1px; text-align: right;">
+                                        <div data-name="label: field">
                                             <t t-set="total_lb" t-value="0"/>
                                             <t t-foreach="doc.move_ids" t-as="line">
                                                 <t t-set="total_lb" t-value="total_lb + line.product_id.weight"/>
