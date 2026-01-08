@@ -139,19 +139,17 @@
 																	</strong>
 																</span>
 															</t>
+															<t t-if="b_value['tagging']">
+																<span style="display:block;font-size:11px;">
+																		TAG: 
+																	<strong>
+																		<t t-esc="b_value['tagging']" />
+																	</strong>
+																</span>
+															</t>
 														</td>
-														<t t-if="b_value['tagging']">
-															<span style="display:block;font-size:11px;">
-																	TAG: 
-																<strong>
-																	<t t-esc="b_value['tagging']" />
-																</strong>
-															</span>
-														</t>
 														<td style="padding:4px; text-align:center;">
-															<t t-esc="b_value['qty']" />
- /                                                    
-															<t t-esc="b_value['pick_qty']" />
+															<t t-esc="b_value['qty']"/> / <t t-esc="b_value['pick_qty']"/>
 														</td>
 													</tr>
 												</t>
