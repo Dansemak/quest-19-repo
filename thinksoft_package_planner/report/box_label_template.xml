@@ -2,7 +2,7 @@
 <odoo>
 	<record id="paperformat_box_label" model="report.paperformat">
 		<field name="name">Box Label Paper Format</field>
-		<field name="default" eval="True" />
+		<field name="default" eval="True"/>
 		<field name="format">custom</field>
 		<field name="page_height">203</field>
 		<field name="page_width">102</field>
@@ -11,7 +11,7 @@
 		<field name="margin_bottom">5</field>
 		<field name="margin_left">2</field>
 		<field name="margin_right">2</field>
-		<field name="header_line" eval="False" />
+		<field name="header_line" eval="False"/>
 		<field name="header_spacing">20</field>
 		<field name="dpi">80</field>
 	</record>
@@ -68,12 +68,7 @@
 							</div>
 							<div class="row mb-2">
 								<div class="col-12" style="font-size:11px;">
-									<span t-field="doc.company_id.name" />
-									<span t-field="doc.company_id.street2" />
-,                                   
-									<span t-field="doc.company_id.city" />
-,                                   
-									<span t-field="doc.company_id.zip" />
+									<span t-field="doc.company_id.street2"/> , <span t-field="doc.company_id.city"/>, <span t-field="doc.company_id.zip"/>
 								</div>
 							</div>
 							<div class="row mb-2">
@@ -144,19 +139,17 @@
 																	</strong>
 																</span>
 															</t>
+															<t t-if="b_value['tagging']">
+																<span style="display:block;font-size:11px;">
+																		TAG: 
+																	<strong>
+																		<t t-esc="b_value['tagging']" />
+																	</strong>
+																</span>
+															</t>
 														</td>
-														<t t-if="b_value['tagging']">
-															<span style="display:block;font-size:11px;">
-																	TAG: 
-																<strong>
-																	<t t-esc="b_value['tagging']" />
-																</strong>
-															</span>
-														</t>
 														<td style="padding:4px; text-align:center;">
-															<t t-esc="b_value['qty']" />
- /                                                    
-															<t t-esc="b_value['pick_qty']" />
+															<t t-esc="b_value['qty']"/> / <t t-esc="b_value['pick_qty']"/>
 														</td>
 													</tr>
 												</t>
