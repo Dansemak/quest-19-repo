@@ -13,9 +13,13 @@ class SaleOrder(models.Model):
         return
     
     def action_confirm(self):
+        if not self:
+            return super().action_confirm()
+        
         if self.partner_credit_warning == '' or self.approve_sale_order:
             self.credit_hold = False
             return super().action_confirm()
+        
         else:
             self.credit_hold = True
             self.message_post(body="\u2022 Credit Hold")

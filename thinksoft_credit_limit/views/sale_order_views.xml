@@ -17,6 +17,10 @@
                     groups="thinksoft_credit_limit.credit_limit_group_approver"/>
             </xpath>
 
+            <xpath expr="//sheet" position="inside">
+                <widget name="web_ribbon" title="CREDIT HOLD" bg_color="text-bg-danger" invisible="not credit_hold"/>
+            </xpath>
+
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="credit_hold" invisible="1"/>
                 <field name="approve_sale_order" invisible="1"/>
