@@ -1,0 +1,23 @@
+from odoo import api, fields, models
+
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
+    seq_no = fields.Integer(string="#", compute="_compute_line_number", readonly=True, store=True)
+
+    # determining the line number of the purchase.order.line record
+    @api.depends("order_id", "order_id.order_line", "sequence")
+    def _compute_line_number(self):
+        for line in self:
+            if line.order_id:
+                # getting all of the lines in the order
+                lines = line.order_id.order_line.filtered(lambda i: not i.display_type).sorted(key=lambda l: (l.sequence, l.id))
+
+                # finding the position of this line and assigning its line number
+                for i, o_l, in enumerate(lines, start=1):
+                    if o_l == line:
+                        line.seq_no = i * 10
+                        break
+            else:
+                line.seq_no = 0

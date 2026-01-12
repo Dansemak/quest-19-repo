@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+     <!--////////////////////////////////  PAPERFORMATS //////////////////////////////////////////////-->
+
+        <!--*************************************** MAIN REPORTS PAPERFORMAT  ************************************-->
+        <record id="thinksoft_reports_paperformat" model="report.paperformat">
+            <field name="name">Reports Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">22</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">18</field>
+            <field name="dpi">90</field>
+        </record>
+        <!--*************************************** PAYMENT REMITTANCE REPORTS PAPERFORMAT  ************************************-->
+        <record id="thinksoft_payment_remittance_paperformat" model="report.paperformat">
+            <field name="name">Payment Remittance Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+        <!--*************************************** WAYBILL REPORTS PAPERFORMAT  ************************************-->
+        <record id="paperformat_report_waybill" model="report.paperformat">
+            <field name="name">Reports Paper</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">28</field>
+            <field name="margin_bottom">60</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+    </data>
+</odoo>

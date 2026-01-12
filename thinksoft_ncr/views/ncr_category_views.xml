@@ -1,0 +1,40 @@
+<odoo>
+
+    <record id="ncr_category_view_list" model="ir.ui.view">
+        <field name="name">ncr.category.view.list</field>
+        <field name="model">ncr.category</field>
+        <field name="arch" type="xml">
+            <list duplicate="0">
+                <field name="name"/>
+                <field name="parent_category_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="ncr_category_view_form" model="ir.ui.view">
+        <field name="name">ncr.category.view.form</field>
+        <field name="model">ncr.category</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="parent_category_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="ncr_category_action_list" model="ir.actions.act_window">
+        <field name="name">NCR Category</field>
+        <field name="res_model">ncr.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

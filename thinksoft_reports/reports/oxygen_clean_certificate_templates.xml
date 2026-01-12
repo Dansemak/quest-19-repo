@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  <template id="oxygen_clean_certificate_template">
+    <t t-call="web.html_container">
+      <h1>Oxygen Clean Certificate</h1>
+      <t t-foreach="docs" t-as="doc">
+        <!--
+                  As language is not required for all objects.
+                  So for now, If partner is available in object then pass
+                  that partner's language.
+              -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-call="thinksoft_reports.oxygen_clean_certificate_template_document" t-lang="doc.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in doc.fields_get()">
+          <t t-call="thinksoft_reports.ooxygen_clean_certificate_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+  <template name="Report with header and footer standard" id="report_external_layout_oxygen_clean_certificate">
+      <div class="header pe-5" style="">
+        <style>
+            .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
+              }
+            .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica,sans-serif;
+              }
+            .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+              }
+            .title{
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                line-height: 1.2 !important;
+                text-align: left !important;
+              }
+            .barcode{
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+              }
+        </style>
+        <div class="container">
+          <div class="row mb-2">
+            <!-- ********************************* LOGO
+            ********************************************* -->
+            <div class="col-4">
+              <div class="">
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
+              </div>
+            </div>
+            <!-- ************************************** ADDRESS *************************** -->
+            <div class="col-3 top-address">
+              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                780.461.7009</p>
+            </div>
+            <!-- ************************************** TITLE
+            ******************************************** -->
+            <div class="col-5 d-flex justify-content-end " >
+              <div style="padding:0!important; text-align:center; ">
+                <!--**********************
+                BARCODE *********************-->
+                <span t-field="doc.name"
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
+                  style="" />
+                <br />
+                <div class="barcode" t-field="doc.name" />
+              </div>
+              <!--**********************
+              TITLE *********************-->
+              <div class="title text-uppercase">
+                Oxygen Clean <br/>Certificate
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <t t-raw="0" />
+      </div>
+      <!-- <div class="footer "
+        style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
+        <div class="footer" style="font-size:11px; width:100%;">
+        <div class="container ">
+          <div class="row">
+            <div class="col-12">
+              <span class="text-left" style="">Print Date:</span>
+              <span class="ms-2"
+                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                style="margin-right: 250px; text-align: right;" />
+              <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+              <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                  style="text-align: right;" class="topage" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template id="oxygen_clean_certificate_template_document">
+    <t t-call="thinksoft_reports.report_external_layout_oxygen_clean_certificate">
+        <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+    <div class="main_page">
+        <!--
+            As language is not required for all objects.
+            So for now, If partner is available in object then pass
+            that partner's language.
+          -->
+        <t t-if="'partner_id' in doc.fields_get()">
+          <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+        </t>
+        <div class="oe_structure" style="font-size: 11px;">
+          <div class="container">
+            <div class="row">
+              <!-- ************************************** SHIP TO ******************************************** -->
+              <div class="info1 col-6" style=" ">
+                <table class="text-uppercase" style="height:234px; border-collapse:collapse;">
+                  <tbody style="">
+                    <tr>
+                      <th style="border: 1px solid #525659; border-top-color: #525659;font-size: 11px; text-align: center;">Ship to</th>
+                    </tr>
+                    <tr>
+                        <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th style="border: 1px solid #525659; font-size: 11px; text-align: center;">Contact</th>
+                    </tr>
+                    <tr>
+                      <td style="">
+                        <span class="" t-field="doc.sale_id.partner_contact_id.name"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="border: 1px solid #525659; font-size: 11px; text-align: center;">phone</th>
+                    </tr>
+                    <tr>
+                      <td style="">
+                        <span class="" t-field="doc.sale_id.partner_contact_id.phone" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- ************************************** REPORT INFO ******************************************** -->
+              <div class="info col-6" style="">
+                <table class=" text-uppercase" style="border-collapse:collapse;">
+                  <tbody style="">
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">DATE</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span t-field="doc.create_date" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Source Document</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <!-- <span class="" t-field="doc.client_order_ref" /> -->
+                         <span class="" t-field="doc.origin" />
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">prepared by</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="doc.salesperson_id" />
+                        <!-- <span class="" t-field="doc.sale_id.partner_contact_id"/> -->
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                        <span class="text-capitalize"> BUYER</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659;">
+                        <!-- <span class="" t-field="doc.sale_contact_id.name" /> -->
+                         <!-- <span class="" t-field="doc.partner_contact_id.name" /> -->
+                         <t t-set="cust_name" t-value="doc.partner_contact_id.name or ''"/>
+                          <span t-esc="cust_name[:20]"/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="note " style="margin-top:12px; ">
+                  <table class="table table-hover" style=" border-collapse:collapse;">
+                    <tbody>
+                      <tr>
+                        <td colspan="2" style=" font-size:11px; white-space: normal; line-height:1.1; text-transform:none;"> This document certifies that the materials or finished goods requested are in conformance with the specified guidelines provided to Quest Gasket by the above listed company. We certify that the goods identified above are in compliance with a certified oxygen cleaning process. </td>
+                      </tr>
+                      <tr>
+                        <th style="font-size:12px; text-transform:none; width:150px;">Material Cleaned by Signature</th>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th style="font-size:12px; text-transform:none; width:150px;background-color: #E2EFD9 !important;">Quality Control Signature</th>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container text-uppercase" style="font-size:11px;margin:20px 0 20px;">
+            <div class="row">
+              <div class="col-4 ml-0">
+                <div class="">
+                  <table class="table table-borderless" style="line-height: 6px; ">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="" data-name="label: field">
+                            <span class="">Material Cleaned</span>
+                          </div>
+                        </td>
+                        <td>
+                           <!-- <span style="font-family:'DejaVu Sans',sans-serif; font-size:20px;">&#x2610;</span> -->
+                           <i class="fa fa-square-o" style="font-size:18px;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="" data-name="label: field">
+                            <span class=" o_default_snippet_text">Material Dried</span>
+                          </div>
+                        </td>
+                        <td>
+                           <i class="fa fa-square-o" style="font-size:18px;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="line-height: 1px; ">
+                          <div>
+                            <span class="">Ultraviolet Light Inspected</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- <font style="font-size: 20px;">☐</font> -->
+                            <i class="fa fa-square-o" style="font-size:18px;"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-4" style="white-space:nowrap;">
+                <div class="">
+                  <table class="table table-borderless" style="line-height: 6px; ">
+                    <tbody>
+                      <tr>
+                        <td style="line-height: 10px;">
+                          <div class="" data-name="label: field">
+                            <span class="">Individually Bagged</span>
+                          </div>
+                        </td>
+                        <td>
+                          <!-- <font style="font-size: 20px;">☐</font> -->
+                            <i class="fa fa-square-o" style="font-size:18px;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div>
+                            <span>Individually Tagged</span>
+                          </div>
+                        </td>
+                        <td>
+                          <i class="fa fa-square-o" style="font-size:18px;"></i>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div data-name="label: field">
+                            <span class="">Service Time(hrs)</span>
+                          </div>
+                        </td>
+                        <td>
+                          <span>_________________</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-4" style="white-space:nowrap;">
+                <div class="q_block mt8 mb8">
+                  <div class="">Date Cleaned <span class="ml-2">___________________________</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" container" style="margin:20px 0 20px;">
+            <div class="row items">
+              <div class="col-md-12 col-xs-12">
+                <div class="">
+                  <table class="line-items" style="width:100%; ">
+                    <thead>
+                      <tr>
+                        <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color:#525659; width: 40px;">Line</th>
+                        <th style="text-align:left; border-top-color: solid #525659;  border-bottom-color: #525659;">Part #</th>
+                        <th rowspan="2" style="width:100px; border-top-color: #525659; border-botttom-color: #525659;">QTY shipped</th>
+                        <th rowspan="2" style="width:100px; border-top-color: #525659; border-botttom-color: #525659; ">UoM</th>
+                      </tr>
+                      <tr>
+                        <th style="text-align:left;  border-bottom-color: #525659; ">Description</th>
+                      </tr>
+                    </thead>
+                     <!-- <tbody t-foreach="doc.move_line_ids" t-as="line" style=""> -->
+                     <tbody t-foreach="doc.move_ids" t-as="line">
+                      <tr>
+                        <!--******************************* Sequence Number ***********************************-->
+                        <td rowspan="2" class="text-center">
+                          <span t-field="line.seq_no" />
+                        </td>
+                        <td >
+                          <!-- ******************  Part # ****************** -->
+                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                          <!-- ******************  Description ****************** -->
+                          <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                          <t t-raw=" ' '.join(desc.split()) " />
+                        </td>
+                        <!--*******************************  QTY Shipped ***********************************-->
+                        <td class="text-center">
+                          <!-- <span  t-field="line.product_uom_qty"/> -->
+                          <span class="" t-field="line.quantity" />
+                        </td>
+
+                        <!--******************************* UOM ***********************************-->
+                        <td class="text-center">
+                          <span t-field="line.product_uom" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </t>
+  </template>
+  </data>
+</odoo>

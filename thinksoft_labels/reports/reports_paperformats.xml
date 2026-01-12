@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- //////////////////// PAPERFORMATS //////////////////// -->
+
+        <!-- ******************** PRINT LABEL 1.25x4 PAPERFORMAT ******************** -->
+        <record id="paperformat_print_label_1_25x4" model="report.paperformat">
+            <field name="name">1.25x4 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">31</field>
+            <field name="page_width">101</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">37</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- ******************** SHIPPING LABEL 3x4 PAPERFORMAT ******************** -->
+        <record id="shipping_label_3x4_paperformat" model="report.paperformat">
+            <field name="name">Shipping Label 3x4 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">70</field>
+            <field name="page_width">95</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- ******************** LABEL 3x4 PAPERFORMAT ******************** -->
+        <record id="paperformat_label_3x4" model="report.paperformat">
+            <field name="name">3x4 Label Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">70</field>
+            <field name="page_width">95</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- *************************************** 4x1 PAPERFORMAT  ************************************ -->
+        <record id="paperformat_4x1" model="report.paperformat">
+            <field name="name">4x1 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">25</field>
+            <field name="page_width">101</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- ******************** SHIPPING LABEL 4x1.5 PAPERFORMAT ******************** -->
+        <record id="paperformat_4x1_5" model="report.paperformat">
+            <field name="name">4x1.5 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">38</field>
+            <field name="page_width">101</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- *************************************** SHIPPING LABEL 4x4 PAPERFORMAT  ************************************ -->
+        <record id="label_4x4_paperformat" model="report.paperformat">
+            <field name="name">4x4 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">102</field>
+            <field name="page_width">102</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">9</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- *************************************** 4x4 PAPERFORMAT  ************************************ -->
+        <record id="paperformat_4x4" model="report.paperformat">
+            <field name="name">4x4 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">101</field>
+            <field name="page_width">101</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">30</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- ******************** SHIPPING LABEL 4x6 PAPERFORMAT ******************** -->
+        <record id="paperformat_4x6" model="report.paperformat">
+            <field name="name">4x6 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_width">101</field>
+            <field name="page_height">152</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- ******************** SHIPPING LABEL 4x8 PAPERFORMAT ******************** -->
+        <record id="paperformat_4x8" model="report.paperformat">
+            <field name="name">4x8 Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_width">101</field>
+            <field name="page_height">203</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+        <!-- *************************************** 12x4 PAPERFORMAT  ************************************ -->
+        <record id="paperformat_12x4" model="report.paperformat">
+            <field name="name">12x4 Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">102</field>
+            <field name="page_width">305</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">80</field>
+        </record>
+
+    </data>
+</odoo>

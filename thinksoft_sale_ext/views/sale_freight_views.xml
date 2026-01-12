@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_freight_action_list" model="ir.actions.act_window">
+        <field name="name">Freight Charges</field>
+        <field name="res_model">sale.freight</field>
+        <field name="view_mode">list,form,search</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Freight Charge
+            </p><p>
+                Create a new Freight Charge
+            </p>
+        </field>
+    </record>
+
+    <record id="sale_freight_view_tree" model="ir.ui.view">
+        <field name="name">sale.freight.view.tree</field>
+        <field name="model">sale.freight</field>
+        <field name="arch" type="xml">
+            <list duplicate="0">
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+
+    <record id="sale_freight_view_form" model="ir.ui.view">
+        <field name="name">sale.freight.view.form</field>
+        <field name="model">sale.freight</field>
+        <field name="arch" type="xml">
+            <form duplicate="0">
+                <sheet>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1 class="mb-0">
+                            <field name="name" class="mb-0" placeholder="e.g. COLLECT, PREPAID, PICKUP, etc." />
+                        </h1>
+                    </div>
+                    <field name="active" invisible="1" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_freight_view_search" model="ir.ui.view">
+        <field name="name">sale.freight.view.search</field>
+        <field name="model">sale.freight</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
+            </search>
+        </field>
+    </record>
+
+    <menuitem
+        id="sale_menu_sale_freight_action_list"
+        action="sale_freight_action_list"
+        parent="sale.menu_sales_config"
+        groups="thinksoft_sale_ext.group_sale_extended_manager"
+        sequence="5"/>
+
+</odoo>

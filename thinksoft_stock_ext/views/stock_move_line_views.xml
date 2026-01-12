@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_line_tree_detailed_inherit_thinksoft_stock_ext" model="ir.ui.view">
+        <field name="name">stock.move.line.view.tree.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree_detailed"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="seq_no" />
+                <field name="available_locations_ids" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- adding the available_locations_ids to the location_id domain in the stock_barcode stock.move.line product select view -->
+    <record id="stock_move_line_product_selector_inherit_stock_barcode" model="ir.ui.view">
+        <field name="name">stock.move.line.view.form.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock_barcode.stock_move_line_product_selector"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='location_src']//field[@name='location_id']" position="before">
+                <field name="available_locations_ids" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//div[@name='location_src']//field[@name='location_id']" position="attributes">
+                <attribute name="domain">[('id', 'child_of', parent_location_id), ('id', 'in', available_locations_ids)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_detailed_operation_tree_thinksoft_stock_ext" model="ir.ui.view">
+        <field name="name">stock.move.line.operations.list.thinksoft.stock.ext</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//list" position="attributes">
+                <attribute name="default_order">seq_no asc, result_package_id desc, location_id asc, location_dest_id asc, picking_id asc, id</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="seq_no"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="stock.menu_procurement_compute" model="ir.ui.menu">
+        <field name="active">False</field>
+    </record>
+
+</odoo>

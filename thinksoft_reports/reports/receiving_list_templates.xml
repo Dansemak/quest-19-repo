@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  <template id="receiving_list_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <h1>Receiving List</h1>
+        <t t-if="'partner_id' in o.fields_get()">
+          <t t-call="thinksoft_reports.receiving_list_template_document" t-lang="o.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in o.fields_get()">
+          <t t-call="thinksoft_reports.receiving_list_template_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+
+  <template name="Report with header and footer standard" id="report_external_layout_receiving_list">
+      <div class="header pe-5" style="">
+        <style>
+            .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
+              }
+            .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+              }
+            .title{
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                line-height: 1.2 !important;
+                text-align: left !important;
+              }
+            .barcode{
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+              }
+        </style>
+        <div class="container">
+          <div class="row mb-2">
+            <!-- ********************************* LOGO
+            ********************************************* -->
+            <div class="col-4">
+              <div class="">
+                <img class="img img-responsive " style="width: 200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" />
+              </div>
+            </div>
+            <!-- ************************************** ADDRESS *************************** -->
+            <div class="col-3 top-address">
+              <p style="">Quest Gasket &amp; Supply Inc<br /> Unit
+                500, 3260 16 Street <br /> Nisku, AB, T9E 1P5 <br /> P: 780.463.4049 | F:
+                780.461.7009</p>
+            </div>
+            <!-- ************************************** TITLE
+            ******************************************** -->
+            <div class="col-5 d-flex justify-content-end " style=" ">
+              <div style="padding:0!important; text-align:center; ">
+                <!--**********************
+                BARCODE *********************-->
+                <span t-field="o.name"
+                  t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}'
+                  style="" />
+                <br />
+                <div class="barcode" t-field="o.name" />
+              </div>
+              <!--**********************
+              TITLE *********************-->
+              <div class="title text-uppercase" style="">
+                Receiving List
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <t t-raw="0" />
+      </div>
+      <!-- <div class="footer "
+        style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; "> -->
+      <div class="footer" style="font-size:11px; width:100%;">
+        <div class="container ">
+          <div class="row">
+            <div class="col-12">
+              <span class="text-left" style="">Print Date:</span>
+              <span class="ms-2"
+                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')"
+                style="margin-right: 250px; text-align: right;" />
+              <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+              <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span
+                  style="text-align: right;" class="topage" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </template>
+
+  <template id="receiving_list_template_document">
+  <t t-call="thinksoft_reports.report_external_layout_receiving_list">
+        <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+    <div class="main_page">
+        <div class="oe_structure" style="font-size: 11px;">
+          <div class="container">
+            <div class="row">
+              <!-- ************************************** SHIP FROM
+              ************************************** -->
+              <div class="info1 col-6" style="">
+                <table class="" style="width: 100%; border-collapse: collapse;"
+                  cellspacing="0">
+                  <tbody style="">
+                    <tr>
+                      <th style=" border: 1px solid #525659; border-top-color: #525659;font-size: 11px;">Shipped By</th>
+                    </tr>
+                    <tr>
+                        <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                          <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                        </td>
+                        </tr>
+                        <tr>
+                          <th style="">Contact</th>
+                        </tr>
+                        <tr>
+                          <td class="" style="">
+                            <!-- <span t-field="o.sale_id.sale_contact_id"/> -->
+                             <span t-field="o.partner_contact_id.name"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style=" ">phone</th>
+                        </tr>
+                        <tr>
+                          <td class="" style="">
+                            <span class="" t-field="o.partner_contact_id.phone" />
+                             <!-- <span t-field="o.sale_id.user_id.phone"/> -->
+                          </td>
+                        </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- ************************************** MAIN REPORT INFO
+              ****************************** -->
+              <div class="info col-6">
+                <table class="text-uppercase" style="width: 100%; border-collapse: collapse;"
+                  cellspacing="0">
+                  <tbody style="">
+                    <tr>
+                      <th
+                        style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                        <span class="">ORIGIN</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659;">
+                        <!-- <span class="" t-field="o.sale_id" /> -->
+                        <span class="" t-field="o.origin" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">ORDER DATE</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <!-- <span class="" t-field="o.date" /> -->
+                         <span class="" t-field="o.create_date"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">PURCHASE REP </span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <!-- <span class="" t-field="o.user_id.name" /> -->
+                        <span class="" t-field="o.purchase_id.user_id" />
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">SHIPPING INFORMATION</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                         <span t-field="o.carrier_id.name"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">FREIGHT CHARGES</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.sale_freight_id" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">DATE RECEIVED</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                      <span t-field="o.date_done"/>
+                      </td>
+                    </tr>
+                    <!-- <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">RECEIVER</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                      </td>
+                    </tr> -->
+                    <!-- <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">BOX/SKID QUANTITY</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.box_qty" /><span> boxes,</span>
+                        <span class="" t-field="o.skid_qty" /><span> skids</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">WEIGHT</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" style="white-space: nowrap;" t-field="o.shipping_weight" />
+                        <span class="" style="white-space: nowrap;" t-field="o.weight_uom_name" />
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class=" container " style="margin:20px 0 20px;">
+            <div class="row items">
+              <div class="col-md-12 col-xs-12">
+                <div class="">
+                  <table class="line-items" style="width: 100%; ">
+                    <thead style="">
+                      <div style="clear: both;">
+                        <tr>
+                          <th rowspan="2"
+                            style="border-left-color: #525659; border-top-color: #525659; border-bottom-color: #525659; width: 40px;">
+                            Line </th>
+                          <th
+                            style="text-align: left; border-top-color: solid #525659; border-bottom-color: #525659;">
+                            Part # </th>
+                          <th rowspan="2"
+                            style="border-top-color: #525659; border-botttom-color: #525659;"> UoM </th>
+                          <th rowspan="2"
+                            style="border-top-color: #525659; border-botttom-color: #525659;"> ORDER
+                            QTY </th>
+                          <th rowspan="2" style="border-top-color: #525659;">
+                            <span class="report-well">
+                              <span style="">
+                                <font style="">REC QTY <!--<br
+                                  />NET.WT-->
+                                </font>
+                              </span>
+                            </span>
+                          </th>
+                          <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">BO </th>
+                        </tr>
+                        <tr>
+                          <th style="text-align: left; border-bottom-color: #525659;"> Description </th>
+                        </tr>
+                      </div>
+                    </thead>
+                    <tbody t-foreach="o.move_ids" t-as="line">
+                     <!-- <tbody t-foreach="o.move_line_ids" t-as="line" style=""> -->
+                      <tr style="">
+                        <!--************************ line *******************************-->
+                        <td rowspan="2" class="text-center" style="">
+                          <span t-field="line.seq_no" style="" />
+                        </td>
+                        <td >
+                            <!-- ******************  Part # ****************** -->
+                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!-- ******************  Description ****************** -->
+                            <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                            <t t-raw=" ' '.join(desc.split()) " />
+                        </td>
+                        <!--*************************** UOM ***************************-->
+                        <td class="text-center">
+                          <span t-field="line.product_uom" style="" />
+                        </td>
+                        <!--************************** order QTY **********************-->
+                        <td class="text-center">
+                          <span t-field="line.product_uom_qty" />
+                        </td>
+                        <!--************************** Rec QTY **********************-->
+                        <td colspan="" class="text-center">
+                          <!-- <span class=" report-well" t-field="line.pick_qty" /> -->
+                          <!-- <span class="report-well" t-field="line.quantity_done" /> -->
+                          <!-- <div class="report-well" data-name="label: field"> -->
+                          <!-->
+                          class="report-well" t-field="line.product_id.weight" style="color: rgb(0,
+                          123, 255); white-space: nowrap;" />
+                                                        <span class="text-lowercase" style="color: rgb(0, 123, 255); white-space: nowrap;">lbs</span>-->
+                          <!-- </div> -->
+                        </td>
+                        <!--*******************************
+                        BO *************************-->
+                        <td colspan="" class="text-center">
+                          <!-- <span t-esc=" (line.product_uom_qty - line.quantity_done)"></span> -->
+                        </td>
+                        <!--                              <td colspan="" class="text-center">-->
+                        <!--<span
+                        class="report-well" t-esc="'{:.2f}'.format(line.product_id.weight *
+                        line.quantity_done)" />-->
+                        <!--<span
+                        class="text-lowercase" style="margin-left: 3px; color: rgb(0, 123, 255);
+                        white-space: nowrap;">lbs</span>-->
+                        <!--                              </td>-->
+                        <!-- TOTAL WEIGHT -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </t>
+  </template>
+  </data>
+</odoo>

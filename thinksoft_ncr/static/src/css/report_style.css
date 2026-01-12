@@ -1,0 +1,100 @@
+ /* <style> */
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&amp;family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap');
+
+
+        td:empty::after,td:empty::before{ content: "\00a0"; line-height: 0.9; }
+
+
+        /* <!-- .title table td {
+        line-height:normal;
+            border-color:#fff;
+            padding: 0!important;
+        } --> */
+        .main_page,.header,.footer {
+            font-family: Arial, Helvetica, sans-serif;
+            /* font-family: 'Roboto Condensed','Sansation',  sans-serif ;    */
+            /* font-weight: 250 !important; */          
+        }
+        
+        table tr th, table tr td {
+            /* font-weight: normal;              */
+            line-height: 1.2;
+            text-transform: uppercase;
+            padding: 8px !important;
+            vertical-align: middle;     
+        }
+
+        .info table { 
+            font-size: 12px !important;
+            width:100%;
+            text-transform: uppercase;
+            border: 1px solid #525659;
+        }
+
+        .info table thead tr th {
+            text-align:center; 
+            background-color: #DEEAF6;
+            line-height: 1.0;  
+        }
+        .info table tbody tr th {
+            text-align: right;
+            line-height: 0.5;
+            overflow: hidden;
+            white-space: nowrap;
+            height:5px;
+            background-color: #F2F2F2;
+            vertical-align:middle;
+            text-transform: uppercase !important;
+        }
+        .info table tr td {
+            line-height: 0.5;
+            overflow: hidden;
+            white-space: nowrap;
+            vertical-align:middle !important;
+        }
+      
+        .ncr-items table tr {
+            page-break-inside: avoid !important;
+            width: 100% !important;
+        }
+        .ncr-items table thead tr th {
+            font-size: 12px;
+            background-color:#F2F2F2;
+            white-space: nowrap;
+            text-align: center;
+            border: 1px solid #525659;
+            
+        }
+        .ncr-items table tr td {
+            /* height: fit-content !important; */
+            font-size: 12px;
+            border: 1px solid #525659;
+        }
+        .ncr-items table thead {
+            display: table-header-group !important;
+            page-break-inside: avoid;
+            display: block;
+        }
+
+        .ncr-items table tbody:before  {
+            content: "-" !important;
+            display: block !important;
+            line-height: 1em !important;
+            color:white;
+        }
+     
+        td.address {
+            line-height: 1.5 !important;
+            padding: 8px !important;
+        }
+        .ncr-items tr thead th, .ncr-items tr td {
+            font-size: 12px !important;
+            line-height: 1.3 !important;
+        }
+        .page_break {
+            page-break-before: always;
+        }
+       

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ********************************* Location Label 4x1 ********************************* -->
+        <record id="report_location_qrlabel_4x1" model="ir.actions.report">
+            <field name="name">Location QR 4x1</field>
+            <field name="model">stock.location</field>
+            <field name="binding_model_id" ref="stock.model_stock_location" />
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.location_qrlabel_4x1</field>
+            <field name="report_file">thinksoft_labels.location_qrlabel_4x1</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x1" />
+        </record>
+        <!-- ********************************* Location Label 4x4 ********************************* -->
+        <record id="report_location_qrlabel_4x4" model="ir.actions.report">
+            <field name="name">Location QR 4x4</field>
+            <field name="model">stock.location</field>
+            <field name="binding_model_id" ref="stock.model_stock_location" />
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.location_qrlabel_4x4</field>
+            <field name="report_file">thinksoft_labels.location_qrlabel_4x4</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x4" />
+        </record>
+        <!-- ********************************* Location Label 4x6 ********************************* -->
+        <record id="report_location_qrlabel_4x6" model="ir.actions.report">
+            <field name="name">Location QR 4x6</field>
+            <field name="model">stock.location</field>
+            <field name="binding_model_id" ref="stock.model_stock_location" />
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.location_qrlabel_4x6</field>
+            <field name="report_file">thinksoft_labels.location_qrlabel_4x6</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_4x6" />
+        </record>
+        <!-- ********************************* Print Label 1.25x4 ********************************* -->
+        <record id="action_report_print_label_1_25x4" model="ir.actions.report">
+            <field name="name">Print Label 1.25x4</field>
+            <field name="model">stock.picking</field>            <!-- Replace with actual model -->
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.print_label_1_25x4_template</field>
+            <field name="report_file">thinksoft_labels.print_label_1_25x4_template</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_print_label_1_25x4" />
+            <field name="print_report_name">'Label - %s' % (object.name)</field>
+        </record>
+        <!-- ********************************* Shipping Label 3x4 ********************************* -->
+        <record id="action_report_shipping_label_3x4" model="ir.actions.report">
+            <field name="name">Shipping Label 3x4</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.shipping_label_3x4_template</field>
+            <field name="report_file">thinksoft_labels.shipping_label_3x4_template</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="paperformat_id" ref="thinksoft_labels.shipping_label_3x4_paperformat" />
+            <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
+        </record>
+        <!-- ********************************* PRINT LABEL 3x4 ********************************* -->
+        <record id="action_report_product_label_3x4" model="ir.actions.report">
+            <field name="name">Print Label 3x4</field>
+            <field name="model">mrp.production</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.print_label_3x4_template</field>
+            <field name="report_file">thinksoft_labels.print_label_3x4_template</field>
+            <field name="print_report_name">'Print Label 3x4'</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_label_3x4" />
+            <field name="binding_model_id" ref="mrp.model_mrp_production" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ********************************* Shipping Label 4x4 ********************************* -->
+        <record id="action_report_shipping_label_4x4" model="ir.actions.report">
+            <field name="name">Shipping Label 4x4</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.shipping_label_4x4_template</field>
+            <field name="report_file">thinksoft_labels.shipping_label_4x4_template</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat" />
+            <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
+        </record>
+        <!-- ********************************* 4x4 Labels For All ********************************* -->
+        <record id="4x4_label_all" model="ir.actions.report">
+            <field name="name">4x4 Labels For All</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.label_4x4_for_all_template</field>
+            <field name="report_file">thinksoft_labels.label_4x4_for_all_template</field>
+            <field name="print_report_name">'4x4 Labels All'</field>
+            <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat" />
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ^********************************* Stock 4x4 Label ********************************* -->
+        <record id="4x4_label" model="ir.actions.report">
+            <field name="name">4x4 Label</field>
+            <field name="model">stock.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.label_4x4_template</field>
+            <field name="report_file">thinksoft_labels.label_4x4_template</field>
+            <field name="print_report_name">'4x4LBL - %s' % (object.product_id.name)</field>
+            <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat"/>
+        </record>
+        <!-- ^********************************* Product Label 4x4 ********************************* -->
+        <record id="action_report_product_label_4x4" model="ir.actions.report">
+            <field name="name">Print Label 4x4</field>
+            <field name="model">mrp.production</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.print_label_4x4_template</field>
+            <field name="report_file">thinksoft_labels.print_label_4x4_template</field>
+            <field name="print_report_name">'Print Label 4x4'</field>
+            <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat"/>
+            <field name="binding_model_id" ref="mrp.model_mrp_production"/>
+            <field name="binding_type">report</field>
+        </record>
+        <!-- ^********************************* Rack Label 12x4 ********************************* -->
+        <record id="report_product_label_12x4" model="ir.actions.report">
+            <field name="name">Rack Label 12x4</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_labels.product_label_12x4</field>
+            <field name="report_file">thinksoft_labels.product_label_12x4</field>
+            <field name="print_report_name">'Rack Label 12x4'</field>
+            <field name="paperformat_id" ref="thinksoft_labels.paperformat_12x4"/>
+        </record>
+    </data>
+</odoo>

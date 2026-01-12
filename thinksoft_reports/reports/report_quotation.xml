@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+  <template id="report_thinksoft_quotation_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <!--
+                    As language is not required for all objects.
+                    So for now, If partner is available in object then pass
+                    that partner's language.
+                  -->
+        <t t-if="'partner_id' in o.fields_get()">
+          <t t-call="thinksoft_reports.report_thinksoft_quotation_document" t-lang="o.partner_id.lang" />
+        </t>
+        <t t-if="'partner_id' not in o.fields_get()">
+          <t t-call="thinksoft_reports.report_thinksoft_quotation_document" />
+        </t>
+      </t>
+    </t>
+  </template>
+  <template name="Report with header and footer standard" id="report_external_layout_quotation">
+     <div class="header pe-5">
+      <style>
+              .header,.footer {
+                font-family: Arial, Helvetica,  sans-serif ;
+              }
+            .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+              }
+            .title{
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                line-height: 1.2 !important;
+                text-align: left !important;
+              }
+            .barcode{
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+              }
+        </style>
+      <div class="container">
+        <div class="row mb-2">
+          <!-- ********************************* LOGO ********************************************* -->
+          <div class="col-4">
+            <div class="">
+              <img class="img img-responsive " style="width:200px;" src="/thinksoft_reports/static/src/img/quest-logo.jpg" data-original-title="" alt="quest logo" />
+            </div>
+          </div>
+          <!-- ************************************** ADDRESS *************************** -->
+          <div class="col-3 top-address">
+            <p style="">Quest Gasket &amp; Supply Inc <br/> Unit 500, 3260 16 Street <br/> Nisku, AB, T9E 1P5 <br/> P: 780.463.4049 | F: 780.461.7009 </p>
+          </div>
+          <div class="col-5 d-flex justify-content-end top-address" style=" ">
+                    <div style="padding:0!important; text-align:center; ">
+                      <!-- <img t-att-src="'/report/barcode?type=%s&amp;value=%s&amp; width=%s; height=%s' % ('Code128', o.name, 600, 100)" style=" width:200px; height:30px; margin-left:-100px;" /> -->
+
+                       <!--********************** BARCODE *********************-->
+                      <span t-field="o.name" t-options='{"widget": "barcode", "barcode_type": "Code128", "width":200, "height":30}' style="" />
+                      <br />
+                      <div class="barcode" t-field="o.name" />
+                    </div>
+                     <!--********************** TITLE *********************-->
+                    <div class="title text-uppercase" style="">
+                      <t t-if="o.state == 'done' or o.state == 'sale'">
+                        <font style=" font-weight:bolder; white-space: nowrap;">Sales Order</font>
+                      </t>
+                      <t t-else="">
+                        <font style=" font-weight:bolder;" >Quotation</font>
+                      </t>
+                    </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-raw="0" />
+    </div>
+    <!-- <div class="footer " style="font-size:11px; width:100%;border-top:3px solid #c30000; padding-top:8px; margin-top:15px!important;"> -->
+     <div class="footer " style="font-size:11px; width:100%; padding-top:8px; ">
+      <div class="container ">
+        <div class="row">
+          <div class="col-12">
+            <span class="text-left" style="">Print Date:</span>
+            <span class="ms-2" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y %H:%M:%S')" style="margin-right: 250px; text-align: right;" />
+            <span style="font-size: 11px; text-align: center; color: #525659;">www.questgasket.com</span>
+            <div style="display: inline-block; float: right;">Page: <span class="page ms-2" /> of <span style="text-align: right;" class="topage" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="report_thinksoft_quotation_document">
+  <t t-call="thinksoft_reports.report_external_layout_quotation">
+    <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
+      <t t-if="'partner_id' in o.fields_get()">
+      <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+      </t>
+      <!-- //////////////////////////////////////// MAIN PAGE /////////////////////////////////// -->
+    <div class="main_page" style="">
+        <div class="oe_structure" style="">
+          <div class="container">
+            <div class="row">
+              <!-- *************************** CUSTOMER ADDRESS *************************-->
+              <div class="info1 col-6 " >
+                <div >
+                  <table class="text-uppercase" style="border-collapse: collapse; width:100%;">
+                    <tbody style="">
+                      <tr>
+                        <th style="border: 1px solid #525659; border-top-color: #525659; text-align: left; ">Customer</th>
+                      </tr>
+                      <tr>
+                        <td class="address" style="border-bottom-color: 0px solid #fff; ">
+                          <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- ************************ SHIPPING ADDRESS ********************** -->
+                  <t t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)">
+                    <table class="text-uppercase mt8" style="border-collapse: collapse; width:100%;">
+                      <tbody >
+                        <tr>
+                          <th style="border: 1px solid #525659; border-top-color: #525659; text-align: left;"> Shipping Address: </th>
+                        </tr>
+                        <tr>
+                          <td class="address" style="border-bottom-color: 1px solid #fff;">
+                            <!-- <div groups="sale.group_delivery_invoice_address"> -->
+                              <address t-field="o.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+                            <!-- </div> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </t>
+                </div>
+              </div>
+              <!-- ********************* REPORT TOP RIGHT SIDE INFO ******************** -->
+              <div class="info col-6 d-flex justify-content-end">
+                <table class=" text-uppercase" style=" border-collapse:collapse; width: 100%;" cellspacing="0">
+                  <tbody style=" ">
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;">
+                        <span class="">Quotation #</span>
+                      </th>
+                      <td style="border-top-color: #525659; border: 1px solid #525659;">
+                        <span class="" t-field="o.name"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Date</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.date_order"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Expiration Date</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.validity_date"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Expected Delivery Date</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.commitment_date"/>
+                        <!-- <span class="" t-field="o.ship_date" /> -->
+                      </td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: right;  border: 1px solid #525659;">
+                        <span class="">SALESPERSON</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.user_id"/>
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">CUSTOMER REFERENCE</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.client_order_ref"/>
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Terms</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.payment_term_id"/>
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right;  border: 1px solid #525659;">
+                        <span class="">Contact</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.partner_contact_id.name"/>
+                      </td>
+                    </tr>
+                    <tr style="border: 1px solid #525659;">
+                      <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
+                        <span class="">Phone</span>
+                      </th>
+                      <td style="border: 1px solid #525659;">
+                        <span class="" t-field="o.partner_contact_id.phone"/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-center " style="width:100%; margin-top:10px;">
+                <span style="vertical-align:sub;">******</span><span style="font-size:14px;padding: 0 15px;">  Pricing is based on total order quoted, any variances may result in requoting  </span><span style="vertical-align:sub;">******</span>
+              </div>
+            </div>
+          </div>
+          <div class=" container" style="margin:10px 0 20px; ">
+            <div class="row items ">
+              <div class="col-lg-12 " style="width:100%; ">
+                <div class="">
+                  <table class="line-items" style="vertical-align:middle; width:100%; " cellspacing="0" >
+                    <thead style="" class="">
+                      <tr style="height:23pt; ">
+                        <th style="width:33pt;" rowspan="2" bgcolor="">
+                          <span>LINE</span>
+                        </th>
+                        <th style="width:500px; text-align:left;">
+                          <span>PART #</span>
+                        </th>
+                        <th style=" border-right-style:hidden;" rowspan="2">
+                          <span>QTY</span>
+                        </th>
+                        <th style="" rowspan="2">
+                          <span>(UOM)</span>
+                        </th>
+                        <th style="" rowspan="2">
+                          <span>AVAILABILITY</span>
+                        </th>
+                        <th style="" rowspan="2">
+                          <span>UNIT PRICE</span>
+                        </th>
+                        <th style=" white-space: nowrap; width:100px;" rowspan="2">
+                          <span>EXT PRICE</span>
+                        </th>
+                      </tr>
+                      <!-- ######################################################################## -->
+                      <tr style="height:23pt; ">
+                        <th style="text-align:left;">
+                          <span>DESCRIPTION</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <!-- ######################################################################### -->
+                    <tbody t-foreach="o.order_line" t-as="line" >
+                      <tr style="height:20pt; page-break-inside: avoid !important;">
+                        <!--********* line # *****************-->
+                         <td style=" text-align: center;" rowspan="2">
+                          <span t-field="line.seq_no"/>
+                        </td>
+                        <!--********* Part # *****************-->
+                        <!-- <td style=" border-bottom-style:hidden; padding-bottom: 0;">
+                          <span t-field="line.product_id"/>
+                        </td> -->
+                        <td rowspan="2">
+                            <!--********* Part # *****************-->
+                            
+                            <!-- Will have to come back to this later to make the product name bold while the description is not bold -->
+
+                             <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                            <!--*****************  Description ***************-->
+                            <!-- <t t-if="line.product_id">
+                                <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                                <t t-raw=" ' '.join(desc.split()) " />
+                            </t> -->
+                            <!-- <t t-else=""> -->
+                            <div style="" >
+                             <t>
+                                <t t-set="desc" t-value="(line.name or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
+                                <t t-raw=" ' '.join(desc.split()) " />
+                            </t>
+                            </div>
+                        </td>
+                        <!--********** QUANTITY **********-->
+                        <td style=" border-right-style:hidden; text-align: center;" rowspan="2">
+                          <span t-esc="round(line.product_uom_qty,2)"/>
+                        </td>
+                        <!--******************* (UOM) *******************-->
+                        <td style=" text-align: center;" rowspan="2">
+                          <span t-field="line.product_uom_id"/>
+                        </td>
+
+                        <!--********** AVAILABILITY **********-->
+                        <!-- <td style=" text-align: center;" rowspan="2"><span t-field="line.state"/> -->
+                        <td style=" text-align: center;" rowspan="2">
+                        <!-- <span t-field="line.state"/> -->
+                          <span t-field="line.string_availability_info"/>
+                          <!-- <span t-field="line.product_id.qty_available"/> -->
+                        </td>
+                        <!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
+                        <!--***************** UNIT PRICE *********************-->
+                        <td style=" text-align: right;" rowspan="2">
+                          <span style="margin-right:2px;">$</span>
+                          <!-- <span t-esc="'{:.3f}'.format(line.dis_price_unit)"/>  -->
+                          <span t-esc="'{:.3f}'.format(line.price_reduce_taxexcl)"/>
+                          <!-- <span t-esc="round(line.dis_price_unit,2)"/> -->
+                        </td>
+                        <!--*************** EXTENDED PRICE ******************-->
+                        <td style=" text-align: right;" rowspan="2">
+                          <span t-field="line.price_subtotal"/>
+                        </td>
+                      </tr>
+                      <!-- ############################### DESCRIPTION ROW ############################################## -->
+                      <!--***************  Description **********************-->
+                      <!-- <tr style="">
+                        <td style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;">
+                        <span t-field="line.product_id.description" />
+                        </td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                  <table style="width:100%;" class="mt-2">
+                    <tr style="height:29pt">
+                      <td style="font-size:8px !important; " colspan="5" rowspan="3">
+                        <span class="bottom-info" style="">
+                          <img class=" me-3 ms-2" style="display:inline; float:left;" src="/thinksoft_reports/static/src/img/quest-crest.jpg" data-original-title="" alt="quest stamp"/>
+                          <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0; white-space: nowrap; line-height:2;" class="me-2">
+                            <li>QUEST GASKET &amp; SUPPLY INC</li>
+                            <li>UNIT 500, 3260 16 STREET</li>
+                            <li>NISKU, AB</li>
+                            <li>T9E 1P5</li>
+                          </ul>
+                          <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0 0 0 10px;  white-space: nowrap; line-height:2; border-left: 2px solid #7e7e7e;" class="me-3">
+                            <li>QUEST GASKET &amp; SUPPLY INC.</li>
+                            <li>BAY 27, 10099 15 STREET NE</li>
+                            <li>CALGARY, AB</li>
+                            <li>T3J 3P9</li>
+                          </ul>
+                          <ul style="display:inline; float:left; list-style-type: none; margin: 0; padding: 0 0 0 10px; white-space: nowrap; line-height:2;border-left: 2px solid #7e7e7e;" class="">
+                            <li>
+                              <i class="fa fa-envelope-o me-2 fa-lg" aria-hidden="true"/>SALES@QUESTGASKET.COM
+                            </li>
+                            <li>
+                              <i class="fa fa-fw fa-phone me-2 fa-lg" aria-hidden="true"/>780.463.4049 | C: 403-279-7007
+                            </li>
+                            <li>
+                              <i class="fa fa-desktop me-2 fa-lg" aria-hidden="true"/>WWW.QUESTGASKET.COM
+                            </li>
+                            <li>
+                              <i class="fa fa-fw fa-map-marker me-2 fa-lg" aria-hidden="true"/>NISKU | CALGARY
+                            </li>
+                          </ul>
+                        </span>
+                      </td>
+                      <!--********************** SUBTOTAL  **********************************-->
+                      <td style="width:110px; white-space: nowrap;text-align: right; background-color: lightgray; font-size:14px !important;;" >
+                        <span >SUBTOTAL</span>
+                      </td>
+                      <td style="font-weight: bold; width:101px; white-space: nowrap; text-align: right; font-size:14px !important;;">
+                        <span t-field="o.amount_untaxed"/>
+
+                      </td>
+                    </tr>
+                    <!-- ################################################################################### -->
+                    <tr style="white-space: nowrap; height:29pt">
+                       <!--************************* GST (5%) ************************-->
+                      <td style="text-align: right; background-color: lightgray; font-size:14px !important;;">
+                        <span style="" >GST (5%)</span>
+                      </td>
+                      <td style=" white-space: nowrap; text-align: right;  font-size:14px !important;;">
+                        <span t-field="o.amount_tax"/>
+                      </td>
+                    </tr>
+                    <!-- ################################################################################### -->
+                    <tr style="height:29pt">
+                      <!--********************** TOTAL  **********************************-->
+                      <td style="white-space: nowrap; text-align:right; background-color: lightgray; font-size:14px !important;;">
+                        <span style="">TOTAL </span>
+                      </td>
+                      <!-- <td style="white-space: nowrap; text-align: center; background-color: lightgray; "><span t-esc="o.amount_total + o.amount_tax"/> -->
+                      <td style="font-weight: bold; white-space: nowrap; text-align: right; font-size:14px !important;;">
+                        <strong>
+                          <span t-field="o.amount_total"/>
+                        </strong>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- <div class=""> -->
+          <!-- <t t-call="thinksoft_so_ext.report_external_layout_without_header_footer"> -->
+          <!-- <div class="oe_structure" style=""> -->
+          <div class="container" style="page-break-before:always;">
+            <div class="row">
+              <div class="col-12 conditions">
+                <h1>TERMS AND CONDITIONS OF SALES</h1>
+                <div class="d-flex justify-content-between ">
+                  <div class="col-6">
+                    <ol style="">
+                      <li>
+                        <h2>Defined Terms </h2>
+                        <p>In these terms and conditions, the following words shall have the following meanings:</p>
+                        <ul>
+                          <li> “Seller” means Quest Gasket &amp; Supply Inc.</li>
+                          <li>“Purchaser” means the person, company, firm, partnership or other legal entity that places an order for goods with Seller and includes Purchaser’s divisions, subsidiaries and affiliates.</li>
+                          <li> “Goods” means those goods, products and/or services to be supplied and delivered by Seller to Purchaser as described in relevant order.</li>
+                          <li> “Agreement” means the Order and these Terms and Conditions, together with any written purchasing agreement entered into between Purchaser and Supplier (“Purchasing Agreement”) including any amendments or addendums to the Purchasing Agreement.</li>
+                          <li> “End User” means final and last user of the supplied Goods.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <h2>Conditions of Sale &amp; Application of Terms</h2>
+                        <p>These terms and conditions of sale ("Terms") shall apply to any quote, sales order, purchase order, invoice and any other document used to place an order. The Agreement which is accepted by both parties for the sale of goods or services by Seller to Purchaser, to the entire exclusion of all other terms and conditions. The Agreement represents the entire agreement between the Purchaser and Seller with respect to the Goods. If there is a conflict or inconsistency between these Terms and any other part of an Order, these Terms shall prevail. No additional or differing terms communicated by Purchaser shall be binding and Seller shall not be deemed to accept any such other terms for failure to object to them in any communication received from Purchaser. Seller’s failure to insist upon strict compliance with any provision of these Terms will not be deemed to be a waiver of any of its rights or remedies or of its right to insist upon strict performance of such terms or any other terms in the future. </p>
+                      </li>
+                      <li>
+                        <h2>Price and Payment</h2>
+                        <p>The purchase price ("Price") for the Goods shall be specified on the Order. Unless otherwise specified in the Order, the Price is to be paid in Canadian dollars. The Price is payable without offset, back charge, retention, holdback or withholding of any kind. The Price is subject to adjustment to reflect Sellers's prices in effect at the time of shipping. All quotations are subject to change with notice and prior to delivery of Goods. All payments are due 30 days after the date of Seller's invoice or unless otherwise stated, with an interest charge of 2% per month applying on past due invoices. If Purchaser defaults on any payment when due or refuses to accept delivery or becomes insolvent, Seller may at its option, without prejudice to other lawful remedies, defer deliveries or cancel the remainder of the Order under the Agreement. Goods held for Purchaser shall be at the risk and expense of Purchaser. If Purchaser’s financial condition is or becomes unsatisfactory to Seller, Seller reserves the right to cancel or delay the Contract or shipment at any time prior to delivery of the Goods without further obligation or liability on Seller’s part. </p>
+                      </li>
+                      <li>
+                        <h2>Taxes</h2>
+                        <p>The Price is subject to all applicable customs duties, import duties, excise taxes, value added taxes (including HST or GST, as applicable), sales taxes and any other taxes, charges or levies levied by any governmental authority ("Taxes"). Vendor may add to the Price any applicable Taxes; however, Purchaser is responsible for payment of all taxes, duties and charges and Seller’s failure to charge or collect any Tax shall not relieve Purchaser of its obligation for payment of Taxes. </p>
+                      </li>
+                      <li>
+                        <h2>Changes, Returns/Cancellation and Credits</h2>
+                        <p>Purchaser expressly acknowledges that all orders are firm, and no order may be cancelled or altered, in whole or in part, by purchaser unless the Seller agrees in writing. Special order “non-stock” or manufactured goods may not be returned. Returns must be processed within ninety (90) days of delivery. Returns accepted by Seller must have a return materials authorization (RMA) issued to Purchaser before receipt of goods at Seller’s premises and must accompany the shipment. Restocking charges; a restocking charge will be applied at 25% of the value of the goods for standard inventoried items. Restocking charges and policies may differ within a Vendor Agreement. Special order “non-stock”, manufactured goods, or cancellation of factory ordered goods that are authorized for return may have a higher assigned restocking fee applied. All returns must be shipped prepaid by Purchaser. Items returned must be unused and in original packaging. Sellers interpretation of a verbal order shall be final and binding in the absence of a written confirmation or purchase order. For any Seller approved change, Seller shall receive payment in full from purchaser of all costs incurred at time of the change. Any changes made by Purchaser may affect or delay the delivery and the price of the goods and must be agreed to by both parties in writing. Credits will only be issued after inspection of returned goods that are received in unused, resalable condition. </p>
+                      </li>
+                      <li>
+                        <h2>Delivery</h2>
+                        <p>It is the sole responsibility of the Purchaser to identify any restrictions that may prevent the entry or usage of the supplied Goods at the specified destination of delivery. Unless otherwise specified in the order, the goods shall be delivered Ex Works (EXW) Seller’s location at which point title, ownership and risk of loss or damage will be borne by Purchaser. Claims for concealed damage must be made by Purchaser within thirty (30) days of receipt of shipment in writing to Seller. Free carrier as defined by INCOTERMS latest publication by the International Chamber of Commerce.</p>
+                      </li>
+                    </ol>
+                  </div>
+                  <div class="col-6">
+                    <ol start="7">
+                      <li>
+                        <h2>Force Majeure </h2>
+                        <p>Seller will not be liable for any delay or failure of performance due to any cause beyond its reasonable control including but not limited to act of God, war, labor difficulties, pandemics, the inability of its manufacturers or suppliers to obtain materials, or delays of carriers. </p>
+                      </li>
+                      <li>
+                        <h2>Intended Purpose</h2>
+                        <p>Goods will be quoted and supplied according to the information and specifications provided by the Purchaser. It is the sole responsibility of the Purchaser and/or End User to correctly identify the application for which the Goods are intended. The Purchaser and/or End User must verify that the Goods are suitable for the intended purpose. </p>
+                      </li>
+                      <li>
+                        <h2>Inspection</h2>
+                        <p>Purchaser, End User or third-party representative shall have the right to inspect all goods ordered in Seller's possession before shipment. The inspecting representative may reject any and all goods not substantially and reasonably conforming to technical specifications of the Order. Such rejected goods will be at Seller's sole risk and expense. Any inspection by Purchaser, End User, or third-party pursuant to the provisions of this Order shall not release Seller from any of the warranty obligations stated herein. </p>
+                      </li>
+                      <li>
+                        <h2>Warranty</h2>
+                        <p>Warranty claim shall be deemed waived unless made in writing within sixty (60) days of delivery to the Seller. Seller warrants the Goods solely in accordance with the manufacturer's warranty and only to the extent that the manufacturer honors any applicable warranty. Seller is not responsible for normal wear and tear or damages caused by improper installation, maintenance, handling, transportation, storage, or operation or by overloading, accident, neglect or harmful alterations or repairs made by Purchaser, End User, or any other person. The purchaser and End User waives any right to legal action against Seller for damages caused by the Goods whether based upon warranty, contract, strict liability, negligence or otherwise or which result or arise in connection with the design, manufacture, installation, use or repair of the goods, including but not limited to environmental damages. </p>
+                      </li>
+                      <li>
+                        <h2>Indemnification</h2>
+                        <p>Purchaser and/or End User shall be responsible for the installation, maintenance, operation and use of the Goods and any injury, damage, destruction, loss, damages and/or expenses caused by the Goods, and Seller shall have no liability in relation thereto. Purchaser and/or End User also agrees to indemnify, defend, and hold Seller’s officers, directors, employees and agents harmless from any and all costs (including all legal and accountant’s fees and expenses), liabilities and/or damages resulting from or related to any third party (including Purchaser’s or End User’s own employees) claim, complaint and/or judgment arising from Purchaser’s and/or End User’s use of any goods furnished hereunder, as well as any negligent, intentional, or tortious act or omission of Buyer or any material breach by Buyer of these Terms. </p>
+                      </li>
+                      <li>
+                        <h2>Limitation of Liability</h2>
+                        <p>Under no circumstance shall the Seller be liable to Purchaser, End User or any other person or third party for any incidental, indirect, punitive, special, consequential or similar damages including, but not limited to, rework, investigation and repair or replacement cost, loss of profits, increased costs of operations, diminution in value or loss of goodwill arising out of or in connections with the sale, installation or use of the goods. In the event the Seller is found to have any liability for any reason whatsoever regardless of whether such liability arises in tort, contract, law, equity or otherwise, the maximum aggregate liability of the Seller to the purchaser shall be limited in all circumstances to the price paid by purchaser to the Seller for such goods in the specific transaction giving rise to the damage or loss. The limitation of liability is a condition to the sale of the goods by the Seller at the price. The parties acknowledge that the price payable for the goods would have been substantially greater in the absence of this limitation of liability which shall apply in all circumstances. </p>
+                      </li>
+                      <li>
+                        <h2>Liquidated Damages</h2>
+                        <p>Any reference to liquidated damages must be approved by Seller’s authorized representative in writing. </p>
+                      </li>
+                      <li>
+                        <h2>Confidential Information </h2>
+                        <p>Without prior written consent of Seller, Purchaser shall neither disclose to any third party, nor use for any purpose other than those contemplated by an order for Products, any information pertaining to the terms applicable to such order for Products, including, but not limited to, the quantity, description or price of such Products. </p>
+                      </li>
+                      <li>
+                        <h2>Governing Law</h2>
+                        <p>The agreement shall be governed by and construed in accordance with the laws of the Province of Alberta and laws of Canada applicable therein. All parties irrevocably submit to the exclusive jurisdiction of the courts of Alberta.</p>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+     <!-- END OF MAIN PAGE -->
+    </t>
+
+  </template>
+   </data>
+</odoo>
