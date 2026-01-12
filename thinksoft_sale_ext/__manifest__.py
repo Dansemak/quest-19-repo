@@ -32,6 +32,11 @@
         "views/company_user_views.xml",
         "views/crm_lead_views.xml",
     ],
+    'assets': {
+        'web.assets_backend': [
+            'thinksoft_sale_ext/static/src/**/*',
+        ],
+    },
     "installable": True,
     "application": False,
     "auto_install": False,
