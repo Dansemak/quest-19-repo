@@ -2,7 +2,7 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 from . import rma
-from . import rma_config
+# from . import rma_config
 from . import stock
 from . import sale_account
 

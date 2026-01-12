@@ -4,10 +4,20 @@
     <record id="inherit_view_order_form" model="ir.ui.view">
         <field name="name">sale.order.form</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='sale_order_template_id']" position="after">
-                <field name="rma_id" invisible="1"/>
+                <field name="rma_id" invisible="1" />
+            </xpath>
+            <xpath expr="//button[@name='action_view_delivery']" position="after">
+                <button name="action_view_rma_orders"
+                    type="object"
+                    string="RMA"
+                    class="oe_highlight"
+                    invisible="rma_count == 0"
+                    icon="fa-undo">
+                    <field name="rma_count" widget="statinfo" />
+                </button>
             </xpath>
         </field>
     </record>
@@ -20,8 +30,8 @@
     </record>
 
     <menuitem name="Orders"
-              id="menu_orders"
-              parent="menu_rma_order"
-              action="action_orders"
-              sequence="4"/>
+        id="menu_orders"
+        parent="menu_rma_order"
+        action="action_orders"
+        sequence="4" />
 </odoo>

@@ -25,7 +25,7 @@
     odoo website refund order website replace order webshop return order webshop refund order webshop replace order
 
 
-This Module allow the seller to recharge wallet for the customer. 
+This Module allow the seller to recharge wallet for the customer.
     website return order
     website RMA webstore
     webshop RMA webshop
@@ -52,11 +52,10 @@ This Module allow the seller to recharge wallet for the customer.
     "data": [
         'security/ir.model.access.csv',
         'views/rma_view.xml',
-        'views/rma_config.xml',
         'views/rma_order_sequence.xml',
+        'views/sale_order_view.xml',
         'data/rma_mail_template.xml',
         'wizard/return_order.xml',
-        'views/sale_order_view.xml',
     ],
     "auto_install": False,
     "installable": True,

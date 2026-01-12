@@ -2,6 +2,9 @@
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+import logging
+
+log = logging.getLogger(__name__).info
 
 
 class ReturnOrderLine(models.TransientModel):
@@ -12,14 +15,16 @@ class ReturnOrderLine(models.TransientModel):
     rma_line_id = fields.Many2one("rma.lines", "RMA Line Id")
     product_id = fields.Many2one("product.product", "Product")
     delivery_qty = fields.Float("Delivered Quantity")
-    return_qty = fields.Float("Return/Cancel Quantity")
-    recieved_qty = fields.Float("Recieved Quantity")
+    return_qty = fields.Float("Return Quantity")
+    received_qty = fields.Float("Received Quantity")
     sale_line_id = fields.Many2one(string="Order Line", comodel_name="sale.order.line")
     is_new_line = fields.Boolean("new line", default=False)
     pending_qty = fields.Float("Pending Quantity")
-    rma_reason_id = fields.Many2one("rma.reason", "Return/NoReturn")
+    rma_resolution_id = fields.Many2one("rma.resolution", "Resolution")
     return_reason_id = fields.Many2one("return.reason", "Return Reason")
     tracking = fields.Selection(related="product_id.tracking")
+
+
 
     @api.onchange("return_qty")
     def _onchange_return_qty(self):
@@ -35,7 +40,7 @@ class RmaReplaceOrderTran(models.TransientModel):
     qty = fields.Integer("Quantity", default=0)
     rma_id = fields.Many2one("return.order", string="RMA Order")
     is_new_line = fields.Boolean("new line", default=False)
-    product_price = fields.Float(string="Product Price", default=0.0)
+    product_price = fields.Float(string="Price", default=0.0)
 
     @api.onchange("product_id", "qty")
     def _onchange_for_new_line(self):
@@ -99,7 +104,7 @@ class ReturnOrder(models.TransientModel):
                     "pending_qty": i.sale_line_id.product_uom_qty
                     - i.sale_line_id.qty_delivered,
                     "return_qty": i.return_qty,
-                    "rma_reason_id": i.rma_reason_id.id,
+                    "rma_resolution_id": i.rma_resolution_id.id,
                     "return_reason_id": i.return_reason_id.id,
                 }
 
@@ -142,18 +147,36 @@ class ReturnOrder(models.TransientModel):
         return res
 
     def check_basic_validation(self):
-        if self.rol_ids.filtered(lambda t: t.rma_reason_id and not t.return_qty):
+        if self.rol_ids.filtered(lambda t: t.rma_resolution_id and not t.return_qty):
             raise ValidationError(
                 "Sorry! You have to enter return qty for all the RMA reason selected lines"
             )
-        if self.rol_ids.filtered(lambda t: not t.rma_reason_id and t.return_qty):
+        if self.rol_ids.filtered(lambda t: not t.rma_resolution_id and t.return_qty):
             raise ValidationError(
-                "Sorry! You have to select the return/no return for entered returned qty to proceed"
+                "Sorry! You have to select the resolution for entered returned qty to proceed"
             )
-        if self.rol_ids.filtered(lambda t: t.rma_reason_id and not t.return_reason_id):
+        if self.rol_ids.filtered(
+            lambda t: t.rma_resolution_id and not t.return_reason_id
+        ):
             raise ValidationError("Sorry! You have to select reject reason to proceed")
 
+    def validate_replacement_products(self):
+        """This function makes sure that at least on replacement product is added when either the
+        'replacement' or 'replacement_with_returned_item' action is selected for any of the RMA lines.
+        Raises:
+            ValidationError: _description_
+        """
+        actions = [line.rma_resolution_id.rma_action for line in self.rol_ids]
+
+        if "replacement" in actions or "replacement_with_returned_item" in actions and not self.replace_prd_ids:
+            raise ValidationError(
+                "Please add at least one product to replace under the Replacement Products tab."
+            )
+
     def update_rma_lines(self):
+
+        self.validate_replacement_products()
+
         if (
             sum(
                 self.rol_ids.filtered(
@@ -162,7 +185,6 @@ class ReturnOrder(models.TransientModel):
             )
             <= 0
         ):
-            # print("sum(self.rol_ids.filtered --------------------------------------------------------->",sum(self.rol_ids.filtered(lambda t: t.product_id.service_tracking != 'service')))
             raise ValidationError(
                 "Sorry! You have to enter at-lease one return item to proceed"
             )
@@ -215,7 +237,7 @@ class ReturnOrder(models.TransientModel):
                         "Total return qty should not more then the order delivered qty"
                     )
                 i.rma_line_id.return_qty = i.return_qty
-            i.rma_line_id.rma_reason_id = i.rma_reason_id.id
+            i.rma_line_id.rma_resolution_id = i.rma_resolution_id.id
             i.rma_line_id.return_reason_id = i.return_reason_id.id
 
         if self.replace_prd_ids:

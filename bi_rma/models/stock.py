@@ -79,7 +79,7 @@ class RmaStockPicking(models.Model):
     replace_picking_out_rma_count = fields.Integer(
         compute="_replace_picking_out_rma_count"
     )
-    rma_resolution = fields.Selection(
+    rma_action = fields.Selection(
         [
             ("refund", "Refund"),
             ("refund_with_returned_item", "Refund With Returned Items"),
@@ -276,7 +276,7 @@ class RmaStockPicking(models.Model):
         service_prds = self.rma_id.rma_line_ids.filtered(
             lambda t: t.product_id.service_tracking == "service"
             and t.price_unit > 0
-            and t.rma_reason_action == self.rma_resolution
+            and t.rma_resolution_action == self.rma_action
         )
         if service_prds:
             for service_prd in service_prds.filtered(

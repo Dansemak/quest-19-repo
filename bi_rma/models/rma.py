@@ -68,7 +68,7 @@ class RmaMain(models.Model):
     del_phone = fields.Char("Phone", store=True)
     del_email = fields.Char("Email", store=True)
     rma_line_ids = fields.One2many("rma.lines", "rma_id", "RMA Lines", store=True)
-    reject_reason = fields.Char("Return Reason")
+    return_reason = fields.Char("Return Reason")
 
     in_delivery_count = fields.Integer(
         string="Incoming Orders", compute="_compute_incoming_picking_ids"
@@ -117,7 +117,7 @@ class RmaMain(models.Model):
     validated = fields.Boolean("Validate", compute="_compute_validated")
 
     is_without_do_rma = fields.Boolean("IS without do rma")
-    rma_reason_id = fields.Many2one("rma.reason", "RMA Reason")
+    rma_resolution_id = fields.Many2one("rma.resolution", "RMA Resolution")
 
     rma_type = fields.Selection([("rma_with_do", "With DO")])
     is_editable = fields.Boolean(compute="_compute_is_editable", default=True)
@@ -225,17 +225,19 @@ class RmaMain(models.Model):
             lambda t: t.product_id.service_tracking == "service"
         )
         rma_lines = self.rma_line_ids.filtered(
-            lambda t: t.product_id.service_tracking != "service" and t.rma_reason_action
+            lambda t: t.product_id.service_tracking != "service"
+            and t.rma_resolution_action
         )
-        rma_reason_actions = set(rma_lines.mapped("rma_reason_action"))
+        rma_resolution_actions = set(rma_lines.mapped("rma_resolution_action"))
         if (
             service_line
-            and len(rma_reason_actions) == 1
-            and service_line[0].rma_reason_id
-            and service_line[0].rma_reason_id.id != rma_lines[0].rma_reason_id.id
+            and len(rma_resolution_actions) == 1
+            and service_line[0].rma_resolution_id
+            and service_line[0].rma_resolution_id.id
+            != rma_lines[0].rma_resolution_id.id
         ):
             raise ValidationError(
-                "Please select correct Return/No Return for shipping item and then proceed"
+                "Please select correct Resolution for shipping item and then proceed"
             )
 
         self.write({"state": "submit"})
@@ -289,7 +291,7 @@ class RmaMain(models.Model):
         return {
             "type": "ir.actions.act_window",
             "view_type": "form",
-            "name": "Return/Cancel/Replace Products",
+            "name": "RMA Resolution",
             "view_mode": "form",
             "res_model": "return.order",
             "target": "new",
@@ -416,16 +418,16 @@ class RmaMain(models.Model):
 
     def process_rma(self):
         refund_items = self.rma_line_ids.filtered(
-            lambda t: t.rma_reason_action == "refund"
+            lambda t: t.rma_resolution_action == "refund"
         )
         replacement_items = self.rma_line_ids.filtered(
-            lambda t: t.rma_reason_action == "replacement"
+            lambda t: t.rma_resolution_action == "replacement"
         )
         refund_with_return_items = self.rma_line_ids.filtered(
-            lambda t: t.rma_reason_action == "refund_with_returned_item"
+            lambda t: t.rma_resolution_action == "refund_with_returned_item"
         )
         replacement_with_return_items = self.rma_line_ids.filtered(
-            lambda t: t.rma_reason_action == "replacement_with_returned_item"
+            lambda t: t.rma_resolution_action == "replacement_with_returned_item"
         )
 
         # ======================= PROCESS REFUND ITEMS =========================
@@ -632,6 +634,7 @@ class RmaMain(models.Model):
 
             self.process_rma()
             self.write({"state": "approved"})
+            self.sale_order.rma_count += 1
 
     def action_view_receipt(self):
         self.ensure_one()
@@ -742,18 +745,18 @@ class RmaLines(models.Model):
     total_difference = fields.Float(
         related="rma_id.total_difference", store=True, string="Total Difference"
     )
-    rma_reason_id = fields.Many2one("rma.reason", "Return/No Return")
+    rma_resolution_id = fields.Many2one("rma.resolution", "Return/No Return")
     return_reason_id = fields.Many2one("return.reason", "Return Reason")
-    rma_reason_action = fields.Selection(
-        related="rma_reason_id.rma_resolution", store=True
+    rma_resolution_action = fields.Selection(
+        related="rma_resolution_id.rma_action", store=True
     )
     date = fields.Datetime(related="rma_id.date", store=True)
     state = fields.Selection(related="rma_id.state")
     product_id = fields.Many2one("product.product", "Product")
     detailed_type = fields.Selection(related="product_id.service_tracking")
     delivery_qty = fields.Float("Delivered Quantity")
-    return_qty = fields.Float("Return/Cancel Quantity")
-    recieved_qty = fields.Float("Recieved Quantity")
+    return_qty = fields.Float("Return Quantity")
+    received_qty = fields.Float("Received Quantity")
     price_unit = fields.Float("Price")
     total_price = fields.Float("Total Price", compute="_update_total_price")
     replaced_with = fields.Many2many(
@@ -770,7 +773,7 @@ class RmaLines(models.Model):
     move_line_id = fields.Many2one(
         string="Move Order Line", comodel_name="stock.move.line", ondelete="set null"
     )
-    return_qty = fields.Integer(string="Return/Cancel Quantity")
+    return_qty = fields.Integer(string="Return Quantity")
 
     stock_move_id = fields.Many2one(
         string="Stock Move", comodel_name="stock.move", ondelete="restrict"
@@ -879,23 +882,23 @@ class RmaClaim(models.Model):
     stock_picking_id = fields.Many2one("stock.picking")
 
 
-class RmaReason(models.Model):
-    _name = "rma.reason"
-    _description = "Rma Reason"
-    _rec_name = "rma_reason"
+class RmaResolution(models.Model):
+    _name = "rma.resolution"
+    _description = "Rma Resolution"
+    _rec_name = "rma_resolution"
 
-    rma_reason = fields.Char("RMA Reason", required=True)
-    rma_resolution = fields.Selection(
+    rma_resolution = fields.Char("Resolution", required=True)
+    rma_action = fields.Selection(
         [
             ("refund", "Refund"),
             ("refund_with_returned_item", "Refund With Returned Items"),
             ("replacement", "Replacement"),
             ("replacement_with_returned_item", "Replacement With Returned Items"),
         ],
-        string="RMA Resolution",
+        string="Action",
     )
     active = fields.Boolean(default=True)
-    rma_main_ids = fields.One2many("rma.main", "rma_reason_id")
+    rma_main_ids = fields.One2many("rma.main", "rma_resolution_id")
     count_rma = fields.Integer(compute="get_len_rma_main_ids")
 
     def get_len_rma_main_ids(self):
