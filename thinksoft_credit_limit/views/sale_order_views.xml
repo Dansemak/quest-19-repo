@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_thinksoft_credit_limit" model="ir.ui.view">
+        <field name="name">sale.order.view.thinksoft.credit.limit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button
+                    string="Approve"
+                    name="button_approve_sale_order"
+                    type="object"
+                    class="oe_highlight"
+                    invisible="state not in ('draft', 'sent') or not credit_hold or approve_sale_order"
+                    groups="thinksoft_credit_limit.credit_limit_group_approver"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="credit_hold" invisible="1"/>
+                <field name="approve_sale_order" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
