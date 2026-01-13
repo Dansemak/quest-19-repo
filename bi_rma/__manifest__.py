@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 {
     "name" : "RMA - Return Merchandise Authorization/Return Orders Management",
-    "version" : "19.0.0.0",
-    "category" : "Sales",
+    "version" : "19.0.1.0",
+    "category" : "Addons Custom/BROWSEINFO",
     "depends" : ['base', 'mail', 'sale', 'sale_management', 'stock', 'account'],
     "author": "BROWSEINFO",
     'summary': 'RMA Return Product Replace product Refund Order Return order Merchandise Authorization website RMA product RMA management system product Return Merchandise website return order webshop RMA replace order customer RMA customer Return order Merchandise item',
@@ -57,11 +56,10 @@ This Module allow the seller to recharge wallet for the customer.
         'data/rma_mail_template.xml',
         'wizard/return_order.xml',
     ],
+    "application": True,
     "auto_install": False,
     "installable": True,
     'live_test_url':'https://www.browseinfo.com/demo-request?app=bi_rma&version=19&edition=Community',
     "images":['static/description/Banner.gif'],
     'license': 'OPL-1',
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
