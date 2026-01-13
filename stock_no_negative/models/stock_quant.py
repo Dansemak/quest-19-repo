@@ -26,14 +26,9 @@ class StockQuant(models.Model):
                 raise ValidationError(
                     _(
                         "You cannot validate this stock operation because the "
-                        "stock level of the product '{name}'{name_lot} would "
+                        f"stock level of the product '{quant.product_id.display_name}'{msg_add} would "
                         "become negative "
-                        "({q_quantity}) on the stock location '{complete_name}' "
+                        f"({quant.quantity}) on the stock location '{quant.location_id.complete_name}' "
                         "and negative stock is not allowed."
-                    ).format(
-                        name=quant.product_id.display_name,
-                        name_lot=msg_add,
-                        q_quantity=quant.quantity,
-                        complete_name=quant.location_id.complete_name,
                     )
                 )
