@@ -35,7 +35,7 @@
                             <label for="name" />
                         </div>
                         <h1 class="mb-0">
-                            <field name="name" class="mb-0" placeholder="e.g. MTR REQUIRED, MUST PICK UP TODAY, etc" />
+                            <field name="name" class="mb-0" placeholder="e.g. METAL GASKET, LASER, MISC, etc" />
                         </h1>
                     </div>
                     <field name="active" invisible="1" />
@@ -49,6 +49,7 @@
         <field name="model">mrp.department</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name" />
                 <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
             </search>
         </field>

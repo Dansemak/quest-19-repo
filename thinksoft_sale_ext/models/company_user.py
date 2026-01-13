@@ -6,7 +6,7 @@ class CompanyUser(models.Model):
     _name = "company.user"
     _description = "Company User"
 
-    name = fields.Char(string="Company User")
+    name = fields.Char(string="Company User", required=True)
     active = fields.Boolean(default=True)
 
     _unique_company_user_name = models.Constraint(

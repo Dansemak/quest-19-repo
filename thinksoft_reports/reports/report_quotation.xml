@@ -309,9 +309,7 @@
                         <!--***************** UNIT PRICE *********************-->
                         <td style=" text-align: right;" rowspan="2">
                           <span style="margin-right:2px;">$</span>
-                          <!-- <span t-esc="'{:.3f}'.format(line.dis_price_unit)"/>  -->
-                          <span t-esc="'{:.3f}'.format(line.price_reduce_taxexcl)"/>
-                          <!-- <span t-esc="round(line.dis_price_unit,2)"/> -->
+                          <span t-esc="'{:.2f}'.format(line.price_reduce_taxexcl)"/>
                         </td>
                         <!--*************** EXTENDED PRICE ******************-->
                         <td style=" text-align: right;" rowspan="2">

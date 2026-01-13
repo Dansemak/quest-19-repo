@@ -93,6 +93,10 @@
                 <field name="string_availability_info" optional="show"/>
             </xpath>
 
+            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_id']" position="after">
+                <field name="weight" optional="show"/>
+            </xpath>
+
         </field>
     </record>
 
@@ -133,4 +137,22 @@
 
         </field>
     </record>
+
+    <record id="view_sales_order_filter_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">sale.order.view.search.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="carrier_id" />
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string='Delivery Method' name="delivery_method" domain="[]" context="{'group_by' : 'carrier_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>

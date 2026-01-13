@@ -6,7 +6,7 @@ class SaleFreight(models.Model):
     _name = "sale.freight"
     _description = "Sale Freight"
 
-    name = fields.Char()
+    name = fields.Char(required=True)
     active = fields.Boolean(default=True)
 
     _unique_sale_freight_name = models.Constraint(
