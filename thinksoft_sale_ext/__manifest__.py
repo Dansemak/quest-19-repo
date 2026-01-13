@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.0",
+    "version": "19.0.1.1",
     "depends": [
         "base",
         "sale",
@@ -32,6 +32,11 @@
         "views/company_user_views.xml",
         "views/crm_lead_views.xml",
     ],
+    'assets': {
+        'web.assets_backend': [
+            'thinksoft_sale_ext/static/src/**/*',
+        ],
+    },
     "installable": True,
     "application": False,
     "auto_install": False,
