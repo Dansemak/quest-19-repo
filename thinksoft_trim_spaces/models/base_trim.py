@@ -12,9 +12,6 @@ class BaseTrimName(models.AbstractModel):
         for key in vals.keys():
             if isinstance(vals[key], str):
                 vals[key] = vals[key].strip()
-
-        # if 'name' in vals and isinstance(vals['name'], str):
-        #     vals['name'] = vals['name'].strip()
         return vals
 
     @api.model_create_multi
