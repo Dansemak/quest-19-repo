@@ -112,7 +112,7 @@
                     </tr>
                     <tr>
                         <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                          <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
                         </td>
                         </tr>
                         <tr>
