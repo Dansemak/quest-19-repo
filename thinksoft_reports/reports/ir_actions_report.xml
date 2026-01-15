@@ -116,7 +116,7 @@
             <field name="binding_type">report</field>
         </record>
         <!-- ********************************* Invoice Template Edit ********************************* -->
-        <!-- <record id="action_report_invoice_thinksoft" model="ir.actions.report">
+        <record id="action_report_invoice_thinksoft" model="ir.actions.report">
             <field name="name">Customer Invoice</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
@@ -126,7 +126,7 @@
             <field name="binding_model_id" ref="account.model_account_move" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
-        </record> -->
+        </record>
         <!-- ********************************* Packing Slip ********************************* -->
         <record id="action_report_packing_slip" model="ir.actions.report">
             <field name="name">Packing Slip</field>
@@ -209,7 +209,7 @@
             <field name="print_report_name">'MO Pick List'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking"/>
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
-            <field name="binding_type">report</field>
+            <field name="binding_type">report</field>            
         </record>
         <!-- ********************************* Production Order Report ************************* -->
         <record id="report_production_order" model="ir.actions.report">
@@ -223,7 +223,7 @@
             <field name="binding_model_id" ref="mrp.model_mrp_production"/>
             <field name="binding_type">report</field>
         </record>
-
+        
 
     </data>
 </odoo>
