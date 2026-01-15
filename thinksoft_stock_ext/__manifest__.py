@@ -15,6 +15,7 @@
         "views/stock_location_views.xml",
         "views/stock_move_line_views.xml",
         "views/stock_picking_views.xml",
+        "views/stock_quant_views.xml",
     ],
     "installable": True,
     "application": False,
