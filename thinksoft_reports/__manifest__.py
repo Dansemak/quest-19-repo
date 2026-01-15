@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
     "version": "19.0.1.9",
-    "depends": ["base", "account"],
+    "depends": ["base"],
     "data": [
         "reports/reports_paperformats.xml",
         "reports/report_quotation.xml",
