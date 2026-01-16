@@ -9,24 +9,20 @@ log = logging.getLogger(__name__).info
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    rma_id = fields.Many2one('rma.main', 'RMA Id')
+    rma_id = fields.Many2one('rma.main', 'RMA Id', copy=False)
     rma_count = fields.Integer(
         string="RMA",
+        copy=False,
         store=True
     )
 
-    # def _compute_rma_count(self):
-    #     for order in self:
-    #         rma_count = self.env['rma.main'].search_count(
-    #             [('sale_order', '=', order.id)]
-    #         )
-    #         order.rma_count = rma_count
-
     def action_view_rma_orders(self):
-        rma_ids = self.env['rma.main'].search([('sale_order', 'in', [165,])]).ids
-        log("====================================================")
-        log("RMA IDS:", rma_ids)
+        """This function displays the list view of all the RMAs related to the current Sale Order.
 
+        Returns:
+            _type_: View
+        """
+        rma_ids = self.env['rma.main'].search([('sale_order', '=', self.id)]).ids
         return {
             "name": "RMA Orders",
             "type": "ir.actions.act_window",

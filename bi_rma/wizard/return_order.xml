@@ -17,7 +17,7 @@
                                         <field name="tracking" column_invisible="1" />
                                         <field name="product_id" readonly="1" force_save="1" />
                                         <field name="return_reason_id" force_save="1"
-                                            domain="[('is_customer_rejection_reason','=',True)]"
+                                            domain="[('is_customer_return_reason','=',True)]"
                                             options="{'no_create': True, 'no_open': True}" />
                                         <field name="rma_resolution_id" force_save="1"
                                             options="{'no_create': True, 'no_open': True}" />
