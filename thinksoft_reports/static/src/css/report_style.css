@@ -124,7 +124,7 @@
             text-align: center;
             border: 1px solid #525659;
             vertical-align:middle !important;
-            
+
         }
         .items thead th, .items thead td {
             margin-bottom: 0 !important;
@@ -175,7 +175,7 @@
             padding: 8px !important;
         }
 
-        
+
         .total table {
             width: 100%;
             padding: 0;
@@ -224,4 +224,4 @@
         .quality-control table tr td span {
             margin-top: 10px;
         }
-        
+
