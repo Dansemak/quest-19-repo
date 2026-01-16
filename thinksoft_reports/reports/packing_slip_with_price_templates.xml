@@ -309,7 +309,7 @@
                                     <tr t-attf-style="background-color: #{'White Gray' if (line.seq_no // 10) % 2 == 0 else 'white'};">
                                         <!-- <tr t-attf-style="background-color: #{'lightgrey' if (line.seq_no // 10) % 2 == 0 else 'white'};"> -->
                                         <!--************** line **************** -->
-                                        <td rowspan="2" class="text-center" style="">
+                                        <td rowspan="" class="text-center" style="">
                                             <span t-field="line.seq_no" style="" />
                                         </td>
                                         <td >
