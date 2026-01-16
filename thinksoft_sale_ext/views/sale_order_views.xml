@@ -97,6 +97,11 @@
                 <field name="weight" optional="show"/>
             </xpath>
 
+            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='price_unit']" position="after">
+                <xpath expr="/form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']/list//field[@name='discount']" position="move"/>
+                <field name="price_reduce_taxexcl" string="Disc Unit Price" optional="show"/>
+            </xpath>
+
             <!-- Replace the qty_at_date_widget in the list view of order lines with new widget -->
 
             <xpath expr="//field[@name='order_line']/form//widget[@name='qty_at_date_widget']" position="replace">
