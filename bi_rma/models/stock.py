@@ -152,7 +152,7 @@ class RmaStockPicking(models.Model):
                 for i, j in zip(rma_line_list, move_line_list, strict=False):
                     get_qty = self.env["stock.move"].browse(j)
                     self.env["rma.lines"].browse(i).write(
-                        {"recieved_qty": get_qty.product_uom_qty}
+                        {"received_qty": get_qty.product_uom_qty}
                     )
                 vals = {
                     "rma_id": picking.rma_id.id,
