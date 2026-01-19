@@ -127,6 +127,7 @@
             <!-- adding delivery method to list view -->
 
             <xpath expr="//field[@name='invoice_status']" position="after">
+                <field name="partner_shipping_id" optional="show"/>
                 <field name="carrier_id" optional="show"/>
             </xpath>
 
