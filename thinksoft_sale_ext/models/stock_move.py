@@ -18,6 +18,7 @@ class StockMove(models.Model):
     @api.depends('product_id', 'picking_type_id', 'description_picking_manual', 'sale_line_id')
     def _compute_description_picking(self):
         for move in self:
+            # adding this line so that it pulls from the sales line first before the rest
             if move.sale_line_id:
                 move.description_picking = move.sale_line_id.name
             elif move.description_picking_manual:
