@@ -28,7 +28,7 @@ class RmaMain(models.Model):
     deadline = fields.Datetime("Deadline", default=datetime.now(), required=True)
     rma_note = fields.Text("RMA Note")
     priority = fields.Selection(
-        [("0", "Low"), ("1", "Normal"), ("2", "High")], "Priority"
+        [("0", "No Priority"), ("1", "Low"), ("2", "Normal"), ("3", "High")], "Priority"
     )
     responsible = fields.Many2one("res.users", "Responsible", store=True)
     sales_channel = fields.Many2one("crm.team", "Sales Channel", store=True)
@@ -36,7 +36,7 @@ class RmaMain(models.Model):
         "stock.picking",
         "Delivery Order",
         store=True,
-        domain="[('picking_type_code','=','outgoing')]",
+        domain="[('picking_type_code','=','outgoing'), ('sale_id','=',sale_order)], ('state', 'in', ['assigned', 'done'])]"
     )
     del_email = fields.Char("Delivery Email", store=True)
     partner_id = fields.Many2one(
@@ -93,6 +93,7 @@ class RmaMain(models.Model):
             ("processing", "Processing"),
             ("close", "Closed"),
             ("reject", "Rejected"),
+            ("cancelled", "Cancelled"),
         ],
         string="Status",
         default="draft",
@@ -121,6 +122,46 @@ class RmaMain(models.Model):
 
     rma_type = fields.Selection([("rma_with_do", "With DO")])
     is_editable = fields.Boolean(compute="_compute_is_editable", default=True)
+
+    def action_cancel(self):
+        #TODO: cancel related records: stock pickings, sale orders, credit notes
+        #   prevent cancellation if:
+        #       1. related stock pickings are done
+        #       2. related sale orders are delivered
+        #       3. related credit notes are posted
+
+
+        stock_picking_ids = self.env["stock.picking"].search([("rma_id", "=", self.id)])
+        sale_order_ids = self.env["sale.order"].search([("rma_id", "=", self.id)])
+        account_move_ids = self.env["account.move"].search([("rma_id", "=", self.id)])
+
+        if stock_picking_ids.filtered(lambda t: t.state == "done"):
+            raise ValidationError(
+                "Sorry! You can't cancel this RMA as related stock pickings are done."
+            )
+        else:
+            stock_picking_ids.action_cancel()
+
+        new_do = self.env["stock.picking"].search([('sale_id', '=', sale_order_ids.id), ('picking_type_code', '=', 'outgoing')])
+        if new_do.filtered(lambda t: t.state == "done"):
+            raise ValidationError(
+                "Sorry! You can't cancel this RMA as related Sale Orders are delivered."
+            )
+        else:
+            sale_order_ids.action_cancel()
+
+        credit_notes = account_move_ids.filtered(lambda t: t.move_type == 'out_refund' and t.state == 'posted')
+        if credit_notes:
+            raise ValidationError(
+                "Sorry! You can't cancel this RMA as related Credit Notes are posted."
+            )
+        elif account_move_ids.filtered(lambda t: t.move_type == 'out_refund' and t.state == 'cancel'):
+            pass
+        else:
+            account_move_ids.button_cancel()
+
+
+        self.write({"state": "cancelled"})
 
     def button_reject(self):
         self.write({"state": "reject"})
@@ -445,7 +486,9 @@ class RmaMain(models.Model):
 
         # ======================= PROCESS REPLACEMENT ITEMS WITH RETURNED ITEMS =========================
         if replacement_with_return_items:
-            # self.process_replacement_items(self.replace_prd_ids)
+            if not replacement_items:
+                # Create the replacement items only once
+                self.process_replacement_items(self.replace_prd_ids)
             self.process_returned_items(replacement_with_return_items)
         return True
 
@@ -588,7 +631,8 @@ class RmaMain(models.Model):
 
         # ======================== CREATE SALE ORDER LINES FOR REPLACEMENT ITEMS =========================
         sale_order_lines = []
-        for line in replacement_items:
+        for line in replacement_items.filtered(
+            lambda t: t.product_id.service_tracking != "service"):
             sale_order_line = (
                 0,
                 0,
@@ -599,8 +643,9 @@ class RmaMain(models.Model):
                 },
             )
             sale_order_lines.append(sale_order_line)
+
         # ======================== CHECK IF A SALE ORDER EXISTS =========================
-        sale_order = self.env["sale.order"].search([("rma_id", "=", self.id)])
+        sale_order = self.env["sale.order"].search([("rma_id", "=", self.id), ('state', '=', 'draft')])
         if sale_order:
             sale_order.write({"order_line": sale_order_lines})
         else:
@@ -861,8 +906,8 @@ class RejectWizard(models.Model):
     _rec_name = "name"
 
     name = fields.Char("Return Reason")
-    is_customer_rejection_reason = fields.Boolean(
-        string="Is Customer rejection Reason", default=False
+    is_customer_return_reason = fields.Boolean(
+        string="Is Customer Return Reason", default=True
     )
     active = fields.Boolean(default=True)
 
