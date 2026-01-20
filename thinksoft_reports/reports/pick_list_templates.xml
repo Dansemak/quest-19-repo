@@ -353,10 +353,16 @@
                                                 </td>
                                                 <td rowspan="2">
                                                     <!-- ******************  Part # ****************** -->
-                                                    <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                                                    <div style="padding:0; display:inline; text-align: left;font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
                                                     <!-- ******************  Description ****************** -->
                                                     <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()" />
                                                     <t t-raw=" ' '.join(desc.split()) " />
+                                                    <!--**************** Tagging *********************-->
+                                                    <t t-if="line.tagging">
+                                                        <div style="font-size:11px; font-weight: bold;">
+                                                            TAG: <span t-field="line.tagging" class=""/>
+                                                        </div>
+                                                    </t>
                                                 </td>
                                                 <!--**************** MO *********************-->
                                                 <td class="text-center">
