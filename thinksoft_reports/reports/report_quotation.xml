@@ -263,25 +263,22 @@
 											</thead>
 											<!-- ######################################################################### -->
 											<tbody>
-												<t t-foreach="o.order_line" t-as="line">
-													<tr style="">
+												<t t-foreach="sale_order_lines_map.get(o.id, [])" t-as="item">
+													<t t-set="line" t-value="item['line']"/>
+													<tr>
 														<!--********* line # *****************-->
-														<td style=" text-align: center;" rowspan="">
+														<td style=" text-align: center;">
 															<span t-field="line.seq_no"/>
 														</td>
-														<!--********* Part # *****************-->
-														<!-- <td style=" border-bottom-style:hidden; padding-bottom: 0;"><span t-field="line.product_id"/></td> -->
-														<td rowspan="">
+														<!--********* Part # and Description *********-->
+														<td>
 															<!--********* Part # *****************-->
-															<!-- Will have to come back to this later to make the product name bold while the description is not bold -->
-															<div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
-															<!--*****************  Description ***************-->
-															<!-- <t t-if="line.product_id"><t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/><t t-raw=" ' '.join(desc.split()) " /></t> -->
-															<!-- <t t-else=""> -->
-															<div style="" >
+															<div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-esc="line.product_id.name"/>
+															<!--***************** Description ***************-->
+															<div>
 																<t>
-																	<t t-set="desc" t-value="(line.name or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
-																	<t t-raw=" ' '.join(desc.split()) " /></t>
+																	<span t-esc="item['cleaned_description']"/>
+																</t>
 															</div>
 														</td>
 														<!--********** QUANTITY **********-->
