@@ -327,7 +327,7 @@
                                                 <tbody >
                                                 <t t-foreach="doc.move_ids" t-as="line">
                                                     <tr style="">
-                                                        <!--**************** line *************-->
+                                                        <!-- ***************************** line **************************** -->
                                                         <td  class="text-center">
                                                             <span t-field="line.seq_no" />
                                                         </td>
@@ -337,8 +337,14 @@
                                                             <!-- ******************  Description ****************** -->
                                                             <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()" />
                                                             <t t-raw=" ' '.join(desc.split()) " />
+                                                            <!-- **************** Tagging ********************* -->
+                                                            <t t-if="line.tagging">
+                                                                <div style="font-size:11px; font-weight: bold;">
+                                                                    TAG: <span t-field="line.tagging" class=""/>
+                                                                </div>
+                                                            </t>
                                                         </td>
-                                                        <!--***************************** MO / Responsible ****************************-->
+                                                        <!-- ***************************** MO **************************** -->
                                                         <td  class="text-center">
                                                             <!-- <span t-esc="line.created_production_id and line.created_production_id.name or '' " /> -->
                                                             <!-- <span t-field="line.manufacture_id.name"/> -->
@@ -350,17 +356,17 @@
                                                                 <span t-esc="line.created_production_id.user_id.name" />
                                                             </div>
                                                         </td>
-                                                        <!--******************************* UOM ****************************-->
+                                                        <!-- ***************************** UOM **************************** -->
                                                         <td  class="text-center">
                                                             <span class="" t-field="line.product_uom" />
                                                         </td>
-                                                        <!--***************************** QTY ****************************-->
+                                                        <!-- ***************************** QTY **************************** -->
                                                         <td  colspan="" class="text-center">
                                                             <!-- <span t-field="line.manufacture_id.product_qty"/> -->
                                                             <span t-field="line.sale_line_id.product_uom_qty" />
                                                         </td>
                                                         <!-- <td colspan="" class="text-center"/> -->
-                                                        <!--************************* QC INITIALS ****************************-->
+                                                        <!-- ***************************** QC INITIALS **************************** -->
                                                         <td  colspan="" class="text-center" style="width: 100px;" />
                                                     </tr>
                                                 <!-- <tr style="page-break-inside: avoid;"></tr> -->
