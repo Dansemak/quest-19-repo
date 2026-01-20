@@ -55,7 +55,7 @@
                             <div class="col-12" style="margin-top:30px !important; ">
                                 <span class="text-uppercase" style="font-weight:bold; ">
                                 P/N:</span>
-                                <span class="code" style="margin-left:2px;  font-weight:normal;" t-field="doc.product_id" />
+                                <span class="code" style="margin-left:2px;  font-weight:normal;" t-field="doc.product_id.name" />
                             </div>
                         </div>
                             <!-- ####################### DESCRIPTION  ############## -->

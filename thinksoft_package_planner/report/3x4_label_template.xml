@@ -82,7 +82,7 @@
                         <div class="col-12 mt-3 text-center" style="">
                             <span style="font-size:12px; font-weight:bold;">Item Code:</span><br />
                             <span class="ml-2" style="font-size:14px;font-weight:normal;"
-                                t-field="doc.product_id" />
+                                t-field="doc.product_id.name" />
                         </div>
                     </div>
                     <div class="row">
@@ -107,11 +107,11 @@
                             </div>
                         </div>
                        
-                        <div class="col-6 text-end" style="">
-                            <t t-if="doc.stock_move_id.created_production_id">
+                        <div class="col-6 " style="">
+                            <!-- <t t-if="doc.stock_move_id.created_production_id"> -->
                                 <span style="font-weight:bold; font-size:12px;">MO: </span>
                                 <span class="ms-2" t-field="doc.stock_move_id.created_production_id" style="font-size:14px; font-weight:normal;"/>		
-                            </t> 
+                            <!-- </t>  -->
                         </div>       
                     </div> 
                     <t t-if="doc.tagging">

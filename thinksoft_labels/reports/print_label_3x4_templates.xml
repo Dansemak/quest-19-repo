@@ -45,7 +45,7 @@
                 <div class="container" style="margin:0 !important; padding:0 !important;">
                     <div class="row">
                         <div class="col-12" style="text-align:center;font-weight:bold;">
-                            <span t-field="doc.product_id"/>
+                            <span t-field="doc.product_id.name"/>
                         </div>
                     </div>
                     <div class="row" style="margin:10px 0 0 0 !important;">

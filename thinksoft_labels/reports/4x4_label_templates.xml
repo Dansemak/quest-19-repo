@@ -68,7 +68,7 @@
                                                             P/N:</span>
                                                         <span class="code"
                                                             style="margin-left:2px;color:#43464f; font-weight:normal;font-size:15px;"
-                                                            t-field="doc.product_id" />
+                                                            t-field="doc.product_id.name" />
                                                     </div>
                                                 </div>
                                                 <!-- #######################
