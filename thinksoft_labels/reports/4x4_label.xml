@@ -116,11 +116,11 @@
                             <div class="col-12 " style="">
                                 <div>
                                     <span class="text-uppercase" style="font-weight:bold; ">
-                                    TAGGING:</span>
+                                    TAGGING:</span><span class="ms-2" style="color:#43464f; margin-left:2px; font-weight:normal;" t-field="doc.tagging" />
                                 </div>
-                                <div>
-                                    <!-- <span class="" style="margin-left:2px; font-weight:normal;" t-field="line.tagging" /> -->
-                                </div>
+                                <!-- <div>
+                                    <span class="" style="margin-left:2px; font-weight:normal;" t-field="doc.tagging" />
+                                </div> -->
                             </div>
                         </div>
                     </div>

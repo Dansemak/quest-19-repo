@@ -37,6 +37,7 @@
                         <div style="font-family:sans-serif;font-size: 14px;">
                             <span t-field="doc.name" />
                         </div>
+                        
                         <div class="row d-flex justify-content-between" style="position:fixed; bottom: 5px;font-family:sans-serif;font-size: 12px;">
                             <div class="col-4" style="float:left; font-weight: bold;">QTY:<span t-esc="doc.product_id.qty_available" style="font-weight: normal;margin-left:3px;"></span>
                             </div>

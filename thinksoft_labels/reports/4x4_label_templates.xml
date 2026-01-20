@@ -161,13 +161,13 @@
                                                         <div>
                                                             <span class="text-uppercase"
                                                                 style="font-weight:bold;">
-                                                                TAGGING:</span>
+                                                                TAGGING:</span><span class="ms-2" style="color:#43464f; margin-left:2px; font-weight:normal;" t-field="doc.tagging" />
                                                         </div>
-                                                        <div>
+                                                        <!-- <div>
                                                             <span class="item"
                                                                 style="margin-left:2px;color:#43464f; font-weight:normal;"
                                                                 t-field="doc.tagging" />
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
                                                 </div>
