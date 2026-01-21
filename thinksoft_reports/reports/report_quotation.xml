@@ -274,7 +274,7 @@
 														<td rowspan="">
 															<!--********* Part # *****************-->
 															<!-- Will have to come back to this later to make the product name bold while the description is not bold -->
-															<div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+															<div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
 															<!--*****************  Description ***************-->
 															<!-- <t t-if="line.product_id"><t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/><t t-raw=" ' '.join(desc.split()) " /></t> -->
 															<!-- <t t-else=""> -->
