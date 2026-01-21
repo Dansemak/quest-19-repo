@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+thinksoft_purchase_review.access_po_generator,access_po_generator,thinksoft_purchase_review.model_po_generator,base.group_user,1,1,1,1
+thinksoft_purchase_review.access_po_generatorline,access_po_generatorline,thinksoft_purchase_review.model_po_generatorline,base.group_user,1,1,1,1
+thinksoft_purchase_review.access_purchase_review_report,access_purchase_review_report2,thinksoft_purchase_review.model_purchase_review_report,base.group_user,1,1,1,1
