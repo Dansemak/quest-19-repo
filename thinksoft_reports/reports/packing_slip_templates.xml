@@ -389,7 +389,8 @@
                                         <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                             <t t-set="total_boxes" t-value="0" />
                                             <t t-foreach="doc.move_ids" t-as="line">
-                                                <t t-set="total_boxes" t-value="total_boxes + int(line.package_plan_id.box_qty or 0)" />
+                                                <t t-set="total_boxes" t-value="total_boxes + (line.package_plan_id.box_qty or 0)" />
+                                                
                                             </t>
                                             <span t-out="total_boxes" />
 
@@ -398,7 +399,11 @@
                                         <td rowspan="" style="border: #525659 solid 1px; text-align: right;">
                                             <t t-set="total_skids" t-value="0" />
                                             <t t-foreach="doc.move_ids" t-as="line">
-                                                <t t-set="total_skids" t-value="total_skids + int(line.package_plan_id.skid_qty or 0)" />
+                                                <!-- <t t-esc="line.package_plan_id.skid_qty"/> -->
+                                                <t t-set="total_skids" t-value="total_skids + int(str( line.package_plan_id.skid_qty or '0')
+                                                        .replace(',', '')
+                                                        .replace(' ', '')
+                                                        .strip())" />
                                                 <!--WIP-->
                                             </t>
                                             <span t-out="total_skids" />
