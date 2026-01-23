@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <template id="invoice_template">
+    <template id="report_invoice_inherit" inherit_id="account.report_invoice">
+        <xpath expr="//t[@t-call='web.html_container']" position="replace">
+            <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <h1>Invoice</h1>
+                    <!-- As language is not required for all objects.
+                    So for now, If partner is available in object then pass
+                    that partner's language. -->
+                <t t-if="'partner_id' in o.fields_get()">
+                    <t t-call="thinksoft_reports.invoice_template_document" t-lang="o.partner_id.lang" />
+                </t>
+                <t t-if="'partner_id' not in o.fields_get()">
+                    <t t-call="thinksoft_reports.invoice_template_document" />
+                </t>
+            </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_with_payments_inherit" inherit_id="account.report_invoice_with_payments">
+        <xpath expr="//t[@t-call='account.report_invoice']" position="replace">
+            <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <h1>Invoice</h1>
+                    <!-- As language is not required for all objects.
+                    So for now, If partner is available in object then pass
+                    that partner's language. -->
+                <t t-if="'partner_id' in o.fields_get()">
+                    <t t-call="thinksoft_reports.invoice_template_document" t-lang="o.partner_id.lang" />
+                </t>
+                <t t-if="'partner_id' not in o.fields_get()">
+                    <t t-call="thinksoft_reports.invoice_template_document" />
+                </t>
+            </t>
+            </t>
+        </xpath>
+    </template>
+
+  <!-- <template id="invoice_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
         <h1>Invoice</h1>
-        <!--
                 As language is not required for all objects.
                 So for now, If partner is available in object then pass
                 that partner's language.
-            -->
         <t t-if="'partner_id' in o.fields_get()">
           <t t-call="thinksoft_reports.invoice_template_document" t-lang="o.partner_id.lang" />
         </t>
@@ -17,29 +53,30 @@
         </t>
       </t>
     </t>
-  </template>
+  </template> -->
+
   <template name="Invoice report custom header and footer" id="invoice_custom_header_layout">
     <div class="header pe-5">
       <style>
-          <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
-          .header,.footer {
-              font-family: Arial, Helvetica, sans-serif;
-              <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
-              }
-          .top-address{
-              line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
-          }
-          .title{
-              <!-- font-family:'Oswald',sans-serif !important; -->
-              font-family:Arial, Helvetica, sans-serif;
-              font-size: 24px !important;
-              font-weight: bold !important;
-              line-height: 1.2 !important;
-              text-align: right !important;
-          }
-          .barcode{
-              font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
-          }
+            <!-- @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&amp;family=Sansation:wght@700&amp;display=swap'); -->
+            .header,.footer {
+                font-family: Arial, Helvetica, sans-serif;
+                <!-- font-family: 'Roboto Condensed','Sansation',  sans-serif ; -->
+            }
+            .top-address{
+                line-height:1; font-size:13px; font-family:Arial, Helvetica, sans-serif;
+            }
+            .title{
+                <!-- font-family:'Oswald',sans-serif !important; -->
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 24px !important;
+                font-weight: bold !important;
+                line-height: 1.2 !important;
+                text-align: right !important;
+            }
+            .barcode{
+                font-size:14px !important;  margin-top:4px !important; font-weight:bold !important;font-family:Arial, Helvetica, sans-serif;
+            }
       </style>
       <div class="container">
         <div class="row mb-2">
@@ -103,6 +140,7 @@
       </div>
     </div>
   </template>
+
   <template id="invoice_template_document">
     <t t-call="thinksoft_reports.invoice_custom_header_layout">
     <link rel="stylesheet" t-att-href="'/thinksoft_reports/static/src/css/report_style.css'"/>
@@ -264,7 +302,7 @@
                       <tr style="">
                         <td >
                         <!-- ******************  Part # ****************** -->
-                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
                           <!-- ******************  Description ****************** -->
                           <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
                           <t t-raw=" ' '.join(desc.split()) " />

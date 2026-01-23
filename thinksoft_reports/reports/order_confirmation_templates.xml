@@ -122,7 +122,7 @@
                     </tr>
                     <tr>
                         <td class="address" style="border-bottom-color: 0px solid #fff; ">
-                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: True}"/>
+                          <address t-field="doc.sale_id.partner_shipping_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
                         </td>
                         </tr>
                         <tr>
@@ -250,12 +250,12 @@
                      <tbody t-foreach="doc.move_ids" t-as="line" t-index="line_index">
                       <tr style="">
                        <!--*************** line ***************-->
-                        <td rowspan="2" class="text-center" style="">
+                        <td rowspan="" class="text-center" style="">
                           <span t-field="line.seq_no" style="" />
                         </td>
                         <td >
                           <!-- ******************  Part # ****************** -->
-                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
                           <!-- ******************  Description ****************** -->
                           <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
                           <t t-raw=" ' '.join(desc.split()) " />

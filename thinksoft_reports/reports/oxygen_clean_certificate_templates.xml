@@ -318,12 +318,12 @@
                      <tbody t-foreach="doc.move_ids" t-as="line">
                       <tr>
                         <!--******************************* Sequence Number ***********************************-->
-                        <td rowspan="2" class="text-center">
+                        <td rowspan="" class="text-center">
                           <span t-field="line.seq_no" />
                         </td>
                         <td >
                           <!-- ******************  Part # ****************** -->
-                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                          <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
                           <!-- ******************  Description ****************** -->
                           <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
                           <t t-raw=" ' '.join(desc.split()) " />

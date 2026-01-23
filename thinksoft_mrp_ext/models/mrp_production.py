@@ -16,7 +16,10 @@ class MrpProduction(models.Model):
     @api.depends("product_id")
     def _compute_note(self):
         for production in self:
-            production.note = text_from_html(production.product_id.description or "").strip()
+            if production.sale_line_id and not production.sale_line_id.name == production.product_id.name:
+                production.note = production.sale_line_id.name
+            else:
+                production.note = text_from_html(production.product_id.description or "").strip()
 
     # prevent completing MO if pick components transfer is not done
     def button_mark_done(self):
