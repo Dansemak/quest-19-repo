@@ -50,6 +50,7 @@
         <field name="model">company.user</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name" />
                 <filter name="archive" string="Archived" domain="[('active', '=', False)]" />
             </search>
         </field>

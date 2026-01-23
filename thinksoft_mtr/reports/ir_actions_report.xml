@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="paperformat_action_report_mtr" model="report.paperformat">
-        <field name="name">MTR Reports Paper</field>
-        <field name="default" eval="True"/>
-        <field name="format">custom</field>
-        <field name="page_height">279</field>
-        <field name="page_width">216</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top">30</field>
-        <field name="margin_bottom">18</field>
-        <field name="margin_left">5</field>
-        <field name="margin_right">5</field>
-        <field name="header_line" eval="False"/>
-        <field name="header_spacing">22</field>
-        <field name="dpi">90</field>
-    </record>
-
     <record id="action_report_mtr" model="ir.actions.report">
         <field name="name">MTR</field>
         <field name="model">mtr.template</field>

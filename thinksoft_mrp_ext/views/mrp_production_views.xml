@@ -41,6 +41,23 @@
         </field>
     </record>
 
+    <record id="view_mrp_production_filter_inherit_thinksoft_mrp_ext" model="ir.ui.view">
+        <field name="name">mrp.production.view.search.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//search" position="inside">
+                <field name="department_id" />
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string='Department' name="department" domain="[]" context="{'group_by' : 'department_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
     <record id="mrp.menu_procurement_compute_mrp" model="ir.ui.menu">
         <field name="active">False</field>
     </record>

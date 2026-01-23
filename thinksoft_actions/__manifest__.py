@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.0",
+    "version": "19.0.1.1",
     "depends": [
         "base",
         "thinksoft_labels",
@@ -20,13 +20,11 @@
         "stock",
         "thinksoft_stock_ext",
         "purchase",
-        "account",
         "mrp",
     ],
     "data": [
         "views/stock_picking_views.xml",
         "views/sale_order_views.xml",
-        "views/account_move_views.xml",
         "views/purchase_order_views.xml",
         "report/ir_actions_report.xml",
     ],

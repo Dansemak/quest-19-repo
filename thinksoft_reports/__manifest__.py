@@ -8,8 +8,8 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.5",
-    "depends": ["base"],
+    "version": "19.0.1.11",
+    "depends": ["base", "account"],
     "data": [
         "reports/reports_paperformats.xml",
         "reports/report_quotation.xml",
@@ -31,7 +31,6 @@
         "reports/waybill_templates.xml",
         "reports/mrp_pick_list_templates.xml",
         "reports/production_order_templates.xml",
-
     ],
     "installable": True,
     "application": False,
