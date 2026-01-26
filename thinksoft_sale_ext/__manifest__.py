@@ -31,6 +31,7 @@
         "views/account_move_views.xml",
         "views/company_user_views.xml",
         "views/crm_lead_views.xml",
+        "report/sale_report_views.xml",
     ],
     'assets': {
         'web.assets_backend': [
