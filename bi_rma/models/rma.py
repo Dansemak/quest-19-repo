@@ -679,7 +679,6 @@ class RmaMain(models.Model):
 
             self.process_rma()
             self.write({"state": "approved"})
-            self.sale_order.rma_count += 1
 
     def action_view_receipt(self):
         self.ensure_one()

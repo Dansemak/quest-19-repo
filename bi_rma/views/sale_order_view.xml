@@ -18,6 +18,15 @@
                     icon="fa-undo">
                     <field name="rma_count" widget="statinfo" />
                 </button>
+
+                <button name="action_view_credit_notes"
+                    type="object"
+                    string="Credit Notes"
+                    class="oe_highlight"
+                    invisible="cr_note_count == 0"
+                    icon="fa-money">
+                    <field name="cr_note_count" widget="statinfo" />
+                </button>
             </xpath>
         </field>
     </record>

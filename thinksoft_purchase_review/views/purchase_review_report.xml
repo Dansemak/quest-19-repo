@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_review" model="ir.ui.view">
+            <field name="name">purchase.review.report</field>
+            <field name='model'>purchase.review.report</field>
+            <field name="arch" type="xml">
+                <list string="Purchase Review">
+                    <header>
+                        <button
+                            name="refresh_reload_view"
+                            type="object"
+                            string="Refresh"
+                            class="btn-primary"
+                            icon="fa-refresh" />
+                    </header>
+
+                    <field name="product_id" />
+                    <field name="description" />
+                    <field name="warehouse_id" />
+                    <field name="quantity_on_hand" />
+                    <field name="quantity_available" />
+                    <field name="reserved_quantity" />
+                    <field name="daily_average" />
+                    <field name="total" />
+                    <field name="qty_incoming" />
+                    <field name="qty_outgoing" />
+                    <field name="forecast" />
+                    <field name="min_qty" />
+                    <field name="max_qty" />
+                    <field name="delay" />
+                    <field name="suggested_buy" />
+                    <field name="qty_to_order" />
+                </list>
+            </field>
+        </record>
+
+        <record id="purchase_review_report_action" model="ir.actions.act_window">
+            <field name="name">Purchase Review</field>
+            <field name="res_model">purchase.review.report</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_purchase_review" />
+        </record>
+
+        <menuitem
+            id="purchase_review_report"
+            action="purchase_review_report_action"
+            name="Purchase Review"
+            parent="purchase.purchase_report_main"
+            sequence="40" />
+
+        <record id="minmax_purchase_review" model="ir.ui.view">
+            <field name="name">purchase.review.report</field>
+            <field name='model'>purchase.review.report</field>
+            <field name="arch" type="xml">
+                <list string="Purchase Review">
+                    <header>
+                        <button
+                            name="refresh_reload_view"
+                            string="Refresh"
+                            type="object"
+                            icon="fa-refresh"
+                            class="btn-primary" />
+                    </header>
+                    <field name="product_id" />
+                    <field name="description" />
+                    <field name="warehouse_id" />
+                    <field name="delay" />
+                    <field name="quarter_1" />
+                    <field name="quarter_2" />
+                    <field name="quarter_3" />
+                    <field name="quarter_4" />
+                    <field name="total" />
+                    <field name="daily_average" />
+                    <field name="min_qty" />
+                    <field name="max_qty" />
+                    <field name="suggested_min" />
+                    <field name="suggested_max" />
+                    <field name="branch_min" />
+                    <field name="branch_max" />
+                </list>
+            </field>
+        </record>
+
+        <record id="minmax_purchase_review_action" model="ir.actions.act_window">
+            <field name="name">Min Max Review</field>
+            <field name="res_model">purchase.review.report</field>
+            <field name="view_mode">list,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="minmax_purchase_review" />
+        </record>
+
+        <menuitem
+            id="minmax_purchase_review_report"
+            action="minmax_purchase_review_action"
+            name="Min Max Review"
+            parent="purchase.purchase_report_main"
+            sequence="40" />
+
+        <record id="purchase_review_report_search" model="ir.ui.view">
+            <field name="name">purchase.review</field>
+            <field name="model">purchase.review.report</field>
+            <field name="arch" type="xml">
+                <search string="Search Review">
+                    <field name="product_id" string="Product" />
+                    <field name="product_tmpl_id" string="Product Template" />
+                    <field name="warehouse_id" string="Warehouse" />
+                    <field name="category_id" string="Category" />
+
+                    <filter string="Category" name="category_id"
+                        context="{'group_by':'category_id'}" />
+                    <filter string="Warehouse" name="warehouse_id"
+                        context="{'group_by':'warehouse_id'}" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_purchase_review" model="ir.actions.act_window">
+            <field name="name">Purchase Review</field>
+            <field name="res_model">purchase.review.report</field>
+            <field name="view_mode">list</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>
