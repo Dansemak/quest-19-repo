@@ -1,6 +1,6 @@
 {
     'name': 'Procurement Batch Generator',
-    'version': '19.0.0.1',
+    'version': '19.0.1.0',
     'category': 'Addons Custom/Thinksoft Batch Procurment',
     'license': 'AGPL-3',
     'summary': 'Wizard to create procurements from product variants',

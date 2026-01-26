@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "thinksoft_purchase_review",
 
@@ -20,7 +19,7 @@
     'website': "http://www.thinksoft.ca",
     'license': 'LGPL-3',
     'category': 'Addons Custom/Thinksoft Purchase Review',
-    'version': '19.0.0.1',
+    'version': '19.0.1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'sale', 'purchase', 'thinksoft_batch_procurement'],
