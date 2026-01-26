@@ -14,9 +14,11 @@ class ReportQuotation(models.AbstractModel):
             cleaned = []
             for line in order.order_line:
                 description = line.name or ''
-                product_name = (line.product_id.display_name or '').strip()
-                cleaned_description = description.replace(product_name, '') if product_name else description
-                cleaned_description = (cleaned_description or '').strip()
+                product_name = (line.product_id.name or '').strip()
+                product_ref = (f"[{line.product_id.default_code}]" or '')
+                name_removed = description.replace(product_name, '') if product_name else description
+                name_ref_removed = name_removed.replace(product_ref, '') if product_ref else name_removed
+                cleaned_description = (name_ref_removed or '').strip()
                 cleaned.append({'line': line, 'cleaned_description': cleaned_description})
             sale_order_lines_map[order.id] = cleaned
 
