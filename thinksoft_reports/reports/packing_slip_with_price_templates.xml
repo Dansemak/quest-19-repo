@@ -451,7 +451,7 @@
                                                 </td>
                                                 <!-- ************** Product ************** -->
                                                 <td>
-                                                    <span t-field="line.product_id" />
+                                                    <span t-field="line.product_id.name" />
                                                 </td>
                                                 <!-- ************** MTR ************** -->
                                                 <td>
