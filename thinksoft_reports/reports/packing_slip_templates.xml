@@ -404,9 +404,8 @@
                                                 .replace(',', '')
                                                         .replace(' ', '')
                                                         .strip())" />-->
-                                                <t t-set="total_skids" t-value="total_skids + ( line.package_plan_id.skid_number or '0')" />
+                                                <t t-set="total_skids" t-value="total_skids + ( line.package_plan_id.skid_number or 0)" />
                                                        
-                                                <!--WIP-->
                                             </t>
                                             <span t-out="total_skids" />
                                         </td>
