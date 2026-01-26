@@ -130,6 +130,12 @@
                 <field name="carrier_id" optional="show"/>
             </xpath>
 
+            <!-- adding delivery address to list view -->
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="partner_shipping_id" optional="show"/>
+            </xpath>
+
         </field>
     </record>
 

@@ -2,7 +2,7 @@
 
 {
     "name" : "RMA - Return Merchandise Authorization/Return Orders Management",
-    "version" : "19.0.1.1",
+    "version" : "19.0.1.2",
     "category" : "Addons Custom/BROWSEINFO",
     "depends" : ['base', 'mail', 'sale', 'sale_management', 'stock', 'account'],
     "author": "BROWSEINFO",

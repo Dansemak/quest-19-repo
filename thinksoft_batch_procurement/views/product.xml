@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    	<record id="product_product_list_batch_view" model="ir.ui.view">
+            <field name="name">product.product.list.batch.view</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                 <list string="Product Variants">
+                    <field name="name"/>
+                    <field name="lst_price"/>
+                    <field name="standard_price" invisible="not context.get('pricelist',False)"/>
+                    <field name="qty_available" string="QoH"/>
+                    <field name="qty_on_hand"/>
+                    <field name="qty_edm_available"/>
+                    <field name="qty_edm_reserved"/>
+                    <field name="qty_clgy_available"/>
+                    <field name="qty_clgy_reserved"/>
+                    <field name="virtual_available" string=" FQty"/>
+                    <field name="uom_id" string="UoM"/>
+                </list>
+
+            </field>
+        </record>
+
+
+        <record id="product_normal_action_batch_proc" model="ir.actions.act_window">
+            <field name="name">Batch Procurement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="context">{"search_default_filter_to_sell":1}</field>
+            <field name="view_id" ref="product_product_list_batch_view"/>
+            <field name="search_view_id" ref="product.product_search_form_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new product.
+              </p><p>
+                You must define a product for everything you sell, whether it's
+                a physical product, a consumable or a service you offer to
+                customers.
+              </p><p>
+                The product form contains information to simplify the sale
+                process: price, notes in the quotation, accounting data,
+                procurement methods, etc.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="purchase_batch_procurement_menu" action="product_normal_action_batch_proc" parent="purchase.menu_procurement_management" sequence="3" name="Batch Procurement"/>
+
+</odoo>
