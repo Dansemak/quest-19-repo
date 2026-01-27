@@ -15,6 +15,7 @@
         "reports/report_quotation.xml",
         "reports/certificate_of_compliance_templates.xml",
         "reports/commercial_invoice_templates.xml",
+        "reports/po_commercial_invoice_templates.xml",
         "reports/coo_templates.xml",
         "reports/manufacture_copy_templates.xml",
         "reports/order_confirmation_templates.xml",
