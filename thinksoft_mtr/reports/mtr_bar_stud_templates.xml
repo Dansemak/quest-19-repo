@@ -68,7 +68,7 @@
                 <tbody>
                   <tr>
                     <th>Product</th>
-                    <td colspan="4"><span t-field="o.product_id"/></td>
+                    <td colspan="4"><span t-field="o.product_id.name"/></td>
                   </tr>
                   <tr>
                     <th>Description</th>
