@@ -75,7 +75,7 @@
             line-height: 1;
             height: 5px;
             overflow: hidden;
-            white-space: nowrap;
+            white-space: normal !important;
             vertical-align:middle !important;
         }
         .comment table th { height: 11.5px; }
