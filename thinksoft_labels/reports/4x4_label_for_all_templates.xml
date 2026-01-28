@@ -140,10 +140,11 @@
                                                                 <div>
                                                                     <span class="text-uppercase" style="font-weight:bold; ">
                                                                     TAGGING:</span>
+                                                                    <span class="ms-2" style="color:#43464f; margin-left:2px; font-weight:normal;" t-field="line.tagging" />
                                                                 </div>
-                                                                <div>
-                                                                    <!-- <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="line.tagging" /> -->
-                                                                </div>
+                                                                <!-- <div>
+                                                                    <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="line.tagging" />
+                                                                </div> -->
                                                             </div>
 
                                                         </div>
