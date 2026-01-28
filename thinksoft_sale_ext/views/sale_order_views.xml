@@ -95,6 +95,7 @@
 
             <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_id']" position="after">
                 <field name="weight" optional="show"/>
+                <field name="total_weight" optional="show"/>
             </xpath>
 
             <!-- Replace the qty_at_date_widget in the list view of order lines with new widget -->
