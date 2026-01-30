@@ -239,16 +239,31 @@
                     </thead>
                     <tbody>
                     <!-- <tbody t-foreach="o.move_ids" t-as="line"> -->
+<<<<<<< HEAD
                       <tr class="text-center" t-foreach="o.order_line" t-as="line" style="text-transform: normal;" >
+=======
+                      <tr class="text-center" t-foreach="purchase_order_lines_map.get(o.id, [])" t-as="item" style="text-transform: normal;">
+                        <t t-set="line" t-value="item['line']"/>
+>>>>>>> thinksoft/main
                         <td style="">
                           <span t-field="line.seq_no" style="" />
                         </td>
                        <td style="text-align: left !important;">
                             <!-- ******************  Part # ****************** -->
+<<<<<<< HEAD
                             <!-- <div style="padding:0; display:inline; text-align: left !important; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" /> -->
                             <!-- ******************  Description ****************** -->
                             <t t-set="desc" t-value="(line.name or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/>
                             <t t-raw=" ' '.join(desc.split()) " />
+=======
+                            <div style="padding:0; display:inline; text-align: left !important; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name"/>
+                            <!-- ******************  Description ****************** -->
+                            <div>
+                              <t>
+                                <span t-esc="item['cleaned_description']"/>
+                              </t>
+                            </div>
+>>>>>>> thinksoft/main
                         </td>
                         <!--***************** BOX QTY *******************-->
                         <!-- <t t-if="o.state != 'draft'">

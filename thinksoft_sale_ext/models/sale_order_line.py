@@ -10,6 +10,10 @@ class SaleOrderLine(models.Model):
     string_availability_info = fields.Char(string="Availability", help="Estimated time when the product will be available from now (i.g 3-5 BUSINESS DAYS, 2 WEEKS, etc.)")
     purchase_order_id = fields.Many2one("purchase.order", string="PO Number")
     weight = fields.Char(compute="_compute_weight")
+<<<<<<< HEAD
+=======
+    total_weight = fields.Char(compute="_compute_weight")
+>>>>>>> thinksoft/main
 
     # determining the line number of the sale.order.line record
     @api.depends("order_id", "order_id.order_line", "sequence")
@@ -32,6 +36,10 @@ class SaleOrderLine(models.Model):
     def _compute_weight(self):
         for line in self:
             line.weight = f"{line.product_id.weight} {line.product_id.weight_uom_name}"
+<<<<<<< HEAD
+=======
+            line.total_weight = f"{line.product_id.weight * line.product_uom_qty} {line.product_id.weight_uom_name}"
+>>>>>>> thinksoft/main
 
     # setting the record string_availability_info in ALL CAPS; trimming string_availability_info and tagging
     @api.model

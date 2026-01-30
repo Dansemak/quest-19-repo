@@ -8,7 +8,11 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
+<<<<<<< HEAD
     "version": "19.0.1.3",
+=======
+    "version": "19.0.1.5",
+>>>>>>> thinksoft/main
     "depends": [
         "base",
         "sale",
