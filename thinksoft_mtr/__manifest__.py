@@ -8,7 +8,11 @@
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft MTR",
     "application": True,
+<<<<<<< HEAD
     "version": "19.0.1.3",
+=======
+    "version": "19.0.1.4",
+>>>>>>> thinksoft/main
     "depends": ["base", "mail", "stock"],
     "data": [
         "security/mtr_groups.xml",

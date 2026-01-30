@@ -7,7 +7,11 @@
     "website": "http://www.thinksoft.ca",
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft Credit Limit",
+<<<<<<< HEAD
     "version": "19.0.1.1",
+=======
+    "version": "19.0.1.2",
+>>>>>>> thinksoft/main
     "depends": ["base", "sale"],
     "data": [
         "security/credit_limit_groups.xml",

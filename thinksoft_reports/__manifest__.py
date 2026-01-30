@@ -8,13 +8,21 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
+<<<<<<< HEAD
     "version": "19.0.1.13",
+=======
+    "version": "19.0.1.14",
+>>>>>>> thinksoft/main
     "depends": ["base", "account"],
     "data": [
         "reports/reports_paperformats.xml",
         "reports/report_quotation.xml",
         "reports/certificate_of_compliance_templates.xml",
         "reports/commercial_invoice_templates.xml",
+<<<<<<< HEAD
+=======
+        "reports/po_commercial_invoice_templates.xml",
+>>>>>>> thinksoft/main
         "reports/coo_templates.xml",
         "reports/manufacture_copy_templates.xml",
         "reports/order_confirmation_templates.xml",

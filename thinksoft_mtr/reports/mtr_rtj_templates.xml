@@ -60,7 +60,11 @@
                             <tbody>
                                 <tr> 
                                     <th>Product</th>
+<<<<<<< HEAD
                                     <td colspan="4"><span t-field="o.product_id"/></td>
+=======
+                                    <td colspan="4"><span t-field="o.product_id.name"/></td>
+>>>>>>> thinksoft/main
                                 </tr>
                                 <tr>
                                     <th>Description</th>

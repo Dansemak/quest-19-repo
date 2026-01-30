@@ -75,7 +75,11 @@
             line-height: 1;
             height: 5px;
             overflow: hidden;
+<<<<<<< HEAD
             white-space: nowrap;
+=======
+            white-space: normal !important;
+>>>>>>> thinksoft/main
             vertical-align:middle !important;
         }
         .comment table th { height: 11.5px; }
