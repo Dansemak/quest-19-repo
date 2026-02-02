@@ -116,15 +116,33 @@
               <div class="top-info col-12">
                 <table  class="text-uppercase" style="width:100%;">
                   <thead style="    background-color: #deeaf6;">
-                    <th>MANUFACTURE ORDER</th>
+                    <th>MANUFACTURE ORDER</th>,
                     <th>SALES ORDER</th>
                     <th>ORDER DATE</th>
                   </thead>
                   <tbody style="">
                     <tr>
-                      <td class="text-center" style=""><span class="" t-field="doc.product_id" /></td>
-                      <td class="text-center" style=""><span class="" t-field="doc.sale_id" /></td>
-                      <td class="text-center" style=""><span class="" t-field="doc.sale_id.date_order" /></td>
+                        <td class="text-center" style="">
+                            <span class="" t-field="doc.production_ids" />
+                        </td>
+                        <td class="text-center" style="">
+                        <t t-foreach="doc.production_ids" t-as="mo">
+                            <t t-if="not mo_last">
+                                <span class="" t-field="mo.sale_id" />,
+                            </t>
+                            <t t-else="">
+                                <span class="" t-field="mo.sale_id" />
+                            </t>
+                        </t>
+                        </td>
+                        <td class="text-center" style="">
+                            <t t-if="not mo_last">
+                                <span class="" t-field="mo.sale_id.date_order" />,
+                            </t>
+                            <t t-else="">
+                                <span class="" t-field="mo.sale_id.date_order" />
+                            </t>
+                        </td>
                     </tr>
                   </tbody>
                 </table>
