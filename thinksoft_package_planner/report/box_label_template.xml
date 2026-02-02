@@ -24,6 +24,7 @@
 		<field name="paperformat_id" ref="thinksoft_package_planner.paperformat_box_label" />
 		<field name="binding_model_id" ref="model_stock_picking" />
 		<field name="binding_type">report</field>
+        <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT'])]</field>
 	</record>
 	<template id="box_label_internal_layout">
 		<!-- Multicompany -->
@@ -61,7 +62,7 @@
 								</div>
 								<div class="col-2" />
 								<div class="col-6" style="text-align:right;font-size:33px;font-weight:bold; font-weight:bold;text-margin:right;">
-									<h2>BOX 
+									<h2>BOX
 										<span t-esc="box['box']" />
 									</h2>
 								</div>
@@ -133,7 +134,7 @@
 															<t t-esc="b_value['description']" />
 															<t t-if="b_value['heat']">
 																<span style="display:block;font-size:11px;">
-																	HEAT#: 
+																	HEAT#:
 																	<strong>
 																		<t t-esc="b_value['heat']" />
 																	</strong>
@@ -141,7 +142,7 @@
 															</t>
 															<t t-if="b_value['tagging']">
 																<span style="display:block;font-size:11px;">
-																		TAG: 
+																		TAG:
 																	<strong>
 																		<t t-esc="b_value['tagging']" />
 																	</strong>
