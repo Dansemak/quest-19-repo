@@ -24,7 +24,7 @@
 		<field name="paperformat_id" ref="thinksoft_package_planner.paperformat_box_label" />
 		<field name="binding_model_id" ref="model_stock_picking" />
 		<field name="binding_type">report</field>
-        <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT'])]</field>
+        <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
 	</record>
 	<template id="box_label_internal_layout">
 		<!-- Multicompany -->

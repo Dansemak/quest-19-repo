@@ -24,7 +24,7 @@
 		<field name="paperformat_id" ref="thinksoft_package_planner.paperformat_skid_label" />
 		<field name="binding_model_id" ref="model_stock_picking" />
 		<field name="binding_type">report</field>
-        <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT'])]</field>
+        <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer'])]</field>
 	</record>
 	<template id="skid_label_template">
 		<t t-call="web.html_container">

@@ -159,7 +159,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
-            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT'])]</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* Packing Slip With Price ********************************* -->
         <record id="action_report_packing_slip_with_price" model="ir.actions.report">
@@ -185,7 +185,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
-            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT'])]</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* Payment Remittance ********************************* -->
         <record id="action_report_payment_remittance" model="ir.actions.report">
@@ -222,7 +222,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.paperformat_report_waybill" />
             <field name="binding_type">report</field>
-            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT'])]</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ^********************************* MO Pick List ********************************* -->
         <record id="action_report_mrp_pick_list" model="ir.actions.report">
