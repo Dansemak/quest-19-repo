@@ -186,11 +186,7 @@
                                             </tr>
                                             <tr >
                                             <th style="text-align: right; white-space: nowrap; border-top-color: #525659; border: 1px solid #525659;" >
-<<<<<<< HEAD
-                                            <span > VENDOR CONTACT</span>
-=======
                                             <span >CUSTOMER CONTACT</span>
->>>>>>> thinksoft/main
                                             </th>
                                             <td style="border-top-color: #525659; border: 1px solid #525659;">
                                                 <span class="" t-field="doc.partner_contact_id.name" />
@@ -198,11 +194,7 @@
                                             </tr>
                                             <tr >
                                             <th style="text-align: right; white-space: nowrap; border: 1px solid #525659;">
-<<<<<<< HEAD
-                                                <span class="">VENDOR PHONE</span>
-=======
                                                 <span class="">CUSTOMER PHONE</span>
->>>>>>> thinksoft/main
                                             </th>
                                             <td style="border: 1px solid #525659;">
                                             <span class="" t-field="doc.partner_contact_id.phone" />
@@ -356,16 +348,12 @@
                                         <t t-set="tax_amount" t-value="0"/>
 
                                         <t t-foreach="doc.move_ids" t-as="line">
-<<<<<<< HEAD
-                                            <t t-set="tax_amount" t-value="tax_amount + (((line.sale_line_id.price_total * line.quantity) / line.sale_line_id.product_uom_qty) - (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity))"/>
-=======
                                             <t t-if="line.sale_line_id.product_uom_qty == 0">
                                                 <t t-set="tax_amount" t-value="tax_amount + 0"/>
                                             </t>
                                             <t t-else="">
                                                 <t t-set="tax_amount" t-value="tax_amount + (((line.sale_line_id.price_total * line.quantity) / line.sale_line_id.product_uom_qty) - (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount / 100)) * line.quantity))"/>
                                             </t>
->>>>>>> thinksoft/main
                                         </t>
 
                                         <td style="white-space: nowrap; text-align: right; font-size:14px !important;">
@@ -381,16 +369,12 @@
                                             <t t-set="total" t-value="0"/>
 
                                             <t t-foreach="doc.move_ids" t-as="line">
-<<<<<<< HEAD
-                                                <t t-set="total" t-value="total + ((line.sale_line_id.price_total * line.quantity) / line.sale_line_id.product_uom_qty)"/>
-=======
                                                 <t t-if="line.sale_line_id.product_uom_qty == 0">
                                                     <t t-set="total" t-value="total + 0"/>
                                                 </t>
                                                 <t t-else="">
                                                     <t t-set="total" t-value="total + ((line.sale_line_id.price_total * line.quantity) / line.sale_line_id.product_uom_qty)"/>
                                                 </t>
->>>>>>> thinksoft/main
                                             </t>
 
                                             <strong>

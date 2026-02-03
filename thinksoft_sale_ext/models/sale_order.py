@@ -49,12 +49,9 @@ class SaleOrder(models.Model):
         for order in self:
             order.partner_contact_id = contacts.ids
             order.outside_salesperson_id = order.partner_id.outside_salesperson_id
-<<<<<<< HEAD
-=======
 
     # team_id assigned to the partner's shipping address sales team
     @api.onchange("partner_shipping_id")
     def _onchange_partner_shipping_id(self):
         for order in self:
             order.team_id = order.partner_shipping_id.team_id
->>>>>>> thinksoft/main
