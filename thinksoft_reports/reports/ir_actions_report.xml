@@ -37,8 +37,6 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
-<<<<<<< HEAD
-=======
             <field name="domain">["|", ("sale_id", "!=", False), "&amp;", ("picking_type_id.sequence_code", "=", "OUT"), ("picking_type_id.sequence_code", "=", "PICK")]</field>
         </record>
         <!-- ********************************* PO Commercial Invoice ********************************* -->
@@ -53,7 +51,6 @@
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
             <field name="domain">[('picking_type_id.sequence_code', '=', 'OUT'), ('purchase_id', '!=', False)]</field>
->>>>>>> thinksoft/main
         </record>
         <!-- ********************************* COO ********************************* -->
         <record id="action_report_coo" model="ir.actions.report">
