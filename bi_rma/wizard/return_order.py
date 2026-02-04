@@ -40,16 +40,17 @@ class RmaReplaceOrderTran(models.TransientModel):
     qty = fields.Integer("Quantity", default=0)
     rma_id = fields.Many2one("return.order", string="RMA Order")
     is_new_line = fields.Boolean("new line", default=False)
-    product_price = fields.Float(string="Price", default=0.0)
+    price_unit = fields.Float(string="Unit Price",related="product_id.list_price")
+    total_price = fields.Float(string="Price", default=0.0)
 
     @api.onchange("product_id", "qty")
     def _onchange_for_new_line(self):
         self.update({"is_new_line": True})
 
-    @api.onchange("product_id")
+    @api.onchange("product_id", "qty")
     def _onchange_product_id(self):
         for prod in self:
-            prod.product_price = prod.product_id.lst_price
+            prod.total_price = prod.price_unit * prod.qty
 
             if prod.product_id and (prod.product_id.service_tracking == "service"):
                 prod.qty = 1
@@ -73,6 +74,24 @@ class ReturnOrder(models.TransientModel):
     )
     is_without_do_rma = fields.Boolean("Is without do rma")
     rma_type = fields.Selection([("rma_with_do", "With DO")])
+
+    show_replacement_tab = fields.Boolean(
+        compute="_compute_show_replacement_tab"
+    )
+
+    @api.depends("rol_ids.rma_resolution_id")
+    def _compute_show_replacement_tab(self):
+        for rec in self:
+            rec.show_replacement_tab = any(
+                line.rma_resolution_id.rma_action in(
+                    'replacement',
+                    'replacement_with_returned_item'
+                )
+                for line in rec.rol_ids
+            )
+
+
+
 
     @api.onchange("replace_prd_ids")
     @api.depends("replace_prd_ids.product_id", "replace_prd_ids.qty")
@@ -128,7 +147,7 @@ class ReturnOrder(models.TransientModel):
                     {
                         "product_id": i.product_id.id,
                         "qty": i.qty,
-                        "product_price": i.product_price,
+                        "price_unit": i.price_unit,
                     },
                 )
                 replce_order_line_list.append(rplcvals)
@@ -169,8 +188,6 @@ class ReturnOrder(models.TransientModel):
         actions = [line.rma_resolution_id.rma_action for line in self.rol_ids]
 
         if ("replacement" in actions or "replacement_with_returned_item" in actions) and  len(self.replace_prd_ids) == 0:
-            log("=========================================")
-            log(self.replace_prd_ids)
             raise ValidationError(
                 "Please add at least one product to replace under the Replacement Products tab."
             )
@@ -260,7 +277,6 @@ class ReturnOrder(models.TransientModel):
                         "rma_id": self.rma_order_id.id,
                         "product_id": j.product_id.id,
                         "qty": j.qty,
-                        "product_price": j.product_price,
                         "total_price": total_price,
                     }
                 )
