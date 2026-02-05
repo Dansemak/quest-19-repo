@@ -13,12 +13,12 @@ class LabelsForAll(models.AbstractModel):
         for pick in docs:
             cleaned = []
             for move_id in pick.move_ids:
-                description = move_id.description_picking or ''
-                product_name = (move_id.product_id.name or '').strip()
-                product_ref = (f"[{move_id.product_id.default_code}]" or '')
+                description = move_id.description_picking
+                product_name = move_id.product_id.name.strip()
+                product_ref = f"[{move_id.product_id.default_code}]"
                 name_removed = description.replace(product_name, '') if product_name else description
                 name_ref_removed = name_removed.replace(product_ref, '') if product_ref else name_removed
-                cleaned_description = (name_ref_removed or '').strip()
+                cleaned_description = name_ref_removed.strip()
                 cleaned.append({'line': move_id, 'cleaned_description': cleaned_description})
             stock_picking_lines_map[pick.id] = cleaned
 

@@ -11,7 +11,7 @@ class FourXFourLabel(models.AbstractModel):
         cleaned_description = {}
 
         for move in docs:
-            description = move.description_picking or ''
+            description = move.description_picking
             product_name = move.product_id.name.strip()
             product_ref = f"[{move.product_id.default_code}]"
 
