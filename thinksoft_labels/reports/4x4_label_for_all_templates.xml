@@ -51,8 +51,10 @@
                 <div class="container" style="margin:0 !important; ">
                     <div class="row">
                         <table class="table" style="">
-                            <!-- <tbody t-foreach="doc.move_lines" t-as="line"> -->
-                            <tbody t-foreach="doc.move_ids" t-as="line">
+
+                            <!-- <tbody t-foreach="doc.move_ids" t-as="line"> -->
+                            <tbody t-foreach="stock_picking_lines_map.get(doc.id, [])" t-as="item">
+                             <t t-set="line" t-value="item['line']" />
                                 <tr>
                                     <td>
                                         <div class="wrapper">
@@ -80,7 +82,7 @@
                                                                 <span class="text-uppercase" style="font-weight:bold; font-size:14px!important;">
                                                                 Description:</span>
                                                                 <!-- <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal;" t-field="line.product_desc" /> -->
-                                                                <span class="font-size:14px!important;" style="margin-left:2px;font-size:14px!important; font-weight:normal; line-height:1.2; font-size:11px!important;" t-field="line.product_id.description" />
+                                                                <span class="" style="margin-left:2px; font-weight:normal; line-height:1; " t-esc="item['cleaned_description']" />
                                                             </div>
                                                         </div>
                                                         <!-- ############# DETAILS  ############## -->

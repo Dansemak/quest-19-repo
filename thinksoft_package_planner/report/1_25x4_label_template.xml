@@ -8,12 +8,12 @@
         <field name="page_height">31</field>
         <field name="page_width">100</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">3</field>
-        <field name="margin_bottom">5</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">4</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="header_line" eval="False" />
-        <field name="header_spacing">37</field>
+        <field name="header_spacing">0</field>
         <field name="dpi">80</field>
     </record>
 
@@ -77,7 +77,15 @@
                             <br />
                             <!-- ********** Description ********** -->
                             <span style="font-weight:bold;">Item Description:</span>
-                            <span style="font-weight:normal; " t-field="doc.description" />
+                            <span style="font-weight:normal;font-size:10px !important;line-height:2px !important;" t-field="doc.description" />
+
+                            <t t-if="doc.tagging">
+                                <!-- ********** TAGGING ********** -->
+                                <br />
+                                            <span class="" style="font-weight:bold; font-size:11px;">Tagging:</span>
+                                            <span class="ms-2" style="font-weight:normal;font-size:10px;" t-field="doc.tagging" />
+
+                                </t>
                         </div>
                         <!-- ********** QRcode ********** -->
                         <div class="col-3" style="text-align:right;">
@@ -85,17 +93,7 @@
 										% (doc.product_id.name)" style="width:50px;height:50px" />
                         </div>
                     </div>
-                    <t t-if="doc.tagging">
-                    <div class="row">
-                     <!-- ********** TAGGING ********** -->
-                        <div class="col-12">
-                            <!-- <div> -->
-                                <span class="" style="font-weight:bold; font-size:11px;">Tagging:</span>
-                                <span class="ms-2" style="font-weight:normal;font-size:11px;" t-field="doc.tagging" />
-                            <!-- </div> -->
-                        </div>
-                    </div>
-                    </t>
+                   
                     <div class="row" style="">
                     <!-- ********** SO ********** -->
                         <div class="col-9" style="font-size:11px;">
