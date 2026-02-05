@@ -42,6 +42,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_labels.paperformat_print_label_1_25x4" />
             <field name="print_report_name">'Label - %s' % (object.name)</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* Shipping Label 3x4 ********************************* -->
         <record id="action_report_shipping_label_3x4" model="ir.actions.report">
@@ -53,6 +54,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_labels.shipping_label_3x4_paperformat" />
             <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* PRINT LABEL 3x4 ********************************* -->
         <record id="action_report_product_label_3x4" model="ir.actions.report">
@@ -76,6 +78,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat" />
             <field name="print_report_name">'Shipping Label - %s' % (object.name)</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* 4x4 Labels For All ********************************* -->
         <record id="4x4_label_all" model="ir.actions.report">
@@ -88,6 +91,7 @@
             <field name="paperformat_id" ref="thinksoft_labels.label_4x4_paperformat" />
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ^********************************* Stock 4x4 Label ********************************* -->
         <record id="4x4_label" model="ir.actions.report">

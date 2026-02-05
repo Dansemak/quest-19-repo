@@ -25,6 +25,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Commercial Invoice ********************************* -->
         <record id="action_report_commercial_invoice" model="ir.actions.report">
@@ -37,7 +38,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
-            <field name="domain">["|", ("sale_id", "!=", False), "&amp;", ("picking_type_id.sequence_code", "=", "OUT"), ("picking_type_id.sequence_code", "=", "PICK")]</field>
+            <field name="domain">['|', ('sale_id', '!=', False), '&amp;', ('picking_type_id.sequence_code', '=', 'OUT'), ('picking_type_id.sequence_code', '=', 'PICK')]</field>
         </record>
         <!-- ********************************* PO Commercial Invoice ********************************* -->
         <record id="action_report_po_commercial_invoice" model="ir.actions.report">
@@ -64,6 +65,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Manufacture Copy ********************************* -->
         <record id="action_report_manufacture_copy" model="ir.actions.report">
@@ -77,6 +79,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Order Confirmation ********************************* -->
         <record id="action_report_order_confirmation" model="ir.actions.report">
@@ -90,6 +93,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Oxygen Clean Certificate ********************************* -->
         <record id="action_report_oxygen_clean_certificate" model="ir.actions.report">
@@ -103,6 +107,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Receiving List ********************************* -->
         <record id="action_report_receiving_list" model="ir.actions.report">
@@ -116,6 +121,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['IN', 'STOR'])]</field>
         </record>
         <!-- ********************************* Quality Control Trailer ********************************* -->
         <record id="action_report_quality_control_trailer" model="ir.actions.report">
@@ -128,6 +134,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Invoice Template Edit ********************************* -->
         <!-- <record id="action_report_invoice_thinksoft" model="ir.actions.report">
@@ -152,6 +159,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* Packing Slip With Price ********************************* -->
         <record id="action_report_packing_slip_with_price" model="ir.actions.report">
@@ -164,6 +172,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
         <!-- ********************************* Pick List ********************************* -->
         <record id="action_report_pick_list" model="ir.actions.report">
@@ -176,6 +185,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ********************************* Payment Remittance ********************************* -->
         <record id="action_report_payment_remittance" model="ir.actions.report">
@@ -212,6 +222,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.paperformat_report_waybill" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer', 'WWH.TRAN.'])]</field>
         </record>
         <!-- ^********************************* MO Pick List ********************************* -->
         <record id="action_report_mrp_pick_list" model="ir.actions.report">
@@ -224,6 +235,7 @@
             <field name="binding_model_id" ref="stock.model_stock_picking"/>
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
+            <field name="domain">[('picking_type_id.sequence_code', 'in', ['MO', 'PC'])]</field>
         </record>
         <!-- ********************************* Production Order Report ************************* -->
         <record id="report_production_order" model="ir.actions.report">
