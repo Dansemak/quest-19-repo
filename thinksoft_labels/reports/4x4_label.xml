@@ -61,10 +61,10 @@
                             <!-- ####################### DESCRIPTION  ############## -->
 
                         <div class="row mt-2">
-                            <div class="col-12" style="font-size:12px!important;">
+                            <div class="col-12" style="">
                                 <span class="text-uppercase" style="font-weight:bold; ">
                                 Description:</span>
-                                <span class="" style="margin-left:2px; font-weight:normal; line-height:1.5; " t-field="doc.product_id.description" />
+                                <span class="" style="margin-left:2px; font-weight:normal; line-height:1; " t-esc="cleaned_description.get(doc.id, '')"/>
                             </div>
                         </div>
                         <!-- ############# DETAILS  ############## -->
