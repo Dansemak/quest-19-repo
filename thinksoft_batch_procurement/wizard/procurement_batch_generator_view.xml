@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="procurement_batch_generator_form" model="ir.ui.view">
+        <field name="name">procurement.batch.generator.form</field>
+        <field name="model">procurement.batch.generator</field>
+        <field name="arch" type="xml">
+            <form string="Request Procurements">
+                <group name="main">
+                    <group>
+                        <field name="po_id" domain="[('state','=','draft')]"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Product Lines">
+                        <field name="line_ids" nolabel="1" colspan="6">
+                            <list string="Product Lines" editable="top">
+                                <field name="product_id"/>
+                                <field name="procurement_qty"/>
+                                <field name="cost_price"/>
+                                <field name="cost_select" />
+                                <field name="uom_id" groups="uom.group_uom"/>
+                                <field name="date_planned" invisible="1"/>
+                                <field name="cost_subtotal"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button type="object" name="validate" string="Validate" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="procurement_batch_generator_list_action" model="ir.actions.act_window">
+            <field name="name">Request Procurements</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">procurement.batch.generator</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="procurement_batch_generator_form"/>
+            <field name="target">new</field>
+            <!-- TODO: check if we need this -->
+            <field name="binding_model_id" ref="product.model_product_product" />
+            <field name="binding_view_types">list</field>
+        </record>
+
+</odoo>

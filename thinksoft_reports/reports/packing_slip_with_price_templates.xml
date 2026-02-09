@@ -309,12 +309,12 @@
                                     <tr t-attf-style="background-color: #{'White Gray' if (line.seq_no // 10) % 2 == 0 else 'white'};">
                                         <!-- <tr t-attf-style="background-color: #{'lightgrey' if (line.seq_no // 10) % 2 == 0 else 'white'};"> -->
                                         <!--************** line **************** -->
-                                        <td rowspan="2" class="text-center" style="">
+                                        <td rowspan="" class="text-center" style="">
                                             <span t-field="line.seq_no" style="" />
                                         </td>
                                         <td >
                                             <!-- ******************  Part # ****************** -->
-                                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
+                                            <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
                                             <!-- ******************  Description ****************** -->
                                             <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()" />
                                             <t t-raw=" ' '.join(desc.split()) " />
@@ -451,7 +451,7 @@
                                                 </td>
                                                 <!-- ************** Product ************** -->
                                                 <td>
-                                                    <span t-field="line.product_id" />
+                                                    <span t-field="line.product_id.name" />
                                                 </td>
                                                 <!-- ************** MTR ************** -->
                                                 <td>

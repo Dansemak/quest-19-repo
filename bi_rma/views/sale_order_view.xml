@@ -6,9 +6,6 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='sale_order_template_id']" position="after">
-                <field name="rma_id" invisible="1" />
-            </xpath>
             <xpath expr="//button[@name='action_view_delivery']" position="after">
                 <button name="action_view_rma_orders"
                     type="object"
@@ -18,6 +15,13 @@
                     icon="fa-undo">
                     <field name="rma_count" widget="statinfo" />
                 </button>
+
+            </xpath>
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="origin"
+                        string="Source Document"
+                        readonly="1"
+                        invisible="origin == False"/>
             </xpath>
         </field>
     </record>

@@ -6,6 +6,9 @@
             <field name="arch" type="xml">
                 <form string="Return Order">
                     <sheet>
+                        <list>
+                            <field name="show_replacement_tab" invisible="1"/>
+                        </list>
                         <notebook>
                             <page string="Resolution">
                                 <field name="rma_order_id" invisible="1" />
@@ -17,7 +20,7 @@
                                         <field name="tracking" column_invisible="1" />
                                         <field name="product_id" readonly="1" force_save="1" />
                                         <field name="return_reason_id" force_save="1"
-                                            domain="[('is_customer_rejection_reason','=',True)]"
+                                            domain="[('is_customer_return_reason','=',True)]"
                                             options="{'no_create': True, 'no_open': True}" />
                                         <field name="rma_resolution_id" force_save="1"
                                             options="{'no_create': True, 'no_open': True}" />
@@ -33,18 +36,21 @@
                                 </field>
                             </page>
 
-                            <page name="Replace" string="Replacement Products">
+                            <page name="Replace" string="Replacement Products"
+                                invisible="not show_replacement_tab">
                                 <field name="rma_order_id" invisible="1" />
                                 <field name="is_service" invisible="1" />
                                 <field name="replace_prd_ids">
                                     <list create="true" delete="true" edit="true" editable="bottom">
                                         <field name="rma_id" column_invisible="1" />
                                         <field name="product_id"
-                                            options="{'no_create': True,'no_edit': True,'no_open': True}"/>
+                                            options="{'no_create': True,'no_edit': True,'no_open': True}" />
                                         <field name="detailed_type" column_invisible="1" />
                                         <field name="qty" readonly="detailed_type == 'service'"
                                             force_save="1" />
-                                        <field name="product_price"
+                                        <field name="price_unit"
+                                            readonly="detailed_type != 'service'" force_save="1" />
+                                        <field name="total_price"
                                             readonly="detailed_type != 'service'" force_save="1" />
                                     </list>
                                 </field>

@@ -8,7 +8,7 @@
         <field name="page_height">70</field>
         <field name="page_width">95</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">5</field>
+        <field name="margin_top">3</field>
         <field name="margin_bottom">5</field>
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
@@ -79,22 +79,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 mt-3 text-center" style="">
-                            <span style="font-size:12px; font-weight:bold;">Item Code:</span><br />
+                        <div class="col-12 mt-2 " style="">
+                            <span style="font-size:12px; font-weight:bold;">Item Code:</span>
                             <span class="ml-2" style="font-size:14px;font-weight:normal;"
-                                t-field="doc.product_id" />
+                                t-field="doc.product_id.name" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 mt-2 text-center" style="">
-                            <div style="font-size:12px;font-weight:bold;">Item Description:<br />
-                                <span style="font-size:11px; font-weight:normal; " t-field="doc.description" />     
+                        <div class="col-12 " style="">
+                            <div style="font-size:12px;font-weight:bold;">Item Description:
+                                <span class="ml-2" style="font-size:11px; font-weight:normal; line-height:0.8 !important;" t-field="doc.description" />     
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12" style="margin-top:14px;">
-                            <p style="font-size:12px; margin-bottom:15px; font-weight:bold;">HEAT #: <span
+                        <div class="col-12" style="">
+                            <p style="font-size:12px; margin-bottom:14px; font-weight:bold;">Heat #: <span
                                     class="ml-2" style="font-size:14px; font-weight:normal;"
                                     t-field="doc.mtr_template_ids.heat_number"/>
                             </p>
@@ -106,20 +106,37 @@
                                 <span style="font-weight:bold; font-size:12px;">SO: </span><span class="ml-2" t-field="doc.picking_id.origin" style="font-size:14px; font-weight:normal;"/>		
                             </div>
                         </div>
-                        <div class="col-6 text-end" style="">
-                            <t t-if="doc.stock_move_id.created_production_id">
+                       
+                        <div class="col-6 " style="">
+                            <!-- <t t-if="doc.stock_move_id.created_production_id"> -->
                                 <span style="font-weight:bold; font-size:12px;">MO: </span>
                                 <span class="ms-2" t-field="doc.stock_move_id.created_production_id" style="font-size:14px; font-weight:normal;"/>		
-                            </t> 
+                            <!-- </t>  -->
                         </div>       
-                    </div>
-
-                    <div class="row">
-                    <div class="col-12 text-center" style="">
+                    </div> 
+                    <t t-if="doc.tagging">
+                    <div class="row mt-2">
+                     <!-- ********** TAGGING ********** -->
+                    
+                        <div class="col-8">
+                            <!-- <div> -->
+                                <span class="" style="font-weight:bold; font-size:12px;">Tagging:</span>
+                                <span class="ms-2" style="color:#43464f; font-weight:normal;font-size:14px;" t-field="doc.tagging" />
+                            <!-- </div> -->
+                        </div>
+                        <div class="col-4 " style="">
                             <span style="font-weight:bold; font-size:12px;">Qty:</span> 
                             <span class="ms-2"  t-field="doc.max_qty_pack" style="font-size:14px; font-weight:normal;"/>
                         </div>
-                    </div> 
+                    </div>
+                    </t>
+                    <!-- <div class="row">
+                        <div class="col-6 text-center" style="">
+                            <span style="font-weight:bold; font-size:12px;">Qty:</span> 
+                            <span class="ms-2"  t-field="doc.max_qty_pack" style="font-size:14px; font-weight:normal;"/>
+                        </div>
+                        
+                    </div>  -->
 
             </div>
         </t>

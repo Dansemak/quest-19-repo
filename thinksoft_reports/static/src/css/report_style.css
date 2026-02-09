@@ -75,7 +75,7 @@
             line-height: 1;
             height: 5px;
             overflow: hidden;
-            white-space: nowrap;
+            white-space: normal !important;
             vertical-align:middle !important;
         }
         .comment table th { height: 11.5px; }
@@ -96,9 +96,26 @@
             border: 1px solid #525659;
             font-size:13px !important;
         }
-        .items table,.items table tr{
-            page-break-inside: avoid !important;
+        .items table {
+            border-collapse: collapse !important;
             width: 100% !important;
+             /* Ensures the table doesn't force a break at the start */
+            page-break-inside: auto;
+            margin-bottom: 0 !important;
+        }
+        .items table thead {
+            display: table-header-group !important;
+            /* display: table-row-group !important; */
+
+        }
+        /* .items table tbody:before  {
+            content: "-" !important;
+            display: block !important;
+            line-height: 1em !important;
+            color:white;
+        } */
+        .items table tr{
+            page-break-inside: avoid !important;
         }
         .items table thead tr th {
             font-size: 11px !important;
@@ -107,8 +124,18 @@
             text-align: center;
             border: 1px solid #525659;
             vertical-align:middle !important;
+
+        }
+        .items thead th, .items thead td {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+         .items tbody   {
+            page-break-inside: avoid !important;
+            /* display: table-row-group !important; */
             
         }
+        
         .items table tr td {
             /* height: fit-content !important; */
             /* height: min-content !important; */
@@ -118,11 +145,7 @@
             vertical-align:middle !important;
             line-height: 1.3;
         }
-        .items table thead {
-            display: table-header-group !important;
-            /* display: table-row-group !important; */
-
-        }
+        
         .items table tfoot {
             display: table-row-group !important;
         }
@@ -134,15 +157,8 @@
             font-size: 14px !important;
             font-weight: 900 !important;
         }
-        .items table tbody:before  {
-            content: "-" !important;
-            display: block !important;
-            line-height: 1em !important;
-            color:white;
-        }
-        .items tbody tr  {
-            page-break-inside: avoid !important;
-        }
+        
+       
         .no-break-wrapper {
             page-break-inside: avoid !important;
         }
@@ -159,7 +175,7 @@
             padding: 8px !important;
         }
 
-        
+
         .total table {
             width: 100%;
             padding: 0;
@@ -208,4 +224,4 @@
         .quality-control table tr td span {
             margin-top: 10px;
         }
-        
+

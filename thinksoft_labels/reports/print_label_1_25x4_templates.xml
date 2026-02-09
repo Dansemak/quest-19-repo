@@ -31,12 +31,13 @@
                     <div class="container" style="">
                         <div class="col-6" style="float: left; font-family:sans-serif;font-size: 12px; margin-bottom: 10px; font-weight: bold;">Item Code:</div>
                         <div class="col-6" style="float: left; font-family:sans-serif;font-size: 14px; margin-left:20px;">
-                            <span t-field="doc.product_id" />
+                            <span t-field="doc.product_id.name" />
                         </div>
                         <div style=" clear:both; font-family:sans-serif;font-size: 12px; margin: 20px 0 8px; font-weight: bold;">Description:</div>
                         <div style="font-family:sans-serif;font-size: 14px;">
                             <span t-field="doc.name" />
                         </div>
+                        
                         <div class="row d-flex justify-content-between" style="position:fixed; bottom: 5px;font-family:sans-serif;font-size: 12px;">
                             <div class="col-4" style="float:left; font-weight: bold;">QTY:<span t-esc="doc.product_id.qty_available" style="font-weight: normal;margin-left:3px;"></span>
                             </div>

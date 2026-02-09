@@ -310,7 +310,7 @@
                             <div class="col-12">
                                 <div class="">
                                         <table class="" style="width:100%; border-collapse:collapse;">
-                                             <thead style="display: table-row-group !important;">
+                                             <thead style="">
                                                     <tr style="page-break-inside: avoid !important; ">
                                                         <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color:#525659; width: 40px;">Line</th>
                                                         <th style="text-align:left; border-top-color: solid #525659;border-bottom-color: #525659;">Part #</th>
@@ -324,21 +324,28 @@
                                                         <th style="text-align:center;  border-bottom-color: #525659;">Responsible</th>
                                                     </tr>
                                                 </thead> 
-                                                <tbody t-foreach="doc.move_ids" t-as="line">
-                                                    <tr style="page-break-inside: avoid;">
-                                                        <!--**************** line *************-->
-                                                        <td rowspan="2" class="text-center">
+                                                <tbody >
+                                                <t t-foreach="doc.move_ids" t-as="line">
+                                                    <tr style="">
+                                                        <!-- ***************************** line **************************** -->
+                                                        <td  class="text-center">
                                                             <span t-field="line.seq_no" />
                                                         </td>
-                                                        <td rowspan="2" style="font-size:11px; vertical-align: midddle; white-space: none;">
+                                                        <td  style="font-size:11px; vertical-align: midddle; white-space: none;">
                                                             <!-- ******************  Part # ****************** -->
                                                             <div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id" />
                                                             <!-- ******************  Description ****************** -->
                                                             <t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()" />
                                                             <t t-raw=" ' '.join(desc.split()) " />
+                                                            <!-- **************** Tagging ********************* -->
+                                                            <t t-if="line.tagging">
+                                                                <div style="font-size:11px; font-weight: bold;">
+                                                                    TAG: <span t-field="line.tagging" class=""/>
+                                                                </div>
+                                                            </t>
                                                         </td>
-                                                        <!--***************************** MO / Responsible ****************************-->
-                                                        <td rowspan="2" class="text-center">
+                                                        <!-- ***************************** MO **************************** -->
+                                                        <td  class="text-center">
                                                             <!-- <span t-esc="line.created_production_id and line.created_production_id.name or '' " /> -->
                                                             <!-- <span t-field="line.manufacture_id.name"/> -->
                                                             <span t-esc="line.created_production_id.name" />
@@ -349,21 +356,21 @@
                                                                 <span t-esc="line.created_production_id.user_id.name" />
                                                             </div>
                                                         </td>
-                                                        <!--******************************* UOM ****************************-->
-                                                        <td rowspan="2" class="text-center">
+                                                        <!-- ***************************** UOM **************************** -->
+                                                        <td  class="text-center">
                                                             <span class="" t-field="line.product_uom" />
                                                         </td>
-                                                        <!--***************************** QTY ****************************-->
-                                                        <td rowspan="2" colspan="" class="text-center">
+                                                        <!-- ***************************** QTY **************************** -->
+                                                        <td  colspan="" class="text-center">
                                                             <!-- <span t-field="line.manufacture_id.product_qty"/> -->
                                                             <span t-field="line.sale_line_id.product_uom_qty" />
                                                         </td>
                                                         <!-- <td colspan="" class="text-center"/> -->
-                                                        <!--************************* QC INITIALS ****************************-->
-                                                        <td rowspan="2" colspan="" class="text-center" style="width: 100px;" />
+                                                        <!-- ***************************** QC INITIALS **************************** -->
+                                                        <td  colspan="" class="text-center" style="width: 100px;" />
                                                     </tr>
-                                                <tr style="page-break-inside: avoid;"></tr>
-                                             <!-- </t> -->
+                                                <!-- <tr style="page-break-inside: avoid;"></tr> -->
+                                             </t>
                                             </tbody>
                                             
                                         </table>

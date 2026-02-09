@@ -2,9 +2,9 @@
 
 {
     "name" : "RMA - Return Merchandise Authorization/Return Orders Management",
-    "version" : "19.0.1.0",
+    "version" : "19.0.1.2",
     "category" : "Addons Custom/BROWSEINFO",
-    "depends" : ['base', 'mail', 'sale', 'sale_management', 'stock', 'account'],
+    "depends" : ['base', 'mail', 'sale', 'sale_management', 'stock', 'account', 'product'],
     "author": "BROWSEINFO",
     'summary': 'RMA Return Product Replace product Refund Order Return order Merchandise Authorization website RMA product RMA management system product Return Merchandise website return order webshop RMA replace order customer RMA customer Return order Merchandise item',
     "description": """
