@@ -894,7 +894,6 @@ class RmaReplaceOrder(models.Model):
     product_detailed_type = fields.Selection(related="product_id.service_tracking")
     qty = fields.Integer("qty", default=0)
     rma_id = fields.Many2one("rma.main", string="RMA Order")
-    price_unit = fields.Float(related="product_id.list_price", string="Unit Price")
     total_price = fields.Float(
         "Total Price",
         default=0.0,
@@ -907,6 +906,7 @@ class RmaReplaceOrder(models.Model):
         for line in self:
             line.total_price = line.price_unit * line.qty
 
+    price_unit = fields.Float(related="product_id.list_price", string="Unit Price")
 
 class RejectWizard(models.Model):
     _name = "return.reason"
