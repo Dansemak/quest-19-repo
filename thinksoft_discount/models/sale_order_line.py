@@ -14,16 +14,13 @@ class SaleOrderLine(models.Model):
             else:
                 line.price_reduce_taxexcl = line.price_unit
 
-        originals = [(line, line.price_unit, line.discount) for line in self]
+            original_price_unit = line.price_unit
+            original_discount = line.discount
 
-        for line, _, _ in originals:
             line.price_unit = line.price_reduce_taxexcl
             line.discount = 0.0
 
-        res = super(SaleOrderLine, self)._compute_amount()
+            super(SaleOrderLine, self)._compute_amount()
 
-        for line, orig_price, orig_discount in originals:
-            line.price_unit = orig_price
-            line.discount = orig_discount
-
-        return res
+            line.price_unit = original_price_unit
+            line.discount = original_discount
