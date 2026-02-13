@@ -138,7 +138,7 @@ class RmaMain(models.Model):
         account_move_ids = self.env["account.move"].search([
             ("rma_id", "=", self.id),
             ("move_type", "=", "out_refund"),
-            ('status_in_payment', '=', 'draft')
+            ('state', '=', 'draft')
         ])
         account_move_ids.button_cancel()
 
@@ -469,28 +469,14 @@ class RmaMain(models.Model):
         if replacements:
             self.process_replacement_items(replacements)
 
-        # # ======================= PROCESS RETURNED ITEMS =========================
-        # if refund_with_return_items:
-        #     self.process_returned_items(refund_with_return_items)
-
-        # # ======================= PROCESS REPLACEMENT ITEMS WITH NO RETURNED ITEMS =========================
-        # if replacement_items:
-        #     self.process_replacement_items(self.replace_prd_ids)
-
-        # # ======================= PROCESS REPLACEMENT ITEMS WITH RETURNED ITEMS =========================
-        # if replacement_with_return_items:
-        #     if not replacement_items:
-        #         # Create the replacement items only once
-        #         self.process_replacement_items(self.replace_prd_ids)
-        #     self.process_returned_items(replacement_with_return_items)
         return True
 
     def validate_invoice(self):
         # ==================== CHECK FIRST IF THE INVOICE WAS ISSUED FOR THE SALE ORDER =========================
         sale_invoices = self.env["account.move"].search([
-            ("ref", "=", self.sale_order.name),
+            ('invoice_origin', '=', self.sale_order.name),
             ("move_type", "=", "out_invoice"),
-            ('status_in_payment', '!=', 'cancel')
+            ('state', '!=', 'cancel')
         ])
         if not sale_invoices:
             raise UserError(
@@ -527,7 +513,7 @@ class RmaMain(models.Model):
         credit_note = self.env["account.move"].search([
             ("rma_id", "=", self.id),
             ("move_type", "=", "out_refund"),
-            ('status_in_payment', '=', 'draft')
+            ('state', '=', 'draft')
         ])
 
         if credit_note:
@@ -546,7 +532,6 @@ class RmaMain(models.Model):
                 "partner_id": self.partner_id.id,
                 "sale_id": sale_id.id,
                 "rma_id": self.id,
-                "ref": sale_id.name,
                 "invoice_origin": sale_id.name,
                 "fiscal_position_id": fiscal_position_id.id
                 if fiscal_position_id
@@ -572,8 +557,14 @@ class RmaMain(models.Model):
         self.ensure_one()
 
         picking_id = self.delivery_order
+
+
         if not picking_id:
             raise UserError("No delivery order linked to this RMA.")
+
+        picking_type_id = (
+            self.sale_order.warehouse_id.out_type_id.return_picking_type_id
+        )
 
         # Map product → qty
         qty_by_product = {
@@ -599,13 +590,13 @@ class RmaMain(models.Model):
                 lines_to_keep |= line
 
         # Remove non-RMA lines
-        (wizard.product_return_moves - lines_to_keep).unlink()
+        # (wizard.product_return_moves - lines_to_keep).sudo().unlink()
 
         # Create return picking using Odoo core logic
         # wizard.action_create_returns()
 
         new_picking_id = wizard._create_return()
-        new_picking_id.write({'rma_id': self.id})
+        new_picking_id.write({'picking_type_id': picking_type_id.id,'rma_id': self.id})
 
     def process_replacement_items(self, replacement_items):
         """This function creates and validates Sale Order for replacement items
@@ -645,7 +636,6 @@ class RmaMain(models.Model):
             sale_order = {
                 "partner_id": self.partner_id.id,
                 "name": self.env["ir.sequence"].next_by_code("sale.order"),
-                # "rma_id": self.id,
                 "origin": self.name,
                 "pricelist_id": self.sale_order.pricelist_id.id,
                 "team_id": self.sale_order.team_id.id,
