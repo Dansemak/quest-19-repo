@@ -11,6 +11,6 @@
     "version": "19.0.1.0",
     "depends": ["base", "sale"],
     "data": [
-        # "views/sale_order_views.xml",
+        "views/account_move_views.xml",
     ],
 }
