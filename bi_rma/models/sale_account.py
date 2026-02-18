@@ -1,5 +1,6 @@
 import logging
 from odoo import fields, models, api, _
+from odoo.tools.safe_eval import safe_eval
 
 log = logging.getLogger(__name__).info
 
@@ -15,21 +16,20 @@ class SaleOrder(models.Model):
         compute='_compute_rma_count'
     )
 
-    cr_note_count = fields.Integer(
-        string="Credit Notes",
-        copy=False,
-        compute = '_compute_credit_note_count'
-    )
 
     def _compute_rma_count(self):
         for order in self:
             rma_ids = self.env['rma.main'].search([('sale_order', '=', order.id)])
             order.rma_count = len(rma_ids)
 
-    def _compute_credit_note_count(self):
-        for order in self:
-            refunds_ids = self.env['account.move'].search([('sale_id', '=',order.id), ('move_type', '=', 'out_refund')])
-            order.cr_note_count = len(refunds_ids)
+    def _create_invoices(self, grouped=False, final=False, date=None):
+        invoices = super(SaleOrder, self)._create_invoices(grouped=grouped, final=final, date=date)
+        rma_id = self.env['rma.main'].search([('sale_order', '=', self.id)], order='id desc', limit=1)
+
+        for invoice in invoices:
+            if rma_id and invoice.move_type == 'out_refund':
+                invoice.rma_id = rma_id.id
+        return invoices
 
     def action_view_rma_orders(self):
         """This function displays the list view of all the RMAs related to the current Sale Order.
@@ -47,23 +47,57 @@ class SaleOrder(models.Model):
             "domain": [("id", "in", rma_ids)],
         }
 
-    def action_view_credit_notes(self):
-        """This function displays the list view of all the Credit Notes related to the current Sale Order.
+    def extract_ids_from_domain(self, domain):
+        for item in domain:
+            if isinstance(item, (list, tuple)) and len(item) == 3:
+                field, operator, value = item
+                if field == 'id' and operator == 'in':
+                    return value
+        return None
+
+
+    @api.readonly
+    def action_view_invoice(self, invoices=False):
+        """Add the ids credit notes created by the RMA process
+
+        Args:
+            invoices (bool, optional): _description_. Defaults to False.
 
         Returns:
-            _type_: View
+            _type_: _description_
         """
-        credit_note_ids = self.env['account.move'].search(
-            [('sale_id', '=', self.id), ('move_type', '=', 'out_refund')]).ids
+        res = super(SaleOrder, self).action_view_invoice(invoices=invoices)
+        rma_id = self.env['rma.main'].search([('sale_order', '=', self.id)], order='id desc', limit=1)
+        rma_invoice_ids = self.env['account.move'].search([
+            ('rma_id', '=', rma_id.id),
+            ('move_type', '=', 'out_refund'),
+            ('sale_id', '=', self.id)
+        ])
 
-        return {
-            "name": "Credit Notes",
-            "type": "ir.actions.act_window",
-            "view_mode": "list,form",
-            "res_model": "account.move",
-            "domain": [("id", "in", credit_note_ids)],
-        }
+        if rma_invoice_ids:
+            invoices = self.mapped('invoice_ids')
+            invoice_ids = list(set(invoices.ids) | set(rma_invoice_ids.ids))
+            
+            res['domain'] = [('id', 'in', invoice_ids)]
+            res.pop('res_id')
+            res.pop('views')
+            res.pop('view_id')
+            res['view_mode'] = 'list,form'
 
+        return res
+
+    @api.depends('order_line.invoice_lines')
+    def _get_invoiced(self):
+        """Override to include RMA lines in invoiced computation
+        """
+        super(SaleOrder, self)._get_invoiced()
+        for order in self:
+            rma_id = self.env['rma.main'].search([('sale_order', '=', order.id)], order='id desc', limit=1)
+            if rma_id:
+                rma_invoice_ids = self.env['account.move'].search([('rma_id', '=', rma_id.id), ('move_type', '=', 'out_refund')])
+                invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
+                total_invoices = invoices | rma_invoice_ids
+                order.invoice_count = len(total_invoices)
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
@@ -79,7 +113,7 @@ class AccountMoveLine(models.Model):
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    rma_id = fields.Many2one('rma.lines', 'RMA Id.')
+    rma_id = fields.Many2one('rma.main', 'RMA Id')
+    rma_line_id = fields.Many2one('rma.lines', 'RMA Line Id.')
     picking_id = fields.Many2one('stock.picking','Picking')
     sale_id  =  fields.Many2one('sale.order', 'Sale Origin')
-    rma_id = fields.Many2one('rma.main', 'RMA Id')

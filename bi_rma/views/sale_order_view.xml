@@ -6,9 +6,6 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='sale_order_template_id']" position="after">
-                <field name="rma_id" invisible="1" />
-            </xpath>
             <xpath expr="//button[@name='action_view_delivery']" position="after">
                 <button name="action_view_rma_orders"
                     type="object"
@@ -19,14 +16,12 @@
                     <field name="rma_count" widget="statinfo" />
                 </button>
 
-                <button name="action_view_credit_notes"
-                    type="object"
-                    string="Credit Notes"
-                    class="oe_highlight"
-                    invisible="cr_note_count == 0"
-                    icon="fa-money">
-                    <field name="cr_note_count" widget="statinfo" />
-                </button>
+            </xpath>
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="origin"
+                        string="Source Document"
+                        readonly="1"
+                        invisible="origin == False"/>
             </xpath>
         </field>
     </record>

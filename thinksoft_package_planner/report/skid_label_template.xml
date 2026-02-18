@@ -24,6 +24,7 @@
 		<field name="paperformat_id" ref="thinksoft_package_planner.paperformat_skid_label" />
 		<field name="binding_model_id" ref="model_stock_picking" />
 		<field name="binding_type">report</field>
+        <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT', 'INT', 'Warehouse Transfer'])]</field>
 	</record>
 	<template id="skid_label_template">
 		<t t-call="web.html_container">
@@ -48,7 +49,7 @@
 								</div>
 								<div class="col-2" />
 								<div class="col-6" style="text-align:right;font-weight:bold; font-weight:bold;text-margin:right;font-size:33px;">
-									<h2>SKID 
+									<h2>SKID
 										<span t-esc="box['skid']"/>
 									</h2>
 									<!-- <div class="" style="font-size:18px;font-weight:bold;text-align:center;"><span style="" t-esc="box['skid']" /><span style=""> of </span><span style="" t-esc="total_boxes" /></div> -->
@@ -58,9 +59,9 @@
 								<div class="col-12" style="font-size:11px;">
 									<span t-field="doc.company_id.name" />
 									<span t-field="doc.company_id.street2" />
- ,                                  
+ ,
 									<span t-field="doc.company_id.city" />
-,                                   
+,
 									<span t-field="doc.company_id.zip" />
 								</div>
 							</div>
@@ -132,7 +133,7 @@
 														<t t-esc="b_value['description']" />
 														<t t-if="b_value['heat']">
 															<span style="display:block;font-size:11px;">
-																	HEAT#: 
+																	HEAT#:
 																<strong>
 																	<t t-esc="b_value['heat']" />
 																</strong>
@@ -140,7 +141,7 @@
 														</t>
 														<t t-if="b_value['tagging']">
 															<span style="display:block;font-size:11px;">
-                                                                        TAG: 
+                                                                        TAG:
 																<strong>
 																	<t t-esc="b_value['tagging']" />
 																</strong>
@@ -149,7 +150,7 @@
 													</td>
 													<td style="padding:4px; text-align:center;">
 														<t t-esc="b_value['qty']" />
-    /                                                
+    /
 														<t t-esc="b_value['pick_qty']" />
 													</td>
 													<td style="padding:4px; text-align:center;">

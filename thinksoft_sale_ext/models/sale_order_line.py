@@ -33,7 +33,8 @@ class SaleOrderLine(models.Model):
     def _compute_weight(self):
         for line in self:
             line.weight = f"{line.product_id.weight} {line.product_id.weight_uom_name}"
-            line.total_weight = f"{line.product_id.weight * line.product_uom_qty} {line.product_id.weight_uom_name}"
+            rounded_total = round((line.product_id.weight * line.product_uom_qty), 2)
+            line.total_weight = f"{rounded_total} {line.product_id.weight_uom_name}"
 
     # setting the record string_availability_info in ALL CAPS; trimming string_availability_info and tagging
     @api.model
