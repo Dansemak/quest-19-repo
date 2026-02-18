@@ -263,10 +263,10 @@
 											</thead>
 											<!-- ######################################################################### -->
 											<tbody>
-												<t t-foreach="sale_order_lines_map.get(o.id, [])" t-as="item">
+												<t t-foreach="sorted(sale_order_lines_map.get(o.id, []), key=lambda l: l['line'].sequence)" t-as="item">
 													<t t-set="line" t-value="item['line']"/>
 													<!-- Section Header Row -->
-													<t t-if="item['is_section']">
+													<t t-if="line.display_type == 'line_note'">
 														<tr>
 															<td colspan="7" style="text-align: left; font-style: italic; padding: 8px 0 4px 0; border: none; background-color: #f0f0f0;">
 																<span t-field="line.name"/>
