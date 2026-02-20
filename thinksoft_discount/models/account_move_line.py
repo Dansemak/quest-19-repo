@@ -1,7 +1,5 @@
-import logging
 from odoo import api, fields, models
 
-_logger = logging.getLogger(__name__)
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
@@ -17,6 +15,13 @@ class AccountMoveLine(models.Model):
             else:
                 line.price_reduce_taxexcl = line.price_unit
 
+    # 2026-02-20
+    # _compute_totals is copied directly from https://github.com/odoo/odoo/blob/19.0/addons/account/models/account_move_line.py#L878
+    # (The line the link points to may move over time but _compute_totals is in account_move_line.py)
+    # 
+    # This is to hijack base_line to temporarily set 'price_unit' to 'price_reduce_taxexcl' and 'discount' to '0.0' so that
+    # it can do the calculations with the rounded discounted unit price instead.
+    # The only modified part of _compute_totals is the section titled 'Hijack'.
 
     @api.depends('quantity', 'discount', 'price_unit', 'tax_ids', 'currency_id')
     def _compute_totals(self):
@@ -32,10 +37,10 @@ class AccountMoveLine(models.Model):
 
             company = line.company_id or self.env.company
             base_line = line.move_id._prepare_product_base_line_for_taxes_computation(line)
-            ############################################################################
+            ############################## Hijack ##############################
             base_line['price_unit'] = line.price_reduce_taxexcl
             base_line['discount'] = 0.0
-            ############################################################################
+            ####################################################################
             AccountTax._add_tax_details_in_base_line(base_line, company)
             AccountTax._round_base_lines_tax_details([base_line], company)
             line.price_subtotal = base_line['tax_details']['total_excluded_currency']
