@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
     "version": "19.0.1.0",
-    "depends": ["base", "sale"],
+    "depends": ["base", "sale", "account"],
     "data": [
         "views/account_move_views.xml",
     ],
