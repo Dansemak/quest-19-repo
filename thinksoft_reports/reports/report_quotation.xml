@@ -263,53 +263,64 @@
 											</thead>
 											<!-- ######################################################################### -->
 											<tbody>
-												<t t-foreach="sale_order_lines_map.get(o.id, [])" t-as="item">
+												<t t-foreach="sorted(sale_order_lines_map.get(o.id, []), key=lambda l: l['line'].sequence)" t-as="item">
 													<t t-set="line" t-value="item['line']"/>
-													<tr>
-														<!--********* line # *****************-->
-														<td style=" text-align: center;">
-															<span t-field="line.seq_no"/>
-														</td>
-														<!--********* Part # and Description *********-->
-														<td>
-															<!--********* Part # *****************-->
-															<!-- Will have to come back to this later to make the product name bold while the description is not bold -->
-															<div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
-															<!--*****************  Description ***************-->
-															<!-- <t t-if="line.product_id"><t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/><t t-raw=" ' '.join(desc.split()) " /></t> -->
-															<!-- <t t-else=""> -->
-															<div style="" >
-																<t>
-																	<span t-esc="item['cleaned_description']"/>
-																</t>
-															</div>
-														</td>
-														<!--********** QUANTITY **********-->
-														<td style=" border-right-style:hidden; text-align: center;" rowspan="">
-															<span t-esc="round(line.product_uom_qty,2)"/>
-														</td>
-														<!--******************* (UOM) *******************-->
-														<td style=" text-align: center;" rowspan="">
-															<span t-field="line.product_uom_id"/>
-														</td>
-														<!--********** AVAILABILITY **********-->
-														<!-- <td style=" text-align: center;" rowspan="2"><span t-field="line.state"/> -->
-														<td style=" text-align: center;" rowspan="">
-															<!-- <span t-field="line.state"/> -->
-															<span t-field="line.string_availability_info"/>
-															<!-- <span t-field="line.product_id.qty_available"/> -->
-														</td>
-														<!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
-														<!--***************** UNIT PRICE *********************-->
-														<td style=" text-align: right;" rowspan="">
-															<span style="margin-right:2px;">$</span>
-															<span t-esc="'{:.2f}'.format(line.price_reduce_taxexcl)"/>
-														</td>
-														<!--*************** EXTENDED PRICE ******************-->
-														<td style=" text-align: right;" rowspan="">
-															<span t-field="line.price_subtotal"/>
-														</td>
-													</tr>
+													<!-- Section Header Row -->
+													<t t-if="line.display_type == 'line_note'">
+														<tr>
+															<td colspan="7" style="text-align: left; font-style: italic; padding: 8px 0 4px 0; border: none; background-color: #f0f0f0;">
+																<span t-field="line.name"/>
+															</td>
+														</tr>
+													</t>
+													<!-- Regular Product Line Row -->
+													<t t-else="">
+														<tr>
+															<!--********* line # *****************-->
+															<td style=" text-align: center;">
+																<span t-field="line.seq_no"/>
+															</td>
+															<!--********* Part # and Description *********-->
+															<td>
+																<!--********* Part # *****************-->
+																<!-- Will have to come back to this later to make the product name bold while the description is not bold -->
+																<div style="padding:0; display:inline; text-align: left; margin-bottom: 3px; font-weight: bold;" class=" text-uppercase" t-field="line.product_id.name" />
+																<!--*****************  Description ***************-->
+																<!-- <t t-if="line.product_id"><t t-set="desc" t-value="(line.product_id.description or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()"/><t t-raw=" ' '.join(desc.split()) " /></t> -->
+																<!-- <t t-else=""> -->
+																<div style="" >
+																	<t>
+																		<span t-esc="item['cleaned_description']"/>
+																	</t>
+																</div>
+															</td>
+															<!--********** QUANTITY **********-->
+															<td style=" border-right-style:hidden; text-align: center;" rowspan="">
+																<span t-esc="round(line.product_uom_qty,2)"/>
+															</td>
+															<!--******************* (UOM) *******************-->
+															<td style=" text-align: center;" rowspan="">
+																<span t-field="line.product_uom_id"/>
+															</td>
+															<!--********** AVAILABILITY **********-->
+															<!-- <td style=" text-align: center;" rowspan="2"><span t-field="line.state"/> -->
+															<td style=" text-align: center;" rowspan="">
+																<!-- <span t-field="line.state"/> -->
+																<span t-field="line.string_availability_info"/>
+																<!-- <span t-field="line.product_id.qty_available"/> -->
+															</td>
+															<!-- <td style=" text-align: center;" rowspan="2"><span style="margin-right:2px;">$</span><span t-field="line.price_unit"/> -->
+															<!--***************** UNIT PRICE *********************-->
+															<td style=" text-align: right;" rowspan="">
+																<span style="margin-right:2px;">$</span>
+																<span t-esc="'{:.2f}'.format(line.price_reduce_taxexcl)"/>
+															</td>
+															<!--*************** EXTENDED PRICE ******************-->
+															<td style=" text-align: right;" rowspan="">
+																<span t-field="line.price_subtotal"/>
+															</td>
+														</tr>
+													</t>
 													<!-- ############################### DESCRIPTION ROW ############################################## -->
 													<!--***************  Description **********************-->
 													<!-- <tr style=""><td style="line-height:1.3 !important; color:#5b5b5b !important; text-align: left;"><span t-field="line.product_id.description" /></td></tr> -->
