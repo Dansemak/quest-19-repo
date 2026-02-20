@@ -225,7 +225,7 @@ class AccountMove(models.Model):
 
     # 2026-02-20
     # _get_rounded_base_and_tax_lines is copied directly from 
-    # https://github.com/odoo/odoo/blob/19.0/addons/account/models/account_move.py#L3252
+    # https://github.com/odoo/odoo/blob/19.0/addons/account/models/account_move.py#L1757
     # (The line the link points to may move over time but _get_rounded_base_and_tax_lines is in account_move.py)
     # 
     # This is to hijack base_lines to temporarily set 'price_unit' to 'price_reduce_taxexcl' and 'discount' to '0.0'
