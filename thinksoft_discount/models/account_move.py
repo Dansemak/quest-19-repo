@@ -5,6 +5,14 @@ from contextlib import contextmanager
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    # 2026-02-20
+    # _sync_tax_lines is copied directly from https://github.com/odoo/odoo/blob/19.0/addons/account/models/account_move.py#L3252
+    # (The line the link points to may move over time but _sync_tax_lines is in account_move.py)
+    # 
+    # This is to hijack base_lines_values to temporarily set 'price_unit' to 'price_reduce_taxexcl' and 'discount' to '0.0' so
+    # that it can do the calculations with the rounded discounted unit price instead.
+    # The only modified part of _sync_tax_lines is the section titled 'Hijack'.
+
     @contextmanager
     def _sync_tax_lines(self, container):
         AccountTax = self.env['account.tax']
