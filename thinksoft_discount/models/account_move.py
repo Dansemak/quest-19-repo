@@ -223,6 +223,15 @@ class AccountMove(models.Model):
         if to_create:
             self.env['account.move.line'].create(to_create)
 
+    # 2026-02-20
+    # _get_rounded_base_and_tax_lines is copied directly from 
+    # https://github.com/odoo/odoo/blob/19.0/addons/account/models/account_move.py#L3252
+    # (The line the link points to may move over time but _get_rounded_base_and_tax_lines is in account_move.py)
+    # 
+    # This is to hijack base_lines to temporarily set 'price_unit' to 'price_reduce_taxexcl' and 'discount' to '0.0'
+    # so that it can do the calculations with the rounded discounted unit price instead.
+    # The only modified parts of _get_rounded_base_and_tax_lines is the section titled 'Hijack'.
+
     def _get_rounded_base_and_tax_lines(self, round_from_tax_lines=True):
         """ Small helper to extract the base and tax lines for the taxes computation from the current move.
         The move could be stored or not and could have some features generating extra journal items acting as
