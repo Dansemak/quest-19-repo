@@ -4,6 +4,14 @@ from odoo import api, models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    def hijack_base_lines(self, base_lines):
+        for base_line in base_lines:
+            record = base_line.get('record')
+            if record and getattr(record, 'price_reduce_taxexcl', None) is not None:
+                base_line['price_unit'] = record.price_reduce_taxexcl
+                base_line['discount'] = 0.0
+        return base_lines
+
     @api.depends('order_line.price_subtotal', 'currency_id', 'company_id', 'payment_term_id')
     def _compute_amounts(self):
         AccountTax = self.env['account.tax']
@@ -12,11 +20,7 @@ class SaleOrder(models.Model):
             base_lines = [line._prepare_base_line_for_taxes_computation() for line in order_lines]
             base_lines += order._add_base_lines_for_early_payment_discount()
             ############################################################################
-            for base_line in base_lines:
-                record = base_line.get('record')
-                if record and getattr(record, 'price_reduce_taxexcl', None) is not None:
-                    base_line['price_unit'] = record.price_reduce_taxexcl
-                    base_line['discount'] = 0.0
+            base_lines = order.hijack_base_lines(base_lines)
             ############################################################################
             AccountTax._add_tax_details_in_base_lines(base_lines, order.company_id)
             AccountTax._round_base_lines_tax_details(base_lines, order.company_id)
@@ -38,11 +42,7 @@ class SaleOrder(models.Model):
             base_lines = [line._prepare_base_line_for_taxes_computation() for line in order_lines]
             base_lines += order._add_base_lines_for_early_payment_discount()
             ############################################################################
-            for base_line in base_lines:
-                record = base_line.get('record')
-                if record and getattr(record, 'price_reduce_taxexcl', None) is not None:
-                    base_line['price_unit'] = record.price_reduce_taxexcl
-                    base_line['discount'] = 0.0
+            base_lines = order.hijack_base_lines(base_lines)
             ############################################################################
             AccountTax._add_tax_details_in_base_lines(base_lines, order.company_id)
             AccountTax._round_base_lines_tax_details(base_lines, order.company_id)
