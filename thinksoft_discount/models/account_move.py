@@ -5,6 +5,19 @@ from contextlib import contextmanager
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    def hijack_base_lines(self, base_lines):
+        """
+        This takes the 'base_lines' and sets 'price_unit' to 'price_reduce_taxexcl' and
+        'discount' to '0.0' so that it can do all the calculations with the rounded
+        discounted unit price (price_reduce_taxexcl) instead.
+        """
+        for base_line in base_lines:
+            record = base_line.get('record')
+            if record and getattr(record, 'price_reduce_taxexcl', None) is not None:
+                base_line['price_unit'] = record.price_reduce_taxexcl
+                base_line['discount'] = 0.0
+        return base_lines
+
     # 2026-02-20
     # _sync_tax_lines is copied directly from https://github.com/odoo/odoo/blob/19.0/addons/account/models/account_move.py#L3252
     # (The line the link points to may move over time but _sync_tax_lines is in account_move.py)
@@ -12,7 +25,6 @@ class AccountMove(models.Model):
     # This is to hijack base_lines_values to temporarily set 'price_unit' to 'price_reduce_taxexcl' and 'discount' to '0.0' so
     # that it can do the calculations with the rounded discounted unit price instead.
     # The only modified part of _sync_tax_lines is the section titled 'Hijack'.
-
     @contextmanager
     def _sync_tax_lines(self, container):
         AccountTax = self.env['account.tax']
@@ -144,11 +156,7 @@ class AccountMove(models.Model):
 
             base_lines_values, tax_lines_values = move._get_rounded_base_and_tax_lines(round_from_tax_lines=round_from_tax_lines)
             ############################## Hijack ##############################
-            for base_line in base_lines_values:
-                record = base_line.get('record')
-                if record and getattr(record, 'price_reduce_taxexcl', False):
-                    base_line['price_unit'] = record.price_reduce_taxexcl
-                    base_line['discount'] = 0.0
+            base_lines_values = self.hijack_base_lines(base_lines_values)
             ####################################################################
             AccountTax._add_accounting_data_in_base_lines_tax_details(base_lines_values, move.company_id, include_caba_tags=move.always_tax_exigible)
             tax_results = AccountTax._prepare_tax_lines(base_lines_values, move.company_id, tax_lines=tax_lines_values)
@@ -231,7 +239,6 @@ class AccountMove(models.Model):
     # This is to hijack base_lines to temporarily set 'price_unit' to 'price_reduce_taxexcl' and 'discount' to '0.0'
     # so that it can do the calculations with the rounded discounted unit price instead.
     # The only modified parts of _get_rounded_base_and_tax_lines is the section titled 'Hijack'.
-
     def _get_rounded_base_and_tax_lines(self, round_from_tax_lines=True):
         """ Small helper to extract the base and tax lines for the taxes computation from the current move.
         The move could be stored or not and could have some features generating extra journal items acting as
@@ -263,11 +270,7 @@ class AccountMove(models.Model):
             non_deductible_base_lines = self.line_ids.filtered(lambda line: line.display_type in ('non_deductible_product', 'non_deductible_product_total'))
             base_lines += [self._prepare_non_deductible_base_line_for_taxes_computation(line) for line in non_deductible_base_lines]
             ############################## Hijack ##############################
-            for base_line in base_lines:
-                record = base_line.get('record')
-                if record and getattr(record, 'price_reduce_taxexcl', False):
-                    base_line['price_unit'] = record.price_reduce_taxexcl
-                    base_line['discount'] = 0.0
+            base_lines = self.hijack_base_lines(base_lines)
             ####################################################################
             AccountTax._add_tax_details_in_base_lines(base_lines, self.company_id)
             tax_amls = self.line_ids.filtered('tax_repartition_line_id')
@@ -283,11 +286,7 @@ class AccountMove(models.Model):
             base_lines += self._prepare_epd_base_lines_for_taxes_computation_from_base_lines(base_amls)
             base_lines += self._prepare_non_deductible_base_lines_for_taxes_computation_from_base_lines(base_amls)
             ############################## Hijack ##############################
-            for base_line in base_lines:
-                record = base_line.get('record')
-                if record and getattr(record, 'price_reduce_taxexcl', False):
-                    base_line['price_unit'] = record.price_reduce_taxexcl
-                    base_line['discount'] = 0.0
+            base_lines = self.hijack_base_lines(base_lines)
             ####################################################################
             AccountTax._add_tax_details_in_base_lines(base_lines, self.company_id)
             AccountTax._round_base_lines_tax_details(base_lines, self.company_id)
