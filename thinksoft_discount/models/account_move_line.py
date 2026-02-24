@@ -4,11 +4,10 @@ from odoo import api, fields, models
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    price_reduce_taxexcl = fields.Monetary(string='Disc Unit Price', compute="_compute_price_unit", store=True, readonly=False, precompute=True)
+    price_reduce_taxexcl = fields.Monetary(string='Disc Unit Price', compute="_compute_price_reduct_taxexcl", store=True, readonly=True, precompute=True)
 
-    @api.depends('quantity', 'discount', 'price_unit', 'tax_ids', 'currency_id')
-    def _compute_price_unit(self):
-        super(AccountMoveLine, self)._compute_price_unit()
+    @api.depends('price_unit', 'discount')
+    def _compute_price_reduct_taxexcl(self):
         for line in self:
             if line.discount > 0.0:
                 line.price_reduce_taxexcl = round(line.price_unit * (1 - (line.discount / 100.0)), 2)
