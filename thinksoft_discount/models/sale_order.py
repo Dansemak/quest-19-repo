@@ -4,6 +4,19 @@ from odoo import api, models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    def temp_update_lines(self):
+        """
+        This a temporary button for open sale orders when this module gets installed.
+        When a sale order is confirmed before this module is installed, and the invoice
+        gets created after this module is installed, the line items may/will mismatch
+        the discount unit price and subtotal. This button is here so if it's clicked,
+        it will run the calculation again using the new rounded discount unit price
+        so that it will match the invoice side.
+        """
+        for line in self.order_line:
+            line.price_unit = line.price_unit
+            line.discount = line.discount
+
     def hijack_base_lines(self, base_lines):
         """
         This takes the 'base_lines' and sets 'price_unit' to 'price_reduce_taxexcl' and
