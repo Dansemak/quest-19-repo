@@ -8,9 +8,10 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.0",
+    "version": "19.0.1.1",
     "depends": ["base", "sale", "account"],
     "data": [
+        "security/update_sale_groups.xml",
         "views/account_move_views.xml",
         "views/sale_order_views.xml",
     ],
