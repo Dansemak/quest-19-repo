@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <!-- ********************************* 1.25x4 Label ********************************* -->
+        <record id="action_report_print_label_1_25x4" model="ir.actions.report">
+            <field name="name">Baron 1.25x4 Label (MO)</field>
+            <field name="model">mrp.production</field>           
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_baron_labels.print_label_1_25x4_template</field>
+            <field name="report_file">thinksoft_baron_labels.print_label_1_25x4_template</field>
+            <field name="binding_model_id" ref="mrp.model_mrp_production" />
+            <field name="paperformat_id" ref="thinksoft_baron_labels.paperformat_label_1_25x4" />
+            <field name="print_report_name">'Baron 1.25x4 Label - %s' % (object.name)</field>
+        </record>
+
+        <record id="action_report_product_label_1_25x4" model="ir.actions.report">
+            <field name="name">Baron 1.25x4 Label (Product)</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_baron_labels.print_label_1_25x4_template</field>
+            <field name="report_file">thinksoft_baron_labels.print_label_1_25x4_template</field>
+            <field name="binding_model_id" ref="product.model_product_template" />
+            <field name="paperformat_id" ref="thinksoft_baron_labels.paperformat_label_1_25x4" />
+            <field name="print_report_name">'Baron 1.25x4 Label - %s' % (object.name)</field>
+        </record>
+       
+        <!-- ********************************* PRINT LABEL 2x4 ********************************* -->
+        <record id="action_report_product_label_2x4" model="ir.actions.report">
+            <field name="name">Baron 2x4 Label (MO)</field>
+            <field name="model">mrp.production</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_baron_labels.print_label_2x4_template</field>
+            <field name="report_file">thinksoft_baron_labels.print_label_2x4_template</field>
+            <field name="print_report_name">'Baron 2x4 Label - %s' % (object.name)</field>
+            <field name="paperformat_id" ref="thinksoft_baron_labels.paperformat_label_2x4" />
+            <field name="binding_model_id" ref="mrp.model_mrp_production" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_report_product_template_label_2x4" model="ir.actions.report">
+            <field name="name">Baron 2x4 Label (Product)</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">thinksoft_baron_labels.print_label_2x4_template</field>
+            <field name="report_file">thinksoft_baron_labels.print_label_2x4_template</field>
+            <field name="print_report_name">'Baron 2x4 Label - %s' % (object.name)</field>
+            <field name="paperformat_id" ref="thinksoft_baron_labels.paperformat_label_2x4" />
+            <field name="binding_model_id" ref="product.model_product_template" />
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
