@@ -21,7 +21,7 @@ class SaleOrderLine(models.Model):
         AccountTax = self.env['account.tax']
         for line in self:
             ##################### Set price_reduce_taxexcl #####################
-            if line.discount > 0.0:
+            if line.discount != 0.0:
                 line.price_reduce_taxexcl = round(line.price_unit * (1 - (line.discount / 100.0)), 2)
             else:
                 line.price_reduce_taxexcl = line.price_unit
