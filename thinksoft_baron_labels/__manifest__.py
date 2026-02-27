@@ -7,7 +7,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "LGPL-3",
     "category": "Addons Custom/Thinksoft Baron Labels",
-    "version": "19.0.0.0",
+    "version": "19.0.1.0",
     "depends": ["base", "mrp", "product"],
     "data": [
         "reports/reports_paperformats.xml",
