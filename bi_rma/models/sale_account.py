@@ -24,11 +24,18 @@ class SaleOrder(models.Model):
 
     def _create_invoices(self, grouped=False, final=False, date=None):
         invoices = super(SaleOrder, self)._create_invoices(grouped=grouped, final=final, date=date)
-        rma_id = self.env['rma.main'].search([('sale_order', '=', self.id)], order='id desc', limit=1)
+        if len(self) == 1:
+            # A singleton error occurs when trying to create multiples invoice at the same time.
+            #   Given that there is already a mechanism to prevent the creation of an RMA if the sale order is not yet
+            #   invoiced, we can safely assume that when creating multiple invoices
+            #   at the same time, we are not in a context where an RMA can be created,
+            #   and thus we can skip the assignment of the rma_id on the credit notes.
 
-        for invoice in invoices:
-            if rma_id and invoice.move_type == 'out_refund':
-                invoice.rma_id = rma_id.id
+            rma_id = self.env['rma.main'].search([('sale_order', '=', self.id)], order='id desc', limit=1)
+
+            for invoice in invoices:
+                if rma_id and invoice.move_type == 'out_refund':
+                    invoice.rma_id = rma_id.id
         return invoices
 
     def action_view_rma_orders(self):
@@ -67,6 +74,9 @@ class SaleOrder(models.Model):
             _type_: _description_
         """
         res = super(SaleOrder, self).action_view_invoice(invoices=invoices)
+
+        if len(self) > 1:
+            return res
         rma_id = self.env['rma.main'].search([('sale_order', '=', self.id)], order='id desc', limit=1)
         rma_invoice_ids = self.env['account.move'].search([
             ('rma_id', '=', rma_id.id),
@@ -77,7 +87,7 @@ class SaleOrder(models.Model):
         if rma_invoice_ids:
             invoices = self.mapped('invoice_ids')
             invoice_ids = list(set(invoices.ids) | set(rma_invoice_ids.ids))
-            
+
             res['domain'] = [('id', 'in', invoice_ids)]
             res.pop('res_id')
             res.pop('views')
