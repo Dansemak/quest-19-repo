@@ -21,6 +21,7 @@
         "thinksoft_stock_ext",
         "purchase",
         "mrp",
+        "product",
     ],
     "data": [
         "views/stock_picking_views.xml",
