@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- List -->
+        <record id="view_ticket_helpdesk_list" model="ir.ui.view">
+            <field name="name">ticket.helpdesk.list</field>
+            <field name="model">ticket.helpdesk</field>
+            <field name="arch" type="xml">
+                <list string="Tickets"
+                    decoration-danger="priority == '3'"
+                    decoration-warning="priority == '2'"
+                    decoration-muted="state in ('closed','cancelled')">
+                    <field name="name" string="Ticket #" />
+                    <field name="subject" />
+                    <field name="client_name" string="Client" />
+                    <field name="priority" widget="priority" />
+                    <field name="state" widget="badge"
+                        decoration-info="state == 'new'"
+                        decoration-primary="state == 'in_progress'"
+                        decoration-warning="state == 'waiting'"
+                        decoration-success="state == 'solved'"
+                        decoration-muted="state in ('closed','cancelled')" />
+                    <field name="assigned_to" string="Assigned To" />
+                    <field name="create_date" string="Created" />
+                    <field name="response_time" string="Response (h)" optional="show" />
+                    <field name="resolution_time" string="Resolution (h)" optional="show" />
+                </list>
+            </field>
+        </record>
+
+        <!-- Kanban -->
+        <record id="view_ticket_helpdesk_kanban" model="ir.ui.view">
+            <field name="name">ticket.helpdesk.kanban</field>
+            <field name="model">ticket.helpdesk</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column">
+                    <field name="state" />
+                    <field name="priority" />
+                    <field name="client_name" />
+                    <field name="assigned_to" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_top">
+                                        <b>
+                                            <field name="name" />
+                                        </b>
+                                        <field name="priority" widget="priority" />
+                                    </div>
+                                    <div>
+                                        <field name="subject" />
+                                    </div>
+                                    <div class="text-muted">
+                                        <field name="client_name" />
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <field name="assigned_to" widget="many2one_avatar_user" />
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record id="view_ticket_helpdesk_form" model="ir.ui.view">
+            <field name="name">ticket.helpdesk.form</field>
+            <field name="model">ticket.helpdesk</field>
+            <field name="arch" type="xml">
+                <form string="Ticket">
+                    <header>
+                        <button name="action_assign_to_me" string="Assign to Me"
+                            type="object"
+                            invisible="assigned_to == uid" />
+                        <button name="action_set_in_progress" string="In Progress"
+                            type="object"
+                            invisible="state not in ('new','waiting')" />
+                        <button name="action_set_waiting" string="Waiting on Client"
+                            type="object"
+                            invisible="state != 'in_progress'" />
+                        <button name="action_set_solved" string="Mark Solved"
+                            type="object" class="oe_highlight"
+                            invisible="state in ('solved','closed','cancelled')" />
+                        <button name="action_set_closed" string="Close"
+                            type="object"
+                            invisible="state != 'solved'" />
+                        <button name="action_reopen" string="Reopen"
+                            type="object"
+                            invisible="state not in ('solved','closed','cancelled')" />
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="new,in_progress,waiting,solved,closed" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" /> — <field name="subject" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="client_id" readonly="1" />
+                                <field name="client_reference" readonly="1"
+                                    invisible="client_reference == False" />
+                                <field name="priority" widget="priority" />
+                                <field name="assigned_to" />
+                            </group>
+                            <group>
+                                <field name="create_date" readonly="1" />
+                                <field name="assigned_date" readonly="1"
+                                    invisible="assigned_date == False" />
+                                <field name="solved_date" readonly="1"
+                                    invisible="solved_date == False" />
+                                <field name="closed_date" readonly="1"
+                                    invisible="closed_date == False" />
+                                <field name="response_time" readonly="1"
+                                    invisible="response_time == 0" />
+                                <field name="resolution_time" readonly="1"
+                                    invisible="resolution_time == 0" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" readonly="1"
+                                    placeholder="No description provided." />
+                            </page>
+                            <page string="Resolution"
+                                invisible="state not in ('solved','closed')">
+                                <field name="resolution"
+                                    placeholder="Describe how this was resolved…" />
+                            </page>
+                            <page string="Attachments">
+                                <field name="attachment_ids" widget="many2many_binary" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search -->
+        <record id="view_ticket_helpdesk_search" model="ir.ui.view">
+            <field name="name">ticket.helpdesk.search</field>
+            <field name="model">ticket.helpdesk</field>
+            <field name="arch" type="xml">
+                <search string="Tickets">
+                    <field name="name" />
+                    <field name="subject" />
+                    <field name="client_name" />
+                    <field name="assigned_to" />
+                    <filter string="New" name="f_new" domain="[('state','=','new')]" />
+                    <filter string="In Progress" name="f_in_progress"
+                        domain="[('state','=','in_progress')]" />
+                    <filter string="Waiting" name="f_waiting" domain="[('state','=','waiting')]" />
+                    <filter string="Solved" name="f_solved" domain="[('state','=','solved')]" />
+                    <separator />
+                    <filter string="Urgent" name="f_urgent" domain="[('priority','=','3')]" />
+                    <filter string="High" name="f_high" domain="[('priority','=','2')]" />
+                    <separator />
+                    <filter string="My Tickets" name="f_mine" domain="[('assigned_to','=',uid)]" />
+                    <filter string="Unassigned" name="f_unassigned"
+                        domain="[('assigned_to','=',False)]" />
+                    <separator />
+                    <!-- <group string="Group By">
+                        <filter string="Status" name="by_state" context="{'group_by': 'state'}" />
+                        <filter string="Client" name="by_client" context="{'group_by': 'client_id'}" />
+                        <filter string="Priority" name="by_prio" context="{'group_by': 'priority'}" />
+                        <filter string="Agent" name="by_agent" context="{'group_by': 'assigned_to'}" />
+                    </group> -->
+                </search>
+            </field>
+        </record>
+
+        <!-- Actions -->
+        <record id="action_ticket_all" model="ir.actions.act_window">
+            <field name="name">All Tickets</field>
+            <field name="res_model">ticket.helpdesk</field>
+            <field name="view_mode">list,kanban,form</field>
+        </record>
+
+        <record id="action_ticket_my" model="ir.actions.act_window">
+            <field name="name">My Tickets</field>
+            <field name="res_model">ticket.helpdesk</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="domain">[('assigned_to', '=', uid)]</field>
+            <field name="context">{'search_default_f_mine': 1}</field>
+        </record>
+
+        <record id="action_ticket_new" model="ir.actions.act_window">
+            <field name="name">New Tickets</field>
+            <field name="res_model">ticket.helpdesk</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="domain">[('state', '=', 'new')]</field>
+        </record>
+
+    </data>
+</odoo>

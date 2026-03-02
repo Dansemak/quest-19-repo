@@ -9,3 +9,4 @@ from . import stock_move
 from . import purchase_order
 from . import account_move
 from . import crm_lead
+from . import product_category

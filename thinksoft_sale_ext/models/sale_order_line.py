@@ -11,6 +11,15 @@ class SaleOrderLine(models.Model):
     purchase_order_id = fields.Many2one("purchase.order", string="PO Number")
     weight = fields.Char(compute="_compute_weight")
     total_weight = fields.Char(compute="_compute_weight")
+    min_margin_rate = fields.Float(related="product_id.categ_id.min_margin_rate", string="Min Margin Rate(%)", store=True, readonly=True)
+    margin = fields.Float(string="Margin (%)", compute="_compute_margin", store=True, track=True)
+
+    def _compute_margin(self):
+        for line in self:
+            if line.price_unit and line.product_id.standard_price:
+                line.margin = round(((line.price_unit - line.product_id.standard_price) / line.price_unit), 2)
+            else:
+                line.margin = 0.0
 
     # determining the line number of the sale.order.line record
     @api.depends("order_id", "order_id.order_line", "sequence")
