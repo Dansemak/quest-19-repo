@@ -108,15 +108,51 @@
                 <field name="total_weight" optional="show" />
             </xpath>
 
+
+            <xpath
+                expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='price_unit']"
+                position="before">
+
+                <field
+                    name="list_price"
+                    optional="show" />
+
+                <!-- <field
+                    name="min_sale_price"
+                    decoration-danger="min_margin > margin"
+                    optional="show" /> -->
+                <xpath
+                    expr="/form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']/list//field[@name='purchase_price']"
+                    position="move" />
+            </xpath>
+
             <xpath
                 expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='price_unit']"
                 position="after">
                 <xpath
-                    expr="/form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']/list//field[@name='discount']"
+                    expr="//field[@name='order_line']/list//field[@name='discount']"
                     position="move" />
-                <field name="price_reduce_taxexcl" string="Disc Unit Price" optional="show" />
-                <field name="min_margin_rate" widget="percentage" />
-                <field name="margin" widget="percentage" />
+
+                <field
+                    name="price_reduce_taxexcl"
+                    string="Disc Unit Price"
+                    optional="show" />
+            </xpath>
+
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='margin']"
+                position="before">
+                <field
+                    name="min_margin_rate"
+                    optional="show"
+                    widget="percentage"
+                    decoration-danger="min_margin_rate > margin_percent"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='min_margin_rate']"
+                position="after">
+                <xpath expr="//field[@name='order_line']/list/field[@name='margin_percent']" position="move" />
+                <xpath expr="//field[@name='order_line']/list/field[@name='margin']" position="move" />
             </xpath>
 
             <!-- Replace the qty_at_date_widget in the list view of order lines with new widget -->
@@ -129,6 +165,21 @@
             <xpath expr="//field[@name='order_line']/list//widget[@name='qty_at_date_widget']"
                 position="replace">
                 <widget name="qty_at_date_widget_ext" width="20px" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="sale_order_line_margin_highlight" model="ir.ui.view">
+        <field name="name">sale.order.line.margin.highlight</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/list" position="attributes">
+                <attribute name="decoration-bf">
+                    min_margin &gt;= margin
+                </attribute>
             </xpath>
 
         </field>
@@ -196,5 +247,6 @@
 
         </field>
     </record>
+
 
 </odoo>
