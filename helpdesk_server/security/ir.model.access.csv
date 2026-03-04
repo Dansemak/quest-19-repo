@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_subscription_plan_user,subscription.plan user,model_subscription_plan,group_helpdesk_user,1,0,0,0
-access_subscription_plan_manager,subscription.plan manager,model_subscription_plan,group_helpdesk_manager,1,1,1,1
-access_client_subscription_user,client.subscription user,model_client_subscription,group_helpdesk_user,1,0,0,0
-access_client_subscription_manager,client.subscription manager,model_client_subscription,group_helpdesk_manager,1,1,1,1
-access_oauth_token_user,oauth.token user,model_oauth_token,group_helpdesk_user,1,0,0,0
-access_oauth_token_manager,oauth.token manager,model_oauth_token,group_helpdesk_manager,1,1,1,1
-access_ticket_helpdesk_user,ticket.helpdesk user,model_ticket_helpdesk,group_helpdesk_user,1,1,0,0
-access_ticket_helpdesk_manager,ticket.helpdesk manager,model_ticket_helpdesk,group_helpdesk_manager,1,1,1,1
