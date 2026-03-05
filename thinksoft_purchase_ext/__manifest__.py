@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.0",
+    "version": "19.0.2.0",
     "depends": ["base", "purchase", "delivery"],
     "data": [
         "views/purchase_order_views.xml",

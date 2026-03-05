@@ -16,7 +16,7 @@
             </xpath>
 
             <xpath expr="//label[@for='date_planned']" position="before">
-                <field name="date_shipped" />
+                <field name="date_ship" />
             </xpath>
 
         </field>

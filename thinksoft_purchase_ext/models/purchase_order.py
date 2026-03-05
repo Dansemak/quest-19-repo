@@ -4,8 +4,8 @@ from odoo import fields, models
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    date_shipped = fields.Datetime(
-        string="Shipped Date",
+    date_ship = fields.Datetime(
+        string="Ship Date",
         help="The date in which the vendor must ship the products by.",
     )
 
