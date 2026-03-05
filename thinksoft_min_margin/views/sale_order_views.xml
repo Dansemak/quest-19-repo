@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_thinksoft_sale_ext" model="ir.ui.view">
+        <field name="name">sale.order.view.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <!-- Block [Showing and hiding the Send and Confirm buttons] based when min margin is
+            not met -->
+            <xpath expr="//header" position="inside">
+                <field
+                    name="require_approval"
+                    readonly="True"
+                    invisible="1" />
+            </xpath>
+
+            <xpath expr="//button[@name='action_quotation_send'][2]" position="before">
+                <button
+                    string="Approved"
+                    name="action_approve"
+                    class="btn-primary"
+                    type="object"
+                    invisible="state != 'approval_pending'" />
+
+                <button
+                    string="Send for Approval"
+                    name="send_for_approval"
+                    class="btn-primary"
+                    type="object"
+                    invisible="require_approval == False or state != 'draft' " />
+            </xpath>
+
+            <xpath expr="//button[@name='action_quotation_send'][1]" position="attributes">
+                <attribute name="invisible">
+                    require_approval == True or state != 'draft'
+                </attribute>
+            </xpath>
+
+            <!-- <xpath expr="//button[@name='action_quotation_send'][4]" position="attributes">
+                <attribute name="invisible">
+                    require_approval == True or state == 'draft'
+                </attribute>
+            </xpath> -->
+
+
+            <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
+                <attribute name="invisible">
+                    require_approval == True or state in ('draft', 'sale')
+                </attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="invisible">
+                    require_approval == True or state != 'draft'
+                </attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='state' and @widget='statusbar']"
+                position="replace">
+
+                <!-- Normal flow (no approval required) -->
+                <field name="state"
+                    widget="statusbar"
+                    statusbar_visible="draft,sent,sale"
+                    invisible="require_approval" />
+
+                <!-- Approval flow -->
+                <field name="state"
+                    widget="statusbar"
+                    statusbar_visible="draft,approval_pending,sent,sale"
+                    invisible="not require_approval" />
+            </xpath>
+
+            <!-- EndBlock -->
+
+            <xpath expr="//sheet" position="inside">
+                <widget
+                    name="web_ribbon"
+                    title="Margin Hold"
+                    bg_color="text-bg-danger"
+                    invisible="not require_approval and state " />
+            </xpath>
+
+
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='price_unit']"
+                position="before">
+
+                <field
+                    name="list_price"
+                    optional="show" />
+                <xpath
+                    expr="//field[@name='order_line']/list/field[@name='purchase_price']"
+                    position="move" />
+            </xpath>
+
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='margin']"
+                position="before">
+                <field
+                    name="min_margin_rate"
+                    optional="show"
+                    widget="percentage"
+                    decoration-danger="min_margin_rate > margin_percent"
+                    decoration-success="min_margin_rate > margin_percent and parent.state in ('draft', 'sent', 'sale') and parent.require_approval == False" />
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='min_margin_rate']"
+                position="after">
+                <xpath expr="//field[@name='order_line']/list/field[@name='margin_percent']"
+                    position="move" />
+                <xpath expr="//field[@name='order_line']/list/field[@name='margin']" position="move" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="sale_order_line_margin_highlight" model="ir.ui.view">
+        <field name="name">sale.order.line.margin.highlight</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/list" position="attributes">
+                <attribute name="decoration-bf">
+                    min_margin &gt;= margin
+                </attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
