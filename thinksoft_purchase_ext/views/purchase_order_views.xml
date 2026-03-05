@@ -15,6 +15,10 @@
                 <field name="seq_no" optional="show"/>
             </xpath>
 
+            <xpath expr="//label[@for='date_planned']" position="before">
+                <field name="date_ship" />
+            </xpath>
+
         </field>
     </record>
 
