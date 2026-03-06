@@ -20,7 +20,7 @@ Long description of module's purpose
     ],
     # always loaded
     "data": [
-        # 'security/ir.model.access.csv',
+        'security/security.xml',
         "views/sale_order_views.xml",
         "views/product_category_views.xml",
     ],
