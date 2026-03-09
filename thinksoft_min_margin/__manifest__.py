@@ -23,6 +23,7 @@ Long description of module's purpose
         'security/security.xml',
         "views/sale_order_views.xml",
         "views/product_category_views.xml",
+        "data/mail_activity_type.xml"
     ],
     # only loaded in demonstration mode
 }
