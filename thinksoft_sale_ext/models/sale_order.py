@@ -73,5 +73,7 @@ class SaleOrder(models.Model):
                 moves = order.order_line.move_ids.filtered(
                     lambda m: m.state not in ('done', 'cancel')
                 )
+                productions = order.mrp_production_ids.filtered(lambda m: m.state not in ('done', 'cancel'))
                 moves.date_deadline = deadline_datetime or order.expected_date
+                productions.date_deadline = deadline_datetime or order.expected_date
         return res
