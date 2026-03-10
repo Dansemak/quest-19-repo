@@ -35,11 +35,13 @@ class SaleOrder(models.Model):
     )
     carrier_cut_off = fields.Float(related="carrier_id.cut_off")
 
-    # outside salesperson assigned from the customer"s outside_salesperson_id field
-    # customer account information assigned from the customer"s customer_account_info field
-    # partner_contacts are any contacts from the customer specifically
-    @api.onchange("partner_id")
+    @api.onchange("partner_id", "partner_shipping_id")
     def _onchange_partner_id(self):
+        """
+        outside salesperson assigned from the customer's outside_salesperson_id field
+        customer account information assigned from the customer"s customer_account_info field
+        partner_contacts are any contacts from the customer specifically
+        """
         contacts = self.env["res.partner"].search(
             [
                 ("parent_id", "=", self.partner_id.id),
@@ -50,9 +52,11 @@ class SaleOrder(models.Model):
             order.partner_contact_id = contacts.ids
             order.outside_salesperson_id = order.partner_shipping_id.outside_salesperson_id
 
-    # team_id assigned to the partner's shipping address sales team
     @api.onchange("partner_shipping_id")
     def _onchange_partner_shipping_id(self):
+        """
+        team_id assigned to the partner's shipping address sales team
+        """
         for order in self:
             order.team_id = order.partner_shipping_id.team_id
 
