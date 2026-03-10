@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_thinksoft_discount" model="ir.ui.view">
+        <field name="name">sale.order.view.form.thinksoft.discount</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <button string="Update Lines" name="temp_update_lines" type="object" class="oe_highlight" groups="thinksoft_discount.discount_group_sale_line_update"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

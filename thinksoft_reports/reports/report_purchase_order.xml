@@ -167,7 +167,7 @@
                       <span>SHIP DATE</span>
                     </th>
                     <td style="border: 1px solid #525659;">
-                    <span t-field="o.date_planned" />
+                    <span t-field="o.date_ship" />
                       <!-- <span class="" t-field="o.sale_id.commitment_date" /> -->
                     </td>
                   </tr>
