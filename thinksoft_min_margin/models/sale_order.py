@@ -52,6 +52,7 @@ class SaleOrder(models.Model):
         group_approvers = self.env.ref('thinksoft_min_margin.group_approve_low_margin')
         users_to_notify = group_approvers.user_ids
 
+        # __Display a notification if no approver is set_____________
         if not users_to_notify:
             return {
                 "type": 'ir.actions.client',
@@ -64,7 +65,7 @@ class SaleOrder(models.Model):
                 }
             }
 
-
+        # __Creates an activity for the approvers__________________
         message_body = f"""
                     <p><strong>Low Margin Sale Order Approval</strong></p>
                         <ul>
@@ -73,22 +74,13 @@ class SaleOrder(models.Model):
                         </ul>
                     <p>This order has one or more lines with a margin below the minimum threshold and needs approval.</p>
                         """
+        summary = f'Low Margin Approval Requested: {self.name}'
 
         for user in users_to_notify:
-            self.activity_schedule(
-                'thinksoft_min_margin.mail_activity_type_low_margin_approval',
-                summary=f'Low Margin Approval Requested: {self.name}',
-                note=message_body,
-                user_id=user.id,
-            )
+            self._schedule_margin_activities(user, summary, message_body)
 
-        self.message_post(
-            body=f"Approval requested for low margin order:<br/>{self.name}",
-            subject="Approval Request - Low margin",
-            message_type="notification",
-            subtype_xmlid="mail.mt_comment",
-        )
 
+        # __Sends a notification to the approvers___________________
         title = 'Approval Required'
         message = f'Order {self.name} needs your approval'
         type = 'info'
@@ -98,38 +90,45 @@ class SaleOrder(models.Model):
 
         self.write({'state': 'approval_pending'})
 
+
     def action_approve_low_margin(self):
         self.ensure_one()
-        activity_type = self.env.ref("thinksoft_min_margin.mail_activity_type_low_margin_approval")
-        activities = self.env["mail.activity"].search([
-            ("res_model", "=", "sale.order"),
-            ("res_id", "=", self.id),
-            ("activity_type_id", "=", activity_type.id),
-        ])
-
         self.state = "draft"
         self.require_low_margin_approval = False
         self.low_margin_approved = True
 
-        activities.action_feedback(feedback=_("Low margin approved."))
+        # __Closes the Approval Activity_____________________________________________
+        if self.min_margin_activities():
+            self.min_margin_activities().action_feedback(feedback=_("Low Margin Approved."))
+
+
+        # __Posts message on the chatter____________________________________________
         self.message_post(
             body=_("Low margin approved by %s") % self.env.user.name,
             subtype_xmlid="mail.mt_comment",
         )
 
-
         salesperson = self.user_id
+
+        # __Creates an activity for the Salesperson______________________________
+        summary = f'Low Margin Approved on {self.name}'
+        self._schedule_margin_activities(salesperson, summary)
+
+        # __Sends a notification to the Salesperson that the sale order has been approved
         title = 'Sale Order Approved'
         message = f'Order {self.name} is now approved. You can now proceed to the next step.'
         type = 'success'
-
         self._notify_partner(salesperson, title, message, type)
 
+
+    def _schedule_margin_activities(self, user, summary='', note=''):
         self.activity_schedule(
-                'thinksoft_min_margin.mail_activity_type_low_margin_approval',
-                summary=f'Low Margin Approved on {self.name}',
-                user_id=salesperson.id,
-            )
+            'thinksoft_min_margin.mail_activity_type_low_margin_approval',
+            summary=summary,
+            note=note,
+            user_id=user.id,
+        )
+
 
     def _notify_partner(self, user, title, message, type):
 
