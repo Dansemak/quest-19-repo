@@ -9,7 +9,7 @@ class AccountMoveLine(models.Model):
     @api.depends('price_unit', 'discount')
     def _compute_price_reduct_taxexcl(self):
         for line in self:
-            if line.discount > 0.0:
+            if line.discount != 0.0:
                 line.price_reduce_taxexcl = round(line.price_unit * (1 - (line.discount / 100.0)), 2)
             else:
                 line.price_reduce_taxexcl = line.price_unit

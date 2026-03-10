@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.2",
+    "version": "19.0.1.3",
     "depends": [
         "base",
         "thinksoft_labels",
@@ -21,6 +21,9 @@
         "thinksoft_stock_ext",
         "purchase",
         "mrp",
+        "mrp_account",
+        "product",
+        "product_barcodelookup",
     ],
     "data": [
         "views/stock_picking_views.xml",
