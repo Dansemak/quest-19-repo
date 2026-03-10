@@ -3,13 +3,15 @@
     <record id="view_order_form_inherit_thinksoft_sale_ext" model="ir.ui.view">
         <field name="name">sale.order.view.form.inherit</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
 
             <!--
                 limiting the partner records to type = 'contact'
-                limiting invoice address records to the partner_id or any invoice contacts with the parent_id being the partner_id
-                limiting shipping address records to the partner_id or any shipping contacts with the parent_id being the partner_id
+                limiting invoice address records to the partner_id or any invoice contacts with the parent_id being
+            the partner_id
+                limiting shipping address records to the partner_id or any shipping contacts with the parent_id
+            being the partner_id
             -->
 
             <xpath expr="//field[@name='partner_id']" position="attributes">
@@ -35,13 +37,14 @@
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
                 <field name="partner_contact_id"
                     domain="[('parent_id', '=', partner_id), ('type', '=', 'contact')]"
-                    options="{'no_create': True}"/>
+                    options="{'no_create': True}" />
             </xpath>
 
             <!-- the outside salesperson inserted in the "Other Info" tab-->
 
             <xpath expr="//page[@name='other_information']//field[@name='user_id']" position="after">
-                <field name="outside_salesperson_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
+                <field name="outside_salesperson_id" widget="many2one_avatar_user"
+                    options="{'no_create': True}" />
             </xpath>
 
 
@@ -52,60 +55,131 @@
 
             <!-- Rearranging fields -->
             <xpath expr="//group[@name='order_details']" position="inside">
-                <xpath expr="//field[@name='user_id']" position="move"/>
-                <xpath expr="//field[@name='client_order_ref']" position="move"/>
+                <xpath expr="//field[@name='user_id']" position="move" />
+                <xpath expr="//field[@name='client_order_ref']" position="move" />
             </xpath>
             <xpath expr="//field[@name='tag_ids']" position="after">
-                <xpath expr="//field[@name='validity_date']" position="move"/>
+                <xpath expr="//field[@name='validity_date']" position="move" />
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
-                <xpath expr="//field[@name='commitment_date']" position="move"/>
+                <xpath expr="//field[@name='commitment_date']" position="move" />
             </xpath>
 
-            <!-- COO Required, Notes, Comment, Shipping Method + Cut Off, Freight Charge, Job Project, and End User in header -->
+            <!-- COO Required, Notes, Comment, Shipping Method + Cut Off, Freight Charge, Job
+            Project, and End User in header -->
 
             <xpath expr="//group[@name='partner_details']" position="inside">
-                <field name="is_coo_required"/>
-                <field name="sale_note_id" options="{'no_create': True}"/>
-                <field name="comment_text" placeholder="Order comments and detailed notes"/>
+                <field name="is_coo_required" />
+                <field name="sale_note_id" options="{'no_create': True}" />
+                <field name="comment_text" placeholder="Order comments and detailed notes" />
             </xpath>
 
             <xpath expr="//group[@name='order_details']" position="inside">
-                <field name="customer_end_user_id" options="{'no_create': True}"/>
-                <label for="carrier_id"/>
+                <field name="customer_end_user_id" options="{'no_create': True}" />
+                <label for="carrier_id" />
                 <div name="carrier_fields" class="o_row">
-                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True}"/>
-                    <label for="carrier_cut_off"/>
-                    <field name="carrier_cut_off" widget="float_time" readonly="True"/>
+                    <field name="carrier_id" string="Shipping Method" options="{'no_create': True}" />
+                    <label for="carrier_cut_off" />
+                    <field name="carrier_cut_off" widget="float_time" readonly="True" />
                 </div>
-                <field name="sale_freight_id" options="{'no_create': True}"/>
+                <field name="sale_freight_id" options="{'no_create': True}" />
             </xpath>
 
             <!-- Sale Order Line Items: Tagging, Line Number -->
 
-            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='sequence']" position="after">
-                <field name="seq_no" optional="show"/>
+            <xpath
+                expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='sequence']"
+                position="after">
+                <field name="seq_no" optional="show" />
             </xpath>
 
-            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']" position="before">
-                <field name="tagging" optional="show"/>
-                <field name="purchase_order_id" optional="show" options="{'no_create': True}"/>
-                <field name="string_availability_info" optional="show"/>
+            <xpath
+                expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_qty']"
+                position="before">
+                <field name="tagging" optional="show" />
+                <field name="purchase_order_id" optional="show" options="{'no_create': True}" />
+                <field name="string_availability_info" optional="show" />
             </xpath>
 
-            <xpath expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_id']" position="after">
-                <field name="weight" optional="show"/>
-                <field name="total_weight" optional="show"/>
+            <xpath
+                expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='product_uom_id']"
+                position="after">
+                <field name="weight" optional="show" />
+                <field name="total_weight" optional="show" />
+            </xpath>
+
+
+            <xpath
+                expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='price_unit']"
+                position="before">
+
+                <field
+                    name="list_price"
+                    optional="show" />
+
+                <!-- <field
+                    name="min_sale_price"
+                    decoration-danger="min_margin > margin"
+                    optional="show" /> -->
+                <xpath
+                    expr="/form/sheet/notebook/page[@name='order_lines']/field[@name='order_line']/list//field[@name='purchase_price']"
+                    position="move" />
+            </xpath>
+
+            <xpath
+                expr="//notebook//page[@name='order_lines']//field[@name='order_line']//list//field[@name='price_unit']"
+                position="after">
+                <xpath
+                    expr="//field[@name='order_line']/list//field[@name='discount']"
+                    position="move" />
+
+                <field
+                    name="price_reduce_taxexcl"
+                    string="Disc Unit Price"
+                    optional="show" />
+            </xpath>
+
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='margin']"
+                position="before">
+                <field
+                    name="min_margin_rate"
+                    optional="show"
+                    widget="percentage"
+                    decoration-danger="min_margin_rate > margin_percent"/>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/list/field[@name='min_margin_rate']"
+                position="after">
+                <xpath expr="//field[@name='order_line']/list/field[@name='margin_percent']" position="move" />
+                <xpath expr="//field[@name='order_line']/list/field[@name='margin']" position="move" />
             </xpath>
 
             <!-- Replace the qty_at_date_widget in the list view of order lines with new widget -->
 
-            <xpath expr="//field[@name='order_line']/form//widget[@name='qty_at_date_widget']" position="replace">
-                <widget name="qty_at_date_widget_ext"/>
+            <xpath expr="//field[@name='order_line']/form//widget[@name='qty_at_date_widget']"
+                position="replace">
+                <widget name="qty_at_date_widget_ext" />
             </xpath>
 
-            <xpath expr="//field[@name='order_line']/list//widget[@name='qty_at_date_widget']" position="replace">
-                <widget name="qty_at_date_widget_ext" width="20px"/>
+            <xpath expr="//field[@name='order_line']/list//widget[@name='qty_at_date_widget']"
+                position="replace">
+                <widget name="qty_at_date_widget_ext" width="20px" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="sale_order_line_margin_highlight" model="ir.ui.view">
+        <field name="name">sale.order.line.margin.highlight</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='order_line']/list" position="attributes">
+                <attribute name="decoration-bf">
+                    min_margin &gt;= margin
+                </attribute>
             </xpath>
 
         </field>
@@ -114,8 +188,8 @@
     <record id="sale_order_tree_inherit_thinksoft_sale_ext" model="ir.ui.view">
         <field name="name">sale.order.view.list.inherit</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.sale_order_tree"/>
-        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="sale.sale_order_tree" />
+        <field name="priority" eval="20" />
         <field name="arch" type="xml">
 
             <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
@@ -128,13 +202,13 @@
             <!-- adding delivery method to list view -->
 
             <xpath expr="//field[@name='invoice_status']" position="after">
-                <field name="carrier_id" optional="show"/>
+                <field name="carrier_id" optional="show" />
             </xpath>
 
             <!-- adding delivery address to list view -->
 
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="partner_shipping_id" optional="show"/>
+                <field name="partner_shipping_id" optional="show" />
             </xpath>
 
         </field>
@@ -143,7 +217,7 @@
     <record id="view_quotation_tree_inherit_thinksoft_sale_ext" model="ir.ui.view">
         <field name="name">sale.order.view.list.inherit</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
         <field name="arch" type="xml">
 
             <!-- changing the datetime format from MMM dd to mm/dd/yyyy -->
@@ -159,7 +233,7 @@
     <record id="view_sales_order_filter_inherit_thinksoft_sale_ext" model="ir.ui.view">
         <field name="name">sale.order.view.search.inherit</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
         <field name="arch" type="xml">
 
             <xpath expr="//search" position="inside">
@@ -167,10 +241,12 @@
             </xpath>
 
             <xpath expr="//group" position="inside">
-                <filter string='Delivery Method' name="delivery_method" domain="[]" context="{'group_by' : 'carrier_id'}"/>
+                <filter string='Delivery Method' name="delivery_method" domain="[]"
+                    context="{'group_by' : 'carrier_id'}" />
             </xpath>
 
         </field>
     </record>
+
 
 </odoo>

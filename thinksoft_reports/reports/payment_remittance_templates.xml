@@ -224,7 +224,7 @@
                                 <div class="row totals-section">
                                     <table class="mt-3" width="100%" style="font-weight:bold;">
                                         <tr>
-                                        <td width="70%" style="">
+                                        <td width="60%" style="">
                                             <span t-field="o.journal_id" />
                                         </td>
                                         <th class="text-end" style="">Total Paid: </th>

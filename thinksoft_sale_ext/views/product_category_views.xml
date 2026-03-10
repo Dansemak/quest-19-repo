@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="view_category_property_form_inherit" model="ir.ui.view">
+            <field name="name">product.category.stock.property.form.inherit.stock.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="account.view_category_property_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='account_property']" position="inside">
+                    <group string="Margin">
+                        <field name="min_margin_rate" widget="percentage" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

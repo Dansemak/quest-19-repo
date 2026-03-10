@@ -48,10 +48,32 @@ class SaleOrder(models.Model):
         )
         for order in self:
             order.partner_contact_id = contacts.ids
-            order.outside_salesperson_id = order.partner_id.outside_salesperson_id
+            order.outside_salesperson_id = order.partner_shipping_id.outside_salesperson_id
 
     # team_id assigned to the partner's shipping address sales team
     @api.onchange("partner_shipping_id")
     def _onchange_partner_shipping_id(self):
         for order in self:
             order.team_id = order.partner_shipping_id.team_id
+
+    def write(self, values):
+        """
+        This is to override the built-in set 'date_deadline' to 'commitment_date'. Here
+        is the link: https://github.com/odoo/odoo/blob/19.0/addons/sale_stock/models/sale_order.py#L173
+        (The line the link points to may move over time).
+
+        All we're doing is removing the filter in the lambda so that the 'date_deadline'
+        on the PICK can also be updated when the 'commitment_date' is changed on the
+        sale order.
+        """
+        res = super().write(values)
+        if 'commitment_date' in values:
+            deadline_datetime = values.get('commitment_date')
+            for order in self:
+                moves = order.order_line.move_ids.filtered(
+                    lambda m: m.state not in ('done', 'cancel')
+                )
+                productions = order.mrp_production_ids.filtered(lambda m: m.state not in ('done', 'cancel'))
+                moves.date_deadline = deadline_datetime or order.expected_date
+                productions.date_deadline = deadline_datetime or order.expected_date
+        return res
