@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.8",
+    "version": "19.0.1.9",
     "depends": [
         "base",
         "sale",
@@ -22,7 +22,7 @@
     "data": [
         "security/sale_security_groups.xml",
         "security/ir.model.access.csv",
-        # "views/sale_order_views.xml",
+        "views/sale_order_views.xml",
         "views/sale_freight_views.xml",
         "views/sale_note_views.xml",
         "views/delivery_carrier_views.xml",
