@@ -23,6 +23,10 @@ class RmaMain(models.Model):
     sale_order = fields.Many2one(
         "sale.order", "Sale Order", domain="[('state','in',['sale','done'])]"
     )
+    sale_order_ids = fields.One2many(
+        string="Order Lines",
+        related="sale_order.order_line"
+    )
     subject = fields.Char("Subject")
     date = fields.Datetime("Date", default=datetime.now(), required=True)
     deadline = fields.Datetime("Deadline", default=datetime.now(), required=True)
@@ -189,6 +193,20 @@ class RmaMain(models.Model):
                         }
                     )
         return super().create(vals_list)
+    # @api.depends('sale_order', 'sale_order.order_line')
+    # def _compute_order_line_ids(self):
+    #     """Update order lines when sale order changes"""
+    #     for rma in self:
+    #         if rma.sale_order:
+    #             # Get all order lines from the sale order
+    #             # rma.order_line_ids = rma.sale_order.order_line
+
+    #             # Or filter specific lines (e.g., only delivered products)
+    #             rma.rma_line_ids = rma.sale_order.order_line.filtered(
+    #                 lambda l: l.qty_delivered > 0
+    #             )
+    #         else:
+    #             rma.rma_line_ids = False
 
     @api.onchange("sale_order")
     def onchange_sale_order_id(self):
@@ -225,7 +243,7 @@ class RmaMain(models.Model):
                         order_line_list.append((0, 0, order_line_dict))
 
                 self.rma_line_ids = order_line_list
-        return {"domain": {"delivery_order": domain}}
+        # return {"domain": {"delivery_order": domain}}
 
     def action_submit(self):
         if not sum(
@@ -341,6 +359,7 @@ class RmaMain(models.Model):
     @api.onchange("delivery_order")
     def update_delivery_details(self):
         order_line_list = []
+        order_lines = []
         for rma in self:
             if rma.delivery_order and rma.delivery_order.partner_id:
                 partner_id = rma.delivery_order.partner_id
@@ -364,29 +383,38 @@ class RmaMain(models.Model):
                 rma.rma_line_ids = [(2, line.id, 0)]
             if rma.rma_type in ("rma_with_do"):
                 # field changed
-                for i in self.delivery_order.move_line_ids:
-                    move_line_id = (
-                        self.env["account.move.line"]
-                        .sudo()
-                        .search([("stock_move_id", "=", i.move_id.id)], limit=1)
-                    )
-                    if move_line_id:
-                        price_unit = move_line_id.price_unit
-                    else:
-                        price_unit = i.move_id.sale_line_id.price_unit
-                    return_qty = i.quantity - i.return_qty
-                    order_line_dict = {
-                        "product_id": i.product_id.id,
-                        "delivery_qty": return_qty,
-                        "sale_line_id": i.move_id.sale_line_id.id,
-                        "move_line_id": i.id,
-                        "price_unit": price_unit,
+                # for i in self.delivery_order.move_line_ids:
+                #     move_line_id = (
+                #         self.env["account.move.line"]
+                #         .sudo()
+                #         .search([("stock_move_id", "=", i.move_id.id)], limit=1)
+                #     )
+                #     if move_line_id:
+                #         price_unit = move_line_id.price_unit
+                #     else:
+                #         price_unit = i.move_id.sale_line_id.price_unit
+                #     return_qty = i.quantity - i.return_qty
+                #     order_line_dict = {
+                #         "product_id": i.product_id.id,
+                #         "delivery_qty": return_qty,
+                #         "sale_line_id": i.move_id.sale_line_id.id,
+                #         "move_line_id": i.id,
+                #         "price_unit": price_unit,
+                #     }
+
+                #     if i.lot_id:
+                #         order_line_dict.update({"lot_ids": ([(6, 0, [i.lot_id.id])])})
+                #     order_line_list.append((0, 0, order_line_dict))
+                for line in self.sale_order_ids:
+                    order_lines_dict = {
+                        'product_id': line.product_id.id,
+                        'delivery_qty': line.qty_delivered,
+                        'sale_line_id': line.id,
+                        'price_unit': line.price_unit
                     }
 
-                    if i.lot_id:
-                        order_line_dict.update({"lot_ids": ([(6, 0, [i.lot_id.id])])})
-                    order_line_list.append((0, 0, order_line_dict))
-        self.rma_line_ids = order_line_list
+                    order_lines.append((0, 0, order_lines_dict))
+        self.rma_line_ids = order_lines
 
     def rma_line_btn(self):
         self.ensure_one()
@@ -583,12 +611,28 @@ class RmaMain(models.Model):
         ).create({})
 
         lines_to_keep = self.env['stock.return.picking.line']
-        for line in wizard.product_return_moves:
-            product_id = line.product_id.id
-            if product_id in qty_by_product:
-                line.quantity = qty_by_product[product_id]
-                lines_to_keep |= line
 
+        # NOTE: the variable qty_by_product is a dictionary of product_template_id and quantity to return
+        # TODO: 1. Check if the current product has a BOM and not an MTO
+        #       2. If yes get the components of the BOM
+        #       3. Add those components to the lines_to_keep variable
+        log("==================================BEFORE THE LOOP===============================================")
+        log(wizard.product_return_moves)
+        for product_id, quantity in qty_by_product.items():
+            if self.has_phantom_bom(product_id):
+                pass
+            else:
+                wizard.product_return_moves.filtered(lambda m: product_id.id == product_id).quantity = quantity
+
+        # for line in wizard.product_return_moves:
+        #     product_id = line.product_id.id
+        #     if product_id in qty_by_product:
+        #         line.quantity = qty_by_product[product_id]
+        #         lines_to_keep |= line
+
+        log("==================================AFTER THE LOOP===============================================")
+        for line in wizard.product_return_moves:
+            log(f"{line.product_id.name} QUantity: {line.quantity}")
         # Remove non-RMA lines
         # (wizard.product_return_moves - lines_to_keep).sudo().unlink()
 
@@ -597,6 +641,15 @@ class RmaMain(models.Model):
 
         new_picking_id = wizard._create_return()
         new_picking_id.write({'picking_type_id': picking_type_id.id,'rma_id': self.id})
+
+    def has_phantom_bom(self, product_tmpl_id):
+
+        phantom_bom = self.env['mrp.bom'].search([
+            ('product_tmpl_id', '=', product_tmpl_id)
+            ('type', '=', 'phantom')
+        ], limit=1)
+
+        return True if phantom_bom else False
 
     def process_replacement_items(self, replacement_items):
         """This function creates and validates Sale Order for replacement items
