@@ -24,8 +24,7 @@ class RmaMain(models.Model):
         "sale.order", "Sale Order", domain="[('state','in',['sale','done'])]"
     )
     sale_order_ids = fields.One2many(
-        string="Order Lines",
-        related="sale_order.order_line"
+        string="Order Lines", related="sale_order.order_line"
     )
     subject = fields.Char("Subject")
     date = fields.Datetime("Date", default=datetime.now(), required=True)
@@ -127,9 +126,7 @@ class RmaMain(models.Model):
     rma_type = fields.Selection([("rma_with_do", "With DO")])
     is_editable = fields.Boolean(compute="_compute_is_editable", default=True)
 
-
     def action_cancel(self):
-
         # cancel related stock pickings
         stock_picking_ids = self.env["stock.picking"].search([("rma_id", "=", self.id)])
         stock_picking_ids.action_cancel()
@@ -139,11 +136,13 @@ class RmaMain(models.Model):
         sale_order_ids.action_cancel()
 
         # Cancel related credit notes
-        account_move_ids = self.env["account.move"].search([
-            ("rma_id", "=", self.id),
-            ("move_type", "=", "out_refund"),
-            ('state', '=', 'draft')
-        ])
+        account_move_ids = self.env["account.move"].search(
+            [
+                ("rma_id", "=", self.id),
+                ("move_type", "=", "out_refund"),
+                ("state", "=", "draft"),
+            ]
+        )
         account_move_ids.button_cancel()
 
         self.write({"state": "cancel"})
@@ -193,6 +192,7 @@ class RmaMain(models.Model):
                         }
                     )
         return super().create(vals_list)
+
     # @api.depends('sale_order', 'sale_order.order_line')
     # def _compute_order_line_ids(self):
     #     """Update order lines when sale order changes"""
@@ -292,7 +292,9 @@ class RmaMain(models.Model):
     def _compute_sale_order_ids(self):
         # TODO: Come back to this
         for order in self:
-            sale_order_ids = self.env["sale.order"].search([("origin", "=", order.name)])
+            sale_order_ids = self.env["sale.order"].search(
+                [("origin", "=", order.name)]
+            )
             order.sale_order_count = len(sale_order_ids)
 
     def _compute_outgoing_picking_ids(self):
@@ -407,10 +409,10 @@ class RmaMain(models.Model):
                 #     order_line_list.append((0, 0, order_line_dict))
                 for line in self.sale_order_ids:
                     order_lines_dict = {
-                        'product_id': line.product_id.id,
-                        'delivery_qty': line.qty_delivered,
-                        'sale_line_id': line.id,
-                        'price_unit': line.price_unit
+                        "product_id": line.product_id.id,
+                        "delivery_qty": line.qty_delivered,
+                        "sale_line_id": line.id,
+                        "price_unit": line.price_unit,
                     }
 
                     order_lines.append((0, 0, order_lines_dict))
@@ -468,7 +470,6 @@ class RmaMain(models.Model):
         }
 
     def process_rma(self):
-
         self.validate_invoice()
 
         refund_items = self.rma_line_ids.filtered(
@@ -483,7 +484,6 @@ class RmaMain(models.Model):
         replacement_with_return_items = self.rma_line_ids.filtered(
             lambda t: t.rma_resolution_action == "replacement_with_returned_item"
         )
-
 
         returns = refund_with_return_items | replacement_with_return_items
         replacements = self.replace_prd_ids
@@ -501,16 +501,17 @@ class RmaMain(models.Model):
 
     def validate_invoice(self):
         # ==================== CHECK FIRST IF THE INVOICE WAS ISSUED FOR THE SALE ORDER =========================
-        sale_invoices = self.env["account.move"].search([
-            ('invoice_origin', '=', self.sale_order.name),
-            ("move_type", "=", "out_invoice"),
-            ('state', '!=', 'cancel')
-        ])
+        sale_invoices = self.env["account.move"].search(
+            [
+                ("invoice_origin", "=", self.sale_order.name),
+                ("move_type", "=", "out_invoice"),
+                ("state", "!=", "cancel"),
+            ]
+        )
         if not sale_invoices:
             raise UserError(
                 "No invoice found for the related Sale Order.\n Please invoice the Sale Order first, then proceed with RMA."
             )
-
 
     def process_credit_note(self, refund_items):
         """This function creates a credit note for the refund
@@ -538,11 +539,13 @@ class RmaMain(models.Model):
             account_move_lines.append(account_move_line)
 
         # ==================== UPDATE CREDIT NOTE IF ALREADY EXISTS =========================
-        credit_note = self.env["account.move"].search([
-            ("rma_id", "=", self.id),
-            ("move_type", "=", "out_refund"),
-            ('state', '=', 'draft')
-        ])
+        credit_note = self.env["account.move"].search(
+            [
+                ("rma_id", "=", self.id),
+                ("move_type", "=", "out_refund"),
+                ("state", "=", "draft"),
+            ]
+        )
 
         if credit_note:
             credit_note.write({"invoice_line_ids": account_move_lines})
@@ -575,17 +578,16 @@ class RmaMain(models.Model):
 
             self.env["account.move"].create(account_move)
 
-    def process_returned_items(self, return_items):
+    def process_returned_items(self, return_lines):
         """This function creates an incoming shipment for returned items on an RMA
                 using Odoo core return picking wizard
 
         Args:
-            return_items (_type_): _Items to be returned.
+            return_liness (_type_): _Items to be returned.
         """
         self.ensure_one()
 
         picking_id = self.delivery_order
-
 
         if not picking_id:
             raise UserError("No delivery order linked to this RMA.")
@@ -594,35 +596,80 @@ class RmaMain(models.Model):
             self.sale_order.warehouse_id.out_type_id.return_picking_type_id
         )
 
-        # Map product → qty
+        # Map product → qty → sale_order_line
+        return_items = [
+            {
+                "product_id": item.product_id,
+                "quantity": item.return_qty,
+                "sale_line_id": item.sale_line_id.id,
+            }
+            for item in return_lines
+            if item.return_qty > 0
+        ]
+
         qty_by_product = {
-            item['product_id'].id: item['return_qty']
-            for item in return_items
-            if item['return_qty'] > 0
+            item["product_id"].id: item["return_qty"]
+            for item in return_lines
+            if item["return_qty"] > 0
         }
 
-        if not qty_by_product:
-            raise UserError("No return quantities provided.")
+        # if not qty_by_product:
+        #     raise UserError("No return quantities provided.")
+        if not return_items:
+            raise UserError("No return quantities provided")
 
-        wizard = self.env['stock.return.picking'].with_context(
-            active_model='stock.picking',
-            active_id=picking_id.id,
-            active_ids=[picking_id.id],
-        ).create({})
+        wizard = (
+            self.env["stock.return.picking"]
+            .with_context(
+                active_model="stock.picking",
+                active_id=picking_id.id,
+                active_ids=[picking_id.id],
+            )
+            .create({})
+        )
 
-        lines_to_keep = self.env['stock.return.picking.line']
+        lines_to_keep = self.env["stock.return.picking.line"]
 
         # NOTE: the variable qty_by_product is a dictionary of product_template_id and quantity to return
         # TODO: 1. Check if the current product has a BOM and not an MTO
         #       2. If yes get the components of the BOM
         #       3. Add those components to the lines_to_keep variable
-        log("==================================BEFORE THE LOOP===============================================")
-        log(wizard.product_return_moves)
-        for product_id, quantity in qty_by_product.items():
-            if self.has_phantom_bom(product_id):
-                pass
+        log(
+            "==================================BEFORE THE LOOP==============================================="
+        )
+
+        for item in return_items:
+            log(f"Item: {item}")
+            bom = self.has_phantom_bom(item['product_id'].product_tmpl_id)
+            log(f"BOM: {bom}")
+            if bool(bom):
+                """Products that have phantom bom do not appear on the delivery order, but their components do.
+                        So we retrieve their component from the bom_line and update the return quantity.
+                """
+                bom_lines = self.env["mrp.bom.line"].search_read(
+                    [("bom_id", "=", bom.id)],
+                    ['product_id', 'product_qty']
+                )
+
+                for line in bom_lines:
+                    return_line = wizard.product_return_moves.filtered(
+                    lambda m: m.product_id.id == line['product_id'][0] and
+                            m.move_id.sale_line_id.id == item['sale_line_id']
+                    )
+
+                    if return_line:
+                        return_line.quantity = item['quantity'] * line['product_qty']
             else:
-                wizard.product_return_moves.filtered(lambda m: product_id.id == product_id).quantity = quantity
+
+                return_line = wizard.product_return_moves.filtered(
+                    lambda m: m.product_id.id == item['product_id'].id and
+                            m.move_id.sale_line_id.id == item['sale_line_id']
+                )
+
+                # log(f"Return Line: {return_line}")
+
+                if return_line:
+                    return_line.quantity = item['quantity']
 
         # for line in wizard.product_return_moves:
         #     product_id = line.product_id.id
@@ -630,7 +677,9 @@ class RmaMain(models.Model):
         #         line.quantity = qty_by_product[product_id]
         #         lines_to_keep |= line
 
-        log("==================================AFTER THE LOOP===============================================")
+        log(
+            "==================================AFTER THE LOOP==============================================="
+        )
         for line in wizard.product_return_moves:
             log(f"{line.product_id.name} QUantity: {line.quantity}")
         # Remove non-RMA lines
@@ -640,16 +689,14 @@ class RmaMain(models.Model):
         # wizard.action_create_returns()
 
         new_picking_id = wizard._create_return()
-        new_picking_id.write({'picking_type_id': picking_type_id.id,'rma_id': self.id})
+        new_picking_id.write({"picking_type_id": picking_type_id.id, "rma_id": self.id})
 
     def has_phantom_bom(self, product_tmpl_id):
+        phantom_bom = self.env["mrp.bom"].search(
+            [("product_tmpl_id", "=", product_tmpl_id), ("type", "=", "phantom")], limit=1
+        )
 
-        phantom_bom = self.env['mrp.bom'].search([
-            ('product_tmpl_id', '=', product_tmpl_id)
-            ('type', '=', 'phantom')
-        ], limit=1)
-
-        return True if phantom_bom else False
+        return phantom_bom
 
     def process_replacement_items(self, replacement_items):
         """This function creates and validates Sale Order for replacement items
@@ -745,21 +792,24 @@ class RmaMain(models.Model):
         }
 
     def action_move_to_draft(self):
-
         # Clear RMA lines and replacement products
-        rma_line_ids = self.env["rma.lines"].search([("rma_id", "=", self.id)]).filtered(
-            lambda t: t.rma_resolution_action != False
+        rma_line_ids = (
+            self.env["rma.lines"]
+            .search([("rma_id", "=", self.id)])
+            .filtered(lambda t: t.rma_resolution_action != False)
         )
         for line in rma_line_ids:
-            line.write({
-                "rma_resolution_id": False,
-                "return_reason_id": False,
-                "return_qty": 0,
-            })
+            line.write(
+                {
+                    "rma_resolution_id": False,
+                    "return_reason_id": False,
+                    "return_qty": 0,
+                }
+            )
 
-        replacement_product_ids = self.env["rma.replace.order"].search([
-            ('rma_id', "=", self.id)
-        ])
+        replacement_product_ids = self.env["rma.replace.order"].search(
+            [("rma_id", "=", self.id)]
+        )
         for line in replacement_product_ids:
             line.unlink()
 
@@ -950,6 +1000,7 @@ class RmaReplaceOrder(models.Model):
             line.total_price = line.price_unit * line.qty
 
     price_unit = fields.Float(related="product_id.list_price", string="Unit Price")
+
 
 class RejectWizard(models.Model):
     _name = "return.reason"
