@@ -583,7 +583,7 @@ class RmaMain(models.Model):
                 using Odoo core return picking wizard
 
         Args:
-            return_liness (_type_): _Items to be returned.
+            return_lines (_type_): _Items to be returned.
         """
         self.ensure_one()
 
@@ -601,20 +601,13 @@ class RmaMain(models.Model):
             {
                 "product_id": item.product_id,
                 "quantity": item.return_qty,
-                "sale_line_id": item.sale_line_id.id,
+                "sale_line_id": item.sale_line_id,
             }
             for item in return_lines
             if item.return_qty > 0
         ]
 
-        qty_by_product = {
-            item["product_id"].id: item["return_qty"]
-            for item in return_lines
-            if item["return_qty"] > 0
-        }
 
-        # if not qty_by_product:
-        #     raise UserError("No return quantities provided.")
         if not return_items:
             raise UserError("No return quantities provided")
 
@@ -628,73 +621,45 @@ class RmaMain(models.Model):
             .create({})
         )
 
-        lines_to_keep = self.env["stock.return.picking.line"]
-
-        # NOTE: the variable qty_by_product is a dictionary of product_template_id and quantity to return
-        # TODO: 1. Check if the current product has a BOM and not an MTO
-        #       2. If yes get the components of the BOM
-        #       3. Add those components to the lines_to_keep variable
-        log(
-            "==================================BEFORE THE LOOP==============================================="
-        )
-
         for item in return_items:
-            log(f"Item: {item}")
-            bom = self.has_phantom_bom(item['product_id'].product_tmpl_id)
-            log(f"BOM: {bom}")
+            bom = self.has_phantom_bom(item["product_id"], item['sale_line_id'])
             if bool(bom):
                 """Products that have phantom bom do not appear on the delivery order, but their components do.
                         So we retrieve their component from the bom_line and update the return quantity.
                 """
                 bom_lines = self.env["mrp.bom.line"].search_read(
-                    [("bom_id", "=", bom.id)],
-                    ['product_id', 'product_qty']
+                    [("bom_id", "=", bom.id)], ["product_id", "product_qty"]
                 )
 
                 for line in bom_lines:
                     return_line = wizard.product_return_moves.filtered(
-                    lambda m: m.product_id.id == line['product_id'][0] and
-                            m.move_id.sale_line_id.id == item['sale_line_id']
+                        lambda m: m.product_id.id == line["product_id"][0]
+                        and m.move_id.sale_line_id.id == item["sale_line_id"].id
                     )
 
                     if return_line:
-                        return_line.quantity = item['quantity'] * line['product_qty']
+                        return_line.quantity = item["quantity"] * line["product_qty"]
             else:
-
                 return_line = wizard.product_return_moves.filtered(
-                    lambda m: m.product_id.id == item['product_id'].id and
-                            m.move_id.sale_line_id.id == item['sale_line_id']
+                    lambda m: m.product_id.id == item["product_id"].id
+                    and m.move_id.sale_line_id.id == item["sale_line_id"].id
                 )
 
-                # log(f"Return Line: {return_line}")
-
                 if return_line:
-                    return_line.quantity = item['quantity']
-
-        # for line in wizard.product_return_moves:
-        #     product_id = line.product_id.id
-        #     if product_id in qty_by_product:
-        #         line.quantity = qty_by_product[product_id]
-        #         lines_to_keep |= line
-
-        log(
-            "==================================AFTER THE LOOP==============================================="
-        )
-        for line in wizard.product_return_moves:
-            log(f"{line.product_id.name} QUantity: {line.quantity}")
-        # Remove non-RMA lines
-        # (wizard.product_return_moves - lines_to_keep).sudo().unlink()
-
-        # Create return picking using Odoo core logic
-        # wizard.action_create_returns()
+                    return_line.quantity = item["quantity"]
 
         new_picking_id = wizard._create_return()
         new_picking_id.write({"picking_type_id": picking_type_id.id, "rma_id": self.id})
 
-    def has_phantom_bom(self, product_tmpl_id):
-        phantom_bom = self.env["mrp.bom"].search(
-            [("product_tmpl_id", "=", product_tmpl_id), ("type", "=", "phantom")], limit=1
+    def has_phantom_bom(self, product, sale_line_id):
+
+        bom_dict = self.env['mrp.bom']._bom_find(
+            products = product,
+            company_id = sale_line_id.company_id.id,
+            bom_type = 'phantom'
         )
+
+        phantom_bom = bom_dict.get(product)
 
         return phantom_bom
 
