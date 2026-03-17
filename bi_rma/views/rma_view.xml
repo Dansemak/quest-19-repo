@@ -76,7 +76,7 @@
                                     <p class="m-0" t-field="o.sale_order.name" />
                                 </div>
                                 <div class="col-auto col-3 mw-100 mb-2">
-                                    <strong>Shipping Referance:</strong>
+                                    <strong>Shipping Reference:</strong>
                                     <p class="m-0" t-field="o.delivery_order.name" />
                                 </div>
                             </div>
