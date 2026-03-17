@@ -186,7 +186,7 @@
             <field name="report_file">thinksoft_labels.customer_1_25x4_label_template</field>
             <field name="binding_model_id" ref="mrp.model_mrp_production"/>
             <field name="paperformat_id" ref="thinksoft_labels.paperformat_print_label_1_25x4"/>
-            <field name="print_report_name">'Baron 1.25x4 Label - %s' % (object.name)</field>
+            <field name="print_report_name">'Customer 1.25x4 Label - %s' % (object.name)</field>
         </record>
        
         <!-- ********************************* Customer 4x4 Label ********************************* -->
@@ -196,7 +196,7 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">thinksoft_labels.customer_2x4_label_template</field>
             <field name="report_file">thinksoft_labels.customer_2x4_label_template</field>
-            <field name="print_report_name">'Baron 2x4 Label - %s' % (object.name)</field>
+            <field name="print_report_name">'Customer 2x4 Label - %s' % (object.name)</field>
             <field name="paperformat_id" ref="thinksoft_labels.paperformat_2x4"/>
             <field name="binding_model_id" ref="mrp.model_mrp_production"/>
             <field name="binding_type">report</field>
