@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="customer_1_25x4_label_template">
+        <t t-call="web.basic_layout">
+            <style>
+                .label-container {
+                    width: 100%;
+                    height: 27mm;
+                    box-sizing: border-box;
+                    font-family: Arial, sans-serif;
+                    overflow: hidden;
+                    position: relative;
+                }
+                .sidebar-border {
+                    float: left;
+                    width: 8px;
+                    height: 27mm;
+                }
+                .sidebar-black {
+                    width: 100%;
+                    height: 13.5mm;
+                    background-color: black;
+                }
+                .sidebar-red {
+                    width: 100%;
+                    height: 13.5mm;
+                    background-color: red;
+                }
+                .logo-section {
+                    float: left;
+                    width: 30mm;
+                    height: 27mm;
+                    text-align: center;
+                }
+                .logo-section img {
+                    width: 25mm;
+                    margin-top: 5mm; /* Manual vertical center for 27mm height */
+                }
+                .info-section {
+                    float: left;
+                    width: 60mm;
+                    padding-left: 5px;
+                    padding-top: 2mm;
+                    box-sizing: border-box;
+                }
+                .product-code {
+                    font-size: 14pt;
+                    font-weight: bold;
+                    border-bottom: 1px solid #000;
+                    margin-bottom: 1mm;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .product-name {
+                    font-size: 10pt;
+                    line-height: 1.2;
+                    display: block;
+                    height: 12mm;
+                    overflow: hidden;
+                }
+                /* Clearfix */
+                .label-container::after {
+                    content: "";
+                    clear: both;
+                    display: table;
+                }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <t t-set="product" t-value="doc if doc._name == 'product.template' else doc.product_id"/>
+                    <div class="label-container">
+                        <div class="sidebar-border">
+                            <div class="sidebar-black"/>
+                            <div class="sidebar-red"/>
+                        </div>
+                        <div class="logo-section">
+                            <img t-if="doc.partner_id.image_1920" t-att-src="image_data_uri(doc.partner_id.image_1920)"/>
+                        </div>
+                        <div class="info-section">
+                            <div class="product-code">
+                                <span t-field="doc.product_id.name"/>
+                            </div>
+                            <div class="product-name">
+                                <span t-field="doc.product_id.description" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
