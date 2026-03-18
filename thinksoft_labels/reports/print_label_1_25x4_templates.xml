@@ -45,7 +45,7 @@
                     box-sizing: border-box;
                 }
                 .product-code {
-                    font-size: 14pt;
+                    font-size: 12pt;
                     font-weight: bold;
                     border-bottom: 1px solid #000;
                     margin-bottom: 1mm;

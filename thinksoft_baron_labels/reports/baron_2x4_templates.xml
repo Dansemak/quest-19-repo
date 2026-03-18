@@ -21,7 +21,7 @@
                     max-height: 15mm;
                 }
                 .product-code {
-                    font-size: 18pt;
+                    font-size: 16pt;
                     font-weight: bold;
                     margin: 2mm 0;
                     padding: 1mm 0;

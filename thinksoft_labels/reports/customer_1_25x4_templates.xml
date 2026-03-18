@@ -13,22 +13,27 @@
                 }
                 .logo-section {
                     float: left;
-                    width: 30mm;
+                    width: 26mm;
                     height: 27mm;
-                    text-align: center;
+                    position: relative;
                 }
                 .logo-section img {
                     width: 25mm;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                    -webkit-transform: translateY(-50%);
                 }
                 .info-section {
                     float: left;
-                    width: 60mm;
-                    padding-left: 5px;
+                    width: 70mm;
+                    padding-left: 2mm;
                     padding-top: 2mm;
                     box-sizing: border-box;
                 }
                 .product-code {
-                    font-size: 14pt;
+                    font-size: 12pt;
                     font-weight: bold;
                     border-bottom: 1px solid #000;
                     margin-bottom: 1mm;
