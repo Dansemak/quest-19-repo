@@ -55,7 +55,12 @@
                     <t t-set="product" t-value="doc if doc._name == 'product.template' else doc.product_id"/>
                     <div class="label-container">
                         <div class="logo-section">
-                            <img t-if="doc.partner_id.image_1920" t-att-src="image_data_uri(doc.partner_id.image_1920)"/>
+                            <t t-if="doc.partner_id.image_1920">
+                                <img t-att-src="image_data_uri(doc.partner_id.image_1920)"/>
+                            </t>
+                            <t t-else="">
+                                <img src="/thinksoft_labels/static/src/img/quest-crest.jpg"/>
+                            </t>
                         </div>
                         <div class="info-section">
                             <div class="product-code">
