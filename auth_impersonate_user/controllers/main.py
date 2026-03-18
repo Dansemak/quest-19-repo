@@ -14,21 +14,16 @@ class ImpersonateHome(Home):
     def impersonate_user(self, **kw):
         uid = request.env.user.id
         if request.env.user.can_impersonate_user:
-            _logger.info(
-                "User <%s> impersonates user <%s>.", uid, int(request.params["uid"])
-            )
+            _logger.info("User <%s> impersonates user <%s>.", uid, int(request.params["uid"]))
 
             # Backup original session info
             request.session["impersonator_uid"] = request.session.uid
-            request.session["impersonator_login"] = request.session.login
+            request.session["impersonator_login"] = request.session.uid
 
             # Set new session info
             uid = request.session.uid = int(request.params["uid"])
-            # Clear environment cache to force reload with new user
-            request.env.registry.clear_cache()
-            request.session.session_token = security.compute_session_token(
-                request.session, request.env
-            )
+            request.env["res.users"]._invalidate_cache()
+            request.session.session_token = security.compute_session_token(request.session, request.env)
 
         return request.redirect(self._login_redirect(uid))
 
@@ -43,17 +38,12 @@ class ImpersonateHome(Home):
             )
 
             # Restore session info
-            request.session.uid = request.session["impersonator_uid"]
-            request.session.login = request.session["impersonator_login"]
+            request.session.uid = request.session.get("impersonator_uid")
+            request.session.login = request.session.get("impersonator_login")
             del request.session["impersonator_uid"]
             del request.session["impersonator_login"]
-            # Clear environment cache to force reload with restored user
             request.env.registry.clear_cache()
-            request.session.session_token = security.compute_session_token(
-                request.session, request.env
-            )
-
+            request.session.session_token = security.compute_session_token(request.session, request.env)
             return request.redirect(self._login_redirect(request.session.uid))
-
         request.session.logout(keep_db=True)
         return request.redirect(redirect, 303)
