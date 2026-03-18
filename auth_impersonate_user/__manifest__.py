@@ -4,8 +4,8 @@
         Impersonate another users.
     """,
     "author": "Mint System GmbH",
-    "website": "https://www.mint-system.ch",
-    "category": "Addons Custom/Auth Impersonate User",
+    "website": "https://www.mint-system.ch/",
+    "category": "Technical",
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["web"],
