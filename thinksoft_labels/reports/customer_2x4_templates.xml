@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="print_label_2x4_template">
+    <template id="customer_2x4_label_template">
         <t t-call="web.basic_layout">
             <style>
                 .label-container {
@@ -37,14 +37,17 @@
                     <t t-set="product" t-value="doc if doc._name == 'product.template' else doc.product_id"/>
                     <div class="label-container">
                         <div class="logo-section">
-                            <img src="/thinksoft_baron_labels/static/baron-logo.png"/>
+                            <t t-if="doc.partner_id.image_1920">
+                                <img t-att-src="image_data_uri(doc.partner_id.image_1920)"/>
+                            </t>
+                            <t t-else="">
+                                <img src="/thinksoft_labels/static/src/img/quest-crest.jpg"/>
+                            </t>
                         </div>
                         <div class="product-code">
-                            <!-- <span t-field="product.default_code"/> -->
                             <span t-field="doc.product_id.name"/>
                         </div>
                         <div class="product-name">
-                            <!-- <span t-field="product.name"/> -->
                             <span t-field="doc.product_id.description" />
                         </div>
                     </div>

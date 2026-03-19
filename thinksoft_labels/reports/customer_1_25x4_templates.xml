@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <template id="print_label_1_25x4_template">
+    <template id="customer_1_25x4_label_template">
         <t t-call="web.basic_layout">
             <style>
                 .label-container {
@@ -12,35 +11,24 @@
                     overflow: hidden;
                     position: relative;
                 }
-                .sidebar-border {
-                    float: left;
-                    width: 8px;
-                    height: 27mm;
-                }
-                .sidebar-black {
-                    width: 100%;
-                    height: 13.5mm;
-                    background-color: black;
-                }
-                .sidebar-red {
-                    width: 100%;
-                    height: 13.5mm;
-                    background-color: red;
-                }
                 .logo-section {
                     float: left;
-                    width: 30mm;
+                    width: 26mm;
                     height: 27mm;
-                    text-align: center;
+                    position: relative;
                 }
                 .logo-section img {
                     width: 25mm;
-                    margin-top: 5mm; /* Manual vertical center for 27mm height */
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                    -webkit-transform: translateY(-50%);
                 }
                 .info-section {
                     float: left;
-                    width: 60mm;
-                    padding-left: 5px;
+                    width: 70mm;
+                    padding-left: 2mm;
                     padding-top: 2mm;
                     box-sizing: border-box;
                 }
@@ -71,16 +59,13 @@
                 <div class="page">
                     <t t-set="product" t-value="doc if doc._name == 'product.template' else doc.product_id"/>
                     <div class="label-container">
-                        <div class="sidebar-border">
-                            <div class="sidebar-black"/>
-                            <div class="sidebar-red"/>
-                        </div>
                         <div class="logo-section">
-                            <img src="/thinksoft_labels/static/src/img/quest-logo-bw.jpg"/>
-                            <div class="" style="font-family:sans-serif;font-size: 12px; text-align: center; width: 100%;margin-top: 5mm;">
-                                <div class="" style="font-weight: bold;">QTY:<span t-esc="doc.product_id.qty_available" style="font-weight: normal;margin-left:3px;"></span>
-                                </div>
-                            </div>
+                            <t t-if="doc.partner_id.image_1920">
+                                <img t-att-src="image_data_uri(doc.partner_id.image_1920)"/>
+                            </t>
+                            <t t-else="">
+                                <img src="/thinksoft_labels/static/src/img/quest-crest.jpg"/>
+                            </t>
                         </div>
                         <div class="info-section">
                             <div class="product-code">
@@ -88,15 +73,11 @@
                             </div>
                             <div class="product-name">
                                 <span t-field="doc.product_id.description" />
-                            
-
                             </div>
                         </div>
                     </div>
                 </div>
             </t>
         </t>
-        </template>
-
-    </data>
+    </template>
 </odoo>
