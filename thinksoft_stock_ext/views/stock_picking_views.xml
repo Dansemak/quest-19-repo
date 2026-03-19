@@ -22,7 +22,7 @@
                 <field name="waybill" invisible="picking_type_sequence_code != 'OUT'" />
                 <field name="team_responsible" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" />
                 <field name="picker_id" invisible="picking_type_sequence_code != 'PICK'" options="{'no_create': True}" />
-                <field name="packer_id" invisible="picking_type_sequence_code != 'PACK'" options="{'no_create': True}" />
+                <field name="packer_id" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']" options="{'no_create': True}" />
                 <field name="shipper_id" invisible="picking_type_sequence_code != 'OUT'" options="{'no_create': True}" />
 
                 <!-- moving the shipping_weight and label to the header -->
@@ -30,8 +30,8 @@
                 <xpath expr="//group[@name='carrier_data']//div[3]" position="move"/>
 
                 <!-- adding the box_qty and skid_qty to serve as the No Pieces -->
-                <label for="box_qty" string="Number of Pieces" invisible="picking_type_sequence_code not in ['PACK', 'OUT']"/>
-                <div invisible="picking_type_sequence_code not in ['PACK', 'OUT']">
+                <label for="box_qty" string="Number of Pieces" invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']"/>
+                <div invisible="picking_type_sequence_code not in ['PICK', 'PACK', 'OUT']">
                     <field name="box_qty" nolabel="1" class="oe_inline"/>
                     <span>boxes</span>
                     <br/>
