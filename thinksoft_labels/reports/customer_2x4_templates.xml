@@ -21,15 +21,16 @@
                     max-height: 15mm;
                 }
                 .product-code {
-                    font-size: 16pt;
+                    font-size: 14pt;
                     font-weight: bold;
-                    margin: 2mm 0;
+                    margin: 1mm 0;
                     padding: 1mm 0;
-                    border-bottom: 1px solid #000;
+                    <!-- border-bottom: 1px solid #000; -->
                 }
                 .product-name {
-                    font-size: 12pt;
-                    margin-top: 2mm;
+                    font-size: 9pt;
+                    margin-top: 1mm;
+                    line-height: 1.2;
                 }
             </style>
             <t t-foreach="docs" t-as="doc">
