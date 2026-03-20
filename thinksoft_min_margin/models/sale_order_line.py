@@ -6,6 +6,7 @@ class SaleOrderLine(models.Model):
 
     min_margin_rate = fields.Float(
         related="product_id.categ_id.min_margin_rate",
+        groups="base.group_user",
         string="Min Margin (%)",
         store=True,
         readonly=True,

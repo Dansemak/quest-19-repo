@@ -7,10 +7,10 @@
         <field name="arch" type="xml">
 
             <!-- Block [Showing and hiding the Send and Confirm buttons] based when min margin is
-            not met -->
-            <xpath expr="//field[@name='order_line']/list" position="attributes">
+        not met -->
+            <!-- <xpath expr="//field[@name='order_line']/list" position="attributes">
                 <attribute name="groups">sales_team.group_sale_salesman</attribute>
-            </xpath>
+            </xpath> -->
             <xpath expr="//header" position="inside">
                 <field
                     name="require_low_margin_approval"
@@ -29,7 +29,7 @@
                     class="btn-primary"
                     type="object"
                     invisible="state != 'approval_pending'"
-                    groups="thinksoft_min_margin.group_approve_low_margin"/>
+                    groups="thinksoft_min_margin.group_approve_low_margin" />
 
                 <button
                     string="Send for Approval"
