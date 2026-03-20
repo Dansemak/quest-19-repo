@@ -10,10 +10,12 @@ class SaleOrderLine(models.Model):
         store=True,
         readonly=True,
     )
-    
+
     min_margin = fields.Float(
         string="Min Margin",
-        help="Minimum margin percentage calculated based on the cost and minimum sale price. This is used to compare against the actual margin percentage to ensure that the sale price does not go below the minimum sale price.",
+        help="Minimum margin percentage calculated based on the cost and minimum sale \
+                price. This is used to compare against the actual margin percentage to\
+                ensure that the sale price does not go below the minimum sale price.",
     )
 
     price_unit = fields.Float(

@@ -1,29 +1,26 @@
 {
-    "name": "thinksoft_min_margin",
-    "summary": "Short (1 phrase/line) summary of the module's purpose",
+    "name": "Thinksoft Minimum Margin",
+    "summary": "Forces authorization of sales orders that do not meet the minimum margin threshold.",
     "description": """
-Long description of module's purpose
+        This module adds a minimum margin check to sales orders. If the margin of a sales
+        order falls below the defined threshold, the order will require authorization
+        before it can be confirmed. This helps ensure that sales are profitable and meet
+        the company's financial goals.
     """,
-    "author": "My Company",
-    "website": "https://www.yourcompany.com",
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    "category": "Uncategorized",
-    "version": "0.1",
-    # any module necessary for this one to work correctly
+    "author": "Thinksoft Inc.",
+    "website": "https://www.thinksoft.ca",
+    "category": "Addons Custom",
+    "version": "19.0.0.1",
     "depends": [
         "base",
         "sale",
         "sale_stock",
         "product",
     ],
-    # always loaded
     "data": [
         'security/security.xml',
         "views/sale_order_views.xml",
         "views/product_category_views.xml",
         "data/mail_activity_type.xml"
     ],
-    # only loaded in demonstration mode
 }
