@@ -12,3 +12,7 @@ class PurchaseOrder(models.Model):
         string="Freight Charge",
         help="Where and how the freight is being charged",
     )
+    date_ship = fields.Date(
+        string="Ship Date",
+        help="Expected ship date for the purchase order",
+    )

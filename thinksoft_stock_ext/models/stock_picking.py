@@ -27,7 +27,7 @@ class StockPicking(models.Model):
     box_qty = fields.Integer(string="Number of boxes", help="Number of boxes and skids", store=True)
     skid_qty = fields.Integer(string="Number of skids", store=True)
 
-    # transfering team_responsible, box_qty, and skid_qty data from transfer to transfer
+    # transfering packer_id, team_responsible, box_qty, and skid_qty data from transfer to transfer
     def _action_done(self):
         res = super()._action_done()
 
@@ -35,6 +35,7 @@ class StockPicking(models.Model):
             next_pickings = picking.move_ids.move_dest_ids.picking_id
 
             if next_pickings:
+                next_pickings.write({'packer_id': picking.packer_id})
                 next_pickings.write({'team_responsible': picking.team_responsible})
                 next_pickings.write({'box_qty': picking.box_qty})
                 next_pickings.write({'skid_qty': picking.skid_qty})

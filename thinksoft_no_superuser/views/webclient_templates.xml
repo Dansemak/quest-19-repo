@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="remove_superuser_login_button" inherit_id="web.login" name="Remove superuser login button">
+        <xpath expr="//form//t[@t-if='debug']" position="replace"/>
+    </template>
+
+</odoo>
