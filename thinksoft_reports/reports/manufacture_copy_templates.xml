@@ -293,8 +293,8 @@
                                                     <th style="text-align: center;  line-height:0.5">INTERNAL COMMENT</th>
                                                 </tr>
                                                 <tr>
-                                                    <td style=" text-transform: initial!important; vertical-align:top !important;">
-                                                        <span t-field="doc.comment_text"/>
+                                                    <td style=" white-space:normal; line-height:1; text-transform: initial!important; vertical-align:top !important;">
+                                                        <span t-field="doc.comment_text" />
                                                         <!-- <t t-set="desc" t-value="(doc.comment_text or '').replace('&lt;', ' ').replace('&gt;', ' ').replace('\n', ' ').replace('\r', ' ').strip()" />
                                                         <t t-raw=" ' '.join(desc.split()) " /> -->
                                                     </td>
@@ -309,8 +309,8 @@
                             <div class="row items">
                             <div class="col-12">
                                 <div class="">
-                                        <table class="" style="width:100%; border-collapse:collapse;">
-                                             <thead style="">
+                                        <table class="line-items" style="width: 100%;">
+                                                <thead style="display: table-header-group;">
                                                     <tr style="page-break-inside: avoid !important; ">
                                                         <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color:#525659; width: 40px;">Line</th>
                                                         <th style="text-align:left; border-top-color: solid #525659;border-bottom-color: #525659;">Part #</th>
@@ -323,10 +323,10 @@
                                                         <th style="text-align:left;  border-bottom-color: #525659; width: 380px;">Description</th>
                                                         <th style="text-align:center;  border-bottom-color: #525659;">Responsible</th>
                                                     </tr>
-                                                </thead> 
-                                                <tbody >
+                                                </thead>
+                                                <tbody>
                                                 <t t-foreach="doc.move_ids" t-as="line">
-                                                    <tr style="">
+                                                    <tr style="page-break-inside: avoid;">
                                                         <!-- ***************************** line **************************** -->
                                                         <td  class="text-center">
                                                             <span t-field="line.seq_no" />

@@ -108,12 +108,12 @@
             /* display: table-row-group !important; */
 
         }
-        /* .items table tbody:before  {
+        .items table tbody:before  {
             content: "-" !important;
             display: block !important;
             line-height: 1em !important;
-            color:white;
-        } */
+            color: white;
+        }
         .items table tr{
             page-break-inside: avoid !important;
         }
