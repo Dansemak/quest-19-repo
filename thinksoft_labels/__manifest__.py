@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.2",
+    "version": "19.0.1.4",
     "depends": ["base"],
     "data": [
         "reports/reports_paperformats.xml",
@@ -22,6 +22,8 @@
         "reports/4x4_label.xml",
         "reports/print_label_4x4_templates.xml",
         "reports/rack_label_12x4.xml",
+        "reports/customer_1_25x4_templates.xml",
+        "reports/customer_2x4_templates.xml",
         # Actions and menus always last
         "reports/ir_actions_report.xml",
     ],

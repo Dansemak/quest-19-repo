@@ -8,11 +8,13 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="outside_salesperson_id" />
+                <field name="outside_salesperson_id"/>
+                <field name="partner_shipping_id"/>
             </xpath>
 
             <xpath expr="//filter[@name='User']" position="after">
-                <filter string="Outside Salesperson" name="outside_salesperson" context="{'group_by': 'outside_salesperson_id'}" />
+                <filter string="Outside Salesperson" name="outside_salesperson" context="{'group_by': 'outside_salesperson_id'}"/>
+                <filter string="Delivery Address" name="partner_shipping_id" context="{'group_by': 'partner_shipping_id'}"/>
             </xpath>
 
         </field>
