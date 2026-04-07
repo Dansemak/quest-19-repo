@@ -234,12 +234,12 @@
         </record>
         <!-- ********************************* Production Order Report ************************* -->
         <record id="report_production_order" model="ir.actions.report">
-            <field name="name">Production Order Report</field>
+            <field name="name">Production Order</field>
             <field name="model">mrp.production</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">thinksoft_reports.production_order</field>
             <field name="report_file">thinksoft_reports.production_order</field>
-            <field name="print_report_name">'Production Order Report'</field>
+            <field name="print_report_name">'Production Order'</field>
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_model_id" ref="mrp.model_mrp_production"/>
             <field name="binding_type">report</field>
