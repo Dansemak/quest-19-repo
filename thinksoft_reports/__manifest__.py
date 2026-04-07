@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.17",
+    "version": "19.0.1.18",
     "depends": ["base", "account"],
     "data": [
         "reports/reports_paperformats.xml",
