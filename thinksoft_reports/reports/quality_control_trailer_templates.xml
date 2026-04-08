@@ -289,8 +289,8 @@ Trailer
                 <div class="col-12">
                     <div class="">
                             <table class="line-items" style="width: 100%;">
-                                <thead>
-                                        <tr>
+                                <thead style="display: table-header-group;">
+                                        <tr style="page-break-inside: avoid !important; ">
                                             <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color: #525659; width: 40px;">Line</th>
                                             <th style="text-align: left; border-top-color: solid #525659; border-bottom-color: #525659;">Part #</th>
                                             <th rowspan="2" style="border-top-color: #525659; border-botttom-color: #525659;">UoM</th>
@@ -305,7 +305,7 @@ Trailer
                                             <th rowspan="2" style="white-space: nowrap; border-top-color: #525659;">BO</th>
                                             <th rowspan="2" style="border-top-color: #525659; border-right-color: #525659; white-space: nowrap;text-align: right;">SUBTOTAL</th>
                                         </tr>
-                                        <tr>
+                                        <tr style="page-break-inside: avoid !important; ">
                                             <th style="text-align: left; border-bottom-color: #525659;">Description</th>
                                         </tr>
                                 </thead>

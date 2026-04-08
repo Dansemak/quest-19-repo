@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="customer_1_25x4_label_template">
+        <t t-call="web.basic_layout">
+            <style>
+                .label-container {
+                    width: 100%;
+                    height: 27mm;
+                    box-sizing: border-box;
+                    font-family: Arial, sans-serif;
+                    overflow: hidden;
+                    position: relative;
+                }
+                .logo-section {
+                    float: left;
+                    width: 26mm;
+                    height: 27mm;
+                    position: relative;
+                }
+                .logo-section img {
+                    width: 25mm;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translateY(-50%);
+                    -webkit-transform: translateY(-50%);
+                }
+                .info-section {
+                    float: left;
+                    width: 70mm;
+                    padding-left: 2mm;
+                    padding-top: 2mm;
+                    box-sizing: border-box;
+                }
+                .product-code {
+                    font-size: 11pt;
+                    font-weight: bold;
+                    border-bottom: 1px solid #000;
+                    margin-bottom: 2mm;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .product-name {
+                    font-size: 8pt;
+                    line-height: 1.2;
+                    display: block;
+                    height: 16mm;
+                    overflow: hidden;
+                }
+                /* Clearfix */
+                .label-container::after {
+                    content: "";
+                    clear: both;
+                    display: table;
+                }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <t t-set="product" t-value="doc if doc._name == 'product.template' else doc.product_id"/>
+                    <div class="label-container">
+                        <div class="logo-section">
+                            <t t-if="doc.partner_id.image_1920">
+                                <img t-att-src="image_data_uri(doc.partner_id.image_1920)"/>
+                            </t>
+                            <t t-else="">
+                                <img src="/thinksoft_labels/static/src/img/quest-crest.jpg"/>
+                            </t>
+                        </div>
+                        <div class="info-section">
+                            <div class="product-code">
+                                <span t-field="doc.product_id.name"/>
+                            </div>
+                            <div class="product-name">
+                                <span t-field="doc.product_id.description" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

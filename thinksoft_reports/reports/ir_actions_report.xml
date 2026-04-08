@@ -62,7 +62,6 @@
             <field name="report_file">thinksoft_reports.coo_template</field>
             <field name="print_report_name">'COO'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking" />
-            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
             <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
@@ -76,8 +75,7 @@
             <field name="report_file">thinksoft_reports.manufacture_copy_template</field>
             <field name="print_report_name">'Manufacture Copy'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking" />
-            <field name="binding_model_id" ref="stock.model_stock_picking" />
-            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
+            <field name="paperformat_id" ref="thinksoft_reports.thinksoft_manufacture_copy_paperformat" />
             <field name="binding_type">report</field>
             <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
         </record>
@@ -89,7 +87,6 @@
             <field name="report_name">thinksoft_reports.order_confirmation_template</field>
             <field name="report_file">thinksoft_reports.order_confirmation_template</field>
             <field name="print_report_name">'Order Confirmation'</field>
-            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
@@ -104,7 +101,6 @@
             <field name="report_file">thinksoft_reports.oxygen_clean_certificate_template</field>
             <field name="print_report_name">'Oxygen Clean Certificate'</field>
             <field name="binding_model_id" ref="stock.model_stock_picking" />
-            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
             <field name="domain">[('picking_type_id.sequence_code', 'in', ['PICK', 'OUT'])]</field>
@@ -117,7 +113,6 @@
             <field name="report_name">thinksoft_reports.receiving_list_template</field>
             <field name="report_file">thinksoft_reports.receiving_list_template</field>
             <field name="print_report_name">'Receiving List'</field>
-            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_type">report</field>
@@ -239,12 +234,12 @@
         </record>
         <!-- ********************************* Production Order Report ************************* -->
         <record id="report_production_order" model="ir.actions.report">
-            <field name="name">Production Order Report</field>
+            <field name="name">Production Order</field>
             <field name="model">mrp.production</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">thinksoft_reports.production_order</field>
             <field name="report_file">thinksoft_reports.production_order</field>
-            <field name="print_report_name">'Production Order Report'</field>
+            <field name="print_report_name">'Production Order'</field>
             <field name="paperformat_id" ref="thinksoft_reports.thinksoft_reports_paperformat" />
             <field name="binding_model_id" ref="mrp.model_mrp_production"/>
             <field name="binding_type">report</field>

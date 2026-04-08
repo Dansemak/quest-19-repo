@@ -8,7 +8,7 @@
     "website": "http://www.thinksoft.ca",
     "license": "AGPL-3",
     "category": "Addons Custom/Thinksoft",
-    "version": "19.0.1.1",
+    "version": "19.0.1.2",
     "depends": ["base", "stock", "stock_delivery"],
     "data": [
         "security/stock_extended_security.xml",

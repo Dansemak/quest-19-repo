@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <record id="mail_activity_type_low_margin_approval" model="mail.activity.type">
+            <field name="name">Low Margin Approval</field>
+            <field name="icon">fa-percent</field>
+            <field name="res_model">sale.order</field>
+            <field name="summary">Low margin approval required</field>
+            <field name="delay_count">0</field>
+        </record>
+    </data>
+</odoo>
