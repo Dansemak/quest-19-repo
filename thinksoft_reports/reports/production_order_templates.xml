@@ -330,7 +330,7 @@
                                                 <span t-field="doc.product_id" />
                                             </td>
                                             <td>
-                                                <span t-esc="proper_sale_line_id.product_id.description" />
+                                                <span t-esc="proper_product_description" />
                                             </td>
                                             <td class="text-center">
                                                 <span t-field="doc.product_qty" />
