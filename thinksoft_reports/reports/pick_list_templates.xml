@@ -309,26 +309,26 @@
                                         <thead style="">
                                             <tr>
                                                 <th rowspan="2" style="border-left-color: #525659; border-top-color: #525659; border-bottom-color: #525659; width: 40px;">
-                            Line
+                                                    Line
                                                 </th>
                                                 <th style="text-align: left; border-top-color: solid #525659; border-bottom-color: #525659;">
-                            Part #
+                                                    Part #
                                                 </th>
-                                                <th style="border-botttom-color: #525659; width: 150px;">MO #</th>
+                                                <th style="border-botttom-color: #525659; width: 150px;">MO # / PO #</th>
                                                 <th colspan="" style="width: 150px; border-bottom-color: #525659; border-right-color: #525659;">
-                            STATUS
+                                                    STATUS
                                                 </th>
                                                 <th style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
-                            REQUIRED
+                                                    REQUIRED
                                                 </th>
                                                 <th style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
-                            UOM
+                                                    UOM
                                                 </th>
                                                 <th style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
-                            WEIGHT
+                                                    WEIGHT
                                                 </th>
                                                 <th style="border-bottom-color: #525659; border-right-color: #525659; width: 50px;">
-                            BOX #
+                                                BOX #
                                                 </th>
                                             </tr>
                                             <tr style="page-break-inside: avoid !important;">
@@ -369,7 +369,8 @@
                                                 </td>
                                                 <!--**************** MO *********************-->
                                                 <td class="text-center">
-                                                    <span t-field="line.created_production_id" style="" />
+                                                    <span t-if="line.created_production_id"><span t-field="line.created_production_id"/><br/></span>
+                                                    <span t-if="line.purchase_order_id"> <span t-field="line.purchase_order_id" /></span>
                                                     <!-- <span t-field="line.production_id" style="" /> -->
                                                 </td>
                                                 <!--***************** PO ******************-->

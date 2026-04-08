@@ -80,13 +80,13 @@
                                 <button name="button_clear_product_line_ids" string="Clear Product Lines" type="object" class="btn-secondary float-end" invisible="not is_pull_button_clicked or state != 'open'"/>
                             </group>
                             <field name="product_line_ids" nolabel="1" readonly="state != 'open'">
-                                <list create="false" editable="bottom">
+                                <list editable="bottom">
                                     <field name="ncr_claim_id" column_invisible="1"/>
                                     <field name="sale_order_id" column_invisible="1"/>
                                     <field name="sale_order_line_id" column_invisible="1"/>
                                     <field name="purchase_order_id" column_invisible="1"/>
                                     <field name="purchase_order_line_id" column_invisible="1"/>
-                                    <field name="product_id" readonly="1" force_save="1"/>
+                                    <field name="product_id" domain="[('categ_id.name','=', 'Deliveries')]"/>
                                     <field name="product_line_desc" readonly="1" force_save="1"/>
                                     <field name="product_qty"/>
                                     <field name="product_uom_id" readonly="1" force_save="1"/>

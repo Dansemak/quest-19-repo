@@ -4,21 +4,36 @@
     <record id="purchase_order_form_inherit_thinksoft_purchase_ext" model="ir.ui.view">
         <field name="name">purchase.order.view.form.inherit</field>
         <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='picking_type_id']" position="after">
-                <field name="carrier_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="carrier_id" options="{'no_create': True, 'no_open': True}" />
             </xpath>
 
-            <xpath expr="//field[@name='order_line']//list//field[@name='sequence']" position="after">
-                <field name="seq_no" optional="show"/>
+            <xpath expr="//field[@name='order_line']//list//field[@name='sequence']"
+                position="after">
+                <field name="seq_no" optional="show" />
             </xpath>
 
             <xpath expr="//label[@for='date_planned']" position="before">
                 <field name="date_ship" />
             </xpath>
 
+        </field>
+    </record>
+
+    <!-- Although the filter below is already define in Odoo base code, for unknow reasons, it does not appear in the search view and odoo generates a
+        js error when user tries to toggle the SUGGEST button -->
+    <record id="product_view_search_catalog_ts_inherit" model="ir.ui.view">
+        <field name="name">purchase.view.search.catalog.inherit.purchase_stock</field>
+        <field name="model">product.product</field>
+        <field name="mode">extension</field>
+        <field name="inherit_id" ref="purchase.product_view_search_catalog" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='products_in_purchase_order']" position="after">
+                <filter string="Suggested" name="suggested" domain="[('suggested_qty', '!=', 0)]" />
+            </xpath>
         </field>
     </record>
 

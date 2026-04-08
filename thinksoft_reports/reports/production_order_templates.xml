@@ -190,7 +190,7 @@
                                             <td style="border: 1px solid #525659;">
                                                 <!-- <span class="" t-field="doc.sale_id.commitment_date"/> -->
                                                 <!-- <t t-set="sol" t-value="doc.move_finished_ids.move_dest_ids"/><t t-if="sol and sol[0].sale_line_id"><span t-field="sol[0].sale_line_id.order_id.commitment_date"/></t> -->
-                                                <span t-field="doc.sale_line_id.order_id.commitment_date" />
+                                                <span t-field="proper_sale_line_id.order_id.commitment_date" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -214,7 +214,7 @@
                                                 <span class="">Customer Reference</span>
                                             </th>
                                             <td style="border: 1px solid #525659;">
-                                                <span t-field="doc.sale_line_id.order_id.client_order_ref" />
+                                                <span t-field="proper_sale_line_id.order_id.client_order_ref" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -222,7 +222,7 @@
                                                 <span class="">SALESPERSON</span>
                                             </th>
                                             <td style="border: 1px solid #525659;">
-                                                <span class="" t-field="doc.sale_line_id.order_id.user_id" />
+                                                <span class="" t-field="proper_sale_line_id.order_id.user_id" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -238,7 +238,7 @@
                                                 <span class="">Shipping Method</span>
                                             </th>
                                             <td style="border: 1px solid #525659;">
-                                                <span class="" t-field="doc.sale_line_id.order_id.carrier_id.name" />
+                                                <span class="" t-field="proper_sale_line_id.order_id.carrier_id.name" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -246,8 +246,8 @@
                                                 <span class="">CUSTOMER</span>
                                             </th>
                                             <td style="border: 1px solid #525659;">
-                                                <!-- <span class="" t-field="doc.sale_line_id.order_id.partner_id.name" /> -->
-                                                <t t-set="cust_name" t-value="doc.sale_line_id.order_id.partner_id.name or ''" />
+                                                <!-- <span class="" t-field="proper_sale_line_id.order_id.partner_id.name" /> -->
+                                                <t t-set="cust_name" t-value="proper_sale_line_id.order_id.partner_id.name or ''" />
                                                 <span t-esc="cust_name[:20]" />
                                             </td>
                                         </tr>
@@ -258,7 +258,7 @@
                     </div>
                     <div class="container" style="margin:20px 0 20px;">
                         <!-- ************************************** COMMENT ******************************************** -->
-                        <t t-if="doc.sale_line_id.order_id.comment_text">
+                        <t t-if="proper_sale_line_id.order_id.comment_text">
                             <div class="row ">
                                 <div class="col-12">
                                     <!-- <div t-if="doc.sale_id.comment_text" class="mb8  quality-control " style="margin-top: 15px;"> -->
@@ -274,7 +274,7 @@
                                             <tbody style="line-height:1;">
                                                 <tr>
                                                     <td style="text-transform: initial!important; vertical-align:top !important;">
-                                                        <span class="" t-field="doc.sale_line_id.order_id.comment_text" />
+                                                        <span class="" t-field="proper_sale_line_id.order_id.comment_text" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -330,7 +330,7 @@
                                                 <span t-field="doc.product_id" />
                                             </td>
                                             <td>
-                                                <span t-esc="doc.sale_line_id.product_id.description" />
+                                                <span t-esc="proper_product_description" />
                                             </td>
                                             <td class="text-center">
                                                 <span t-field="doc.product_qty" />
